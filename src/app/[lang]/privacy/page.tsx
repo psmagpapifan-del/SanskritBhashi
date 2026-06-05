@@ -1,0 +1,61 @@
+import React from "react";
+import Layout from "@/components/Layout";
+import { ShieldCheck } from "lucide-react";
+
+export default async function PrivacyPage({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}) {
+  const { lang } = await params;
+
+  return (
+    <Layout lang={lang}>
+      <div className="bg-white border border-saffron-100 rounded-3xl p-6 md:p-8 max-w-3xl mx-auto space-y-6 font-latin">
+        <div className="flex items-center gap-3 border-b border-saffron-100 pb-4">
+          <ShieldCheck className="w-8 h-8 text-saffron-500" />
+          <h1 className="text-2xl md:text-3xl font-bold text-charcoal">Privacy Policy</h1>
+        </div>
+
+        <p className="text-xs text-charcoal/40 font-bold uppercase tracking-wider">
+          Last Updated: June 6, 2026
+        </p>
+
+        <section className="space-y-3">
+          <h2 className="text-lg font-bold text-charcoal">1. Introduction</h2>
+          <p className="text-sm leading-relaxed text-charcoal/70">
+            Welcome to Sanskritbhashi (sanskritbhashi.com). We value your privacy and are committed to protecting your personal data. This Privacy Policy describes how we collect, use, store, and share your personal information when you visit or interact with our platform.
+          </p>
+        </section>
+
+        <section className="space-y-3">
+          <h2 className="text-lg font-bold text-charcoal">2. Data We Collect</h2>
+          <p className="text-sm leading-relaxed text-charcoal/70">
+            We collect information that you voluntarily provide to us (such as account credentials, names, and email addresses) as well as data gathered automatically through cookies and logging utilities (such as IP addresses, browser types, and study streak statistics saved in local storage).
+          </p>
+        </section>
+
+        <section className="space-y-3">
+          <h2 className="text-lg font-bold text-charcoal">3. How We Use Your Data</h2>
+          <p className="text-sm leading-relaxed text-charcoal/70 animate-float">
+            Sanskritbhashi uses collected data to maintain your daily study streak, customize local transliteration targets, deliver interactive practice feedback, analyze platform usage patterns, and ensure overall compliance with our academic service metrics.
+          </p>
+        </section>
+
+        <section className="space-y-3">
+          <h2 className="text-lg font-bold text-charcoal">4. Data Storage & Security</h2>
+          <p className="text-sm leading-relaxed text-charcoal/70">
+            Your personal settings, including transliteration targets and streak data, are stored locally on your device using Web Storage (localStorage) to maximize speed and data privacy. Any server-side accounts are hosted on secure, encrypted cloud instances.
+          </p>
+        </section>
+
+        <section className="space-y-3">
+          <h2 className="text-lg font-bold text-charcoal">5. Contact Information</h2>
+          <p className="text-sm leading-relaxed text-charcoal/70">
+            If you have questions regarding this Privacy Policy or wish to request data deletion, please contact us at support@sanskritbhashi.com.
+          </p>
+        </section>
+      </div>
+    </Layout>
+  );
+}

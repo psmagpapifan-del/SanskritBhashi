@@ -3,6 +3,7 @@ import Layout from "@/components/Layout";
 import PracticeCard from "@/components/PracticeCard";
 import JsonLd from "@/components/JsonLd";
 import { BookOpen, Award, Compass, Search } from "lucide-react";
+import { getTranslation } from "@/lib/i18n";
 
 export default async function ShastraStudyPage({
   params,
@@ -10,6 +11,7 @@ export default async function ShastraStudyPage({
   params: Promise<{ lang: string }>;
 }) {
   const { lang } = await params;
+  const t = getTranslation(lang);
 
   const shastraSchema = {
     "@context": "https://schema.org",
@@ -27,7 +29,7 @@ export default async function ShastraStudyPage({
         "description": "Compiler of the Mahabharata"
       }
     ],
-    "description": "A 700-verse Hindu scripture that is part of the epic Mahabharata, containing a conversation between Pandava prince Arjuna and his guide Krishna.",
+    "description": t.shastraStudy.desc,
     "inLanguage": "sa"
   };
 
@@ -49,15 +51,33 @@ export default async function ShastraStudyPage({
       { sanskrit: "फलेषु", english: "in fruits / results", role: "Locative plural" },
       { sanskrit: "कदाचन", english: "at any time", role: "Avyaya" }
     ],
-    grammaticalRule: "1. karmaṇi + eva = karmaṇyeva (Yaṇ Sandhi: i + e = ye). 2. adhikāraḥ + te = adhikāraste (Visarga Sandhi: ḥ + t = st, based on Visarjanīyasya saḥ, Ashtadhyayi 8.3.34).",
+    grammaticalRule: t.shastraStudy.rule1,
     sourceAttribution: "Bhagavad Gita Chapter 2, Verse 47",
     options: [
-      "Your right is to action alone, never to its fruits.",
-      "Renounce action and sit in pure silence.",
-      "Results are predetermined; action is irrelevant."
+      lang === "hi"
+        ? "आपका अधिकार केवल कर्म करने में है, उसके फल में नहीं।"
+        : lang === "ja"
+        ? "あなたの権限は義務の実行のみにあり、結果の支配にはない。"
+        : lang === "es"
+        ? "Tu derecho es a la acción solamente, nunca a sus frutos."
+        : "Your right is to action alone, never to its fruits.",
+      lang === "hi"
+        ? "कर्म का त्याग करें और मौन रहें।"
+        : lang === "ja"
+        ? "行為を放棄して静寂に座す。"
+        : lang === "es"
+        ? "Renuncia a la acción y siéntate en silencio."
+        : "Renounce action and sit in pure silence.",
+      lang === "hi"
+        ? "परिणाम पूर्व निर्धारित हैं, कर्म निरर्थक है।"
+        : lang === "ja"
+        ? "結果は決定されており行為は無意味。"
+        : lang === "es"
+        ? "Los resultados están predeterminados; la acción es irrelevante."
+        : "Results are predetermined; action is irrelevant."
     ],
     correctIndex: 0,
-    hint: "This verse forms the core of 'Niṣkāma Karma' (selfless action), instructing that your sphere of authority lies in executing duty, not controlling consequences."
+    hint: t.shastraStudy.labDesc
   };
 
   return (
@@ -68,10 +88,10 @@ export default async function ShastraStudyPage({
       <section className="bg-linear-to-r from-saffron-500 to-saffron-600 rounded-3xl p-6 md:p-8 text-white mb-8 shadow-md">
         <div className="flex items-center gap-3 mb-2">
           <BookOpen className="w-8 h-8 text-marigold-500" />
-          <h1 className="text-2xl md:text-3xl font-bold font-latin">Shastra Study Module</h1>
+          <h1 className="text-2xl md:text-3xl font-bold font-latin">{t.shastraStudy.title}</h1>
         </div>
         <p className="text-sm md:text-base text-white/95 max-w-2xl leading-relaxed font-latin">
-          Deconstruct the grammatical matrix of spiritual texts. Break down shlokas word-by-word and master pronunciation metrics.
+          {t.shastraStudy.desc}
         </p>
       </section>
 
@@ -82,35 +102,35 @@ export default async function ShastraStudyPage({
           <div className="bg-white border border-saffron-100 rounded-3xl p-6 md:p-8 space-y-6">
             <h2 className="text-xl md:text-2xl font-bold text-charcoal flex items-center gap-2 font-latin">
               <Compass className="w-5 h-5 text-saffron-500" />
-              Linguistic Structure of Bhagavad Gita Shlokas
+              {t.shastraStudy.sectionTitle}
             </h2>
 
             {/* Q1 */}
             <div className="border-b border-saffron-50 pb-6 space-y-3">
               <h3 className="text-base font-bold text-saffron-600 font-latin">
-                How does understanding Sandhi division impact the translation of the Bhagavad Gita?
+                {t.shastraStudy.q1}
               </h3>
               <p className="text-sm text-charcoal/80 leading-relaxed font-latin">
-                In classical Sanskrit scriptures, words are tightly conjoined using Sandhi phonetic rules to maintain metric flow (Anuṣṭubh meter). Separating words (Sandhi-Viccheda) is the primary step required to build word-by-word meanings and prevent erroneous philosophical interpretations.
+                {t.shastraStudy.a1}
               </p>
               <div className="bg-cream rounded-2xl p-4 text-xs font-latin text-charcoal/70 space-y-1">
-                <p><span className="font-bold text-saffron-600">Rule:</span> Visarjanīyasya saḥ (Visarga 'ḥ' changes to 's' when followed by hard consonants 'c', 't', 't' etc.)</p>
-                <p><span className="font-bold text-saffron-600">Evidence/Example:</span> नमः + ते = नमस्ते (Namas + te = Namaste)</p>
-                <p><span className="font-bold text-saffron-600">Source Attribution:</span> Panini Ashtadhyayi 8.3.34</p>
+                <p><span className="font-bold text-saffron-600">Rule:</span> {t.shastraStudy.rule1}</p>
+                <p><span className="font-bold text-saffron-600">Evidence/Example:</span> {t.shastraStudy.example1}</p>
+                <p><span className="font-bold text-saffron-600">Source Attribution:</span> {t.shastraStudy.attribution1}</p>
               </div>
             </div>
 
             {/* Q2 */}
             <div className="border-b border-saffron-50 pb-6 space-y-3">
               <h3 className="text-base font-bold text-saffron-600 font-latin">
-                Who are the primary compiler entities credited in the Mahabharata and Gita tradition?
+                {t.shastraStudy.q2}
               </h3>
               <p className="text-sm text-charcoal/80 leading-relaxed font-latin">
-                Krishna is the original spoken speaker of the Bhagavad Gita on the Kurukshetra battlefield, whereas Sage Krishna Dvaipayana Vyasa is the historical compiler who compiled the verses into the Mahabharata epic.
+                {t.shastraStudy.a2}
               </p>
               <div className="bg-cream rounded-2xl p-4 text-xs font-latin text-charcoal/70 space-y-1">
-                <p><span className="font-bold text-saffron-600">Attribution:</span> Vyasa (compiler) and Krishna (author/orator).</p>
-                <p><span className="font-bold text-saffron-600">Source Attribution:</span> Mahabharata Bhishma Parva, Chapters 25-42</p>
+                <p><span className="font-bold text-saffron-600">Attribution:</span> {t.shastraStudy.rule2}</p>
+                <p><span className="font-bold text-saffron-600">Source Attribution:</span> {t.shastraStudy.attribution2}</p>
               </div>
             </div>
           </div>
@@ -121,10 +141,10 @@ export default async function ShastraStudyPage({
           <div className="bg-white border border-saffron-100 rounded-3xl p-6 space-y-4">
             <h3 className="text-lg font-bold text-charcoal flex items-center gap-2 font-latin">
               <Search className="w-4 h-4 text-saffron-500" />
-              Shloka Lab
+              {t.shastraStudy.labTitle}
             </h3>
             <p className="text-xs text-charcoal/60 leading-relaxed font-latin">
-              Listen to the shloka, analyze the word-by-word meaning, and choose the correct translation.
+              {t.shastraStudy.labDesc}
             </p>
           </div>
 

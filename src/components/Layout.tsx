@@ -9,6 +9,8 @@ import StreakCounter from "./StreakCounter";
 import OnboardingTour from "./OnboardingTour";
 import ConfettiCelebration from "./ConfettiCelebration";
 
+import { getTranslation } from "@/lib/i18n";
+
 interface LayoutProps {
   children: React.ReactNode;
   lang: string;
@@ -16,13 +18,14 @@ interface LayoutProps {
 
 export default function Layout({ children, lang }: LayoutProps) {
   const pathname = usePathname();
+  const t = getTranslation(lang);
 
   const navItems = [
-    { name: "Home", href: `/${lang}`, icon: Home, id: "tour-step-1" },
-    { name: "School Prep", href: `/${lang}/modules/school-prep`, icon: GraduationCap, id: "tour-step-3" },
-    { name: "Shastra Study", href: `/${lang}/modules/shastra-study`, icon: BookMarked, id: "tour-step-4" },
-    { name: "About Us", href: `/${lang}/about`, icon: Info },
-    { name: "FAQs", href: `/${lang}/faqs`, icon: HelpCircle, id: "tour-step-8" },
+    { name: t.nav.home, href: `/${lang}`, icon: Home, id: "tour-step-1" },
+    { name: t.nav.schoolPrep, href: `/${lang}/modules/school-prep`, icon: GraduationCap, id: "tour-step-3" },
+    { name: t.nav.shastraStudy, href: `/${lang}/modules/shastra-study`, icon: BookMarked, id: "tour-step-4" },
+    { name: t.nav.about, href: `/${lang}/about`, icon: Info },
+    { name: t.nav.faqs, href: `/${lang}/faqs`, icon: HelpCircle, id: "tour-step-8" },
   ];
 
   const isActive = (href: string) => {

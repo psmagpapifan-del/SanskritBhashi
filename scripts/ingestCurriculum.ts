@@ -36,8 +36,39 @@ interface CurriculumChapter {
   questions: Question[];
 }
 
-const RAW_DIR = path.join(__dirname, "../content/raw_text");
+const RAW_RTF_DIR = path.join(__dirname, "../content/raw");
+const RAW_TEXT_DIR = path.join(__dirname, "../content/raw_text");
 const OUTPUT_FILE = path.join(__dirname, "../src/lib/curriculumData.ts");
+
+// Function to decode RTF format to clean plain text
+function decodeRtf(rtf: string): string {
+  // 1. Decode Unicode escapes e.g. \u2360 or \u2360?
+  let text = rtf.replace(/\\u(\d+)\s?/g, (match, code) => {
+    return String.fromCharCode(parseInt(code, 10));
+  });
+
+  // 2. Decode Hex escapes e.g. \'95
+  text = text.replace(/\\'([0-9a-fA-F]{2})/g, (match, hex) => {
+    const code = parseInt(hex, 16);
+    if (hex === "95") return "•";
+    if (hex === "96") return "–";
+    if (hex === "91" || hex === "92") return "'";
+    if (hex === "93" || hex === "94") return '"';
+    if (code >= 32 && code <= 126) {
+      return String.fromCharCode(code);
+    }
+    return "";
+  });
+
+  // 3. Clean up RTF formatting tags
+  text = text.replace(/\\\w+\b\s?/g, "");
+  text = text.replace(/[\{\}]/g, "");
+  text = text.replace(/\\\n/g, "\n");
+  text = text.replace(/\\\r\n/g, "\n");
+  text = text.replace(/\\/g, "");
+
+  return text;
+}
 
 // Local fallback parser to compile text files into Question structures
 function parseFileLocally(content: string, ncertClass: number, chapterNumber: number, tier: "beginner" | "professional" | "expert"): Question[] {
@@ -127,6 +158,121 @@ function parseFileLocally(content: string, ncertClass: number, chapterNumber: nu
   return questions;
 }
 
+// Local parser for RTF plain text to extract vocabulary questions
+function parseRtfTextLocally(content: string, ncertClass: number, startChapterId: number): CurriculumChapter[] {
+  const vocabularyList: { sanskrit: string; english: string }[] = [];
+
+  // 1. Try to parse markdown table rows
+  const tableRegex = /\|\s*([^|\n]+?)\s*\|\s*([^|\n]+?)\s*\|\s*([^|\n]+?)\s*\|/g;
+  let match;
+  while ((match = tableRegex.exec(content)) !== null) {
+    const s = match[1].trim();
+    const e = match[3].trim();
+    if (s && e && s !== "Sanskrit" && !s.includes("---") && !s.includes("=") && s.length < 50 && e.length < 100) {
+      vocabularyList.push({ sanskrit: s, english: e });
+    }
+  }
+
+  // 2. Try to parse bullet lists
+  const bulletRegex = /•\s*([^:\n]+?)\s*:\s*([^•\n\\\}]+)/g;
+  while ((match = bulletRegex.exec(content)) !== null) {
+    const s = match[1].trim();
+    const e = match[2].trim();
+    if (s && e && s.length < 50 && e.length < 100) {
+      vocabularyList.push({ sanskrit: s, english: e });
+    }
+  }
+
+  // Deduplicate list
+  const uniqueList = vocabularyList.filter((v, i, self) => 
+    self.findIndex(t => t.sanskrit === v.sanskrit) === i
+  );
+
+  const questionsPerChapter = 5;
+  const totalChapters = Math.ceil(uniqueList.length / questionsPerChapter);
+  const chapters: CurriculumChapter[] = [];
+
+  for (let ch = 0; ch < totalChapters; ch++) {
+    const chapterItems = uniqueList.slice(ch * questionsPerChapter, (ch + 1) * questionsPerChapter);
+    const questions: Question[] = [];
+
+    chapterItems.forEach((item, index) => {
+      // Collect distractors from same glossary
+      const distractors = uniqueList
+        .filter(v => v.sanskrit !== item.sanskrit)
+        .map(v => v.english);
+
+      const options = [item.english];
+      while (options.length < 4 && distractors.length > 0) {
+        const idx = Math.floor(Math.random() * distractors.length);
+        const dist = distractors.splice(idx, 1)[0];
+        if (!options.includes(dist)) {
+          options.push(dist);
+        }
+      }
+
+      const fallbackDistractors = ["To study", "To write", "Sage", "Forest", "Water", "Sky", "Diamond"];
+      while (options.length < 4) {
+        const dist = fallbackDistractors[Math.floor(Math.random() * fallbackDistractors.length)];
+        if (!options.includes(dist)) {
+          options.push(dist);
+        }
+      }
+
+      // Shuffle options
+      const shuffledOptions = [...options];
+      for (let i = shuffledOptions.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffledOptions[i], shuffledOptions[j]] = [shuffledOptions[j], shuffledOptions[i]];
+      }
+      const correctIndex = shuffledOptions.indexOf(item.english);
+
+      const qId = `ingested-rtf-class${ncertClass}-ch${ch + 1}-${index + 1}`;
+      
+      questions.push({
+        id: qId,
+        phrase: item.sanskrit,
+        transliterations: {
+          devanagari: item.sanskrit,
+          iast: item.sanskrit,
+          japanese: "サンスクリット発音",
+          french: item.sanskrit
+        },
+        wordByWord: [
+          { sanskrit: item.sanskrit, english: item.english, role: "Vocabulary Stem" }
+        ],
+        grammaticalRule: `Vocabulary translation from NCERT Class ${ncertClass} syllabus glossary.`,
+        sourceAttribution: `NCERT Class ${ncertClass} Glossary`,
+        options: shuffledOptions,
+        correctIndex,
+        hint: `The Sanskrit word "${item.sanskrit}" translates to "${item.english}".`,
+        conceptType: "Vocabulary & Glossary",
+        paninianHeritage: "Glossary translation",
+        sourceAttributionTelemetry: `NCERT Class ${ncertClass} Chapter ${ch + 1}`,
+        pronunciationAcoustics: {
+          akshara: item.sanskrit,
+          matra: "1",
+          uchcharana: "Acoustics"
+        }
+      });
+    });
+
+    const tier = ncertClass <= 8 ? "beginner" : ncertClass <= 10 ? "professional" : "expert";
+    const chNum = startChapterId + ch;
+
+    chapters.push({
+      id: chNum,
+      ncertClass,
+      chapterNumber: ch + 1,
+      name: `Class ${ncertClass} Chapter ${ch + 1}: Vocabulary Practice Part ${ch + 1}`,
+      tier,
+      questions
+    });
+  }
+
+  return chapters;
+}
+
 // Function to call LLM API (Gemini) using fetch
 async function parseFileWithGemini(content: string, apiKey: string): Promise<Question[]> {
   const prompt = `
@@ -195,13 +341,37 @@ async function parseFileWithGemini(content: string, apiKey: string): Promise<Que
 async function run() {
   console.log("🚀 Initializing Curriculum Ingestion Pipeline...");
   
-  if (!fs.existsSync(RAW_DIR)) {
-    console.error(`❌ Raw text directory not found: ${RAW_DIR}`);
+  // 1. Process RTF files and convert them to txt first
+  if (fs.existsSync(RAW_RTF_DIR)) {
+    const rtfFiles = fs.readdirSync(RAW_RTF_DIR).filter(f => f.endsWith(".rtf"));
+    console.log(`Found ${rtfFiles.length} RTF files to decode and preprocess.`);
+    
+    if (!fs.existsSync(RAW_TEXT_DIR)) {
+      fs.mkdirSync(RAW_TEXT_DIR, { recursive: true });
+    }
+
+    rtfFiles.forEach(file => {
+      const filePath = path.join(RAW_RTF_DIR, file);
+      const rtfContent = fs.readFileSync(filePath, "utf8");
+      const plainText = decodeRtf(rtfContent);
+      
+      // Extract class number e.g., 6th.rtf -> 6, 10thA.rtf -> 10
+      const match = file.match(/(\d+)/);
+      const classNum = match ? match[1] : "6";
+      
+      const textPath = path.join(RAW_TEXT_DIR, `class${classNum}_rtf_converted.txt`);
+      fs.writeFileSync(textPath, plainText, "utf8");
+      console.log(`Decoded: ${file} -> ${textPath}`);
+    });
+  }
+
+  if (!fs.existsSync(RAW_TEXT_DIR)) {
+    console.error(`❌ Raw text directory not found: ${RAW_TEXT_DIR}`);
     process.exit(1);
   }
 
-  const files = fs.readdirSync(RAW_DIR).filter(f => f.endsWith(".txt"));
-  console.log(`Found ${files.length} raw text file(s) to ingest.`);
+  const files = fs.readdirSync(RAW_TEXT_DIR).filter(f => f.endsWith(".txt"));
+  console.log(`Found ${files.length} text file(s) to ingest.`);
   
   const apiKey = process.env.GEMINI_API_KEY;
   if (apiKey) {
@@ -214,59 +384,83 @@ async function run() {
   let currentId = 1;
 
   for (const file of files) {
-    const filePath = path.join(RAW_DIR, file);
+    const filePath = path.join(RAW_TEXT_DIR, file);
     const content = fs.readFileSync(filePath, "utf-8");
     
-    // Extract metadata from file name e.g. class6_chapter1.txt
-    const nameMatch = file.match(/class(\d+)_chapter(\d+)/i);
-    let ncertClass = 6;
-    let chapterNumber = 1;
-    if (nameMatch) {
-      ncertClass = parseInt(nameMatch[1], 10);
-      chapterNumber = parseInt(nameMatch[2], 10);
-    }
-    
-    // Parse metadata from file contents
-    const lines = content.split("\n");
-    let title = `Class ${ncertClass} Chapter ${chapterNumber}`;
-    let tier: "beginner" | "professional" | "expert" = "beginner";
-    
-    lines.forEach(line => {
-      if (line.startsWith("Title:")) {
-        title = line.replace("Title:", "").trim();
-      } else if (line.startsWith("Tier:")) {
-        const val = line.replace("Tier:", "").trim().toLowerCase();
-        if (val === "professional" || val === "expert") {
-          tier = val;
-        }
-      }
-    });
-
-    console.log(`Ingesting: ${file} -> Class ${ncertClass}, Chapter ${chapterNumber} (${tier})`);
-
-    let questions: Question[] = [];
-    if (apiKey) {
-      try {
-        questions = await parseFileWithGemini(content, apiKey);
-        console.log(`✅ Extracted ${questions.length} questions using Gemini.`);
-      } catch (err) {
-        console.error(`❌ Gemini extraction failed: ${err}. Falling back to local parser.`);
-        questions = parseFileLocally(content, ncertClass, chapterNumber, tier);
-      }
+    if (file.includes("rtf_converted")) {
+      // Parse converted RTF glossary files
+      const match = file.match(/class(\d+)/i);
+      const ncertClass = match ? parseInt(match[1], 10) : 6;
+      
+      console.log(`Parsing RTF plain text: ${file} -> Class ${ncertClass}`);
+      const rtfChapters = parseRtfTextLocally(content, ncertClass, currentId);
+      chapters.push(...rtfChapters);
+      currentId += rtfChapters.length;
+      console.log(`✅ Extracted ${rtfChapters.length} glossary chapters.`);
     } else {
-      questions = parseFileLocally(content, ncertClass, chapterNumber, tier);
-      console.log(`✅ Extracted ${questions.length} questions using local parser.`);
-    }
+      // Parse custom structured text files
+      const nameMatch = file.match(/class(\d+)_chapter(\d+)/i);
+      let ncertClass = 6;
+      let chapterNumber = 1;
+      if (nameMatch) {
+        ncertClass = parseInt(nameMatch[1], 10);
+        chapterNumber = parseInt(nameMatch[2], 10);
+      }
+      
+      const lines = content.split("\n");
+      let title = `Class ${ncertClass} Chapter ${chapterNumber}`;
+      let tier: "beginner" | "professional" | "expert" = "beginner";
+      
+      lines.forEach(line => {
+        if (line.startsWith("Title:")) {
+          title = line.replace("Title:", "").trim();
+        } else if (line.startsWith("Tier:")) {
+          const val = line.replace("Tier:", "").trim().toLowerCase();
+          if (val === "professional" || val === "expert") {
+            tier = val;
+          }
+        }
+      });
 
-    chapters.push({
-      id: currentId++,
-      ncertClass,
-      chapterNumber,
-      name: `Class ${ncertClass} Chapter ${chapterNumber}: ${title}`,
-      tier,
-      questions
-    });
+      console.log(`Parsing custom text: ${file} -> Class ${ncertClass}, Chapter ${chapterNumber} (${tier})`);
+
+      let questions: Question[] = [];
+      if (apiKey) {
+        try {
+          questions = await parseFileWithGemini(content, apiKey);
+          console.log(`✅ Extracted ${questions.length} questions using Gemini.`);
+        } catch (err) {
+          console.error(`❌ Gemini extraction failed: ${err}. Falling back to local parser.`);
+          questions = parseFileLocally(content, ncertClass, chapterNumber, tier);
+        }
+      } else {
+        questions = parseFileLocally(content, ncertClass, chapterNumber, tier);
+        console.log(`✅ Extracted ${questions.length} questions using local parser.`);
+      }
+
+      chapters.push({
+        id: currentId++,
+        ncertClass,
+        chapterNumber,
+        name: `Class ${ncertClass} Chapter ${chapterNumber}: ${title}`,
+        tier,
+        questions
+      });
+    }
   }
+
+  // Sort chapters by class then chapter number
+  chapters.sort((a, b) => {
+    if (a.ncertClass !== b.ncertClass) {
+      return a.ncertClass - b.ncertClass;
+    }
+    return a.chapterNumber - b.chapterNumber;
+  });
+
+  // Re-index IDs to be sequential
+  chapters.forEach((ch, idx) => {
+    ch.id = idx + 1;
+  });
 
   // Generate output TypeScript file
   const fileContent = `// This file is auto-generated by scripts/ingestCurriculum.ts. Do not edit manually.

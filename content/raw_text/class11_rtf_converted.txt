@@ -1,0 +1,154 @@
+Helvetica;
+;;
+*;;
+
+This extraction is based on the Class 11 Sanskrit textbook "Shaswati (शाश्वती)
+Part 1". Note that the textbook itself provides translations in Hindi (भावार्थ);
+I have provided the Sanskrit text alongside a synthesized English translation
+based on the provided content.
+
+Chapter 1: Vedamrutam (वेवामृतम् - Vedic Nectar)
+
+Source: Rigveda, Yajurveda, Atharvaveda
+
+| Sanskrit Text (Devanagari)                                   | English Translation                                                                               |
+| :----------------------------------------------------------- | :------------------------------------------------------------------------------------------------ |
+| **सङ्गच्छध्वं सं वदध्वं सं वो मनांसि जानताम्।**              | Go together, speak together, let your minds be of one accord.                                     |
+| **देवा भागं यथा पूर्वे सञ्जानाना उपासते॥**                   | Just as the ancient gods, being of one mind, accepted their portion of the sacrifice.             |
+| **समानी व आकूतिः समाना हृदयानि वः।**                         | May your aim be common, may your hearts be united.                                                |
+| **समानमस्तु वो मनो यथा वः सुसहासति॥**                        | May your mind be one, so that you may live well together.                                         |
+| **यज्जाग्रतो दूरमुदैति दैवं तदु सुप्तस्य तथैवेति।**          | That divine mind which travels far when one is awake, and likewise returns when one sleeps.       |
+| **दूरङ्गमं ज्योतिषां ज्योतिरेकं तन्मे मनः शिवसङ्कल्पमस्तु॥** | That light of lights which travels far, may that mind of mine be filled with auspicious thoughts. |
+
+Chapter 2: Paropakaraya Satam Vibhutayah (परोपकाराय सतां विभूतयः)
+
+Source: Jataka Mala by Aryashura
+
+| Sanskrit Text (Devanagari)                                            | English Translation                                                                                     |
+| :-------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------ |
+| **बोधिसत्त्वः किल कस्मिंश्चित् नातिमहति... सरसि मत्स्याधिपतिः बभूव।** | The Bodhisattva once became the king of fish in a small lake.                                           |
+| **अथ कदाचित्... देवो न ववर्ष।**                                       | Then once, due to the misfortune of living beings, the God (Indra) did not rain.                        |
+| **स महात्मा... सत्यतपोबलमेव तेषां रक्षणोपायम् अमन्यत।**               | That Great Soul (the fish king) considered the power of truth and penance as the only way to save them. |
+| **अनेन सत्येन सरांसि तोयैरापूरयन् वर्षतु देवराजः॥**                   | By the power of this truth, may the King of Gods (Indra) rain and fill the lakes with water.            |
+
+Chapter 3: Mano Hi Mahatam Dhanam (मानो हि महतां धनम्)
+
+Source: Mahabharata, Udyoga Parva
+
+| Sanskrit Text (Devanagari)                      | English Translation                                                                               |
+| :---------------------------------------------- | :------------------------------------------------------------------------------------------------ |
+| **उत्तिष्ठ हे कापुरुष मा शेष्वैवं पराजितः।**    | Stand up, O coward! Do not lie down here as one who is defeated.                                 |
+| **अमित्रा नन्दयन्सर्वान् निर्मानो बन्धुशोकदः॥** | You are delighting your enemies and bringing grief to your kinsmen, being devoid of self-respect. |
+| **कुरु सत्त्वं मानं च विद्धि पौरुषमात्मनः।**    | Gather your courage and self-respect, and know your own manhood/valor.                            |
+
+Chapter 5: Aaharavicharah (आहारविचारः - Thoughts on Diet)
+
+Source: Charaka Samhita
+
+| Sanskrit Text (Devanagari)                    | English Translation                                                                |
+| :-------------------------------------------- | :--------------------------------------------------------------------------------- |
+| **उष्णमश्नीयात्, उष्णं हि भुज्यमानं स्वदते।** | One should eat warm food, for warm food tastes good.                               |
+| **मात्रावदश्नीयात्... केवलं सुखं विपच्यते।**  | One should eat in proper quantity; it digests easily and provides happiness.       |
+| **जीर्णेऽश्नीयात्... न चोषमाणमुपहन्ति।**      | Eat only when the previous meal is digested; it does not disturb the bodily fires. |
+| **तन्मना भुञ्जीत... न विहसेत्।**              | Eat with a concentrated mind, without talking or laughing excessively.             |
+
+Chapter 10: Sattvamaho Rajastamah (सत्त्वमहो रजस्तमः)
+
+Source: Bhagavad Gita, Chapter 17
+
+| Sanskrit Text (Devanagari)                       | English Translation                                                                                     |
+| :----------------------------------------------- | :------------------------------------------------------------------------------------------------------ |
+| **यजन्ते सात्त्विका देवान्यक्षरक्षांसि राजसाः।** | Men of 'Sattva' (purity) worship gods; 'Rajasic' (passionate) men worship spirits/demons.               |
+| **अनुद्वेगकरं वाक्यं सत्यं प्रियहितं च यत्।**    | Speech that does not cause agitation, is truthful, pleasant, and beneficial (is the penance of speech). |
+| **दातव्यमिति यद्दानं दीयतेऽनुपकारिणे।**          | Charity given with the thought 'it is a duty to give' to one who does no return favor is 'Sattvic'.     |
+
+Chapter 11: Navadravyani (नवद्रव्याणि - The Nine Substances)
+
+Source: Tarkasangraha by Annam Bhatta
+
+| Sanskrit Text (Devanagari)                                      | English Translation                                                                            |
+| :-------------------------------------------------------------- | :--------------------------------------------------------------------------------------------- |
+| **तत्र द्रव्याणि पृथिव्यप्तेजोवाय्वाकाशकालदिगात्ममनांसि नवैव।** | The nine substances (Dravyas) are Earth, Water, Fire, Air, Ether, Time, Space, Soul, and Mind. |
+| **गन्धवती पृथिवी। सा द्विविधा नित्याऽनित्या च।**                | Earth is that which possesses smell. It is of two types: eternal and non-eternal.              |
+| **शीतस्पर्शवत्य आपः।**                                          | Water is that which has a cold touch.                                                          |
+| **उष्णस्पर्शवत्तेजः।**                                          | Fire is that which has a hot touch.                                                            |
+
+
+Based on the provided documents for the Class 11-12 Sanskrit textbook "Sanskrit
+Sahitya  Parichay" (संस्कृत साहित्य  परिचय), I have extracted the core
+Devanagari text for each chapter along with an English translation and summary.
+
+The book is written in a mix of Sanskrit and Hindi (explaining Sanskrit history
+in Hindi). Below is the organized data for the primary chapters.
+
+Chapter 1: Sanskrit Language  Origin and Development
+
+Devanagari Title: प्रथम अध्याय: संस्कृत भाषाउद्भव एवं विकास
+
+| Section          | Raw Devanagari Text                                                                                                                                                  | English Translation/Summary                                                                                                                            |
+| :--------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Introduction** | संसार की उपलब्‍ध भाषाओं में संस्कृत प्राचीनतम है। इस भाषा में प्राचीन भारतीय सभ्यता और संस्‍कृति का बहुत बड़ा भण्डार है।                                             | Among the available languages of the world, Sanskrit is the oldest. It contains a vast treasury of ancient Indian civilization and culture.            |
+| **Evolution**    | भाषा वैज्ञानिकों के अनुसार आधुनिक भाषाओं तक इसके विकास की प्रक्रिया इस प्रकार रही है: १. प्राचीन आर्य भाषा काल, २. मध्यकालीन आर्य भाषा काल, ३. आधुनिक आर्य भाषा काल। | According to linguists, its evolution toward modern languages follows three phases: 1. Old Indo-Aryan, 2. Middle Indo-Aryan, and 3. Modern Indo-Aryan. |
+| **Comparison**   | ईरानी भाषा तो संस्कृत से बहुत अधिक मिलती है।                                                                                                                         | The Iranian language is very closely related to Sanskrit.                                                                                              |
+
+Chapter 2: Vedic Literature
+
+Devanagari Title: द्वितीय अध्याय: वैदिक साहित्‍य
+
+| Section       | Raw Devanagari Text                                                                                                              | English Translation/Summary                                                                                          |
+| :------------ | :------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------- |
+| **The Vedas** | संहिताओं में वैदिक मन्त्रों का संग्रह है। इनके चार मुख्य रूप हैं: ऋग्वेदसंहिता, यजुर्वेदसंहिता, सामवेदसंहिता तथा अथर्ववेदसंहिता। | Samhitas are collections of Vedic mantras. They have four main forms: Rigveda, Yajurveda, Samaveda, and Atharvaveda. |
+| **Structure** | वैदिक साहित्य के चार चरण हैं (i) संहिता, (ii) ब्राह्मण, (iii) आरण्यक एवं (iv) उपनिषद्।                                          | Vedic literature consists of four stages: (i) Samhita, (ii) Brahmana, (iii) Aranyaka, and (iv) Upanishad.            |
+| **Vedangas**  | वेदों के छ: अंग माने गए शिक्षा, कल्प, व्याकरण, निरुक्त, ज्योतिष तथा छन्द।                                                       | There are six Vedangas (limbs of Vedas): Phonetics, Rituals, Grammar, Etymology, Astronomy, and Metrics.             |
+
+Chapter 3: Ramayana, Mahabharata and Puranas
+
+Devanagari Title: तृतीय अध्याय: रामायण, महाभारत एवं पुराण
+
+| Section         | Raw Devanagari Text                                                                                              | English Translation/Summary                                                                                                  |
+| :-------------- | :--------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------- |
+| **Ramayana**    | रामायण के रचयिता वाल्मीकि ने प्रथम अलंकृत काव्य लिखकर समस्त परवर्ती भारतीय कवियों के लिए आदर्श प्रस्तुत किया था। | Valmiki, the author of Ramayana, wrote the first ornate poem and set an ideal for all subsequent Indian poets.               |
+| **Mahabharata** | महर्षि व्यास द्वारा रचित महाभारत संस्कृत वाङ्मय का सबसे बड़ा ग्रन्थ है, जिसमें एक लाख श्लोक हैं।                 | Mahabharata, composed by Maharishi Vyas, is the largest work in Sanskrit literature, containing one hundred thousand verses. |
+| **Puranas**     | पुराणों की संख्या 18 है। इनमें संसार की सृष्टि, प्रलय, और राजाओं के वंशों का वर्णन मिलता है।                     | There are 18 Puranas. They describe the creation of the world, its dissolution, and the genealogies of kings.                |
+
+Chapter 4: Epic Poetry (Mahakavya)
+
+Devanagari Title: चतुर्थ अध्याय: महाकाव्य
+
+| Key Author      | Work (Devanagari)         | Description                                                                  |
+| :-------------- | :------------------------ | :--------------------------------------------------------------------------- |
+| **Kalidasa**    | रघुवंशम्, कुमारसम्भवम्    | Master of the "Vaidarbhi" style and similes (Upama).                         |
+| **Ashvaghosha** | बुद्धचरितम्, सौन्दरनन्दम् | Buddhist epics focusing on the life of Buddha and conversion.                |
+| **Bharavi**     | किरातार्जुनीयम्           | Known for "Arthagauravam" (depth of meaning) and the Kirata-Arjuna struggle. |
+| **Magha**       | शिशुपालवधम्               | Famous for combining the qualities of Kalidasa, Bharavi, and Dandin.         |
+
+Chapter 5: Historical Epics
+
+Devanagari Title: पञ्चम अध्‍याय: ऐतिहासिक महाकाव्‍य
+
+| Section         | Raw Devanagari Text                                                                            | English Translation/Summary                                                                          |
+| :-------------- | :--------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------- |
+| **Core Text**   | राजतरंगिणी निश्चित रूप से संस्कृत साहित्य का श्रेष्ठ ऐतिहासिक ग्रंथ है। कल्हण इसके रचयिता हैं। | Rajatarangini is undoubtedly the best historical work in Sanskrit literature. Kalhana is its author. |
+| **Other Works** | हर्षचरितम् (बाणभट्ट), विक्रमांकदेवचरितम् (बिल्हण)।                                             | Key works include Harshacharita by Banabhatta and Vikramankadevacharita by Bilhana.                  |
+
+Chapter 8: Narrative Literature (Fables)
+
+Devanagari Title: अष्टम अध्याय: कथा साहित्य
+
+| Work                 | Author                         | Details                                                  |
+| :------------------- | :----------------------------- | :------------------------------------------------------- |
+| **Panchatantra**     | विष्णुशर्मा (Vishnusharma)     | Used to educate princes; divided into 5 books (Tantras). |
+| **Hitopadesha**      | नारायण पण्डित (Narayan Pandit) | Based on Panchatantra, popular for moral stories.        |
+| **Kathasaritsagara** | सोमदेव (Somadeva)              | A massive collection of stories with 24,000 verses.      |
+
+Chapter 11: Sanskrit Women Poets
+
+Devanagari Title: एकादश अध्याय: संस्कृत कवयित्रियाँ
+
+| Period        | Mentioned Names                                     | Significance                                               |
+| :------------ | :-------------------------------------------------- | :--------------------------------------------------------- |
+| **Vedic**     | अपाला, घोषा, लोपामुद्रा (Apala, Ghosha, Lopamudra)  | These women were "Mantra-drashta" (seers of Vedic hymns).  |
+| **Classical** | विज्जका, शीलाभट्टारिका (Vijjayaka, Shilabhattarika) | Famous for their sharp poetic skills and classical verses. |
+| **Modern**    | पण्डिता क्षमाराव (Pandita Kshama Rao)               | Wrote works like "Satyagraha Gita" inspired by Gandhi.     |
+
+

@@ -1,0 +1,115 @@
+Helvetica;
+;;
+*;;
+
+This data has been extracted and organized from the provided Class 8 Sanskrit
+textbook, Deepakam. The format focuses on Chapter Titles, key Devanagari text,
+and the provided English translations found in the vocabulary sections (Vayam
+Shabdarthan Janimah).
+
+Chapter 1: संगच्छध्वं संवदध्वम् (May You Walk Together, Speak Together)
+
+Core Devanagari Text (Rigveda 10.191): संगच्छध्वं संवदध्वं सं वो मनांसि जानताम्।
+देवा भागं यथा पूर्वे संजानाना उपासते॥ १ ॥ समानो मन्त्रः समितिः समानी समानं मनः
+सह चित्तमेषाम्। समानं मन्त्रमभिमन्त्रये वः समानेन वो हविषा जुहोमि॥ २ ॥
+
+Vocabulary & English Translations: | Devanagari | English Translation | | :--- |
+:--- | | संगच्छध्वम् | May you walk together | | संवदध्वम् | May you speak in
+one voice | | समवेतस्वरेण | By chanting in unison | | मनांसि | Minds | | जानताम्
+| May you know | | देवाः | Cosmic forces & celestial phenomena | | संजानानाः |
+Being amicable | | उपासते | Devotedly performing | | अभ्युदयम् | Elevation and
+prosperity | | मन्त्रः | Contemplation | | समितिः | Common resolutions | | वः |
+For you | | अभिमन्त्रये | (I) Consecrate and propagate | | हविषा | By oblatory
+prayers | | जुहोमि | Performing Yaja & divine offerings | | आकूतिः | Resolution
+| | सु सह असति | May you be united |
+
+Chapter 2: अल्पानामपि वस्तूनां संहतिः कार्यसाधिका (Unity of Even Small Things Accomplishes Tasks)
+
+Core Devanagari Text: अल्पानामपि वस्तूनां संहतिः कार्यसाधिका।
+तृणैर्गुणत्वमापन्नैर्बध्यन्ते मत्तदन्तिनः॥
+(हितोपदेशः १.३६)
+
+Vocabulary & English Translations: | Devanagari | English Translation | | :--- |
+:--- | | भग्नः | Broke Down | | अक्रन्दन् | They cried | | सविषादम् | With
+sadness | | सम्भूय | Together | | तरुः | Tree | | व्याधः | Hunter | |
+तण्डुलकणान् | Rice grains | | विकीर्य | Having scattered |
+| विस्तीर्य | Having spread | | प्रच्छन्नः | Stood Secretly | | चित्रग्रीवनामा |
+Named Chitragriva | | प्रतीकारः | Remedy | | अविचारितम् | Not thought of | |
+अवतीर्य | Having descended | | अवलोक्य | Having seen | | अप्रवर्तनम् |
+No inclination | | प्रवृत्ताः | Engaged/engrossed | | अवलम्ब्य | Having depended
+on | | एकचित्तीभूय | With united mind | | कापुरुषलक्षणम् | Signs of a coward |
+
+Chapter 3: सुभाषितरसं पीत्वा जीवनं सफलं कुरु (Make Life Fruitful by Drinking the Juice of Subhashitas)
+
+Core Devanagari Text: गुणी गुणं वेत्ति न वेत्ति निर्गुणः बली बलं वेत्ति न वेत्ति
+निर्बलः। पिको वसन्तस्य गुणं न वायसः करी च सिंहस्य बलं न मूषकः॥ २ ॥
+
+Vocabulary & English Translations: | Devanagari | English Translation | | :--- |
+:--- | | शृङ्खलितम् | Disciplined | | गायन्ति | Sing | | किल | With
+determination | | धन्याः | Praiseworthy | | अपवर्गः | Liberation | | भूयः | Over
+and over again | | सुरत्वात् | From divinity | | वेत्ति | Knows | | निर्गुणः |
+Without virtue | | बली | Powerful | | निर्बलः | Weak | | पिकः | Cuckoo | | वायसः
+| Crow | | करी | Elephant | | नम्राः | Bent | | तरवः | Trees | | फलोद्गमैः |
+With weight of fruits | | अम्बुभिः | Filled with water | | दूरविलम्बिनः | Come
+down from above | | घनाः | Clouds |
+
+Chapter 5: गीता सुगीता कर्तव्या (Gita Should Be Well Sung/Studied)
+
+Core Devanagari Text: श्रद्धावाँल्लभते ज्ञानं तत्परः संयतेन्द्रियः। ज्ञानं
+लब्ध्वा परां शान्तिमचिरेणाधिगच्छति॥ ४ ॥ अद्वेष्टा सर्वभूतानां मैत्रः
+करुण एव च। निर्ममो निरहङ्कारः समदुःखसुखः क्षमी॥ ५ ॥
+
+Vocabulary & English Translations: | Devanagari | English Translation | | :--- |
+:--- | | महोत्सवः | Festival | | कथावाचकः | The narrator / the proponent | |
+सुगीता | Melodious Song | | युद्धपराङ्मुखम् | The war-averse | |
+अमृततुल्याः | Like nectar | | अनुद्विग्नमनाः | Person of
+tranquil mind | | विगतस्पृहः | Detached | | वीत-राग-भय-क्रोधः | Free from
+attachment, fear and anger | | स्थितधीः | Steady minded | | मुनिः | The sage | |
+सम्मोहः | Delusion | | स्मृतिविभ्रमः | Loss / failure of memory | | श्रद्धावान्
+| Devoted | | संयतेन्द्रियः | One who has controlled his senses | | प्रणिपातेन |
+By bowing down / by salutation | | परिप्रश्नेन | By questioning (with humility)
+| | उपदेक्ष्यन्ति | They will preach | | तत्त्वदर्शिनः | Those who have realized
+the Truth |
+
+Chapter 6: डिजिभारतम् – युगपरिवर्तनम् (Digital India – Change of Era)
+
+Core Devanagari Text: अद्य सम्पूर्णविश्वे 'डिजिटल-भारतम्' इत्यस्य चर्चा श्रूयते।
+एकस्यैव पिञ्जस्य नोदनेन सर्वं नागरिक-सौविध्यं लभ्यते।
+
+Vocabulary & English Translations: | Devanagari | English Translation | | :--- |
+:--- | | सङ्ग्रहालयः | Museum | | हॉलोग्राम् | Hologram | | वर्धिता वास्तविकता |
+Augmented Reality (AR) | | आभासीया वास्तविकता | Virtual Reality (VR) | |
+कृत्रिमबुद्धिः | Artificial Intelligence (AI) | |
+डिजिटल-प्रक्षेपणम् | Digital Projection | | संवादः |
+Conversation | | प्रौद्योगिकी | Technology | | उत्सुकता | Curiosity | | भाषणम् |
+Speech | | उपकरणानि | Devices | | अन्तर्जालम् | Internet | | योगदानम् |
+Contribution | | आशुप्रतिक्रियाकूटः | Quick Response Code (QR Code) | |
+विस्तृतम् | Detailed | | उपलब्धिः | Achievement | |
+दैनन्दिनजीवनम् | Daily Life | | शासनम् | Governance |
+
+Chapter 12: सम्यग्वर्णप्रयोगेण ब्रह्मलोके महीयते (One is Honoured in Brahmaloka by Correct Pronunciation)
+
+Core Devanagari Text: माधुर्यमक्षरव्यक्तिः पदच्छेदस्तु सुस्वरः। धैर्यं लयसमर्थं
+च षडेते पाठका गुणाः॥ ४ ॥
+
+Vocabulary & English Translations: | Devanagari | English Translation | | :--- |
+:--- | | ऋत्विजः | Priests | | करतालम् | Clap | | अधीषे | You read | | श्वजनः |
+Dog | | सकलम् | Entire | | शकलम् | Fragment | | सकृत् | Once | | शकृत् | Faeces
+| | अव्यक्ताः | Unclear (Usage of less effort) | | पीडिताः | Afflicted (Usage of
+more effort) | | महीयते | Honoured / respected | | व्याघ्री | Tigress | |
+दंष्ट्राभ्याम् | With the fangs | | पीडयेत् | May cause pain | |
+भीता | Afraid | | प्रयोजयेत् | May pronounce / apply | | माधुर्यम् |
+Sweetness | | अक्षरव्यक्तिः | Clarity of letters | | सुस्वरः | Pleasant voice |
+| धैर्यम् | Courage / Self-Confidence |
+
+Chapter 13: वर्णोच्चारण-शिक्षा १ (Education of Character Pronunciation 1)
+
+Vocabulary & English Translations: | Devanagari | English Translation | | :--- |
+:--- | | शिक्षा | Phonetics (& Phonology) | | उच्चारणम् | Articulation (Speech)
+| | ध्वनिः | Sound / Phonation | | शब्दः | Word | | वाक्यम् | Sentence | | वर्णः
+| Letter / Phoneme | | आस्यम् | Head | | मुखम् | Mouth / Oral cavity | | नासिका
+| Nose / Nasal cavity | | कण्ठ-बिलम् | Voice-box / Larynx | | उरः | Chest | |
+श्वासकोशः | Lungs | | नाभि-प्रदेशः | Navel-region | | मांसपेशन्यः |
+Muscles | | बलम् | Pressure | | तन्त्रम् | System | | वर्णमाला | Alphabet /
+Sequence of Letters | | स्वरः | Vowel | | व्यञ्जनम् | Consonant | | तालु | Hard
+Palate | | मूर्धा | Alveolar Ridge | | दन्तः | (Base of) Tooth | | ओष्ठः | Lip |

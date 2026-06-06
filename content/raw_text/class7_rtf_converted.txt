@@ -1,0 +1,185 @@
+Helvetica;
+;;
+*;;
+
+This structured extraction is based on the Deepakam (दीपकम) Sanskrit textbook
+for Class 7. It includes the chapter titles, key Devanagari text
+(verses/dialogue), and the English vocabulary from the "Vayam Shabdarthan
+Janimah" sections.
+
+Chapter 1: वन्दे भारतमातरम् (Vande Bharatmataram)
+
+Context: A dialogue about the national song and the geography/symbols of India.
+
+| Sanskrit Word | English Translation        |
+| :------------ | :------------------------- |
+| वन्दे         | I greet                    |
+| आलिङ्ग्य      | Having embraced            |
+| उपन्यासम्     | Novel                      |
+| रम्यम्        | Pleasant                   |
+| वत्सला        | Loving                     |
+| माहात्म्यम्   | Greatness                  |
+| मुकुटरूपेण    | As a crown                 |
+| रत्नाकरः      | Sea/Ocean                  |
+| सूचकः         | Indicator                  |
+| केशरवर्णः     | Saffron colour             |
+| सस्यश्यामला   | Densely covered with flora |
+| आभा           | Lustre                     |
+| धवलम्         | White                      |
+| अराः          | Spokes of a wheel          |
+| कर्तव्यपथे    | On the path of duty        |
+
+Chapter 2: नित्यं पिबाम: सुभाषितरसम् (Nityam Pibamah Subhashitarasam)
+
+Context: A collection of wise sayings (Subhashitas) regarding character and
+education.
+
+| Sanskrit Word | English Translation |
+| :------------ | :------------------ |
+| उत्थाय        | Having got up       |
+| प्रेरकः       | One who inspires    |
+| वपुषा         | By physique         |
+| हातव्या:      | Worth discarding    |
+| भूतिम्        | Prosperity          |
+| तन्द्रा       | Lassitude           |
+| दीर्घसूत्रता  | Procrastination     |
+| अद्भिः        | By water            |
+| भूतात्मा      | Soul                |
+| द्वन्द्वः     | Dilemma             |
+| निपातेन       | By falling          |
+| उपाश्रयति     | Approaches          |
+| सङ्गतिः       | Association         |
+| रिपुः         | Enemy               |
+| परपीडनम्      | Bothering others    |
+
+Chapter 3: मित्राय नमः (Mitraya Namah)
+
+Context: A dialogue between a Yoga teacher and students about Surya Namaskar.
+
+| Sanskrit Word | English Translation |
+| :------------ | :------------------ |
+| अनुवदन्तु     | Repeat              |
+| प्रज्ञा       | Intelligence/Wisdom |
+| वीर्यम्       | Vigour              |
+| तेजः          | Brilliance          |
+| आध्यात्मिकम्  | Spiritual           |
+| स्वस्थम्      | Healthy             |
+| सूर्यः        | Sun                 |
+
+Chapter 4: न लभ्यते चेत् आम्लं द्राक्षाफलम् (Na Labhyate Chet Amlam Drakshapalam)
+
+Context: The classic story of the fox and the sour grapes in Sanskrit verse.
+
+| Sanskrit Word | English Translation |
+| :------------ | :------------------ |
+| शृगालः        | Fox                 |
+| वनम्          | Forest              |
+| पिपासा        | Thirst              |
+| बुभुक्षा      | Hunger              |
+| लभते          | Gets                |
+| श्रान्तः      | Tired               |
+| खिन्नः        | Sad                 |
+| वामतः         | Towards left        |
+| दक्षिणतः      | Towards right       |
+| पश्‍चतः       | Behind              |
+| स्वेदः        | Sweat               |
+| द्राक्षालताम् | Grape-vine climber  |
+| अनुक्षणम्     | Immediately         |
+| रसः           | Saliva              |
+| उत्पतति       | Jumps               |
+
+Chapter 5: सेवा हि परमो धर्म: (Seva Hi Paramo Dharmah)
+
+Context: A story about the physician Nagarjuna testing two disciples on the
+spirit of service.
+
+| Sanskrit Word     | English Translation  |
+| :---------------- | :------------------- |
+| उपाधिम्           | Degree               |
+| पदवीम्            | Designation/Position |
+| मानवीयाः          | Humane               |
+| रसायनशास्‍त्रज्ञः | Chemist & Druggist   |
+| चिकित्सकः         | Physician            |
+| अङ्गीकृतवान्      | Accepted             |
+| व्यवस्थाम्        | Arrangement          |
+| राजमार्गः         | Highway              |
+| शोचनीया           | Miserable            |
+| निरतः             | Engrossed            |
+| वृत्तान्तम्       | Anecdote             |
+| चितवान्           | Selected             |
+| यन्त्रवत्         | Like a machine       |
+
+Chapter 9: अन्‍नाद् भवन्ति भूतानि (Annad Bhavanti Bhutani)
+
+Context: A scientific and philosophical dialogue on the origins of elements and
+life.
+
+| Sanskrit Word   | English Translation            |
+| :-------------- | :----------------------------- |
+| भूतानि          | All Living being               |
+| अम्ब !         | O Mother!                     |
+| ब्रह्मणः        | From Universal Power & Creator |
+| काचित्          | Some one                       |
+| जिज्ञासा        | Curiosity                      |
+| उत्पत्तिक्रमम्  | Order of origin                |
+| जानीयात्        | Should know                    |
+| वत्से !        | Dear daughter!                |
+| विस्मृतवती      | Forgot                         |
+| रसायनशास्‍त्रम् | Chemistry                      |
+
+Chapter 11: द्वीपेषु रम्यः द्वीपोऽण्डमानः (Dwipeshu Ramyah Dwipo'ndamanah)
+
+Context: A travelogue describing the Andaman and Nicobar Islands and Cellular
+Jail.
+
+| Sanskrit Word   | English Translation        |
+| :-------------- | :------------------------- |
+| द्वीपः          | Island                     |
+| आकर्षकम्        | Attractive                 |
+| जालपुटे         | On the website             |
+| अन्वेषणम्       | Search                     |
+| युद्धरतानाम्    | People engrossed in battle |
+| कल्पनातीतम्     | Beyond imagination         |
+| घोरम्           | Terrific                   |
+| वैश्‍विकसम्पदः  | Of world heritage          |
+| कारागारम्       | Prison                     |
+| त्रितलात्मकम्   | Three-storied              |
+| श्वेतरेणुः      | White sand                 |
+| पारदर्शी        | Transparent                |
+| हारित्‍यम्      | Greenery                   |
+| प्रवालप्रस्तरैः | By the coral reefs         |
+
+Chapter 12: वीराङ्गना पन्‍नाधाया (Virangana Pannadhaya)
+
+Context: The historical sacrifice of Panna Dhai for the protection of the heir
+to the throne.
+
+| Sanskrit Word   | English Translation             |
+| :-------------- | :------------------------------ |
+| त्यागधनानाम्    | People who sacrifice everything |
+| सर्वस्वम्       | One's Everything                |
+| प्रभुूतम्       | Abundant                        |
+| शत्रुनिबर्हणाः  | Destroyers of enemies           |
+| स्वर्णिमाक्षरैः | With golden letters             |
+| छलेन            | By deception                    |
+| कुतन्त्रम्      | Evil plot                       |
+| अद्वितीयम्      | Matchless                       |
+| धाया            | Wet Nurse                       |
+| दुष्टबुद्धिः    | Evil minded                     |
+| शयनागारम्       | Bedroom                         |
+| राष्ट्रहितम्    | National's interest             |
+| जगति            | In the world                    |
+
+Grammar Appendices (परिशिष्‍टम्)
+
+  - Varnamatra-Parichayah (Phonetics):
+      - Hrasvah (ह्रस्वः): Short vowel (1 beat).
+      - Dirghah (दीर्घः): Long vowel (2 beats).
+      - Plutah (प्लुतः): Extra-long vowel (3 beats).
+      - Ardhamatrikam (अर्धमात्रिकम्): Consonants (half beat).
+  - Shabdarupani (Noun Declensions): Covers 'a'-ending masculine (Deva, Rama),
+    'i'-ending (Kavi, Hari), 'u'-ending (Shambhu, Guru), and Feminine 'a'-ending
+    (Mala, Rama).
+  - Dhatarupani (Verb Conjugations): Covers Present (Lat), Future (Lrit), and
+    Past (Lang) tenses for roots like Path (to read), Likha (to write), As (to
+    be), and Kri (to do).

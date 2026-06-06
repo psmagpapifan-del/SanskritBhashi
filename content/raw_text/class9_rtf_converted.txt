@@ -1,0 +1,181 @@
+Helvetica;
+;;
+*;;
+
+This data has been extracted and organized from the provided Class 9 Sanskrit
+textbook (Sharda). It is arranged chapter-by-chapter, focusing on the core
+Devanagari text (Lesson/Verses) and the structured English translations found in
+the "Sarvam Shabdena Bhasate" (Glossary) sections.
+
+Chapter 1: सत्यं शिवं सुन्दरं संस्कृतम् (Satyam Shivam Sundaram Sanskritam)
+
+Core Devanagari Text (Verses):
+
+1.  भारतीयैकतासाधकं संस्कृतम् | भारतीयत्वसम्पादकं संस्कृतम् |
+    ज्ञानपुञ्जप्रभादर्शकं संस्कृतम् |
+    सर्वदानन्दसन्दोहदं संस्कृतम् ॥
+2.  सर्वमस्तिष्कसंस्कारकं संस्कृतम् | सर्ववाणीपरिष्कारकं संस्कृतम् |
+    सत्पथप्रेरणादायकं संस्कृतम् | सदगुणग्रामसन्धायकं
+    संस्कृतम् ॥
+3.  विश्वबन्धुत्वविस्तारकं संस्कृतम् | सर्वभूतैकताकारकं संस्कृतम् | सर्वतः
+    शान्तिसंस्थापकं संस्कृतम् | पञ्चशीलप्रतिष्ठापकं संस्कृतम् ॥
+
+Word Meanings & English Translations:
+
+| Devanagari Word             | English Translation          |
+| :-------------------------- | :--------------------------- |
+| आमुष्मिकम् (Aamushmikam)    | Of the other world           |
+| उत्कर्षदम् (Utkarshadam)    | Bestower of excellence       |
+| उद्वेलनम् (Udvelanam)       | Awakening                    |
+| ऐहिकम् (Aihikam)            | Of this world                |
+| कर्मदम् (Karmadam)          | Bestower of righteous action |
+| परिष्कारकम् (Parishkarakam) | Refiner                      |
+| पुञ्ज: (Punjah)             | Clump / Mass                 |
+| प्रभा (Prabha)              | Light                        |
+| भक्तिदम् (Bhaktidam)        | Bestower of Bhakti           |
+| माधुर्यधारा (Madhuryadhara) | Flow of Sweetness            |
+| विस्तारकम् (Vistarakam)     | Expander                     |
+
+Chapter 2: सुखस्य मूलं धर्म: (Sukhasya Mulam Dharmah)
+
+Core Devanagari Text (Key Principle): "सुखस्य मूलं धर्मः, धर्मस्य मूलम् अर्थः ।"
+(Happiness is rooted in Ethics/Dharma; Ethics are supported by
+Resources/Wealth.)
+
+Word Meanings & English Translations:
+
+| Devanagari Word                  | English Translation |
+| :------------------------------- | :------------------ |
+| अपव्यय: (Apavyayah)              | Unnecessary expense |
+| अवाप्तुम् (Avaaptum)             | To get              |
+| अविच्छिन्न: (Avicchinnah)        | Inseparable         |
+| अर्जितस्य (Arjitasya)            | Of the earned       |
+| अर्थोपार्जनम् (Arthoparjanam)    | Earning             |
+| आजीविका (Aajivika)               | Livelihood          |
+| आडम्बरपूर्ण: (Aadambarpurnah)    | Ostentatious        |
+| आर्थिकसाक्षरता (Arthiksaksharta) | Financial literacy  |
+| सञ्चय: (Sanchayah)               | Accumulation        |
+
+Chapter 3: आत्मवत्सर्वभूतेषु य: पश्यति स: पण्डित: (Atmavatsarvabhuteshu...)
+
+Core Devanagari Text (Story Context): A story about Saint Namdev, illustrating
+compassion towards animals. It describes a dog stealing a roti (bread), and
+Namdev running after it with a pot of ghee to ensure the dog doesn't get a
+stomach ache from dry bread.
+
+Word Meanings & English Translations:
+
+| Devanagari Word              | English Translation     |
+| :--------------------------- | :---------------------- |
+| अनुपालितवान् (Anupalitavan)  | Followed                |
+| अपहृत्य (Apahritya)          | Having stolen           |
+| आविर्भूतवान् (Aavirbhutavan) | Appeared                |
+| करुणया (Karunaya)            | With mercy              |
+| घृतम् (Ghritam)              | Clarified butter (Ghee) |
+| निकषा (Nikasha)              | Near                    |
+| बुभुक्षित: (Bubhakshitah)    | Hungry                  |
+| म्लाने (Mlane)               | Withered / Faded        |
+
+Chapter 4: न खलु वयस्तेजसो हेतु: (Na khalu vayastejaso hetuh)
+
+Core Devanagari Text (Context): History of the young revolutionary Khudiram
+Bose, emphasizing that age is not a barrier to greatness/valor.
+
+Word Meanings & English Translations:
+
+| Devanagari Word              | English Translation |
+| :--------------------------- | :------------------ |
+| अधिवक्तृणाम् (Adhivaktrinam) | Of advocates        |
+| असाधारण: (Asadharanah)       | Extra-ordinary      |
+| आचरितवन्तः (Aacharitavantah) | Observed            |
+| चकित: (Chakitah)             | Amazed              |
+| निर्दय: (Nirdayah)           | Merciless           |
+| भुशुण्डी (Bhushundi)         | Gun                 |
+| विस्फोटकम् (Visphotakam)     | Explosive           |
+
+Chapter 5: एषा सा कृतकबुद्धि: मानवबुद्धे: सहकरी (Artificial Intelligence)
+
+Core Devanagari Text (Technical Terms): This chapter discusses modern AI tools
+using Sanskrit terminology.
+
+  - कृतकबुद्धि: (Kritakabuddhih) - Artificial Intelligence
+  - दत्तांश: (Dattanshah) - Data
+  - तन्त्रांश: (Tantranshah) - Software
+  - यन्त्राधिगम: (Yantradhigamah) - Machine Learning
+
+Word Meanings & English Translations:
+
+| Devanagari Word                         | English Translation |
+| :-------------------------------------- | :------------------ |
+| अध्येतुम् (Adhyetum)                    | For Studying        |
+| अधिगृह्णन्ति (Adhigrihnanti)            | Acquire             |
+| अपराधशमनाय (Apradhashamanaya)           | Reducing crime      |
+| अर्हन्ति (Arhanti)                      | Deserve             |
+| पूर्वाग्रह: (Purvagraha)                | Bias                |
+| रश्मिपरीक्षणविद्या (Rashmiparikshan...) | Radiology           |
+| संवादोपकरणम् (Samvadopkaranam)          | Communication tool  |
+
+Chapter 6: मन:पूतं समाचरेत् (Manahputam Samacharet)
+
+Core Devanagari Text (Ethical Maxims):
+
+1.  दृष्टिपुतं न्यसेत् पादं वस्त्रपूतं जलं पिबेत् | सत्यपुतां वदेत् वाचं मन:
+    पूतं समाचरेत् ॥ (Place the foot purified by sight; drink water
+    purified by cloth; speak words purified by truth; act with a mind purified
+    by thought.)
+
+Word Meanings & English Translations:
+
+| Devanagari Word        | English Translation |
+| :--------------------- | :------------------ |
+| अस्तेयम् (Asteyam)     | Not stealing        |
+| उद्योगिनम् (Udyoginam) | Industrious         |
+| कापुरुषा: (Kapurushah) | Cowards             |
+| दैवम् (Daivam)         | Luck                |
+| पूतम् (Putam)          | Cleansed / Purified |
+| शौचम् (Shaucham)       | Purity              |
+
+Chapter 8: अन्नाद् आनन्दं प्रति (Annad Anandam Prati)
+
+Core Devanagari Text (Upanishadic Dialogue): Dialogue between Varuna and his son
+Bhrigu from the Taittiriya Upanishad regarding the five layers of existence
+(Pancha Kosha).
+
+  - अन्नमयकोष: (Food/Physical)
+  - प्राणमयकोष: (Energy/Vital)
+  - मनोमयकोष: (Mind/Mental)
+  - विज्ञानमयकोष: (Intellect/Knowledge)
+  - आनन्दमयकोष: (Bliss)
+
+Word Meanings & English Translations:
+
+| Devanagari Word              | English Translation          |
+| :--------------------------- | :--------------------------- |
+| अन्वेष्टव्यम् (Anveshtavyam) | Explore                      |
+| अवबुद्धम् (Avabuddham)       | Understood                   |
+| काम: (Kamah)                 | Desire                       |
+| विप्रमोक्ष: (Vipramokshah)   | Final liberation             |
+| स्मृतिलम्भे (Smritilambhe)   | Obtaining self-actualization |
+
+Chapter 10: णमो अरिहन्ताणम् (Namo Arihantanam)
+
+Core Devanagari Text (Jainism): Discusses the first Tirthankara, Lord
+Rishabhadev, and the foundational concepts of Jainism (Ahimsa, Anekantavada).
+
+Word Meanings & English Translations:
+
+| Devanagari Word              | English Translation                    |
+| :--------------------------- | :------------------------------------- |
+| अनेकान्तवाद: (Anekantavadah) | Doctrine of multiplicity of viewpoints |
+| अपरिग्रह: (Aparigrahah)      | Non-possession                         |
+| उपवास: (Upavasah)            | Fasting                                |
+| केवलज्ञानम् (Kevalajnanam)   | Absolute knowledge                     |
+| तीर्थङ्कर: (Tirthankarah)    | Tirthankara                            |
+
+Appendices (Grammar Sections)
+
+  - परिशिष्टम् १: अन्वय: Explains the prose order of Sanskrit verses.
+  - परिशिष्टम् २: समास: Details compound words (Tatpurusha, Bahuvrihi, etc.).
+  - परिशिष्टम् ३: वाच्यम्: Voice (Active/Passive/Impersonal).
+  - परिशिष्टम् ४/५: शब्दरूपाणि/धातुरूपाणि: Declensions of nouns (like Brahman,
+    Vidvas) and conjugations of verbs (Path, Vridh).

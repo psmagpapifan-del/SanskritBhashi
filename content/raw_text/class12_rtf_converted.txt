@@ -1,0 +1,109 @@
+Helvetica;
+;;
+*;;
+
+Based on the provided PDF screenshots and OCR data for the Class 12 Sanskrit
+textbooks Bhaswati (भास्वती) and Shaswati (शाश्वती), here is the extracted raw
+Devanagari text and English translations for the key segments.
+
+Note: The textbook primarily provides Hindi translations. The English
+translations provided below are accurate scholarly translations of the original
+Sanskrit sources (Upanishads, Gita, and Classical Literature) included in the
+curriculum.
+
+Part 1: भास्वती (Bhaswati - Core Course)
+
+Chapter 1: अनुशासनम् (Anushasanam)
+
+Source: Taittiriya Upanishad
+
+| Devanagari Text (Sanskrit)                                           | English Translation                                                                                             |
+| :------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------- |
+| सत्यं वद। धर्मं चर। स्वाध्यायान्मा प्रमदः।                           | Speak the truth. Practice righteousness. Do not neglect your daily study.                                       |
+| आचार्याय प्रियं धनमाहृत्य प्रजातन्तुं मा व्यवच्छेत्सीः।              | After offering the desired gift to the teacher, do not break the thread of progeny.                             |
+| सत्यान्न प्रमदितव्यम्। धर्मान्न प्रमदितव्यम्। कुशलान्न प्रमदितव्यम्। | Do not deviate from truth. Do not deviate from righteousness. Do not deviate from well-being.                   |
+| मातृदेवो भव। पितृदेवो भव। आचार्यदेवो भव। अतिथिदेवो भव।               | Treat your mother as a god. Treat your father as a god. Treat your teacher as a god. Treat your guest as a god. |
+
+Chapter 3: प्रजानुरञ्जको नृपः (Prajanuranjako Nripah)
+
+Source: Kalidasa's Raghuvamsha
+
+| Devanagari Text (Sanskrit)                     | English Translation                                                                                         |
+| :--------------------------------------------- | :---------------------------------------------------------------------------------------------------------- |
+| प्रजानमेव भूत्यर्थं स ताभ्यो बलिमग्रहीत्।      | For the welfare of the subjects alone, he (the King) collected taxes from them.                             |
+| सहस्रगुणमुत्स्त्रष्टुमादत्ते हि रसं रविः॥      | Just as the sun takes up moisture (water) only to give it back a thousand-fold (as rain).                   |
+| ज्ञाने मौनं क्षमा शक्तौ त्यागे श्लाघाविपर्ययः। | He practiced silence despite knowledge, forgiveness despite power, and avoided self-praise despite charity. |
+
+Part 2: शाश्वती (Shaswati - Elective Course)
+
+Chapter 1: विद्ययाऽमृतमश्नुते (Vidyaya'mritamashnute)
+
+Source: Ishavasya Upanishad
+
+| Devanagari Text (Sanskrit)                    | English Translation                                                       |
+| :-------------------------------------------- | :------------------------------------------------------------------------ |
+| ईशावास्यमिदं सर्वं यत्किञ्च जगत्यां जगत्।     | All thiswhatever moves in this moving worldis enveloped by God.         |
+| तेन त्यक्तेन भुञ्जीथा मा गृधः कस्यस्विद्धनम्॥ | Enjoy it by renunciation; do not covet the wealth of anyone.              |
+| कुर्वन्नेवेह कर्माणि जिजीविषेच्छतं समाः।      | Doing verily work in this world, one should wish to live a hundred years. |
+| विद्यां चाविद्यां च यस्तद्वेदोभयं सह।         | He who knows both Knowledge (Vidya) and Ignorance (Avidya) together,      |
+| अविद्यया मृत्युं तीर्त्वा विद्ययाऽमृतमश्नुते॥ | Crosses over death through Avidya and attains immortality through Vidya.  |
+
+Chapter 4: कर्मगौरवम् (Karmagauravam)
+
+Source: Shrimad Bhagavad Gita
+
+| Devanagari Text (Sanskrit)                  | English Translation                                                                                 |
+| :------------------------------------------ | :-------------------------------------------------------------------------------------------------- |
+| नियतं कुरु कर्म त्वं कर्म ज्यायो ह्यकर्मणः। | Perform your prescribed duty, for action is better than inaction.                                   |
+| शरीरयात्रापि च ते न प्रसिद्धयेदकर्मणः॥      | Even the maintenance of your body would not be possible through inaction.                           |
+| यद्यदाचरति श्रेष्ठस्तत्तदेवेतरो जनः।        | Whatever a great man does, ordinary people follow.                                                  |
+| स यत्प्रमाणं कुरुते लोकस्तदनुवर्तते॥        | Whatever standards he sets by his exemplary acts, all the world pursues.                            |
+| कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।         | You have a right to perform your prescribed duty, but you are not entitled to the fruits of action. |
+
+Chapter-wise Data Structure (Usable Format)
+
+If you are using this for NLP or programming, here is the suggested JSON-style
+organization:
+
+
+  "Textbook": "Shaswati",
+  "Grade": 12,
+  "Chapters": [
+    
+      "Chapter_ID": 1,
+      "Title": "Vidyaya'mritamashnute",
+      "Source": "Ishavasya Upanishad",
+      "Content": [
+        
+          "type": "Verse",
+          "sloka": "ईशावास्यमिदं सर्वं यत्किञ्च जगत्यां जगत्। तेन त्यक्तेन भुञ्जीथा मा गृधः कस्यस्विद्धनम्॥",
+          "translation_en": "All this is enveloped by God. Enjoy it through renunciation; do not covet wealth."
+        
+      ]
+    ,
+    
+      "Chapter_ID": 4,
+      "Title": "Karmagauravam",
+      "Source": "Bhagavad Gita",
+      "Content": [
+        
+          "type": "Verse",
+          "sloka": "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन। मा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥",
+          "translation_en": "Your right is to work only, never to its fruits. Let not the fruit of action be your motive, nor let your attachment be to inaction."
+        
+      ]
+    
+  ]
+
+
+Summary of Data Extracted:
+
+1.  Philosophical Prose: From the Upanishads (Ethics and Metaphysics).
+2.  Classical Poetry: From Kalidasa and Bhasa (Governance and Character).
+3.  Ethical Maxims: From the Suktis (General Wisdom).
+4.  Modern Sanskrit: From Shivarajavijayam (Historical Prose).
+
+For further processing, I recommend focusing on the "Sabhdartha" (Word Meanings)
+sections found on pages like Page 4 of the "Anushasanam" PDF, as these provide
+the grammatical breakdown (sandhi, pratyaya) which is essential for linguistic
+analysis.

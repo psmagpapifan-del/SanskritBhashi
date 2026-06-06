@@ -1,0 +1,242 @@
+Helvetica;
+;;
+*;;
+
+Here is the extracted raw Devanagari text and corresponding English translations
+from the provided document chapters. The text has been cleaned of OCR artifacts
+and organized by chapter headings.
+
+Class10_Chapter1: अपठितावबोधनम् (Unseen Comprehension)
+
+Devanagari Text: धात्रीफलं सर्वेषु ॠतुषु लाभदायकं भवति। धात्रीफलम् 'आमलकम्'
+इत्यपि कथ्यते। शरीरस्य स्वास्थ्यरक्षणाय फलस्यास्य प्रयोग: अवश्यमेव
+कर्त्तव्य:। इदं फलं नेत्रयो: ज्योतिर्वर्धनाय, केशानां सौन्दर्यवृद्धये,
+त्वच: कान्तिवर्धनाय च बहूपयोगि भवति। सामान्यतया अस्य प्रयोग: अवलेहरूपेण,
+उपदंशरूपेण च भवति। इदं रक्तकोशिकानिर्माणे अपि सहायकं भवति। अस्य सेवनेन
+शरीरे रक्ताल्पता न भवति। ग्रीष्मर्तौ फलमिदं शरीरस्य तापम् अपनयति। अस्य
+नियमितसेवनेन स्मरणशक्तिरपि वर्धते।
+
+English Translation: Amla (Indian Gooseberry) is beneficial in all seasons. Amla
+is also called 'Amalakam'. For maintaining the health of the body, the use of
+this fruit must be done. This fruit is very useful for increasing the light of
+the eyes, for increasing the beauty of hair, and for increasing the glow of the
+skin. Generally, it is used in the form of jam (avaleha) or pickle. It is also
+helpful in the formation of red blood cells. By consuming this, anemia does not
+occur in the body. In the summer season, this fruit removes the heat of the
+body. By its regular consumption, memory power also increases.
+
+Class10_Chapter2: पत्रलेखनम् (Letter Writing)
+
+Devanagari Text: चोरितस्य स्यूतस्य प्राथमिक-सूचनार्थम् आरक्ष्याधिकारिणं प्रति
+पत्रं लिखत। आरक्ष्याधिकारि-महोदय! लाजपतनगर-क्षेत्रम्, नवदेहली। विषय:
+चोरितस्य स्यूतस्य प्राथमिक-सूचना। श्रीमन, अनेन पत्रेण अहं भवते एतत्
+सूचयामि यत् ह्य: प्रात: एकादश-वादने रेलमैट्रोयानेन विश्वविद्यालयात् अहं
+लाजपतनगरम् आगच्छम्। मार्गे मम स्यूतं चोरितम् अभवत्। यस्मिन् द्विसहस्रं
+रूप्यकाणि, कार्यालयस्य परिचय-पत्रं, मैट्रोचिटिकापत्रं मम आधार-परिचयपत्रं
+चासन्। स्यूतस्य वर्ण: कृष्ण: आसीत्। अहं प्रार्थये यत् यथाशीघ्रं मम स्यूतम्
+अन्वेष्य मां कृतार्थं करोतु भवान्।
+
+English Translation: Write a letter to the Police Officer for the primary report
+(FIR) of a stolen bag. To the Police Officer, Lajpat Nagar Area, New Delhi.
+Subject: Primary information regarding a stolen bag. Sir, through this letter, I
+inform you that yesterday morning at eleven o'clock, I came to Lajpat Nagar from
+the university by Metro Rail. On the way, my bag was stolen. In it were two
+thousand rupees, my office ID card, Metro card, and my Aadhaar card. The color
+of the bag was black. I request that you please find my bag as soon as possible
+and oblige me.
+
+Class10_Chapter3: अनुच्छेदलेखनम् (Paragraph Writing)
+
+1. जन्तुशाला (The Zoo) जन्तूनां शाला जन्तुशाला इति कथ्यते। जन्तुशालायाम् अनेके
+पशव: पक्षिण: च भवन्ति। जना: इमान् पक्षिण: पशून् च द्रष्टुं दूरत: आगच्छन्ति।
+बालका: जन्तुशाखां गत्वा प्रसन्ना: भवन्ति। (The house of animals is called a
+zoo. There are many animals and birds in the zoo. People come from afar to see
+these birds and animals. Children become happy after going to the zoo.)
+
+2. स्वच्छता (Cleanliness) स्वच्छता जीवने आवश्यकी भवति। अश्माकं प्रधानमंत्री
+नरेन्द्रमोदी राष्ट्रपितु: गान्धिन: जन्मदिवसे स्वच्छताभियानस्य आरम्भं
+कृतवान्। अधुना बालका: अपि स्वच्छताविषये जागरूका: सन्ति। (Cleanliness is
+necessary in life. Our Prime Minister Narendra Modi started the Cleanliness
+Mission on the birthday of the Father of the Nation, Gandhi. Now children are
+also aware of cleanliness.)
+
+Class10_Chapter10: समय: (Time)
+
+Devanagari Text: • अधुना दशवादनं संवृत्तम्। • सार्धदशवादने अहं बहि: गच्छामि। •
+इदानीं रात्रे: नववादनम्। • पादोनदशवादने शय्यां गच्छामि। • माता पुत्र!
+षड्वादनं जातम्! • सपादसप्तवादनम्। • पादोनपञ्चवादनम्।
+
+English Translation: • Now it is ten o'clock. • At half-past ten (10:30), I go
+out. • Now it is nine o'clock at night. • At a quarter to ten (9:45), I go to
+bed. • Mother Son! It is six o'clock! • Quarter past seven (7:15). • Quarter to
+five (4:45).
+
+Class10_Chapter11: वाच्यम् (Voice)
+
+Devanagari Text (Active vs Passive): (क) कर्तृवाच्यम्  (ख) कर्मवाच्यम् • बालक:
+पाठं पठति।  बालकेन पाठ: पठ्यते। • छात्र: लेखं लिखति।  छात्रेण लेख: लिख्यते।
+• अहं गृहं गच्छामि।  मया गृहं गम्यते। • त्वं किं करोषि?  त्वया किं क्रियते?
+• पिता आपणं गच्छति।  पित्रा आपणं गम्यते।
+
+English Translation: • The boy reads the lesson.  The lesson is read by the
+boy. • The student writes an article.  The article is written by the student. •
+I go home.  Home is gone to by me. • What are you doing?  What is being done
+by you? • Father goes to the shop.  The shop is gone to by the father.
+
+Class10_Appendix: परिशिष्टम् (Behavioral Sentences)
+
+Sanskrit  English • हरिः ॐ / नमो नमः  Hello! • सुप्रभातम  Good morning •
+शुभरात्रि:  Good night • अस्तु  Alright/ Okay • कृपया  Please •
+धन्यवादः  Thank you • स्वागतम  Welcome • क्षम्यताम  Excuse me/ Sorry
+• भवत: नाम किम्?  What is your name? • भवान् कुत्र गच्छति?  Where are you
+going? • मम नाम ... अस्ति  My name is ... • पुनः मिलामः  See you again
+
+Class10_Mottoes: ध्येय-वाक्यानि (Mottoes)
+
+Sanskrit  Organization • सेवा अस्माकं धर्म:  थल सेना (Service is our duty 
+Indian Army) • शंनो वरुण:  जल सेना (May the Lord of Water be auspicious unto us
+ Indian Navy) • नभ: स्पृशं दीप्तम्  वायु सेना (Touch the Sky with Glory 
+Indian Air Force) • योगक्षेमं वहाम्यहम्  भारतीय जीवन बीमा निगम (Your welfare is
+our responsibility  LIC) • सत्यमेव जयते  भारत सरकार (Truth alone triumphs 
+Government of India)
+
+
+Chapter 1: शुचिपर्यावरणम् (Shuchiparyavaranam)
+
+Theme: Environmental Purity
+
+Raw Devanagari Text (Verses)
+
+दुर्वहमत्र जीवितं जातं प्रकृतिरेव शरणम्। शुचिपर्यावरणम्॥ महानगरमध्ये चलदनिशं
+कालायसचक्रम्। मनः शोषयत् तनुः पेषयद् भ्रमति सदा वक्रम्॥
+दुर्दान्तैर्दशनैरमुना स्यान्नैव जनग्रसनम्।
+शुचि...॥१॥
+
+कज्जलमलिनं धूमं मुञ्चति शतशक्टीयानम्। वाष्पयानमाला संधावति वितरन्ती ध्वानम्॥
+यानानां पङ्क्तयो ह्यनन्ताः कठिनं संसरणम्। शुचि...॥२॥
+
+Vocabulary & English Meanings
+
+| Sanskrit     | Hindi Meaning | English Translation |
+| :----------- | :------------ | :------------------ |
+| दुर्वहम्     | कठिन, दूभर    | Difficult           |
+| जीवितम्      | जीवन          | Life                |
+| अनिशम्       | दिन-रात       | Day and Night       |
+| कालायसचक्रम् | लोहे का चक्र  | Iron wheel          |
+| शोषयत्       | सुखाते हुए    | Drying              |
+| तनुः         | शरीर          | Bodies              |
+| पेषयद्       | पीसते हुए     | Grinding            |
+| वक्रम्       | टेढ़ा         | Askew               |
+| दुर्दान्तैः  | भयानक (से)    | Scary               |
+| दशनैः        | दाँतों से     | By teeth            |
+| अमुना        | इससे          | By thus             |
+| कज्जलमलिनम्  | काजल-सा मलिन  | Black as kohl       |
+| मुञ्चति      | छोड़ता है     | Releasing           |
+| ध्वानम्      | कोलाहल        | Sound               |
+| संसरणम्      | चलना          | Movement            |
+
+Chapter 2: बुद्धिर्बलवती सदा (Buddhirbalavati Sada)
+
+Theme: Wisdom is always powerful
+
+Raw Devanagari Text (Intro & Story)
+
+अस्ति देउलाख्यो ग्रामः। तत्र राजसिंहः नाम राजपुत्रः वसति स्म। एकदा केनापि
+आवश्यककार्येण तस्य भार्या बुद्धिमती पुत्रद्वयोपेता पितुर्गृहं
+प्रति चलिता। मार्गे गहनकानने सा एकं व्याघ्रं ददर्श। सा
+व्याघ्रमागच्छन्तं दृष्ट्वा धाष्टर्यात् पुत्रौ
+चपेटया प्रहृत्य जगाद"कथमेकैकशो व्याघ्रभक्षणाय कलहं कुरुथः?
+अयमेकस्तावद्विभज्य भुज्यताम्। पश्चात् अन्यो
+द्वितीयः कश्चिल्लक्ष्यते।"
+
+इति श्रुत्वा व्याघ्रमारी काचिदियमिति मत्वा व्याघ्रो भयाकुलचित्तौ नष्टः।
+
+Vocabulary & English Meanings
+
+| Sanskrit    | Hindi Meaning     | English Translation |
+| :---------- | :---------------- | :------------------ |
+| भार्या      | पत्नी             | Wife                |
+| उपेता       | युक्ता            | Along with          |
+| कानने       | जंगल में          | In the forest       |
+| ददर्श       | देखा              | Saw                 |
+| चपेटया      | थप्पड़ से         | With a slap         |
+| जगाद        | कहा               | He/she said         |
+| कलहः        | झगड़ा             | Quarrel             |
+| व्याघ्रमारी | बाघ को मारने वाली | Tiger killer lady   |
+| नष्टः       | भाग गया           | Ran away            |
+| जम्बुकः     | सियार             | Jackal              |
+
+Chapter 4: जननी तुल्यवत्सला (Janani Tulyavatsala)
+
+Theme: A mother's love is equal for all
+
+Raw Devanagari Text (Selection)
+
+कश्चित् कृषकः बलीवर्दाभ्यां क्षेत्रकर्षणं कुर्वन्नासीत्। तयोः बलीवर्दयोः एकः
+शरीरेण दुर्बलः जवेन गन्तुमशक्तश्चासीत्। अतः कृषकः तं दुर्बलं वृषभं
+तोदनेन नुदन् अवर्तत। सः ऋषभः हलमूढ्वा गन्तुमशक्तः क्षेत्रे पपात।
+क्रुद्धः कृषीवलः तमुत्थापयितुं बहुवारम् यत्नमकरोत्। तथापि वृषः नोत्थितः।
+
+Vocabulary & English Meanings
+
+| Sanskrit       | Hindi Meaning | English Translation |
+| :------------- | :------------ | :------------------ |
+| बलीवर्दाभ्याम् | दो बैलौें से  | By two bullocks     |
+| क्षेत्रकर्षणम् | खेत की जुताई  | Plough the field    |
+| जवेन           | तीव्रगति से   | With speed          |
+| तोदनेन         | कष्ट देने से  | By torturing        |
+| नुदन्          | धकेलता हुआ    | Pulling             |
+| पपात           | गिर गया       | Fell down           |
+| कृषीवलः        | किसान         | Farmer              |
+| उत्यापयितुम्   | उठाने के लिए  | To uplift           |
+| सुतः           | पुत्र         | Son                 |
+| आखण्डलस्य      | इन्द्र का     | Of Indra            |
+
+Chapter 5: सुभाषितानि (Subhashitani)
+
+Theme: Wise Sayings
+
+Raw Devanagari Text (Key Verses)
+
+आलस्यं हि मनुष्याणां शरीरस्थो महान् रिपुः। नास्त्युद्यमसमो बन्धुः कृत्वा यं
+नावसीदती॥१॥
+
+गुणी गुणं वेत्ति न वेत्ति निर्गुणो, बली बलं वेत्ति न वेत्ति निर्बलः। पिको
+वसन्तस्य गुणं न वायसः, करी च सिंहस्य बलं न मूषकः॥२॥
+
+Vocabulary & English Meanings
+
+| Sanskrit   | Hindi Meaning      | English Translation |
+| :--------- | :----------------- | :------------------ |
+| अवसीदति    | दु:खी होता है      | Feeling hurt        |
+| वेत्ति     | जानता है           | Knows               |
+| वायसः      | कौआ                | Crow                |
+| करी        | हाथी               | Elephant            |
+| निमित्तम्  | कारण               | Purpose             |
+| प्रकुप्यति | अत्यधिक क्रोध करना | Gets very angry     |
+| वह्निः     | आग                 | Fire                |
+
+Chapter 9: भूकम्पविभीषिका (Bhukampavibhishika)
+
+Theme: The Terror of Earthquake
+
+Raw Devanagari Text (Intro)
+
+एकशेत्तरद्विसहस्रतमेख्रीष्टाब्दे (2001 ईस्वीये वर्षे) गणतन्त्र-दिवस-पर्वणि यदा
+समग्रमपि भारतराष्ट्रं नृत्य-गीतवादित्राणाम् उल्लासे मग्नमासीत् तदाकस्मादेव
+गुर्जर-राज्यं पर्याकुलं, विपर्यस्तं, क्रन्दनविकलं विपन्नञ्च जातम्। भूकम्पस्य
+दारुणविभीषिका समस्तमपि गुर्जरक्षेत्रं विशेषेण च कच्छजनपदं ध्वंसावशेषेषु
+परिवर्तितवती।
+
+Vocabulary & English Meanings
+
+| Sanskrit    | Hindi Meaning | English Translation     |
+| :---------- | :------------ | :---------------------- |
+| पर्याकुलम्  | बेचैन         | Restless                |
+| विपर्यस्तम् | अस्तव्यस्त    | Disturbed               |
+| विभीषिका    | भय/त्रास      | Horrendous              |
+| उत्खाताः    | उखाड़े गए      | Demolished              |
+| फाल्द्वये   | दो खण्डों में | In two segments         |
+| दुर्वार्ः   | कठिन          | Difficult to get rid of |
+| वामनकल्पः   | बौना          | Dwarf                   |
+

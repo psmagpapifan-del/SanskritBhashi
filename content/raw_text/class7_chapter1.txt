@@ -1,0 +1,17 @@
+Title: Guna Sandhi & Vyakaran Basics
+NCERT Class: 7
+Chapter Number: 1
+Tier: beginner
+
+Question 1:
+Word: महोत्सवः
+IAST: mahotsavaḥ
+Rule: Ād Guṇaḥ (ā + u becomes o)
+Sutra: 6.1.87
+Attribution: Panini Ashtadhyayi 6.1.87 / NCERT Class 7 Chapter 4
+Options:
+- Mahā + Utsavaḥ (Guṇa) [CORRECT]
+- Maho + Tsavaḥ (Dīrgha)
+- Mahā + Tsavaḥ (Vṛddhi)
+- Maha + Utsavaḥ (Yan)
+Hint: The ending vowel 'ā' in 'Mahā' meets the starting vowel 'u' in 'Utsavaḥ' to form the Guṇa vowel 'o'.

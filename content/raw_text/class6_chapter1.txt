@@ -1,0 +1,30 @@
+Title: Vowels and Basic Sandhi
+NCERT Class: 6
+Chapter Number: 1
+Tier: beginner
+
+Question 1:
+Word: देवालयः
+IAST: devālayaḥ
+Rule: Akaḥ Savarṇe Dīrghaḥ (Vowels a/i/u/ṛ meeting a similar vowel become long)
+Sutra: 6.1.101
+Attribution: Panini Ashtadhyayi 6.1.101 / NCERT Class 6 Chapter 3
+Options:
+- Deva + Ālayaḥ (Dīrgha Sandhi) [CORRECT]
+- Deva + Layaḥ (Guṇa Sandhi)
+- Dev + Ālayaḥ (Vṛddhi Sandhi)
+- Deva + Alayaḥ (Yaṇ Sandhi)
+Hint: Observe the junction point: the 'a' at the end of 'Deva' and the 'ā' at the start of 'ālayaḥ' fuse into a long 'ā' (Devālayaḥ).
+
+Question 2:
+Word: इत्येवम्
+IAST: ityevam
+Rule: Iko Yaṇaci (i/u/ṛ/ḷ + dissimilar vowel = y/v/r/l + vowel)
+Sutra: 6.1.77
+Attribution: Panini Ashtadhyayi 6.1.77 / NCERT Class 7 Chapter 4
+Options:
+- Iti + Evam (Yaṇ Sandhi) [CORRECT]
+- Ite + Vam (Dīrgha Sandhi)
+- It + Evam (Guṇa Sandhi)
+- Iti + Aivam (Vṛddhi Sandhi)
+Hint: The ending short 'i' in 'iti' undergoes transition into the semi-vowel 'y' when followed by the dissimilar vowel 'e' in 'evam'.

@@ -1,17 +1,165 @@
-import React from "react";
+"use client";
+
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Layout from "@/components/Layout";
 import PracticeCard from "@/components/PracticeCard";
+import AdSenseWidget from "@/components/AdSenseWidget";
+import JourneyMap from "@/components/JourneyMap";
 import JsonLd from "@/components/JsonLd";
-import { BookOpen, Award, Compass, Search } from "lucide-react";
+import {
+  BookOpen,
+  Compass,
+  Award,
+  ChevronRight,
+  BookMarked,
+  LayoutGrid,
+  Menu,
+  ChevronLeft,
+  Flame,
+  CheckCircle,
+  Search,
+  Undo
+} from "lucide-react";
 import { getTranslation } from "@/lib/i18n";
+import {
+  UserProgress,
+  Chapter,
+  Question,
+  getProgress,
+  saveProgress,
+  buildCurriculum
+} from "@/lib/levelsEngine";
 
-export default async function ShastraStudyPage({
-  params,
-}: {
+interface PageProps {
   params: Promise<{ lang: string }>;
-}) {
-  const { lang } = await params;
+}
+
+function localizeChapterName(name: string, lang: string): string {
+  if (lang === "en") return name;
+  const parts = name.split(":");
+  const prefix = parts[0];
+  const suffix = parts[1] ? parts[1].trim() : "";
+  
+  let localizedPrefix = prefix;
+  let localizedSuffix = suffix;
+  
+  const tierMatch = prefix.match(/^(BEGINNER|PROFESSIONAL|EXPERT)\s+Chapter\s+(\d+)$/i);
+  if (tierMatch) {
+    const tier = tierMatch[1].toUpperCase();
+    const chNum = tierMatch[2];
+    
+    let locTier = tier;
+    let locCh = `Chapter ${chNum}`;
+    
+    if (lang === "ja") {
+      locTier = tier === "BEGINNER" ? "初級" : tier === "PROFESSIONAL" ? "中級" : "上級";
+      locCh = `第${chNum}章`;
+      localizedPrefix = `${locTier} ${locCh}`;
+    } else if (lang === "hi") {
+      locTier = tier === "BEGINNER" ? "प्रारंभिक" : tier === "PROFESSIONAL" ? "व्यावसायिक" : "विशेषज्ञ";
+      locCh = `अध्याय ${chNum}`;
+      localizedPrefix = `${locTier} ${locCh}`;
+    } else if (lang === "es") {
+      locTier = tier === "BEGINNER" ? "PRINCIPIANTE" : tier === "PROFESSIONAL" ? "PROFESIONAL" : "EXPERTO";
+      locCh = `Capítulo ${chNum}`;
+      localizedPrefix = `${locTier} ${locCh}`;
+    }
+  }
+  
+  if (suffix === "Vowels and Basic Sandhi") {
+    localizedSuffix = lang === "ja" ? "母音の基礎と基本的なサンディ (連声)" : lang === "hi" ? "स्वर और बुनियादी संधि" : "Vocales y Sandhi Básico";
+  } else if (suffix === "Advanced Kāraka Relations") {
+    localizedSuffix = lang === "ja" ? "高度なカーラカ関係 (格関係)" : lang === "hi" ? "उन्नत कारक संबंध" : "Relaciones Avanzadas de Kāraka";
+  } else if (suffix === "Shastra Commentary & Anvaya") {
+    localizedSuffix = lang === "ja" ? "シャーストラ釈義とアンヴァヤ" : lang === "hi" ? "शास्त्र व्याख्या और अन्वय" : "Comentario de Shastra y Anvaya";
+  } else if (suffix.startsWith("Curriculum Topic Part")) {
+    const partNum = suffix.split(" ").pop();
+    localizedSuffix = lang === "ja" ? `カリキュラムトピック パート ${partNum}` : lang === "hi" ? `पाठ्यक्रम विषय भाग ${partNum}` : `Tema del Currículo Parte ${partNum}`;
+  }
+  
+  return parts[1] ? `${localizedPrefix}: ${localizedSuffix}` : localizedPrefix;
+}
+
+export default function ShastraStudyPage({ params }: PageProps) {
+  const { lang } = React.use(params);
   const t = getTranslation(lang);
+
+  // Curriculum and State
+  const [progress, setProgress] = useState<UserProgress | null>(null);
+  const [curriculum, setCurriculum] = useState<Chapter[]>([]);
+  const [activeChapterId, setActiveChapterId] = useState<number>(61); // Expert Tier start
+  const [currentQIndex, setCurrentQIndex] = useState<number>(0);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [mapOpen, setMapOpen] = useState(false);
+
+  useEffect(() => {
+    const cur = buildCurriculum();
+    setCurriculum(cur);
+
+    const prog = getProgress();
+    setProgress(prog);
+
+    // Default to the first uncompleted chapter in Expert tier (Chapters 61 to 90)
+    const expertChapters = cur.filter((c) => c.tier === "expert");
+    const firstUncompleted = expertChapters.find((c) => !prog.completedChapters.includes(c.id));
+    if (firstUncompleted) {
+      setActiveChapterId(firstUncompleted.id);
+    } else {
+      setActiveChapterId(61);
+    }
+  }, []);
+
+  if (!progress || curriculum.length === 0) {
+    return <div className="p-8 text-center text-charcoal/50 font-latin">{t.practice.loading}</div>;
+  }
+
+  const activeChapter = curriculum.find((c) => c.id === activeChapterId) || curriculum[60];
+  const activeQuestions = activeChapter.questions;
+  const currentQuestion = activeQuestions[currentQIndex] || activeQuestions[0];
+  const isChapterFinished = progress.completedChapters.includes(activeChapterId);
+
+  const handleNextQuestion = () => {
+    if (currentQIndex < activeQuestions.length - 1) {
+      setCurrentQIndex((prev) => prev + 1);
+    } else {
+      // Complete active chapter
+      if (!progress.completedChapters.includes(activeChapterId)) {
+        const nextCompleted = [...progress.completedChapters, activeChapterId];
+        
+        // Update daily streak
+        const today = new Date().toISOString().split("T")[0];
+        let nextStreak = progress.streakCount;
+        if (progress.lastPracticeDate !== today) {
+          nextStreak += 1;
+        }
+
+        const nextProgress = {
+          ...progress,
+          completedChapters: nextCompleted,
+          streakCount: nextStreak,
+          lastPracticeDate: today
+        };
+
+        setProgress(nextProgress);
+        saveProgress(nextProgress);
+      }
+    }
+  };
+
+  const restartChapter = () => {
+    setCurrentQIndex(0);
+    const nextCompleted = progress.completedChapters.filter((id) => id !== activeChapterId);
+    const nextProgress = { ...progress, completedChapters: nextCompleted };
+    setProgress(nextProgress);
+    saveProgress(nextProgress);
+  };
+
+  const selectChapterFromMap = (chapterId: number) => {
+    setActiveChapterId(chapterId);
+    setCurrentQIndex(0);
+    setMapOpen(false);
+  };
 
   const shastraSchema = {
     "@context": "https://schema.org",
@@ -33,124 +181,194 @@ export default async function ShastraStudyPage({
     "inLanguage": "sa"
   };
 
-  const gitaPractice = {
-    id: "gita-2-47",
-    phrase: "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन। मा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥",
-    transliterations: {
-      devanagari: "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन। मा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥",
-      iast: "karmaṇyevādhikāraste mā phaleṣu kadācana | mā karmaphalaheturbhūrmā te saṅgo'stvakarmaṇi ||",
-      japanese: "カルマニェーヴァーディカーラステ マ ファレス カダーチャナ | マ カルマファラヘートゥルブールマ テ サンゴーストゥヴァカルマニ",
-      french: "karmanyevadhikaraste ma phalechou kadatchana | ma karmaphalaheturbhourma te sango'stvakarmani"
-    },
-    wordByWord: [
-      { sanskrit: "कर्मणि", english: "in action", role: "Locative singular" },
-      { sanskrit: "एव", english: "only", role: "Avyaya (emphasis)" },
-      { sanskrit: "अधिकारः", english: "right / claim", role: "Nominative singular" },
-      { sanskrit: "ते", english: "thy / your", role: "Genitive singular" },
-      { sanskrit: "मा", english: "never / not", role: "Negative particle" },
-      { sanskrit: "फलेषु", english: "in fruits / results", role: "Locative plural" },
-      { sanskrit: "कदाचन", english: "at any time", role: "Avyaya" }
-    ],
-    grammaticalRule: t.shastraStudy.rule1,
-    sourceAttribution: "Bhagavad Gita Chapter 2, Verse 47",
-    options: [
-      lang === "hi"
-        ? "आपका अधिकार केवल कर्म करने में है, उसके फल में नहीं।"
-        : lang === "ja"
-        ? "あなたの権限は義務の実行のみにあり、結果の支配にはない。"
-        : lang === "es"
-        ? "Tu derecho es a la acción solamente, nunca a sus frutos."
-        : "Your right is to action alone, never to its fruits.",
-      lang === "hi"
-        ? "कर्म का त्याग करें और मौन रहें।"
-        : lang === "ja"
-        ? "行為を放棄して静寂に座す。"
-        : lang === "es"
-        ? "Renuncia a la acción y siéntate en silencio."
-        : "Renounce action and sit in pure silence.",
-      lang === "hi"
-        ? "परिणाम पूर्व निर्धारित हैं, कर्म निरर्थक है।"
-        : lang === "ja"
-        ? "結果は決定されており行為は無意味。"
-        : lang === "es"
-        ? "Los resultados están predeterminados; la acción es irrelevante."
-        : "Results are predetermined; action is irrelevant."
-    ],
-    correctIndex: 0,
-    hint: t.shastraStudy.labDesc
-  };
+  const totalChapters = curriculum.length;
+  const completedChaptersCount = progress.completedChapters.length;
+  const percentComplete = Math.round((completedChaptersCount / totalChapters) * 100);
 
   return (
     <Layout lang={lang}>
       <JsonLd schema={shastraSchema} />
 
-      {/* Header Banner */}
-      <section className="bg-linear-to-r from-saffron-500 to-saffron-600 rounded-3xl p-6 md:p-8 text-white mb-8 shadow-md">
-        <div className="flex items-center gap-3 mb-2">
-          <BookOpen className="w-8 h-8 text-marigold-500" />
-          <h1 className="text-2xl md:text-3xl font-bold font-latin">{t.shastraStudy.title}</h1>
-        </div>
-        <p className="text-sm md:text-base text-white/95 max-w-2xl leading-relaxed font-latin">
-          {t.shastraStudy.desc}
-        </p>
-      </section>
-
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Left column - Content & Rules */}
-        <div className="lg:col-span-2 space-y-8">
-          {/* Shloka Analysis Section */}
-          <div className="bg-white border border-saffron-100 rounded-3xl p-6 md:p-8 space-y-6">
-            <h2 className="text-xl md:text-2xl font-bold text-charcoal flex items-center gap-2 font-latin">
-              <Compass className="w-5 h-5 text-saffron-500" />
-              {t.shastraStudy.sectionTitle}
-            </h2>
-
-            {/* Q1 */}
-            <div className="border-b border-saffron-50 pb-6 space-y-3">
-              <h3 className="text-base font-bold text-saffron-600 font-latin">
-                {t.shastraStudy.q1}
-              </h3>
-              <p className="text-sm text-charcoal/80 leading-relaxed font-latin">
-                {t.shastraStudy.a1}
-              </p>
-              <div className="bg-cream rounded-2xl p-4 text-xs font-latin text-charcoal/70 space-y-1">
-                <p><span className="font-bold text-saffron-600">Rule:</span> {t.shastraStudy.rule1}</p>
-                <p><span className="font-bold text-saffron-600">Evidence/Example:</span> {t.shastraStudy.example1}</p>
-                <p><span className="font-bold text-saffron-600">Source Attribution:</span> {t.shastraStudy.attribution1}</p>
+      {/* Main Chassis Layout Grid - 75% Domination on Desktop */}
+      <div className="flex flex-col lg:flex-row gap-6 items-stretch min-h-[75vh]">
+        
+        {/* LEFT/CENTER WORKSPACE (Practice Panel Front & Center - 75%) */}
+        <div className="flex-1 w-full lg:w-3/4 flex flex-col justify-between space-y-6">
+          
+          {/* Header Progress and Action bar */}
+          <div className="bg-white border border-saffron-100 rounded-2xl p-4 flex flex-wrap justify-between items-center gap-3">
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setSidebarOpen(!sidebarOpen)}
+                className="p-2 rounded-xl hover:bg-saffron-50 border border-charcoal/5 lg:flex items-center justify-center hidden cursor-pointer"
+                title={sidebarOpen ? "Collapse Rules Sidebar" : "Expand Rules Sidebar"}
+              >
+                {sidebarOpen ? <ChevronLeft className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              </button>
+              <div>
+                <h1 className="text-[10px] font-bold uppercase tracking-wider text-charcoal/40 font-latin">
+                  {t.shastraStudy.title}
+                </h1>
+                <h2 className="text-sm font-black text-charcoal flex items-center gap-1.5 font-latin">
+                  <span>{localizeChapterName(activeChapter.name, lang)}</span>
+                </h2>
               </div>
             </div>
 
-            {/* Q2 */}
-            <div className="border-b border-saffron-50 pb-6 space-y-3">
-              <h3 className="text-base font-bold text-saffron-600 font-latin">
-                {t.shastraStudy.q2}
-              </h3>
-              <p className="text-sm text-charcoal/80 leading-relaxed font-latin">
-                {t.shastraStudy.a2}
-              </p>
-              <div className="bg-cream rounded-2xl p-4 text-xs font-latin text-charcoal/70 space-y-1">
-                <p><span className="font-bold text-saffron-600">Attribution:</span> {t.shastraStudy.rule2}</p>
-                <p><span className="font-bold text-saffron-600">Source Attribution:</span> {t.shastraStudy.attribution2}</p>
-              </div>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setMapOpen(true)}
+                className="px-4 py-2 rounded-xl bg-saffron-500 hover:bg-saffron-600 text-white font-bold text-xs uppercase tracking-wider shadow-md shadow-saffron-500/10 cursor-pointer flex items-center gap-1.5"
+              >
+                <LayoutGrid className="w-3.5 h-3.5" />
+                <span>{t.practice.learningMap}</span>
+              </button>
             </div>
           </div>
-        </div>
 
-        {/* Right column - Practice card */}
-        <div className="space-y-6">
-          <div className="bg-white border border-saffron-100 rounded-3xl p-6 space-y-4">
-            <h3 className="text-lg font-bold text-charcoal flex items-center gap-2 font-latin">
-              <Search className="w-4 h-4 text-saffron-500" />
-              {t.shastraStudy.labTitle}
-            </h3>
-            <p className="text-xs text-charcoal/60 leading-relaxed font-latin">
-              {t.shastraStudy.labDesc}
-            </p>
+          {/* Interactive Question Flow area */}
+          <div className="flex-1 flex flex-col justify-center items-center">
+            {isChapterFinished ? (
+              /* Chapter Completion Screen */
+              <div className="bg-white border-2 border-emerald-500 rounded-3xl p-8 text-center space-y-6 max-w-md w-full shadow-lg shadow-emerald-50/50">
+                <CheckCircle className="w-16 h-16 text-emerald-500 mx-auto animate-bounce" />
+                <div>
+                  <h3 className="text-xl font-black text-charcoal font-latin">{t.practice.chapterAccomplished}</h3>
+                  <p className="text-sm text-charcoal/70 mt-2 font-latin leading-relaxed">
+                    {t.practice.chapterAccomplishedDesc.replace("{chapterName}", localizeChapterName(activeChapter.name, lang))}
+                  </p>
+                </div>
+
+                <div className="flex gap-3 pt-2">
+                  <button
+                    onClick={restartChapter}
+                    className="flex-1 py-3 rounded-2xl border border-charcoal/10 hover:bg-saffron-50 text-charcoal font-bold text-xs uppercase tracking-wider transition-colors cursor-pointer flex items-center justify-center gap-1.5"
+                  >
+                    <Undo className="w-4 h-4" />
+                    <span>{t.practice.practiceAgain}</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      const nextCh = curriculum.find((c) => c.id === activeChapterId + 1);
+                      if (nextCh) {
+                        setActiveChapterId(nextCh.id);
+                        setCurrentQIndex(0);
+                      } else {
+                        setMapOpen(true);
+                      }
+                    }}
+                    className="flex-1 py-3 rounded-2xl bg-saffron-500 hover:bg-saffron-600 text-white font-bold text-xs uppercase tracking-wider shadow-md transition-colors cursor-pointer flex items-center justify-center gap-1.5"
+                  >
+                    <span>{t.practice.nextChapter}</span>
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            ) : (
+              /* One Question at a Time Practice Card */
+              <div className="w-full">
+                <div className="flex justify-between items-center text-xs font-bold text-charcoal/40 font-latin px-2 mb-2">
+                  <span>{t.practice.scriptureFlow}</span>
+                  <span>{t.practice.questionOf.replace("{current}", String(currentQIndex + 1)).replace("{total}", String(activeQuestions.length))}</span>
+                </div>
+                
+                <PracticeCard
+                  {...currentQuestion}
+                  chapterId={activeChapterId}
+                  activeLang={lang}
+                  onNextQuestion={handleNextQuestion}
+                  hasNextQuestion={currentQIndex < activeQuestions.length - 1}
+                  isCompleted={isChapterFinished}
+                />
+              </div>
+            )}
           </div>
-
-          <PracticeCard {...gitaPractice} />
         </div>
+
+        {/* RIGHT COLLAPSIBLE SIDEBAR / PROGRESS PANEL (25%) */}
+        {sidebarOpen && (
+          <aside className="w-full lg:w-1/4 flex flex-col space-y-6 lg:sticky lg:top-20 self-start">
+            
+            {/* Sticky progress stats */}
+            <div className="bg-white border border-saffron-100 rounded-3xl p-6 space-y-4 shadow-xs">
+              <h3 className="text-xs font-black text-charcoal/60 uppercase tracking-widest font-latin">
+                {t.practice.yourProgress}
+              </h3>
+
+              <div className="space-y-3">
+                <div className="flex justify-between text-xs font-bold font-latin">
+                  <span className="text-charcoal/50">{t.practice.currentTier}</span>
+                  <span className="text-saffron-600 uppercase">
+                    {lang === "ja" ? (progress.currentTier === "beginner" ? "初級" : progress.currentTier === "professional" ? "中級" : "上級") : lang === "hi" ? (progress.currentTier === "beginner" ? "प्रारंभिक" : progress.currentTier === "professional" ? "व्यावसायिक" : "विशेषज्ञ") : progress.currentTier.toUpperCase()}
+                  </span>
+                </div>
+                
+                <div className="flex justify-between text-xs font-bold font-latin">
+                  <span className="text-charcoal/50">{t.practice.chaptersCompleted}</span>
+                  <span className="text-charcoal">{completedChaptersCount} / {totalChapters}</span>
+                </div>
+
+                <div className="w-full bg-cream rounded-full h-2.5 overflow-hidden border border-saffron-100">
+                  <div
+                    className="bg-saffron-500 h-full rounded-full transition-all duration-300"
+                    style={{ width: `${percentComplete}%` }}
+                  />
+                </div>
+
+                <div className="flex items-center gap-2 bg-saffron-50 border border-saffron-100 rounded-2xl p-3 text-xs font-bold text-saffron-700 font-latin">
+                  <Flame className="w-5 h-5 text-saffron-500 animate-pulse fill-saffron-500" />
+                  <span>{t.practice.streakCount}: {progress.streakCount} {t.practice.days}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Shloka Analysis Context */}
+            <div className="bg-white border border-saffron-100 rounded-3xl p-6 space-y-4 flex-1">
+              <h3 className="text-xs font-black text-charcoal/60 uppercase tracking-widest font-latin">
+                {t.practice.scriptureCommentaryContext}
+              </h3>
+
+              <div className="space-y-4 max-h-[300px] overflow-y-auto pr-1">
+                {/* Rule 1 */}
+                <div className="text-xs space-y-1.5 border-b border-saffron-50 pb-3">
+                  <p className="font-bold text-saffron-600 font-latin">{t.shastraStudy.q1}</p>
+                  <p className="text-charcoal/70 leading-relaxed font-latin">{t.shastraStudy.rule1}</p>
+                  <p className="text-[10px] text-charcoal/40 font-bold uppercase font-latin">{t.shastraStudy.attribution1}</p>
+                </div>
+                {/* Rule 2 */}
+                <div className="text-xs space-y-1.5">
+                  <p className="font-bold text-saffron-600 font-latin">{t.shastraStudy.q2}</p>
+                  <p className="text-charcoal/70 leading-relaxed font-latin">{t.shastraStudy.rule2}</p>
+                  <p className="text-[10px] text-charcoal/40 font-bold uppercase font-latin">{t.shastraStudy.attribution2}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Desktop AdSlot */}
+            <AdSenseWidget slot="sidebar-ad-slot-shastra" variant="sidebar-ad" />
+          </aside>
+        )}
       </div>
+
+      {/* Learning Progression Map Modal overlay */}
+      <AnimatePresence>
+        {mapOpen && (
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="max-w-2xl w-full shadow-2xl"
+            >
+              <JourneyMap
+                currentLang={lang}
+                onSelectChapter={selectChapterFromMap}
+                onClose={() => setMapOpen(false)}
+              />
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </Layout>
   );
 }

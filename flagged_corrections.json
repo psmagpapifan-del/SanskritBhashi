@@ -1,0 +1,13 @@
+[
+  {
+    "id": "correction-1780696043332-01j7j",
+    "chapterId": "1",
+    "questionText": "देवालयः",
+    "errorCategory": "Inaccurate Vyakaran Rule",
+    "userDetails": "Typo in the Sanskrit transliteration of Devanagari Devalayah.",
+    "lang": "en",
+    "transliterationSettings": "devanagari",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36",
+    "timestamp": "2026-06-05T21:47:23.332Z"
+  }
+]

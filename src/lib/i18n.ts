@@ -103,6 +103,57 @@ export interface Translation {
     desc: string;
     list: FAQItem[];
   };
+  practice: {
+    yourProgress: string;
+    currentTier: string;
+    chaptersCompleted: string;
+    streakCount: string;
+    days: string;
+    syllabusShorthand: string;
+    concept: string;
+    paninianHeritage: string;
+    interactivePractice: string;
+    source: string;
+    identifyCorrect: string;
+    vyakaranHint: string;
+    progressiveRevelation: string;
+    revealWordByWord: string;
+    wordByWordBreakdown: string;
+    revealGrammar: string;
+    grammarRuleAnalysis: string;
+    hideDetails: string;
+    reportError: string;
+    nextQuestion: string;
+    completeChapter: string;
+    learningMap: string;
+    activeUnit: string;
+    chapterAccomplished: string;
+    chapterAccomplishedDesc: string;
+    practiceAgain: string;
+    nextChapter: string;
+    loading: string;
+    curriculumFlow: string;
+    questionOf: string;
+    scriptureCommentaryContext: string;
+    scriptureFlow: string;
+    aksharaSyllables: string;
+    matraDuration: string;
+    uchcharanaLocation: string;
+    reportTitle: string;
+    reportSuccess: string;
+    reportCategory: string;
+    reportDetails: string;
+    reportPlaceholder: string;
+    reportSubmit: string;
+    reportSubmitting: string;
+    reportCancel: string;
+    reportErrorMsg: string;
+    categoryVyakaran: string;
+    categoryAudio: string;
+    categoryTypo: string;
+    categoryTranslation: string;
+    categoryOther: string;
+  };
 }
 
 export const translations: Record<string, Translation> = {
@@ -260,6 +311,57 @@ export const translations: Record<string, Translation> = {
           detailedAnswer: "Genitive case (Sasthi Vibhakti, relation) and Vocative case (Sambodhana) are not considered true Karakas because they do not have a direct relation to the action or verb of the sentence."
         }
       ]
+    },
+    practice: {
+      yourProgress: "Your Progress",
+      currentTier: "Current Tier",
+      chaptersCompleted: "Chapters Completed",
+      streakCount: "Streak Count",
+      days: "Days",
+      syllabusShorthand: "Syllabus Shorthand Rules",
+      concept: "Concept",
+      paninianHeritage: "Paninian Heritage",
+      interactivePractice: "Interactive Practice",
+      source: "Source",
+      identifyCorrect: "Identify the correct translation or rule:",
+      vyakaranHint: "Vyakaran Hint",
+      progressiveRevelation: "Progressive Revelation Study:",
+      revealWordByWord: "Reveal Word-by-Word Meaning",
+      wordByWordBreakdown: "Word-by-Word Vyakaran breakdown",
+      revealGrammar: "Reveal Underlying Grammatical Rule",
+      grammarRuleAnalysis: "Grammatical Rule & Paninian Analysis",
+      hideDetails: "Hide Details",
+      reportError: "Report Error",
+      nextQuestion: "Next Question",
+      completeChapter: "Complete Chapter",
+      learningMap: "Learning Map",
+      activeUnit: "Active Unit",
+      chapterAccomplished: "Chapter Accomplished!",
+      chapterAccomplishedDesc: "Great work! You have completed all grammar exercises for **{chapterName}**. Your streak flame has grown.",
+      practiceAgain: "Practice Again",
+      nextChapter: "Next Chapter",
+      loading: "Loading Sanskrit Practice Chassis...",
+      curriculumFlow: "CURRICULUM FLOW",
+      questionOf: "QUESTION {current} OF {total}",
+      scriptureCommentaryContext: "Scripture Commentary Context",
+      scriptureFlow: "SCRIPTURE FLOW",
+      aksharaSyllables: "Akṣara Syllables",
+      matraDuration: "Mātrā Duration",
+      uchcharanaLocation: "Uccāraṇa Location",
+      reportTitle: "Report Content Typo / Anomaly",
+      reportSuccess: "Anomaly report submitted. Thank you for keeping Sanskritbhashi immaculate!",
+      reportCategory: "Error Category",
+      reportDetails: "Details / Correction Suggestions",
+      reportPlaceholder: "Specify typing errors, audio mismatch details, or incorrect grammar definitions...",
+      reportSubmit: "Send Report",
+      reportSubmitting: "Submitting...",
+      reportCancel: "Cancel",
+      reportErrorMsg: "Failed to submit error telemetry. Please try again.",
+      categoryVyakaran: "Inaccurate Vyakaran Rule",
+      categoryAudio: "Audio Mismatch",
+      categoryTypo: "Typo in Transliteration",
+      categoryTranslation: "Broken Translation",
+      categoryOther: "Other Issue"
     }
   },
   hi: {
@@ -416,6 +518,57 @@ export const translations: Record<string, Translation> = {
           detailedAnswer: "सम्बन्ध (षष्ठी विभक्ति) और सम्बोधन को सीधे क्रिया से न जुड़े होने के कारण संस्कृत में स्वतंत्र कारक नहीं माना जाता।"
         }
       ]
+    },
+    practice: {
+      yourProgress: "आपकी प्रगति",
+      currentTier: "वर्तमान श्रेणी",
+      chaptersCompleted: "पूर्ण किए गए अध्याय",
+      streakCount: "लगातार अभ्यास दिन",
+      days: "दिन",
+      syllabusShorthand: "पाठ्यक्रम संक्षिप्त नियम",
+      concept: "अवधारणा",
+      paninianHeritage: "पाणिनीय परंपरा",
+      interactivePractice: "इंटरैक्टिव अभ्यास",
+      source: "स्रोत",
+      identifyCorrect: "सही अनुवाद या नियम की पहचान करें:",
+      vyakaranHint: "व्याकरण संकेत",
+      progressiveRevelation: "प्रगतिशील रहस्योद्घाटन अध्ययन:",
+      revealWordByWord: "शब्द-दर-शब्द अर्थ प्रकट करें",
+      wordByWordBreakdown: "शब्द-दर-शब्द व्याकरण विश्लेषण",
+      revealGrammar: "अंतर्निहित व्याकरण नियम प्रकट करें",
+      grammarRuleAnalysis: "व्याकरण नियम और पाणिनीय विश्लेषण",
+      hideDetails: "विवरण छिपाएं",
+      reportError: "त्रुटि रिपोर्ट करें",
+      nextQuestion: "अगला प्रश्न",
+      completeChapter: "अध्याय पूरा करें",
+      learningMap: "सीखने का मानचित्र",
+      activeUnit: "सक्रिय इकाई",
+      chapterAccomplished: "अध्याय संपन्न हुआ!",
+      chapterAccomplishedDesc: "बहुत बढ़िया! आपने **{chapterName}** के लिए सभी व्याकरण अभ्यास पूरे कर लिए हैं। आपकी अभ्यास ज्वाला बढ़ गई है।",
+      practiceAgain: "पुनः अभ्यास करें",
+      nextChapter: "अगला अध्याय",
+      loading: "संस्कृत अभ्यास चेसिस लोड हो रहा है...",
+      curriculumFlow: "पाठ्यक्रम प्रवाह",
+      questionOf: "प्रश्न {current} का {total}",
+      scriptureCommentaryContext: "शास्त्र टिप्पणी संदर्भ",
+      scriptureFlow: "शास्त्र प्रवाह",
+      aksharaSyllables: "अक्षर शब्दांश",
+      matraDuration: "मात्रा अवधि",
+      uchcharanaLocation: "उच्चारण स्थान",
+      reportTitle: "सामग्री त्रुटि / विसंगति की रिपोर्ट करें",
+      reportSuccess: "विसंगति रिपोर्ट सबमिट की गई। संस्कृतभाषी को त्रुटिहीन रखने के लिए धन्यवाद!",
+      reportCategory: "त्रुटि श्रेणी",
+      reportDetails: "विवरण / सुधार सुझाव",
+      reportPlaceholder: "टाइपिंग त्रुटियां, ऑडियो विसंगति विवरण, या गलत व्याकरण परिभाषाएं निर्दिष्ट करें...",
+      reportSubmit: "रिपोर्ट भेजें",
+      reportSubmitting: "सबमिट किया जा रहा है...",
+      reportCancel: "रद्द करें",
+      reportErrorMsg: "त्रुटि रिपोर्ट सबमिट करने में विफल। कृपया पुन: प्रयास करें।",
+      categoryVyakaran: "गलत व्याकरण नियम",
+      categoryAudio: "ऑडियो विसंगति",
+      categoryTypo: "लिप्यंतरण में त्रुटि",
+      categoryTranslation: "त्रुटिपूर्ण अनुवाद",
+      categoryOther: "अन्य समस्या"
     }
   },
   ja: {
@@ -572,6 +725,57 @@ export const translations: Record<string, Translation> = {
           detailedAnswer: "所有関係を表す属格（第6格）と、呼びかけを表す呼格は、動詞の動作に直接関与しないため、サンスクリット文法では独立したカーラカとはみなされません。"
         }
       ]
+    },
+    practice: {
+      yourProgress: "学習進捗",
+      currentTier: "現在のティア",
+      chaptersCompleted: "完了した章の数",
+      streakCount: "ストリーク数",
+      days: "日",
+      syllabusShorthand: "シラバスの要約規則",
+      concept: "概念",
+      paninianHeritage: "パーニニの伝承",
+      interactivePractice: "インタラクティブ練習",
+      source: "典拠",
+      identifyCorrect: "正しい翻訳または規則を選択してください：",
+      vyakaranHint: "文法ヒント",
+      progressiveRevelation: "段階的な開示学習：",
+      revealWordByWord: "単語ごとの意味を表示",
+      wordByWordBreakdown: "単語ごとの文法分解",
+      revealGrammar: "関連する文法規則を表示",
+      grammarRuleAnalysis: "文法規則とパーニニ分析",
+      hideDetails: "詳細を非表示",
+      reportError: "エラーを報告",
+      nextQuestion: "次の問題へ",
+      completeChapter: "章を完了する",
+      learningMap: "学習マップ",
+      activeUnit: "学習中のユニット",
+      chapterAccomplished: "章を達成しました！",
+      chapterAccomplishedDesc: "お見事！ **{chapterName}** のすべての文法演習を完了しました。ストリークの炎が大きくなりました。",
+      practiceAgain: "もう一度練習する",
+      nextChapter: "次の章へ",
+      loading: "演習システムを読み込み中...",
+      curriculumFlow: "カリキュラムフロー",
+      questionOf: "問題 {current} / {total}",
+      scriptureCommentaryContext: "経典の注釈文脈",
+      scriptureFlow: "聖典フロー",
+      aksharaSyllables: "音素 (アクシャラ)",
+      matraDuration: "モーラ持続時間 (マートラー)",
+      uchcharanaLocation: "発音位置 (ウッチャーラナ)",
+      reportTitle: "コンテンツの誤り・不具合を報告",
+      reportSuccess: "不具合報告が送信されました。サンスクリット・バーシの品質向上にご協力いただきありがとうございます！",
+      reportCategory: "エラーカテゴリ",
+      reportDetails: "詳細 / 修正案",
+      reportPlaceholder: "入力ミス、音声の不一致、誤った文法定義などを具体的に入力してください...",
+      reportSubmit: "報告を送信",
+      reportSubmitting: "送信中...",
+      reportCancel: "キャンセル",
+      reportErrorMsg: "エラー報告の送信に失敗しました。もう一度お試しください。",
+      categoryVyakaran: "不正確な文法規則",
+      categoryAudio: "音声の不一致",
+      categoryTypo: "翻字のタイポ",
+      categoryTranslation: "誤訳・翻訳の不具合",
+      categoryOther: "その他の問題"
     }
   },
   es: {
@@ -728,6 +932,57 @@ export const translations: Record<string, Translation> = {
           detailedAnswer: "El caso genitivo (relación) y el vocativo (llamado) no son Karakas en sánscrito porque no conectan de forma directa con la acción principal de la oración."
         }
       ]
+    },
+    practice: {
+      yourProgress: "Tu Progreso",
+      currentTier: "Nivel Actual",
+      chaptersCompleted: "Capítulos Completados",
+      streakCount: "Racha Activa",
+      days: "Días",
+      syllabusShorthand: "Reglas Resumidas del Plan",
+      concept: "Concepto",
+      paninianHeritage: "Herencia Paniniana",
+      interactivePractice: "Práctica Interactiva",
+      source: "Fuente",
+      identifyCorrect: "Identifique la traducción o regla correcta:",
+      vyakaranHint: "Pista de Vyakaran",
+      progressiveRevelation: "Estudio de Revelación Progresiva:",
+      revealWordByWord: "Revelar Significado Palabra por Palabra",
+      wordByWordBreakdown: "Desglose de Vyakaran Palabra por Palabra",
+      revealGrammar: "Revelar Regla Gramatical Subyacente",
+      grammarRuleAnalysis: "Análisis de Regla Gramatical y Panini",
+      hideDetails: "Ocultar Detalles",
+      reportError: "Reportar Error",
+      nextQuestion: "Siguiente Pregunta",
+      completeChapter: "Completar Capítulo",
+      learningMap: "Mapa de Aprendizaje",
+      activeUnit: "Unidad Activa",
+      chapterAccomplished: "¡Capítulo Completado!",
+      chapterAccomplishedDesc: "¡Excelente trabajo! Has completado todos los ejercicios de gramática para **{chapterName}**. Tu racha activa ha crecido.",
+      practiceAgain: "Practicar de Nuevo",
+      nextChapter: "Siguiente Capítulo",
+      loading: "Cargando Práctica de Sánscrito...",
+      curriculumFlow: "FLUJO DEL PLAN DE ESTUDIOS",
+      questionOf: "PREGUNTA {current} DE {total}",
+      scriptureCommentaryContext: "Contexto de Comentario de Escrituras",
+      scriptureFlow: "FLUJO de ESCRITURAS",
+      aksharaSyllables: "Sílabas Akṣara",
+      matraDuration: "Duración de Mātrā",
+      uchcharanaLocation: "Ubicación de Uccāraṇa",
+      reportTitle: "Reportar Error de Contenido / Anomalía",
+      reportSuccess: "Informe de anomalía enviado. ¡Gracias por mantener Sanskritbhashi impecable!",
+      reportCategory: "Categoría del Error",
+      reportDetails: "Detalles / Sugerencias de Corrección",
+      reportPlaceholder: "Especifique errores de escritura, detalles de desajuste de audio o definiciones gramaticales incorrectas...",
+      reportSubmit: "Enviar Informe",
+      reportSubmitting: "Enviando...",
+      reportCancel: "Cancelar",
+      reportErrorMsg: "Error al enviar el reporte. Por favor intente de nuevo.",
+      categoryVyakaran: "Regla de Vyakaran Inexacta",
+      categoryAudio: "Desajuste de Audio",
+      categoryTypo: "Error de Transliteración",
+      categoryTranslation: "Traducción Rota",
+      categoryOther: "Otro Problema"
     }
   }
 };

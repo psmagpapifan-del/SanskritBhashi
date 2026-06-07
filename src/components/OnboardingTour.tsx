@@ -154,7 +154,7 @@ export default function OnboardingTour() {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: -15 }}
           transition={{ duration: 0.25 }}
-          className="bg-white border-2 border-saffron-500 rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl relative"
+          className="bg-white dark:bg-zinc-900 border-2 border-saffron-500 rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl relative"
         >
           {/* Header */}
           <div className="flex justify-between items-start mb-4">

@@ -69,7 +69,7 @@ export default function StreakCounter() {
       className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-sm font-semibold select-none cursor-help transition-all ${
         isActive
           ? "bg-saffron-50 border-saffron-500 text-saffron-600 shadow-sm shadow-saffron-100"
-          : "bg-white border-charcoal/10 text-charcoal/40"
+          : "bg-white dark:bg-zinc-900 border-charcoal/10 dark:border-zinc-800 text-charcoal/40"
       }`}
       title={isActive ? "Streak active! Great job." : "Complete a practice question to start your streak!"}
       id="tour-step-5"

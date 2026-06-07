@@ -130,7 +130,7 @@ const nt = navTranslations[lang] || navTranslations.en;
     {/* COLUMN 1: LEFT CHAPTER SIDEBAR NAVIGATION */}
     <aside id="nav-sidebar" class="w-full xl:w-1/4 flex flex-col space-y-4 xl:sticky xl:top-20 self-start z-10">
       <div class="bg-white dark:bg-zinc-900 border border-saffron-100 dark:border-zinc-800 rounded-3xl p-5 space-y-4">
-        <h3 class="text-xs font-black text-charcoal/60 dark:text-cream/60 uppercase tracking-widest font-latin">
+        <h3 class="text-xs font-black text-charcoal/60 uppercase tracking-widest font-latin">
           {nt.syllabusNavigation}
         </h3>
         
@@ -146,7 +146,7 @@ const nt = navTranslations[lang] || navTranslations.en;
             </button>
             
             <div id="container-core" class="p-2 space-y-1 max-h-[400px] overflow-y-auto bg-white dark:bg-zinc-900">
-              <div class="text-[10px] font-bold text-charcoal/40 dark:text-cream/40 uppercase tracking-widest px-2 py-1">
+              <div class="text-[10px] font-bold text-charcoal/40 uppercase tracking-widest px-2 py-1">
                 {nt.expertTiers}
               </div>
               {curriculum.filter(c => c.tier === "expert").map(c => (
@@ -155,7 +155,7 @@ const nt = navTranslations[lang] || navTranslations.en;
                   data-chapter-btn
                   data-chapter-id={c.id}
                   data-source="core"
-                  class="w-full text-left px-3 py-2 rounded-xl text-xs flex justify-between items-center transition-colors cursor-pointer text-charcoal dark:text-cream hover:bg-saffron-50 dark:hover:bg-zinc-800"
+                  class="w-full text-left px-3 py-2 rounded-xl text-xs flex justify-between items-center transition-colors cursor-pointer text-charcoal hover:bg-saffron-50 dark:hover:bg-zinc-800"
                 >
                   <span class="truncate">{localizeChapterName(c.name, lang)}</span>
                   <CheckCircle data-completed-check={c.id} class="w-3.5 h-3.5 text-emerald-500 hidden" />
@@ -175,16 +175,16 @@ const nt = navTranslations[lang] || navTranslations.en;
         <div class="flex items-center gap-2">
           <button
             id="toggle-nav-btn"
-            class="p-2 rounded-xl hover:bg-saffron-50 dark:hover:bg-zinc-800 border border-charcoal/5 dark:border-zinc-800 flex items-center justify-center cursor-pointer text-charcoal dark:text-cream"
+            class="p-2 rounded-xl hover:bg-saffron-50 dark:hover:bg-zinc-800 border border-charcoal/5 dark:border-zinc-800 flex items-center justify-center cursor-pointer text-charcoal"
             title="Toggle Sidebar"
           >
             <ChevronLeft id="toggle-nav-icon" class="w-5 h-5" />
           </button>
           <div>
-            <h1 class="text-[10px] font-bold uppercase tracking-wider text-charcoal/40 dark:text-cream/40 font-latin">
+            <h1 class="text-[10px] font-bold uppercase tracking-wider text-charcoal/40 font-latin">
               {t.shastraStudy.title}
             </h1>
-            <h2 class="text-sm font-black text-charcoal dark:text-cream flex items-center gap-1.5 font-latin">
+            <h2 class="text-sm font-black text-charcoal flex items-center gap-1.5 font-latin">
               <span id="active-chapter-name">Bhagavad Gita Commentary</span>
             </h2>
           </div>
@@ -193,10 +193,10 @@ const nt = navTranslations[lang] || navTranslations.en;
         <div class="flex items-center gap-2">
           <button
             id="toggle-rules-btn"
-            class="p-2 rounded-xl hover:bg-saffron-50 dark:hover:bg-zinc-800 border border-charcoal/5 dark:border-zinc-800 flex items-center justify-center cursor-pointer text-charcoal dark:text-cream"
+            class="p-2 rounded-xl hover:bg-saffron-50 dark:hover:bg-zinc-800 border border-charcoal/5 dark:border-zinc-800 flex items-center justify-center cursor-pointer text-charcoal"
             title="Toggle Rules"
           >
-            <Layers class="w-5 h-5 text-charcoal/60 dark:text-cream/60" />
+            <Layers class="w-5 h-5 text-charcoal/60" />
           </button>
           <button
             id="journey-map-btn"
@@ -217,10 +217,10 @@ const nt = navTranslations[lang] || navTranslations.en;
       <section class="bg-white dark:bg-zinc-900 border border-saffron-100 dark:border-zinc-800 rounded-3xl p-6 space-y-6">
         {lang === "hi" ? (
           <>
-            <h3 class="text-xl font-bold text-charcoal dark:text-cream font-latin">
+            <h3 class="text-xl font-bold text-charcoal font-latin">
               शास्त्र अध्ययन: शास्त्र संस्कृत का व्याकरणिक विश्लेषण
             </h3>
-            <div class="prose dark:prose-invert text-xs md:text-sm text-charcoal/80 dark:text-cream/80 space-y-4 leading-relaxed font-latin">
+            <div class="prose dark:prose-invert text-xs md:text-sm text-charcoal/80 space-y-4 leading-relaxed font-latin">
               <p>
                 संस्कृतभाषी शास्त्र अध्ययन मॉड्यूल में आपका स्वागत है, जो एक विशेष भंडार है जिसे उन्नत शिक्षार्थियों, भारतविदों और आध्यात्मिक साधकों को शास्त्रीय संस्कृत शास्त्रों के साथ सीधे जोड़ने के लिए डिज़ाइन किया गया है। यह मॉड्यूल सरल स्थानीय अनुवादों से आगे बढ़ता है, और छात्रों को भगवद गीता, उपनिषदों और श्रीमद्भागवतम् जैसे ग्रंथों का श्लोक-दर-श्लोक व्याकरणिक विश्लेषण (अन्वय) और शब्द अपघटन करने के उपकरण प्रदान करता है।
               </p>
@@ -251,10 +251,10 @@ const nt = navTranslations[lang] || navTranslations.en;
           </>
         ) : lang === "ja" ? (
           <>
-            <h3 class="text-xl font-bold text-charcoal dark:text-cream font-latin">
+            <h3 class="text-xl font-bold text-charcoal font-latin">
               シャーストラ学習：経典サンスクリットの意味論的・文法的な分析
             </h3>
-            <div class="prose dark:prose-invert text-xs md:text-sm text-charcoal/80 dark:text-cream/80 space-y-4 leading-relaxed font-latin">
+            <div class="prose dark:prose-invert text-xs md:text-sm text-charcoal/80 space-y-4 leading-relaxed font-latin">
               <p>
                 サンスクリットバシのシャーストラ学習モジュールへようこそ。これは、上級学習者、インド学者、そして精神的な探求者が古典的なサンスクリット経典に直接関わるように設計された専門的なレポジトリです。このモジュールは、単純な自国語の翻訳を超え、バガヴァッド・ギーター、ウパニシャッド、シュリーマド・バーガヴァタムなどのテキストの一節ごとの文法分析（アンヴァヤ）や単語の分解を行うためのツールを生徒に提供します。
               </p>
@@ -285,10 +285,10 @@ const nt = navTranslations[lang] || navTranslations.en;
           </>
         ) : lang === "es" ? (
           <>
-            <h3 class="text-xl font-bold text-charcoal dark:text-cream font-latin">
+            <h3 class="text-xl font-bold text-charcoal font-latin">
               Estudio del Shastra: Análisis Gramatical del Sánscrito de las Escrituras
             </h3>
-            <div class="prose dark:prose-invert text-xs md:text-sm text-charcoal/80 dark:text-cream/80 space-y-4 leading-relaxed font-latin">
+            <div class="prose dark:prose-invert text-xs md:text-sm text-charcoal/80 space-y-4 leading-relaxed font-latin">
               <p>
                 Bienvenido al Módulo de Estudio del Shastra de Sanskritbhashi, un repositorio especializado diseñado para guiar a estudiantes avanzados, indólogos y buscadores espirituales en un compromiso directo con las escrituras sánscritas clásicas. Este módulo va más allá de las traducciones simples en lenguas vernáculas, equipando a los estudiantes con las herramientas para realizar un análisis gramatical verso por verso (Anvaya) y la descomposición de palabras de textos como el Bhagavad Gita, los Upanishads y el Srimad Bhagavatam.
               </p>
@@ -319,10 +319,10 @@ const nt = navTranslations[lang] || navTranslations.en;
           </>
         ) : (
           <>
-            <h3 class="text-xl font-bold text-charcoal dark:text-cream font-latin">
+            <h3 class="text-xl font-bold text-charcoal font-latin">
               Shastra Study: Grammatical Analysis of Scriptural Sanskrit
             </h3>
-            <div class="prose dark:prose-invert text-xs md:text-sm text-charcoal/80 dark:text-cream/80 space-y-4 leading-relaxed font-latin">
+            <div class="prose dark:prose-invert text-xs md:text-sm text-charcoal/80 space-y-4 leading-relaxed font-latin">
               <p>
                 Welcome to the <strong>Sanskritbhashi Shastra Study Module</strong>, a specialized repository designed to lead advanced learners, Indologists, and spiritual seekers into direct engagement with classical Sanskrit scriptures. This module moves beyond simple vernacular translations, equipping students with the tools to perform verse-by-verse grammatical analysis (Anvaya) and word decomposition of texts like the Bhagavad Gita, the Upanishads, and the Srimad Bhagavatam.
               </p>
@@ -360,19 +360,19 @@ const nt = navTranslations[lang] || navTranslations.en;
       
       {/* progress stats */}
       <div class="bg-white dark:bg-zinc-900 border border-saffron-100 dark:border-zinc-800 rounded-3xl p-6 space-y-4 shadow-xs">
-        <h3 class="text-xs font-black text-charcoal/60 dark:text-cream/60 uppercase tracking-widest font-latin">
+        <h3 class="text-xs font-black text-charcoal/60 uppercase tracking-widest font-latin">
           {t.practice.yourProgress}
         </h3>
 
         <div class="space-y-3">
           <div class="flex justify-between text-xs font-bold font-latin">
-            <span class="text-charcoal/50 dark:text-cream/50">{t.practice.currentTier}</span>
+            <span class="text-charcoal/50">{t.practice.currentTier}</span>
             <span id="progress-tier" class="text-saffron-600 dark:text-saffron-400 uppercase">EXPERT</span>
           </div>
           
           <div class="flex justify-between text-xs font-bold font-latin">
-            <span class="text-charcoal/50 dark:text-cream/50">{t.practice.chaptersCompleted}</span>
-            <span id="progress-completed" class="text-charcoal dark:text-cream">0 / 90</span>
+            <span class="text-charcoal/50">{t.practice.chaptersCompleted}</span>
+            <span id="progress-completed" class="text-charcoal">0 / 90</span>
           </div>
 
           <div class="w-full bg-cream dark:bg-zinc-800 rounded-full h-2.5 overflow-hidden border border-saffron-100 dark:border-zinc-750">
@@ -391,7 +391,7 @@ const nt = navTranslations[lang] || navTranslations.en;
 
       {/* Shloka Analysis Context rules */}
       <div class="bg-white dark:bg-zinc-900 border border-saffron-100 dark:border-zinc-800 rounded-3xl p-6 space-y-4 flex-1">
-        <h3 class="text-xs font-black text-charcoal/60 dark:text-cream/60 uppercase tracking-widest font-latin">
+        <h3 class="text-xs font-black text-charcoal/60 uppercase tracking-widest font-latin">
           {t.practice.scriptureCommentaryContext}
         </h3>
 

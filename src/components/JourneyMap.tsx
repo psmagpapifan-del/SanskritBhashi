@@ -225,8 +225,7 @@ export default function JourneyMap({ currentLang, onSelectChapter, onClose }: Jo
           </button>
         </div>
 
-        {/* Tier Switcher Tabs */}
-        <div className="grid grid-cols-3 gap-2.5 p-1.5 bg-white border border-saffron-100 rounded-2xl mb-8">
+        <div className="grid grid-cols-3 gap-2.5 p-1.5 bg-white dark:bg-zinc-900 border border-saffron-100 dark:border-zinc-800 rounded-2xl mb-8">
           {(["beginner", "professional", "expert"] as CurriculumTier[]).map((tier) => {
             const isTierUnlocked =
               tier === "beginner" ||
@@ -300,19 +299,19 @@ export default function JourneyMap({ currentLang, onSelectChapter, onClose }: Jo
                   }}
                   className={`flex-1 text-left p-4 rounded-2xl border transition-all ${
                     completed
-                      ? "bg-white border-marigold-200 shadow-xs hover:border-marigold-400 cursor-pointer"
+                      ? "bg-white dark:bg-zinc-900 border-marigold-200 dark:border-zinc-800 shadow-xs hover:border-marigold-400 dark:hover:border-zinc-700 cursor-pointer"
                       : active
-                      ? "bg-white border-saffron-400 shadow-md shadow-saffron-50/50 cursor-pointer"
+                      ? "bg-white dark:bg-zinc-900 border-saffron-400 dark:border-saffron-500/50 shadow-md shadow-saffron-50/50 cursor-pointer"
                       : unlocked
-                      ? "bg-white border-saffron-100 hover:border-saffron-300 cursor-pointer"
-                      : "bg-slate-50 border-slate-200/60 opacity-60 cursor-not-allowed"
+                      ? "bg-white dark:bg-zinc-900 border-saffron-100 dark:border-zinc-800 hover:border-saffron-300 dark:hover:border-zinc-700 cursor-pointer"
+                      : "bg-slate-50 dark:bg-zinc-950/40 border-slate-200/60 dark:border-zinc-900/60 opacity-60 cursor-not-allowed"
                   }`}
                 >
                   <div className="flex justify-between items-start">
                     <div>
                       <h4
                         className={`text-sm font-bold font-latin ${
-                          completed ? "text-marigold-700" : active ? "text-saffron-700" : "text-charcoal"
+                          completed ? "text-marigold-700 dark:text-marigold-400" : active ? "text-saffron-700 dark:text-saffron-400" : "text-charcoal"
                         }`}
                       >
                         {chapter.name}
@@ -350,10 +349,10 @@ export default function JourneyMap({ currentLang, onSelectChapter, onClose }: Jo
               <div
                 className={`flex-1 p-5 rounded-3xl border transition-all ${
                   (progress.gatewayScores[activeTier] || 0) >= 80
-                    ? "bg-white border-emerald-200"
+                    ? "bg-white dark:bg-zinc-900 border-emerald-200 dark:border-zinc-850"
                     : isGatewayUnlockable(activeTier)
-                    ? "bg-white border-saffron-400 shadow-md shadow-saffron-50"
-                    : "bg-slate-50 border-slate-200/60 opacity-60"
+                    ? "bg-white dark:bg-zinc-900 border-saffron-400 dark:border-saffron-500/50 shadow-md shadow-saffron-50"
+                    : "bg-slate-50 dark:bg-zinc-950/40 border-slate-200/60 dark:border-zinc-900/60 opacity-60"
                 }`}
               >
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
@@ -378,7 +377,7 @@ export default function JourneyMap({ currentLang, onSelectChapter, onClose }: Jo
                     </button>
                   ) : (progress.gatewayScores[activeTier] || 0) >= 80 ? (
                     <div className="text-right">
-                      <span className="text-xs font-bold text-emerald-600 font-latin bg-emerald-50 border border-emerald-100 px-2 py-1 rounded-lg">
+                      <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 font-latin bg-emerald-50 dark:bg-zinc-950/30 border border-emerald-100 dark:border-zinc-800 px-2 py-1 rounded-lg">
                         Score: {progress.gatewayScores[activeTier]}%
                       </span>
                     </div>
@@ -397,7 +396,7 @@ export default function JourneyMap({ currentLang, onSelectChapter, onClose }: Jo
         <AnimatePresence>
           {testModal && testModal.isOpen && (
             <div className="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-              <div className="bg-white border-2 border-saffron-500 rounded-3xl p-6 md:p-8 max-w-lg w-full shadow-2xl relative">
+              <div className="bg-white dark:bg-zinc-900 border-2 border-saffron-500 rounded-3xl p-6 md:p-8 max-w-lg w-full shadow-2xl relative">
                 {/* Header */}
                 <div className="flex justify-between items-center border-b border-saffron-50 pb-4 mb-6">
                   <div>

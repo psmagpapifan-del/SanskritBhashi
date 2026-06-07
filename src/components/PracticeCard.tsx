@@ -588,7 +588,7 @@ export default function PracticeCard({
 
   if (!activeChapter || !currentQuestion) {
     return (
-      <div className="w-full text-center py-12 bg-white border border-saffron-100 rounded-3xl font-latin text-charcoal/50">
+      <div className="w-full text-center py-12 bg-white dark:bg-zinc-900 border border-saffron-100 dark:border-zinc-800 rounded-3xl font-latin text-charcoal/50">
         Loading Sanskrit practice questions...
       </div>
     );
@@ -791,8 +791,8 @@ export default function PracticeCard({
       <div className="bg-white dark:bg-zinc-900 border-2 border-amber-500 rounded-3xl p-8 text-center space-y-6 max-w-md w-full shadow-lg shadow-amber-500/5 mx-auto">
         <Lock className="w-16 h-16 text-amber-500 mx-auto animate-bounce" />
         <div>
-          <h3 className="text-xl font-black text-charcoal dark:text-cream font-latin">Chapter Locked</h3>
-          <p className="text-sm text-charcoal/70 dark:text-cream/70 mt-2 font-latin leading-relaxed">
+          <h3 className="text-xl font-black text-charcoal font-latin">Chapter Locked</h3>
+          <p className="text-sm text-charcoal/70 mt-2 font-latin leading-relaxed">
             This chapter is part of the <strong>{isProfessional ? "Professional" : "Expert"}</strong> tier.
             To access these lessons, you must pass the <strong>{requiredGateway} Diagnostic Gateway</strong> test with a score of 80% or higher.
           </p>
@@ -817,7 +817,7 @@ export default function PracticeCard({
   if (isChapterFinished) {
     const chapterName = activeSource === "core" ? activeChapter.name : activeChapter.name;
     return (
-      <div className="bg-white border-2 border-emerald-500 rounded-3xl p-8 text-center space-y-6 max-w-md w-full shadow-lg shadow-emerald-50/50 mx-auto">
+      <div className="bg-white dark:bg-zinc-900 border-2 border-emerald-500 rounded-3xl p-8 text-center space-y-6 max-w-md w-full shadow-lg shadow-emerald-50/50 dark:shadow-emerald-950/20 mx-auto">
         <CheckCircle className="w-16 h-16 text-emerald-500 mx-auto animate-bounce" />
         <div>
           <h3 className="text-xl font-black text-charcoal font-latin">{t.practice.chapterAccomplished}</h3>
@@ -849,7 +849,7 @@ export default function PracticeCard({
   return (
     <div className="w-full space-y-6">
       {/* Concept Metadata Telemetry display */}
-      <div className="bg-white border border-saffron-100 rounded-2xl p-4 flex flex-wrap justify-between items-center gap-3 text-xs font-latin">
+      <div className="bg-white dark:bg-zinc-900 border border-saffron-100 dark:border-zinc-800 rounded-2xl p-4 flex flex-wrap justify-between items-center gap-3 text-xs font-latin">
         <span className="font-bold text-saffron-600 bg-saffron-50 px-2.5 py-1 rounded-full uppercase tracking-wider">
           {t.practice.concept}: {localizeText(conceptType, activeLang)}
         </span>
@@ -860,7 +860,7 @@ export default function PracticeCard({
 
       <div
         id="tour-step-7"
-        className={`bg-white border-2 rounded-3xl p-6 md:p-8 shadow-md transition-all duration-300 relative ${
+        className={`bg-white dark:bg-zinc-900 border-2 dark:border-zinc-800 rounded-3xl p-6 md:p-8 shadow-md transition-all duration-300 relative ${
           isSuccessState
             ? "border-emerald-500 shadow-lg shadow-emerald-50/50 bg-emerald-50/5 animate-success-bounce"
             : feedback === "incorrect"
@@ -914,7 +914,7 @@ export default function PracticeCard({
               data-crawler-pronunciation="true"
             >
               <p className="leading-relaxed">
-                <strong>{t.practice.aksharaSyllables}:</strong> <code className="bg-white px-1.5 py-0.5 rounded border border-charcoal/5">{pronunciationAcoustics.akshara}</code>
+                <strong>{t.practice.aksharaSyllables}:</strong> <code className="bg-white dark:bg-zinc-950 px-1.5 py-0.5 rounded border border-charcoal/5 dark:border-zinc-800">{pronunciationAcoustics.akshara}</code>
               </p>
               <p className="leading-relaxed">
                 <strong>{t.practice.matraDuration}:</strong> <span className="font-semibold text-saffron-600">{pronunciationAcoustics.matra}</span>
@@ -1005,7 +1005,7 @@ export default function PracticeCard({
                 </h4>
                 <div className="flex flex-wrap gap-2">
                   {wordByWord.map((w, idx) => (
-                    <div key={idx} className="bg-white border border-charcoal/5 rounded-xl p-2 flex flex-col items-center">
+                    <div key={idx} className="bg-white dark:bg-zinc-950 border border-charcoal/5 dark:border-zinc-800 rounded-xl p-2 flex flex-col items-center">
                       <span className="font-bold text-sm text-saffron-600 font-sanskrit">{w.sanskrit}</span>
                       <span className="text-xs text-charcoal/70 font-latin font-medium">{localizeText(w.english, activeLang)}</span>
                       <span className="text-[9px] font-semibold text-charcoal/30 uppercase tracking-wider font-latin">{localizeText(w.role, activeLang)}</span>

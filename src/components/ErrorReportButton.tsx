@@ -92,7 +92,7 @@ export default function ErrorReportButton({
               initial={{ opacity: 0, scale: 0.95, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: -15 }}
-              className="bg-white border-2 border-red-500 rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl relative"
+              className="bg-white dark:bg-zinc-900 border-2 border-red-500 rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl relative"
             >
               {/* Close Button */}
               <button
@@ -139,7 +139,7 @@ export default function ErrorReportButton({
                     <select
                       value={category}
                       onChange={(e) => setCategory(e.target.value)}
-                      className="w-full px-4 py-2.5 rounded-xl border border-charcoal/10 bg-white text-sm focus:outline-hidden focus:border-red-400 font-latin text-charcoal"
+                      className="w-full px-4 py-2.5 rounded-xl border border-charcoal/10 dark:border-zinc-800 bg-white dark:bg-zinc-950 text-sm focus:outline-hidden focus:border-red-400 font-latin text-charcoal"
                     >
                       {categories.map((c) => (
                         <option key={c.value} value={c.value}>
@@ -159,7 +159,7 @@ export default function ErrorReportButton({
                       onChange={(e) => setDetails(e.target.value)}
                       rows={4}
                       placeholder={t.practice.reportPlaceholder}
-                      className="w-full px-4 py-2.5 rounded-xl border border-charcoal/10 bg-white text-sm focus:outline-hidden focus:border-red-400 font-latin text-charcoal placeholder-charcoal/30 resize-none"
+                      className="w-full px-4 py-2.5 rounded-xl border border-charcoal/10 dark:border-zinc-800 bg-white dark:bg-zinc-950 text-sm focus:outline-hidden focus:border-red-400 font-latin text-charcoal placeholder-charcoal/30 resize-none"
                       required
                     />
                   </div>

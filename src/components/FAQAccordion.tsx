@@ -16,7 +16,7 @@ export default function FAQAccordion({ id, question, primaryAnswer, detailedAnsw
   return (
     <details
       id={id}
-      className="group bg-white border border-saffron-100 rounded-2xl p-4 transition-all duration-300 [&_summary::-webkit-details-marker]:hidden open:border-saffron-300 open:shadow-xs"
+      className="group bg-white dark:bg-zinc-900 border border-saffron-100 dark:border-zinc-800 rounded-2xl p-4 transition-all duration-300 [&_summary::-webkit-details-marker]:hidden open:border-saffron-300 dark:open:border-zinc-700 open:shadow-xs"
       onToggle={(e) => setIsOpen((e.target as HTMLDetailsElement).open)}
     >
       <summary className="flex items-center justify-between font-semibold text-charcoal cursor-pointer select-none py-1 focus:outline-hidden list-none">

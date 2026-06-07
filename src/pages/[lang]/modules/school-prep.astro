@@ -185,7 +185,7 @@ const nt = navTranslations[lang] || navTranslations.en;
     {/* COLUMN 1: LEFT CHAPTER SIDEBAR NAVIGATION */}
     <aside id="nav-sidebar" class="w-full xl:w-1/4 flex flex-col space-y-4 xl:sticky xl:top-20 self-start z-10">
       <div class="bg-white dark:bg-zinc-900 border border-saffron-100 dark:border-zinc-800 rounded-3xl p-5 space-y-4">
-        <h3 class="text-xs font-black text-charcoal/60 dark:text-cream/60 uppercase tracking-widest font-latin">
+        <h3 class="text-xs font-black text-charcoal/60 uppercase tracking-widest font-latin">
           {nt.syllabusNavigation}
         </h3>
         
@@ -201,7 +201,7 @@ const nt = navTranslations[lang] || navTranslations.en;
             </button>
             
             <div id="container-core" class="p-2 space-y-1 max-h-[300px] overflow-y-auto bg-white dark:bg-zinc-900">
-              <div class="text-[10px] font-bold text-charcoal/40 dark:text-cream/40 uppercase tracking-widest px-2 py-1">
+              <div class="text-[10px] font-bold text-charcoal/40 uppercase tracking-widest px-2 py-1">
                 {nt.beginnerTiers}
               </div>
               {curriculum.filter(c => c.tier === "beginner").map(c => (
@@ -210,14 +210,14 @@ const nt = navTranslations[lang] || navTranslations.en;
                   data-chapter-btn
                   data-chapter-id={c.id}
                   data-source="core"
-                  class="w-full text-left px-3 py-2 rounded-xl text-xs flex justify-between items-center transition-colors cursor-pointer text-charcoal dark:text-cream hover:bg-saffron-50 dark:hover:bg-zinc-800"
+                  class="w-full text-left px-3 py-2 rounded-xl text-xs flex justify-between items-center transition-colors cursor-pointer text-charcoal hover:bg-saffron-50 dark:hover:bg-zinc-800"
                 >
                   <span class="truncate">{localizeChapterName(c.name, lang)}</span>
                   <CheckCircle data-completed-check={c.id} class="w-3.5 h-3.5 text-emerald-500 hidden" />
                 </a>
               ))}
 
-              <div class="text-[10px] font-bold text-charcoal/40 dark:text-cream/40 uppercase tracking-widest px-2 py-1 pt-3">
+              <div class="text-[10px] font-bold text-charcoal/40 uppercase tracking-widest px-2 py-1 pt-3">
                 {nt.professionalTiers}
               </div>
               {curriculum.filter(c => c.tier === "professional").map(c => (
@@ -226,7 +226,7 @@ const nt = navTranslations[lang] || navTranslations.en;
                   data-chapter-btn
                   data-chapter-id={c.id}
                   data-source="core"
-                  class="w-full text-left px-3 py-2 rounded-xl text-xs flex justify-between items-center transition-colors cursor-pointer text-charcoal dark:text-cream hover:bg-saffron-50 dark:hover:bg-zinc-800"
+                  class="w-full text-left px-3 py-2 rounded-xl text-xs flex justify-between items-center transition-colors cursor-pointer text-charcoal hover:bg-saffron-50 dark:hover:bg-zinc-800"
                 >
                   <span class="truncate flex items-center gap-1">
                     <span class="hidden text-[10px]" data-lock-icon={c.id}>🔒</span>
@@ -255,7 +255,7 @@ const nt = navTranslations[lang] || navTranslations.en;
                   <button
                     data-class-pill={cl}
                     class={`py-1.5 rounded-lg text-xs font-bold text-center transition-colors cursor-pointer border ${
-                      cl === 6 ? "bg-saffron-500 border-saffron-600 text-white" : "bg-cream dark:bg-zinc-800 border-charcoal/5 dark:border-zinc-700 text-charcoal dark:text-cream hover:bg-saffron-50 dark:hover:bg-zinc-750"
+                      cl === 6 ? "bg-saffron-500 border-saffron-600 text-white" : "bg-cream dark:bg-zinc-800 border-charcoal/5 dark:border-zinc-700 text-charcoal hover:bg-saffron-50 dark:hover:bg-zinc-750"
                     }`}
                   >
                     Cl {cl}
@@ -272,7 +272,7 @@ const nt = navTranslations[lang] || navTranslations.en;
                     data-chapter-id={c.id}
                     data-source="ncert"
                     data-ncert-class={c.ncertClass}
-                    class={`w-full text-left px-3 py-2 rounded-xl text-xs transition-colors cursor-pointer text-charcoal dark:text-cream hover:bg-saffron-50 dark:hover:bg-zinc-800 ${c.ncertClass === 6 ? "" : "hidden"}`}
+                    class={`w-full text-left px-3 py-2 rounded-xl text-xs transition-colors cursor-pointer text-charcoal hover:bg-saffron-50 dark:hover:bg-zinc-800 ${c.ncertClass === 6 ? "" : "hidden"}`}
                   >
                     <span class="truncate">{c.name}</span>
                   </a>
@@ -292,16 +292,16 @@ const nt = navTranslations[lang] || navTranslations.en;
         <div class="flex items-center gap-2">
           <button
             id="toggle-nav-btn"
-            class="p-2 rounded-xl hover:bg-saffron-50 dark:hover:bg-zinc-800 border border-charcoal/5 dark:border-zinc-800 flex items-center justify-center cursor-pointer text-charcoal dark:text-cream"
+            class="p-2 rounded-xl hover:bg-saffron-50 dark:hover:bg-zinc-800 border border-charcoal/5 dark:border-zinc-800 flex items-center justify-center cursor-pointer text-charcoal"
             title="Toggle Sidebar"
           >
             <ChevronLeft id="toggle-nav-icon" class="w-5 h-5" />
           </button>
           <div>
-            <h1 class="text-[10px] font-bold uppercase tracking-wider text-charcoal/40 dark:text-cream/40 font-latin">
+            <h1 class="text-[10px] font-bold uppercase tracking-wider text-charcoal/40 font-latin">
               {t.schoolPrep.title}
             </h1>
-            <h2 class="text-sm font-black text-charcoal dark:text-cream flex items-center gap-1.5 font-latin">
+            <h2 class="text-sm font-black text-charcoal flex items-center gap-1.5 font-latin">
               <span id="active-chapter-name">Sanskrit Practice Chassis</span>
             </h2>
           </div>
@@ -310,10 +310,10 @@ const nt = navTranslations[lang] || navTranslations.en;
         <div class="flex items-center gap-2">
           <button
             id="toggle-rules-btn"
-            class="p-2 rounded-xl hover:bg-saffron-50 dark:hover:bg-zinc-800 border border-charcoal/5 dark:border-zinc-800 flex items-center justify-center cursor-pointer text-charcoal dark:text-cream"
+            class="p-2 rounded-xl hover:bg-saffron-50 dark:hover:bg-zinc-800 border border-charcoal/5 dark:border-zinc-800 flex items-center justify-center cursor-pointer text-charcoal"
             title="Toggle Rules"
           >
-            <Layers class="w-5 h-5 text-charcoal/60 dark:text-cream/60" />
+            <Layers class="w-5 h-5 text-charcoal/60" />
           </button>
           <button
             id="journey-map-btn"
@@ -334,10 +334,10 @@ const nt = navTranslations[lang] || navTranslations.en;
       <section class="bg-white dark:bg-zinc-900 border border-saffron-100 dark:border-zinc-800 rounded-3xl p-6 space-y-6">
         {lang === "hi" ? (
           <>
-            <h3 class="text-xl font-bold text-charcoal dark:text-cream font-latin">
+            <h3 class="text-xl font-bold text-charcoal font-latin">
               एनसीईआरटी संस्कृत पाठ्यक्रम और पाणिनीय व्याकरण एकीकरण
             </h3>
-            <div class="prose dark:prose-invert text-xs md:text-sm text-charcoal/80 dark:text-cream/80 space-y-4 leading-relaxed font-latin">
+            <div class="prose dark:prose-invert text-xs md:text-sm text-charcoal/80 space-y-4 leading-relaxed font-latin">
               <p>
                 संस्कृतभाषी स्कूल प्रेप मॉड्यूल में आपका स्वागत है, जो संस्कृत के लिए राष्ट्रीय शैक्षिक अनुसंधान और प्रशिक्षण परिषद (NCERT) पाठ्यक्रम के साथ सावधानीपूर्वक संरेखित एक व्यापक शैक्षिक ढांचा है। हमारा प्लेटफॉर्म कक्षा 6 से कक्षा 10 तक के छात्रों को लक्षित करता है, जो पारंपरिक व्याकरण सीखने को एक इंटरैक्टिव, गेमफाइड यात्रा में बदल देता है।
               </p>
@@ -368,10 +368,10 @@ const nt = navTranslations[lang] || navTranslations.en;
           </>
         ) : lang === "ja" ? (
           <>
-            <h3 class="text-xl font-bold text-charcoal dark:text-cream font-latin">
+            <h3 class="text-xl font-bold text-charcoal font-latin">
               NCERTサンスクリットカリキュラムとパーニニ文法の統合
             </h3>
-            <div class="prose dark:prose-invert text-xs md:text-sm text-charcoal/80 dark:text-cream/80 space-y-4 leading-relaxed font-latin">
+            <div class="prose dark:prose-invert text-xs md:text-sm text-charcoal/80 space-y-4 leading-relaxed font-latin">
               <p>
                 サンスクリットバシの学校準備モジュールへようこそ。これは、サンスクリットのための国家教育研究訓練評議会（NCERT）のカリキュラムに細心の注意を払って準拠した、包括的な教育フレームワークです。当プラットフォームはクラス6からクラス10までの生徒を対象としており、伝統的な文法学習をインタラクティブでゲーム感覚の学習体験へと変革します。
               </p>
@@ -402,10 +402,10 @@ const nt = navTranslations[lang] || navTranslations.en;
           </>
         ) : lang === "es" ? (
           <>
-            <h3 class="text-xl font-bold text-charcoal dark:text-cream font-latin">
+            <h3 class="text-xl font-bold text-charcoal font-latin">
               Integración del Plan de Estudios de Sánscrito NCERT y la Gramática Paniniana
             </h3>
-            <div class="prose dark:prose-invert text-xs md:text-sm text-charcoal/80 dark:text-cream/80 space-y-4 leading-relaxed font-latin">
+            <div class="prose dark:prose-invert text-xs md:text-sm text-charcoal/80 space-y-4 leading-relaxed font-latin">
               <p>
                 Bienvenido al Módulo de Preparación Escolar de Sanskritbhashi, un marco educativo integral meticulosamente alineado con el plan de estudios del Consejo Nacional de Investigación y Capacitación Educativa (NCERT) para el sánscrito. Nuestra plataforma está dirigida a estudiantes desde la Clase 6 hasta la Clase 10, transformando el aprendizaje de la gramática tradicional en un viaje interactivo y gamificado.
               </p>
@@ -436,10 +436,10 @@ const nt = navTranslations[lang] || navTranslations.en;
           </>
         ) : (
           <>
-            <h3 class="text-xl font-bold text-charcoal dark:text-cream font-latin">
+            <h3 class="text-xl font-bold text-charcoal font-latin">
               NCERT Sanskrit Curriculum & Paninian Grammar Integration
             </h3>
-            <div class="prose dark:prose-invert text-xs md:text-sm text-charcoal/80 dark:text-cream/80 space-y-4 leading-relaxed font-latin">
+            <div class="prose dark:prose-invert text-xs md:text-sm text-charcoal/80 space-y-4 leading-relaxed font-latin">
               <p>
                 Welcome to the <strong>Sanskritbhashi School Prep Module</strong>, a comprehensive educational framework meticulously aligned with the National Council of Educational Research and Training (NCERT) curriculum for Sanskrit. Our platform targets students from Class 6 through Class 10, transforming traditional grammar learning into an interactive, gamified journey.
               </p>
@@ -477,19 +477,19 @@ const nt = navTranslations[lang] || navTranslations.en;
       
       {/* progress stats */}
       <div class="bg-white dark:bg-zinc-900 border border-saffron-100 dark:border-zinc-800 rounded-3xl p-6 space-y-4 shadow-xs">
-        <h3 class="text-xs font-black text-charcoal/60 dark:text-cream/60 uppercase tracking-widest font-latin">
+        <h3 class="text-xs font-black text-charcoal/60 uppercase tracking-widest font-latin">
           {t.practice.yourProgress}
         </h3>
 
         <div class="space-y-3">
           <div class="flex justify-between text-xs font-bold font-latin">
-            <span class="text-charcoal/50 dark:text-cream/50">{t.practice.currentTier}</span>
+            <span class="text-charcoal/50">{t.practice.currentTier}</span>
             <span id="progress-tier" class="text-saffron-600 dark:text-saffron-400 uppercase">BEGINNER</span>
           </div>
           
           <div class="flex justify-between text-xs font-bold font-latin">
-            <span class="text-charcoal/50 dark:text-cream/50">{t.practice.chaptersCompleted}</span>
-            <span id="progress-completed" class="text-charcoal dark:text-cream">0 / 90</span>
+            <span class="text-charcoal/50">{t.practice.chaptersCompleted}</span>
+            <span id="progress-completed" class="text-charcoal">0 / 90</span>
           </div>
 
           <div class="w-full bg-cream dark:bg-zinc-800 rounded-full h-2.5 overflow-hidden border border-saffron-100 dark:border-zinc-750">
@@ -508,7 +508,7 @@ const nt = navTranslations[lang] || navTranslations.en;
 
       {/* Shorthand rules */}
       <div class="bg-white dark:bg-zinc-900 border border-saffron-100 dark:border-zinc-800 rounded-3xl p-6 space-y-4 flex-1">
-        <h3 class="text-xs font-black text-charcoal/60 dark:text-cream/60 uppercase tracking-widest font-latin">
+        <h3 class="text-xs font-black text-charcoal/60 uppercase tracking-widest font-latin">
           {t.practice.syllabusShorthand}
         </h3>
 

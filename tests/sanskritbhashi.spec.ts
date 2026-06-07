@@ -47,7 +47,7 @@ test.describe("Sanskritbhashi Comprehensive End-to-End Test Suite", () => {
     // 2. Perform page checks
     await page.goto("/en");
     await page.locator('button:has-text("Skip Tour")').click();
-    await expect(page.locator("h1")).toBeVisible();
+    await expect(page.locator("h1").first()).toBeVisible();
   });
 
   test("TC-03: Practice Panel Core Loop (shake on incorrect, success bounce on correct)", async ({ page }) => {

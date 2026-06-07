@@ -134,6 +134,46 @@ const faqSchema = {
     }
   ]
 };
+
+const navTranslations = {
+  en: {
+    syllabusNavigation: "Syllabus Navigation",
+    coreJourneyTiers: "Core Journey Tiers",
+    beginnerTiers: "Beginner Tiers (1-30)",
+    professionalTiers: "Professional Tiers (31-60)",
+    expertTiers: "Expert Tiers (61-90)",
+    ncertClassSyllabus: "NCERT Class Syllabus",
+    journey: "Journey"
+  },
+  hi: {
+    syllabusNavigation: "पाठ्यक्रम नेविगेशन",
+    coreJourneyTiers: "मुख्य यात्रा स्तर",
+    beginnerTiers: "शुरुआती स्तर (1-30)",
+    professionalTiers: "पेशेवर स्तर (31-60)",
+    expertTiers: "विशेषज्ञ स्तर (61-90)",
+    ncertClassSyllabus: "एनसीईआरटी कक्षा पाठ्यक्रम",
+    journey: "यात्रा"
+  },
+  ja: {
+    syllabusNavigation: "シラバスナビゲーション",
+    coreJourneyTiers: "コア・ジャーニー・ティア",
+    beginnerTiers: "初級ティア (1-30)",
+    professionalTiers: "中級ティア (31-60)",
+    expertTiers: "上級ティア (61-90)",
+    ncertClassSyllabus: "NCERTクラスシラバス",
+    journey: "ジャーニー"
+  },
+  es: {
+    syllabusNavigation: "Navegación del Plan",
+    coreJourneyTiers: "Viaje Principal",
+    beginnerTiers: "Niveles Principiantes (1-30)",
+    professionalTiers: "Niveles Profesionales (31-60)",
+    expertTiers: "Niveles Expertos (61-90)",
+    ncertClassSyllabus: "Plan de Clase NCERT",
+    journey: "Viaje"
+  }
+};
+const nt = navTranslations[lang] || navTranslations.en;
 ---
 
 <Layout lang={lang} title={`${t.schoolPrep.title} | Sanskritbhashi`}>
@@ -146,7 +186,7 @@ const faqSchema = {
     <aside id="nav-sidebar" class="w-full xl:w-1/4 flex flex-col space-y-4 xl:sticky xl:top-20 self-start z-10">
       <div class="bg-white dark:bg-zinc-900 border border-saffron-100 dark:border-zinc-800 rounded-3xl p-5 space-y-4">
         <h3 class="text-xs font-black text-charcoal/60 dark:text-cream/60 uppercase tracking-widest font-latin">
-          Syllabus Navigation
+          {nt.syllabusNavigation}
         </h3>
         
         <div class="space-y-3">
@@ -156,13 +196,13 @@ const faqSchema = {
               id="btn-toggle-core"
               class="w-full px-4 py-3 bg-saffron-50 dark:bg-zinc-800 hover:bg-saffron-100 dark:hover:bg-zinc-700 flex items-center justify-between text-xs font-bold text-saffron-800 dark:text-saffron-200 uppercase tracking-wider cursor-pointer"
             >
-              <span>🏆 Core Journey Tiers</span>
+              <span>🏆 {nt.coreJourneyTiers}</span>
               <ChevronRight id="icon-toggle-core" class="w-4 h-4 transition-transform rotate-90" />
             </button>
             
             <div id="container-core" class="p-2 space-y-1 max-h-[300px] overflow-y-auto bg-white dark:bg-zinc-900">
               <div class="text-[10px] font-bold text-charcoal/40 dark:text-cream/40 uppercase tracking-widest px-2 py-1">
-                Beginner Tiers (1-30)
+                {nt.beginnerTiers}
               </div>
               {curriculum.filter(c => c.tier === "beginner").map(c => (
                 <a
@@ -178,7 +218,7 @@ const faqSchema = {
               ))}
 
               <div class="text-[10px] font-bold text-charcoal/40 dark:text-cream/40 uppercase tracking-widest px-2 py-1 pt-3">
-                Professional Tiers (31-60)
+                {nt.professionalTiers}
               </div>
               {curriculum.filter(c => c.tier === "professional").map(c => (
                 <a
@@ -204,7 +244,7 @@ const faqSchema = {
               id="btn-toggle-ncert"
               class="w-full px-4 py-3 bg-saffron-50 dark:bg-zinc-800 hover:bg-saffron-100 dark:hover:bg-zinc-700 flex items-center justify-between text-xs font-bold text-saffron-800 dark:text-saffron-200 uppercase tracking-wider cursor-pointer"
             >
-              <span>📚 NCERT Class Syllabus</span>
+              <span>📚 {nt.ncertClassSyllabus}</span>
               <ChevronRight id="icon-toggle-ncert" class="w-4 h-4 transition-transform" />
             </button>
 
@@ -280,7 +320,7 @@ const faqSchema = {
             class="px-4 py-2 rounded-xl bg-saffron-500 hover:bg-saffron-600 text-white font-bold text-xs uppercase tracking-wider shadow-md shadow-saffron-500/10 cursor-pointer flex items-center gap-1.5"
           >
             <BookOpen class="w-3.5 h-3.5" />
-            <span>Journey</span>
+            <span>{nt.journey}</span>
           </button>
         </div>
       </div>
@@ -292,37 +332,143 @@ const faqSchema = {
 
       {/* Expanded Educational Curriculum Detail (GEO & SEO optimized) */}
       <section class="bg-white dark:bg-zinc-900 border border-saffron-100 dark:border-zinc-800 rounded-3xl p-6 space-y-6">
-        <h3 class="text-xl font-bold text-charcoal dark:text-cream font-latin">
-          NCERT Sanskrit Curriculum & Paninian Grammar Integration
-        </h3>
-        <div class="prose dark:prose-invert text-xs md:text-sm text-charcoal/80 dark:text-cream/80 space-y-4 leading-relaxed font-latin">
-          <p>
-            Welcome to the <strong>Sanskritbhashi School Prep Module</strong>, a comprehensive educational framework meticulously aligned with the National Council of Educational Research and Training (NCERT) curriculum for Sanskrit. Our platform targets students from Class 6 through Class 10, transforming traditional grammar learning into an interactive, gamified journey.
-          </p>
-          <p>
-            The curriculum is structured around the core elements of Sanskrit grammar as defined by classical Paninian linguistics. Learning Sanskrit requires understanding the foundational blocks: <em>Shabdarupa</em> (noun declensions across genders, numbers, and cases) and <em>Dhaturupa</em> (verb conjugations across various tenses, moods, and persons). By parsing these topics into distinct, bite-sized practice levels, we ensure that students can master complex topics step-by-step.
-          </p>
-          <p>
-            Our lessons are categorized into three main categories:
-          </p>
-          <ul class="list-disc pl-5 space-y-2">
-            <li>
-              <strong>Beginner Syllabus (Classes 6 & 7):</strong> Introduces basic vocabulary, Varnamala (Sanskrit alphabet), vowels and basic Sandhi rules, and simple present tense conjugations (Lat Lakara). Students learn to construct short sentences and translate simple terms.
-            </li>
-            <li>
-              <strong>Intermediate/Professional Syllabus (Classes 8 & 9):</strong> Explores advanced noun declensions, past tense (Lang Lakara) and future tense (Lrt Lakara) verb forms, and the concept of Karaka (case relations). We introduce basic Avyayas (indeclinables) and simple compound words (Samasa).
-            </li>
-            <li>
-              <strong>Advanced/Expert Syllabus (Class 10 and beyond):</strong> Focuses on complex Sandhis (such as Visarga and Hal Sandhi), intricate compound formations (Dvigu, Bahuvrihi, etc.), and active/passive voice transitions (Kartari and Karmani Prayoga). Students practice on actual passages from NCERT textbooks like Shemushi and Ruchira.
-            </li>
-          </ul>
-          <p>
-            To guide students and maintain high academic standards, Sanskritbhashi employs a <strong>Diagnostic Gateway lock</strong>. When a student attempts to progress from the Beginner levels to the Professional levels (specifically at Chapter 31), the system locks access until they pass the Beginner Gateway Test. A score of 80% or higher is required to unlock the next levels. This ensures that students have fully mastered foundational declensions and sandhi transformations before attempting more challenging compound analysis or passive voice translations.
-          </p>
-          <p>
-            By combining high-quality audio files for perfect pronunciation, inline grammatical rule explanations, and an adaptive feedback loop, Sanskritbhashi provides a modern laboratory for learning the language of the devas. Explore the syllabus sidebar to select your desired class and chapter, or follow the Core Journey road to success.
-          </p>
-        </div>
+        {lang === "hi" ? (
+          <>
+            <h3 class="text-xl font-bold text-charcoal dark:text-cream font-latin">
+              एनसीईआरटी संस्कृत पाठ्यक्रम और पाणिनीय व्याकरण एकीकरण
+            </h3>
+            <div class="prose dark:prose-invert text-xs md:text-sm text-charcoal/80 dark:text-cream/80 space-y-4 leading-relaxed font-latin">
+              <p>
+                संस्कृतभाषी स्कूल प्रेप मॉड्यूल में आपका स्वागत है, जो संस्कृत के लिए राष्ट्रीय शैक्षिक अनुसंधान और प्रशिक्षण परिषद (NCERT) पाठ्यक्रम के साथ सावधानीपूर्वक संरेखित एक व्यापक शैक्षिक ढांचा है। हमारा प्लेटफॉर्म कक्षा 6 से कक्षा 10 तक के छात्रों को लक्षित करता है, जो पारंपरिक व्याकरण सीखने को एक इंटरैक्टिव, गेमफाइड यात्रा में बदल देता है।
+              </p>
+              <p>
+                पाठ्यक्रम शास्त्रीय पाणिनीय भाषाविज्ञान द्वारा परिभाषित संस्कृत व्याकरण के मूल तत्वों के इर्द-गिर्द संरचित है। संस्कृत सीखने के लिए मूलभूत खंडों को समझना आवश्यक है: <em>शब्दरूप</em> (लिंग, संख्या और कारकों में संज्ञा रूप) और <em>धातुरूप</em> (विभिन्न कालों, मनोभावों और पुरुषों में क्रिया रूप)। इन विषयों को अलग-अलग, छोटे अभ्यास स्तरों में विभाजित करके, हम यह सुनिश्चित करते हैं कि छात्र जटिल विषयों में कदम-दर-कदम महारत हासिल कर सकें।
+              </p>
+              <p>
+                हमारे पाठों को तीन मुख्य श्रेणियों में वर्गीकृत किया गया है:
+              </p>
+              <ul class="list-disc pl-5 space-y-2">
+                <li>
+                  <strong>प्रारंभिक पाठ्यक्रम (कक्षा 6 और 7):</strong> मूल शब्दावली, वर्णमाला, स्वर और बुनियादी संधि नियम, और सरल वर्तमान काल रूप (लट् लकार) का परिचय देता है। छात्र छोटे वाक्य बनाना और सरल शब्दों का अनुवाद करना सीखते हैं।
+                </li>
+                <li>
+                  <strong>मध्यम/व्यावसायिक पाठ्यक्रम (कक्षा 8 और 9):</strong> उन्नत शब्द रूपों, भूतकाल (लङ् लकार) और भविष्य काल (लृट् लकार) क्रिया रूपों, और कारक (कारक संबंध) की अवधारणा की खोज करता है। हम बुनियादी अव्यय और सरल सामासिक शब्दों (समास) का परिचय देते हैं।
+                </li>
+                <li>
+                  <strong>उन्नत/विशेषज्ञ पाठ्यक्रम (कक्षा 10 और उससे आगे):</strong> जटिल संधियों (जैसे विसर्ग और हल् संधि), जटिल सामासिक रूपों (द्विगु, बहुव्रीहि, आदि), और कर्तरि और कर्मणि प्रयोग परिवर्तनों पर ध्यान केंद्रित करता है। छात्र शेमुषी और रुचिरा जैसे एनसीईआरटी पाठ्यपुस्तकों के वास्तविक गद्यांशों पर अभ्यास करते हैं।
+                </li>
+              </ul>
+              <p>
+                छात्रों का मार्गदर्शन करने और उच्च शैक्षणिक मानकों को बनाए रखने के लिए, संस्कृतभाषी एक <strong>डायग्नोस्टिक गेटवे लॉक (प्रवेश द्वार लॉक)</strong> का उपयोग करता है। जब कोई छात्र प्रारंभिक स्तरों से व्यावसायिक स्तरों (विशेष रूप से अध्याय 31 पर) में प्रगति करने का प्रयास करता है, तो सिस्टम तब तक पहुंच को लॉक कर देता है जब तक कि वे प्रारंभिक गेटवे परीक्षा उत्तीर्ण नहीं कर लेते। अगले स्तरों को अनलॉक करने के लिए 80% या उससे अधिक का स्कोर आवश्यक है। यह सुनिश्चित करता है कि छात्र अधिक चुनौतीपूर्ण सामासिक विश्लेषण या कर्मवाच्य अनुवादों का प्रयास करने से पहले मूलभूत शब्द रूपों और संधि परिवर्तनों में पूरी तरह से महारत हासिल कर लें।
+              </p>
+              <p>
+                सटीक उच्चारण के लिए उच्च गुणवत्ता वाली ऑडियो फाइलों, इनलाइन व्याकरण नियमों की व्याख्या और एक अनुकूली फीडबैक लूप को जोड़कर, संस्कृतभाषी देवों की भाषा सीखने के लिए एक आधुनिक प्रयोगशाला प्रदान करता है। अपनी इच्छित कक्षा और अध्याय का चयन करने के लिए पाठ्यक्रम साइडबार का अन्वेषण करें, या सफलता के मुख्य यात्रा पथ का अनुसरण करें।
+              </p>
+            </div>
+          </>
+        ) : lang === "ja" ? (
+          <>
+            <h3 class="text-xl font-bold text-charcoal dark:text-cream font-latin">
+              NCERTサンスクリットカリキュラムとパーニニ文法の統合
+            </h3>
+            <div class="prose dark:prose-invert text-xs md:text-sm text-charcoal/80 dark:text-cream/80 space-y-4 leading-relaxed font-latin">
+              <p>
+                サンスクリットバシの学校準備モジュールへようこそ。これは、サンスクリットのための国家教育研究訓練評議会（NCERT）のカリキュラムに細心の注意を払って準拠した、包括的な教育フレームワークです。当プラットフォームはクラス6からクラス10までの生徒を対象としており、伝統的な文法学習をインタラクティブでゲーム感覚の学習体験へと変革します。
+              </p>
+              <p>
+                カリキュラムは、古典的なパーニニ言語学によって定義されたサンスクリット文法の中心要素を中心に構成されています。サンスクリットを学ぶには、基本的な要素を理解する必要があります：<em>シャブダルパ</em>（性、数、格による名詞変化）と<em>ダートゥルパ</em>（さまざまな時制、法、人称における動詞の活用）。これらのトピックを明確で一口サイズの練習レベルに解析することで、生徒が複雑なトピックを段階的に習得できるようにします。
+              </p>
+              <p>
+                レッスンは主に3つのカテゴリーに分かれています：
+              </p>
+              <ul class="list-disc pl-5 space-y-2">
+                <li>
+                  <strong>初級シラバス（クラス6＆7）：</strong> 基本的な語彙、ヴァルナマーラー（サンスクリットのアルファベット）、母音と基本的なサンドゥヒ（連声）規則、および単純な現在時制の活用（ラト・ラカーラ）を導入します。生徒は短い文章を作成し、簡単な単語を翻訳することを学びます。
+                </li>
+                <li>
+                  <strong>中級/プロフェッショナルシラバス（クラス8＆9）：</strong> 高度な名詞変化、過去時制（ラン・ラカーラ）および未来時制（ルト・ラカーラ）の動詞変化、およびカーラカ（格関係）の概念を探求します。基本的なアヴィヤヤ（不変化詞）と簡単な複合語（サマーサ）を紹介します。
+                </li>
+                <li>
+                  <strong>上級/エキスパートシラバス（クラス10以降）：</strong> 複雑なサンドゥヒ（ヴィサルガやハル・サンドゥヒなど）、複雑な複合語の形成（ドゥヴィグ、バフヴリーヒなど）、および能動態/受動態の変換（カルタリおよびカルマニ・プラヨーガ）に焦点を当てます。生徒は『シェームシー』や『ルチラー』などのNCERT教科書の実際のテキストで練習します。
+                </li>
+              </ul>
+              <p>
+                生徒を適切に導き、高い学習水準を維持するため、サンスクリットバシは診断用<strong>ゲートウェイロック</strong>を採用しています。生徒が初級レベルからプロフェッショナルレベル（具体的には第31章）へ進もうとすると、初級ゲートウェイテストに合格するまでシステムはアクセスをロックします。次のレベルのロックを解除するには、80％以上のスコアが必要です。これにより、より困難な複合語分析や受動態の翻訳に取り組む前に、生徒が基礎的な格変化とサンドゥヒ変化を完全にマスターしていることを保証します。
+              </p>
+              <p>
+                完璧な発音のための高品質な音声ファイル、インラインの文法規則の説明、および適応型のフィードバックループを組み合わせることで、サンスクリットバシは神々の言語を学ぶための現代的なラボを提供します。シラバスのサイドバーを探索してお好みのクラスや章を選択するか、コア・ジャーニーの道を歩みましょう。
+              </p>
+            </div>
+          </>
+        ) : lang === "es" ? (
+          <>
+            <h3 class="text-xl font-bold text-charcoal dark:text-cream font-latin">
+              Integración del Plan de Estudios de Sánscrito NCERT y la Gramática Paniniana
+            </h3>
+            <div class="prose dark:prose-invert text-xs md:text-sm text-charcoal/80 dark:text-cream/80 space-y-4 leading-relaxed font-latin">
+              <p>
+                Bienvenido al Módulo de Preparación Escolar de Sanskritbhashi, un marco educativo integral meticulosamente alineado con el plan de estudios del Consejo Nacional de Investigación y Capacitación Educativa (NCERT) para el sánscrito. Nuestra plataforma está dirigida a estudiantes desde la Clase 6 hasta la Clase 10, transformando el aprendizaje de la gramática tradicional en un viaje interactivo y gamificado.
+              </p>
+              <p>
+                El plan de estudios está estructurado en torno a los elementos centrales de la gramática sánscrita definidos por la lingüística clásica paniniana. Aprender sánscrito requiere comprender los bloques fundamentales: <em>Shabdarupa</em> (declinaciones nominales en diferentes géneros, números y casos) y <em>Dhaturupa</em> (conjugaciones verbales en varios tiempos, modos y personas). Al dividir estos temas en niveles de práctica distintos y manejables, nos aseguramos de que los estudiantes puedan dominar temas complejos paso a paso.
+              </p>
+              <p>
+                Nuestras lecciones se clasifican en tres categorías principales:
+              </p>
+              <ul class="list-disc pl-5 space-y-2">
+                <li>
+                  <strong>Plan de Estudios para Principiantes (Clases 6 y 7):</strong> Introduce vocabulario básico, Varnamala (alfabeto sánscrito), vocales y reglas básicas de Sandhi, y conjugaciones de tiempo presente simple (Lat Lakara). Los estudiantes aprenden a construir oraciones cortas y a traducir términos simples.
+                </li>
+                <li>
+                  <strong>Plan de Estudios Intermedio/Profesional (Clases 8 y 9):</strong> Explora declinaciones nominales avanzadas, formas verbales en tiempo pasado (Lang Lakara) y tiempo futuro (Lrt Lakara), y el concepto de Karaka (relaciones de caso). Introducimos Avyayas básicos (indeclinables) y palabras compuestas simples (Samasa).
+                </li>
+                <li>
+                  <strong>Plan de Estudios Avanzado/Experto (Clase 10 en adelante):</strong> Se centra en Sandhis complejos (como Visarga y Hal Sandhi), formaciones compuestas intrincadas (Dvigu, Bahuvrihi, etc.), y transiciones de voz activa/pasiva (Kartari y Karmani Prayoga). Los estudiantes practican con pasajes reales de libros de texto de NCERT como Shemushi y Ruchira.
+                </li>
+              </ul>
+              <p>
+                Para guiar a los estudiantes y mantener altos estándares académicos, Sanskritbhashi emplea un <strong>bloqueo de Puerta de Enlace de Diagnóstico</strong>. Cuando un estudiante intenta progresar de los niveles de Principiante a los niveles Profesionales (específicamente en el Capítulo 31), el sistema bloquea el acceso hasta que pase la Prueba de Puerta de Enlace para Principiantes. Se requiere una puntuación del 80% o superior para desbloquear los siguientes niveles. Esto asegura que los estudiantes hayan dominado completamente las declinaciones fundamentales y las transformaciones de sandhi antes de intentar análisis de compuestos más desafiantes o traducciones de voz pasiva.
+              </p>
+              <p>
+                Al combinar archivos de audio de alta calidad para una pronunciación perfecta, explicaciones de reglas gramaticales en línea y un ciclo de retroalimentación adaptativo, Sanskritbhashi proporciona un laboratorio moderno para aprender el idioma de los devas. Explore la barra lateral del plan de estudios para seleccionar su clase y capítulo deseados, o siga el camino del Viaje Principal hacia el éxito.
+              </p>
+            </div>
+          </>
+        ) : (
+          <>
+            <h3 class="text-xl font-bold text-charcoal dark:text-cream font-latin">
+              NCERT Sanskrit Curriculum & Paninian Grammar Integration
+            </h3>
+            <div class="prose dark:prose-invert text-xs md:text-sm text-charcoal/80 dark:text-cream/80 space-y-4 leading-relaxed font-latin">
+              <p>
+                Welcome to the <strong>Sanskritbhashi School Prep Module</strong>, a comprehensive educational framework meticulously aligned with the National Council of Educational Research and Training (NCERT) curriculum for Sanskrit. Our platform targets students from Class 6 through Class 10, transforming traditional grammar learning into an interactive, gamified journey.
+              </p>
+              <p>
+                The curriculum is structured around the core elements of Sanskrit grammar as defined by classical Paninian linguistics. Learning Sanskrit requires understanding the foundational blocks: <em>Shabdarupa</em> (noun declensions across genders, numbers, and cases) and <em>Dhaturupa</em> (verb conjugations across various tenses, moods, and persons). By parsing these topics into distinct, bite-sized practice levels, we ensure that students can master complex topics step-by-step.
+              </p>
+              <p>
+                Our lessons are categorized into three main categories:
+              </p>
+              <ul class="list-disc pl-5 space-y-2">
+                <li>
+                  <strong>Beginner Syllabus (Classes 6 & 7):</strong> Introduces basic vocabulary, Varnamala (Sanskrit alphabet), vowels and basic Sandhi rules, and simple present tense conjugations (Lat Lakara). Students learn to construct short sentences and translate simple terms.
+                </li>
+                <li>
+                  <strong>Intermediate/Professional Syllabus (Classes 8 & 9):</strong> Explores advanced noun declensions, past tense (Lang Lakara) and future tense (Lrt Lakara) verb forms, and the concept of Karaka (case relations). We introduce basic Avyayas (indeclinables) and simple compound words (Samasa).
+                </li>
+                <li>
+                  <strong>Advanced/Expert Syllabus (Class 10 and beyond):</strong> Focuses on complex Sandhis (such as Visarga and Hal Sandhi), intricate compound formations (Dvigu, Bahuvrihi, etc.), and active/passive voice transitions (Kartari and Karmani Prayoga). Students practice on actual passages from NCERT textbooks like Shemushi and Ruchira.
+                </li>
+              </ul>
+              <p>
+                To guide students and maintain high academic standards, Sanskritbhashi employs a <strong>Diagnostic Gateway lock</strong>. When a student attempts to progress from the Beginner levels to the Professional levels (specifically at Chapter 31), the system locks access until they pass the Beginner Gateway Test. A score of 80% or higher is required to unlock the next levels. This ensures that students have fully mastered foundational declensions and sandhi transformations before attempting more challenging compound analysis or passive voice translations.
+              </p>
+              <p>
+                By combining high-quality audio files for perfect pronunciation, inline grammatical rule explanations, and an adaptive feedback loop, Sanskritbhashi provides a modern laboratory for learning the language of the devas. Explore the syllabus sidebar to select your desired class and chapter, or follow the Core Journey road to success.
+              </p>
+            </div>
+          </>
+        )}
       </section>
     </div>
 

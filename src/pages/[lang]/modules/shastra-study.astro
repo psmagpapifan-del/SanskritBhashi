@@ -92,6 +92,34 @@ const shastraSchema = {
   "description": t.shastraStudy.desc,
   "inLanguage": "sa"
 };
+
+const navTranslations = {
+  en: {
+    syllabusNavigation: "Syllabus Navigation",
+    expertShastraTiers: "Expert Shastra Tiers",
+    expertTiers: "Expert Tiers (61-90)",
+    journey: "Journey"
+  },
+  hi: {
+    syllabusNavigation: "पाठ्यक्रम नेविगेशन",
+    expertShastraTiers: "विशेषज्ञ शास्त्र स्तर",
+    expertTiers: "विशेषज्ञ स्तर (61-90)",
+    journey: "यात्रा"
+  },
+  ja: {
+    syllabusNavigation: "シラバスナビゲーション",
+    expertShastraTiers: "上級シャーストラティア",
+    expertTiers: "上級ティア (61-90)",
+    journey: "ジャーニー"
+  },
+  es: {
+    syllabusNavigation: "Navegación del Plan",
+    expertShastraTiers: "Niveles de Shastra Experto",
+    expertTiers: "Niveles Expertos (61-90)",
+    journey: "Viaje"
+  }
+};
+const nt = navTranslations[lang] || navTranslations.en;
 ---
 
 <Layout lang={lang} title={`${t.shastraStudy.title} | Sanskritbhashi`}>
@@ -103,7 +131,7 @@ const shastraSchema = {
     <aside id="nav-sidebar" class="w-full xl:w-1/4 flex flex-col space-y-4 xl:sticky xl:top-20 self-start z-10">
       <div class="bg-white dark:bg-zinc-900 border border-saffron-100 dark:border-zinc-800 rounded-3xl p-5 space-y-4">
         <h3 class="text-xs font-black text-charcoal/60 dark:text-cream/60 uppercase tracking-widest font-latin">
-          Syllabus Navigation
+          {nt.syllabusNavigation}
         </h3>
         
         <div class="space-y-3">
@@ -113,13 +141,13 @@ const shastraSchema = {
               id="btn-toggle-core"
               class="w-full px-4 py-3 bg-saffron-50 dark:bg-zinc-800 hover:bg-saffron-100 dark:hover:bg-zinc-700 flex items-center justify-between text-xs font-bold text-saffron-800 dark:text-saffron-200 uppercase tracking-wider cursor-pointer"
             >
-              <span>🏆 Expert Shastra Tiers</span>
+              <span>🏆 {nt.expertShastraTiers}</span>
               <ChevronRight id="icon-toggle-core" class="w-4 h-4 transition-transform rotate-90" />
             </button>
             
             <div id="container-core" class="p-2 space-y-1 max-h-[400px] overflow-y-auto bg-white dark:bg-zinc-900">
               <div class="text-[10px] font-bold text-charcoal/40 dark:text-cream/40 uppercase tracking-widest px-2 py-1">
-                Expert Tiers (61-90)
+                {nt.expertTiers}
               </div>
               {curriculum.filter(c => c.tier === "expert").map(c => (
                 <a
@@ -175,7 +203,7 @@ const shastraSchema = {
             class="px-4 py-2 rounded-xl bg-saffron-500 hover:bg-saffron-600 text-white font-bold text-xs uppercase tracking-wider shadow-md shadow-saffron-500/10 cursor-pointer flex items-center gap-1.5"
           >
             <BookOpen class="w-3.5 h-3.5" />
-            <span>Journey</span>
+            <span>{nt.journey}</span>
           </button>
         </div>
       </div>
@@ -187,37 +215,143 @@ const shastraSchema = {
 
       {/* Expanded Shastra Study Article Section for GEO bots */}
       <section class="bg-white dark:bg-zinc-900 border border-saffron-100 dark:border-zinc-800 rounded-3xl p-6 space-y-6">
-        <h3 class="text-xl font-bold text-charcoal dark:text-cream font-latin">
-          Shastra Study: Grammatical Analysis of Scriptural Sanskrit
-        </h3>
-        <div class="prose dark:prose-invert text-xs md:text-sm text-charcoal/80 dark:text-cream/80 space-y-4 leading-relaxed font-latin">
-          <p>
-            Welcome to the <strong>Sanskritbhashi Shastra Study Module</strong>, a specialized repository designed to lead advanced learners, Indologists, and spiritual seekers into direct engagement with classical Sanskrit scriptures. This module moves beyond simple vernacular translations, equipping students with the tools to perform verse-by-verse grammatical analysis (Anvaya) and word decomposition of texts like the Bhagavad Gita, the Upanishads, and the Srimad Bhagavatam.
-          </p>
-          <p>
-            Studying scriptural texts requires a deep appreciation of <em>Vedic</em> and <em>Classical Sanskrit</em> grammar as described in Panini’s <em>Ashtadhyayi</em>. Our curriculum at this expert level (Levels 61-90) is dedicated to unlocking the complex linguistic structures embedded in these timeless verses. By breaking down each shloka into its constituent words (Pada-chedha), identifying their case relations (Karaka), and rearranging them into logical prose order (Anvaya), we allow the original meaning of the text to shine through without filter.
-          </p>
-          <p>
-            Key components of our Shastra curriculum include:
-          </p>
-          <ul class="list-disc pl-5 space-y-2">
-            <li>
-              <strong>Shloka Anvaya (Prose Reordering):</strong> Standard Sanskrit verses are written in metered poetry (Chandas) where word order is flexible. Anvaya is the process of reordering these words into a natural subject-object-verb prose sequence (similar to modern syntax) to enable clear translation and comprehension.
-            </li>
-            <li>
-              <strong>Vigraha (Compound Resolution):</strong> Scriptural Sanskrit relies heavily on long compound words (Samasa). We teach users how to write out the Vigraha (analytical sentence showing compound relations) for Dvandva, Tatpuruṣa, Karmadhāraya, and Bahuvrīhi compounds found in the Gita.
-            </li>
-            <li>
-              <strong>Commentary Analysis (Tika):</strong> Students are introduced to classical commentaries such as those by Adi Shankaracharya, Ramanujacharya, and Sridhara Svamin. We analyze how commentators resolve grammatical ambiguities to derive specific philosophical interpretations.
-            </li>
-          </ul>
-          <p>
-            To maintain structural rigor, access to these Expert Shastra levels is locked under our <strong>Professional Diagnostic Gateway</strong>. To unlock these materials, a student must achieve a score of 80% or higher on the Professional Gateway test (representing mastery of advanced sandhis, karakas, and verb tenses). This prevents premature exposure to complex scriptural compounds before foundational syntax is fully understood.
-          </p>
-          <p>
-            Our interactive workspace provides direct feedback, word-by-word structural breakdowns, and standard pronunciation audio clips to help you master both the acoustics and semantics of scriptural Sanskrit. Start exploring the Bhagavad Gita chapters in the sidebar to deepen your understanding.
-          </p>
-        </div>
+        {lang === "hi" ? (
+          <>
+            <h3 class="text-xl font-bold text-charcoal dark:text-cream font-latin">
+              शास्त्र अध्ययन: शास्त्र संस्कृत का व्याकरणिक विश्लेषण
+            </h3>
+            <div class="prose dark:prose-invert text-xs md:text-sm text-charcoal/80 dark:text-cream/80 space-y-4 leading-relaxed font-latin">
+              <p>
+                संस्कृतभाषी शास्त्र अध्ययन मॉड्यूल में आपका स्वागत है, जो एक विशेष भंडार है जिसे उन्नत शिक्षार्थियों, भारतविदों और आध्यात्मिक साधकों को शास्त्रीय संस्कृत शास्त्रों के साथ सीधे जोड़ने के लिए डिज़ाइन किया गया है। यह मॉड्यूल सरल स्थानीय अनुवादों से आगे बढ़ता है, और छात्रों को भगवद गीता, उपनिषदों और श्रीमद्भागवतम् जैसे ग्रंथों का श्लोक-दर-श्लोक व्याकरणिक विश्लेषण (अन्वय) और शब्द अपघटन करने के उपकरण प्रदान करता है।
+              </p>
+              <p>
+                शास्त्र ग्रंथों के अध्ययन के लिए पाणिनी की अष्टाध्यायी में वर्णित <em>वैदिक</em> और <em>शास्त्रीय संस्कृत</em> व्याकरण की गहरी समझ की आवश्यकता होती है। इस विशेषज्ञ स्तर (स्तर 61-90) पर हमारा पाठ्यक्रम इन शाश्वत श्लोकों में सन्निहित जटिल भाषाई संरचनाओं को उजागर करने के लिए समर्पित है। प्रत्येक श्लोक को उसके घटक शब्दों (पद-छेद) में तोड़कर, उनके कारक संबंधों (कारक) की पहचान करके, और उन्हें तार्किक गद्य क्रम (अन्वय) में पुनर्व्यवस्थित करके, हम मूल अर्थ को बिना किसी फ़िल्टर के स्पष्ट रूप से समझने में मदद करते हैं।
+              </p>
+              <p>
+                हमारे शास्त्र पाठ्यक्रम के प्रमुख घटकों में शामिल हैं:
+              </p>
+              <ul class="list-disc pl-5 space-y-2">
+                <li>
+                  <strong>श्लोक अन्वय (गद्य पुनर्गठन):</strong> मानक संस्कृत श्लोक छंदबद्ध कविता (छन्द) में लिखे गए हैं जहाँ शब्द क्रम लचीला होता है। अन्वय इन शब्दों को एक प्राकृतिक कर्ता-कर्म-क्रिया गद्य अनुक्रम (आधुनिक वाक्य रचना के समान) में पुनर्व्यवस्थित करने की प्रक्रिया है ताकि स्पष्ट अनुवाद और समझ को सक्षम किया जा सके।
+                </li>
+                <li>
+                  <strong>विग्रह (सामासिक विग्रह):</strong> शास्त्र संस्कृत काफी हद तक लंबे सामासिक शब्दों (समास) पर निर्भर करती है। हम उपयोगकर्ताओं को गीता में पाए जाने वाले द्वंद्व, तत्पुरुष, कर्मधारय और बहुव्रीहि समासों के लिए विग्रह (सामासिक संबंधों को दिखाने वाला विश्लेषणात्मक वाक्य) लिखना सिखाते हैं।
+                </li>
+                <li>
+                  <strong>भाष्य विश्लेषण (टीका):</strong> छात्रों का परिचय आदि शंकराचार्य, रामानुजाचार्य और श्रीधर स्वामी जैसे आचार्यों के शास्त्रीय भाष्यों से कराया जाता है। हम विश्लेषण करते हैं कि कैसे भाष्यकार विशिष्ट दार्शनिक व्याख्याओं को प्राप्त करने के लिए व्याकरणिक अस्पष्टताओं को हल करते हैं।
+                </li>
+              </ul>
+              <p>
+                संरचनात्मक दृढ़ता बनाए रखने के लिए, इन विशेषज्ञ शास्त्र स्तरों तक पहुंच हमारे <strong>व्यावसायिक नैदानिक प्रवेश द्वार (प्रोफेशनल डायग्नोस्टिक गेटवे)</strong> के तहत लॉक है। इन सामग्रियों को अनलॉक करने के लिए, एक छात्र को व्यावसायिक प्रवेश परीक्षा में 80% या उससे अधिक अंक प्राप्त करने होंगे (जो उन्नत संधि, कारक और क्रिया काल पर महारत का प्रतिनिधित्व करता है)। यह बुनियादी वाक्य रचना को पूरी तरह से समझने से पहले जटिल शास्त्र समासों के असामयिक अध्ययन को रोकता है।
+              </p>
+              <p>
+                हमारा इंटरैक्टिव कार्यक्षेत्र आपको शास्त्र संस्कृत के ध्वनिकी और शब्दार्थ दोनों में महारत हासिल करने में मदद करने के लिए प्रत्यक्ष प्रतिक्रिया, शब्द-दर-शब्द संरचनात्मक विश्लेषण और मानक उच्चारण ऑडियो क्लिप प्रदान करता है। अपनी समझ को गहरा करने के लिए साइडबार में भगवद गीता के अध्यायों की खोज शुरू करें।
+              </p>
+            </div>
+          </>
+        ) : lang === "ja" ? (
+          <>
+            <h3 class="text-xl font-bold text-charcoal dark:text-cream font-latin">
+              シャーストラ学習：経典サンスクリットの意味論的・文法的な分析
+            </h3>
+            <div class="prose dark:prose-invert text-xs md:text-sm text-charcoal/80 dark:text-cream/80 space-y-4 leading-relaxed font-latin">
+              <p>
+                サンスクリットバシのシャーストラ学習モジュールへようこそ。これは、上級学習者、インド学者、そして精神的な探求者が古典的なサンスクリット経典に直接関わるように設計された専門的なレポジトリです。このモジュールは、単純な自国語の翻訳を超え、バガヴァッド・ギーター、ウパニシャッド、シュリーマド・バーガヴァタムなどのテキストの一節ごとの文法分析（アンヴァヤ）や単語の分解を行うためのツールを生徒に提供します。
+              </p>
+              <p>
+                聖典テキストの研究には、パーニニの『アシュターディヤーイー』に記述されている<em>ヴェーダ</em>および<em>古典サンスクリット文法</em>への深い理解が必要です。このエキスパートレベル（レベル61-90）のカリキュラムは、これらの不朽の詩節に組み込まれた複雑な言語構造を解き明かすことに焦点を当てています。各シュローカを構成する単語（パダ・チェーダ）に分解し、それらの格関係（カーラカ）を特定し、論理的な散文順序（アンヴァヤ）に並べ替えることで、フィルターを通さずにテキスト本来の意味を輝かせることができます。
+              </p>
+              <p>
+                シャーストラカリキュラムの主な構成要素は次のとおりです：
+              </p>
+              <ul class="list-disc pl-5 space-y-2">
+                <li>
+                  <strong>シュローカ・アンヴァヤ（散文の順序変更）：</strong> 標準的なサンスクリットの詩節は韻律詩（チャンダス）で書かれており、語順は柔軟です。アンヴァヤは、明確な翻訳と理解を可能にするために、これらの単語を自然な主語-目的語-動詞の散文順序（現代の構文と同様）に並べ替えるプロセスです。
+                </li>
+                <li>
+                  <strong>ヴィグラハ（複合語の分解）：</strong> 経典サンスクリットは長い複合語（サマーサ）に大きく依存しています。ギーターに見られるドゥヴァンドヴァ、タトプルーシャ、カルマダーラヤ、バフヴリーヒなどの複合語について、複合関係を示す分析文（ヴィグラハ）を書き出す方法を学びます。
+                </li>
+                <li>
+                  <strong>注釈の分析（ティーカー）：</strong> 生徒はアディ・シャンカラチャーリヤ、ラーマーヌジャーチャーリヤ、シュリーダラ・スヴァーミーンなどの古典的な注釈書を紹介されます。注釈者が特定の哲学的な解釈を導き出すために、文法的な曖昧さをどのように解決するかを分析します。
+                </li>
+              </ul>
+              <p>
+                構造的な厳密さを維持するため、これらエキスパートシャーストラレベルへのアクセスは、プロフェッショナル診断<strong>ゲートウェイロック</strong>の下でロックされています。これらの教材をアンロックするには、プロフェッショナルゲートウェイテストで80％以上のスコアを獲得する必要があります（高度なサンドゥヒ、カーラカ、動詞の時制の習得を示します）。これにより、基礎的な構文が完全に理解される前に、複雑な経典の複合語に時期尚早に触れることを防ぎます。
+              </p>
+              <p>
+                私たちのインタラクティブなワークスペースは、経典サンスクリットの音響と意味論の両方をマスターするのを支援するために、直接的なフィードバック、単語ごとの構造分解、および標準的な発音の音声クリップを提供します。理解を深めるために、サイドバーでバガヴァッド・ギーターの章を探索し始めてください。
+              </p>
+            </div>
+          </>
+        ) : lang === "es" ? (
+          <>
+            <h3 class="text-xl font-bold text-charcoal dark:text-cream font-latin">
+              Estudio del Shastra: Análisis Gramatical del Sánscrito de las Escrituras
+            </h3>
+            <div class="prose dark:prose-invert text-xs md:text-sm text-charcoal/80 dark:text-cream/80 space-y-4 leading-relaxed font-latin">
+              <p>
+                Bienvenido al Módulo de Estudio del Shastra de Sanskritbhashi, un repositorio especializado diseñado para guiar a estudiantes avanzados, indólogos y buscadores espirituales en un compromiso directo con las escrituras sánscritas clásicas. Este módulo va más allá de las traducciones simples en lenguas vernáculas, equipando a los estudiantes con las herramientas para realizar un análisis gramatical verso por verso (Anvaya) y la descomposición de palabras de textos como el Bhagavad Gita, los Upanishads y el Srimad Bhagavatam.
+              </p>
+              <p>
+                El estudio de los textos de las escrituras requiere una profunda apreciación de la gramática del <em>Sánscrito Védico</em> y <em>Clásico</em> como se describe en el <em>Ashtadhyayi</em> de Panini. Nuestro plan de estudios en este nivel experto (Niveles 61-90) está dedicado a desbloquear las complejas estructuras lingüísticas incrustadas en estos versos atemporales. Al desglosar cada shloka en sus palabras constituyentes (Pada-chedha), identificar sus relaciones de caso (Karaka) y reorganizarlas en un orden de prosa lógico (Anvaya), permitimos que el significado original del texto brille sin filtros.
+              </p>
+              <p>
+                Los componentes clave de nuestro plan de estudios de Shastra incluyen:
+              </p>
+              <ul class="list-disc pl-5 space-y-2">
+                <li>
+                  <strong>Shloka Anvaya (Reordenamiento de Prosa):</strong> Los versos sánscritos estándar se escriben en poesía con métrica (Chandas) donde el orden de las palabras es flexible. Anvaya es el proceso de reordenar estas palabras en una secuencia natural de prosa sujeto-objeto-verbo (similar a la sintaxis moderna) para permitir una traducción y comprensión claras.
+                </li>
+                <li>
+                  <strong>Vigraha (Resolución de Compuestos):</strong> El sánscrito de las escrituras depende en gran medida de palabras compuestas largas (Samasa). Enseñamos a los usuarios cómo escribir el Vigraha (oración analítica que muestra las relaciones de los compuestos) para los compuestos Dvandva, Tatpuruṣa, Karmadhāraya y Bahuvrīhi que se encuentran en el Gita.
+                </li>
+                <li>
+                  <strong>Análisis de Comentarios (Tika):</strong> Se introduce a los estudiantes a comentarios clásicos como los de Adi Shankaracharya, Ramanujacharya y Sridhara Svamin. Analizamos cómo los comentaristas resuelven las ambigüedades gramaticales para derivar interpretaciones filosóficas específicas.
+                </li>
+              </ul>
+              <p>
+                Para mantener el rigor estructural, el acceso a estos niveles de Shastra Experto está bloqueado bajo nuestra <strong>Puerta de Enlace de Diagnóstico Profesional</strong>. Para desbloquear estos materiales, un estudiante debe lograr una puntuación del 80% o superior en la prueba de Puerta de Enlace Profesional (que representa el dominio de sandhis avanzados, karakas y tiempos verbales). Esto evita la exposición prematura a compuestos complejos de las escrituras antes de que se comprenda completamente la sintaxis fundamental.
+              </p>
+              <p>
+                Al combinar archivos de audio de alta calidad para una pronunciación perfecta, explicaciones de reglas gramaticales en línea y un ciclo de retroalimentación adaptativo, Sanskritbhashi proporciona un laboratorio moderno para aprender el idioma de los devas. Explore la barra lateral del plan de estudios para seleccionar su clase y capítulo deseados, o siga el camino del Viaje Principal hacia el éxito.
+              </p>
+            </div>
+          </>
+        ) : (
+          <>
+            <h3 class="text-xl font-bold text-charcoal dark:text-cream font-latin">
+              Shastra Study: Grammatical Analysis of Scriptural Sanskrit
+            </h3>
+            <div class="prose dark:prose-invert text-xs md:text-sm text-charcoal/80 dark:text-cream/80 space-y-4 leading-relaxed font-latin">
+              <p>
+                Welcome to the <strong>Sanskritbhashi Shastra Study Module</strong>, a specialized repository designed to lead advanced learners, Indologists, and spiritual seekers into direct engagement with classical Sanskrit scriptures. This module moves beyond simple vernacular translations, equipping students with the tools to perform verse-by-verse grammatical analysis (Anvaya) and word decomposition of texts like the Bhagavad Gita, the Upanishads, and the Srimad Bhagavatam.
+              </p>
+              <p>
+                Studying scriptural texts requires a deep appreciation of <em>Vedic</em> and <em>Classical Sanskrit</em> grammar as described in Panini’s <em>Ashtadhyayi</em>. Our curriculum at this expert level (Levels 61-90) is dedicated to unlocking the complex linguistic structures embedded in these timeless verses. By breaking down each shloka into its constituent words (Pada-chedha), identifying their case relations (Karaka), and rearranging them into logical prose order (Anvaya), we allow the original meaning of the text to shine through without filter.
+              </p>
+              <p>
+                Key components of our Shastra curriculum include:
+              </p>
+              <ul class="list-disc pl-5 space-y-2">
+                <li>
+                  <strong>Shloka Anvaya (Prose Reordering):</strong> Standard Sanskrit verses are written in metered poetry (Chandas) where word order is flexible. Anvaya is the process of reordering these words into a natural subject-object-verb prose sequence (similar to modern syntax) to enable clear translation and comprehension.
+                </li>
+                <li>
+                  <strong>Vigraha (Compound Resolution):</strong> Scriptural Sanskrit relies heavily on long compound words (Samasa). We teach users how to write out the Vigraha (analytical sentence showing compound relations) for Dvandva, Tatpuruṣa, Karmadhāraya, and Bahuvrīhi compounds found in the Gita.
+                </li>
+                <li>
+                  <strong>Commentary Analysis (Tika):</strong> Students are introduced to classical commentaries such as those by Adi Shankaracharya, Ramanujacharya, and Sridhara Svamin. We analyze how commentators resolve grammatical ambiguities to derive specific philosophical interpretations.
+                </li>
+              </ul>
+              <p>
+                To maintain structural rigor, access to these Expert Shastra levels is locked under our <strong>Professional Diagnostic Gateway</strong>. To unlock these materials, a student must achieve a score of 80% or higher on the Professional Gateway test (representing mastery of advanced sandhis, karakas, and verb tenses). This prevents premature exposure to complex scriptural compounds before foundational syntax is fully understood.
+              </p>
+              <p>
+                Our interactive workspace provides direct feedback, word-by-word structural breakdowns, and standard pronunciation audio clips to help you master both the acoustics and semantics of scriptural Sanskrit. Start exploring the Bhagavad Gita chapters in the sidebar to deepen your understanding.
+              </p>
+            </div>
+          </>
+        )}
       </section>
     </div>
 

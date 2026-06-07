@@ -1,6 +1,30 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Noto+Serif+Devanagari:wght@400;700&family=Rozha+One&family=Tiro+Sanskrit&display=swap");
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+.dark {
+  --color-cream: #121212;
+  --color-charcoal: #F5F5F5;
+  --color-saffron-50: #2C180F;
+  --color-saffron-100: #4B2713;
+  --color-saffron-500: #FF8F33;
+  --color-saffron-600: #E66100;
+  --color-marigold-500: #FFC43D;
+  --color-marigold-600: #E6AA00;
+  color-scheme: dark;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #3A3A3A;
+}
+
+.dark ::selection {
+  background-color: var(--color-saffron-100);
+  color: var(--color-cream);
+}
+
+
 @theme {
   /* Dynamic font variables injected from layout + imported fonts */
   --font-sanskrit: "Tiro Sanskrit", "Rozha One", "Noto Serif Devanagari", serif;

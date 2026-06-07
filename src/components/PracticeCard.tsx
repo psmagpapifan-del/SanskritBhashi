@@ -1,12 +1,22 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Play, Volume2, HelpCircle, CheckCircle2, AlertCircle, ChevronDown, ChevronUp, ArrowRight, ShieldAlert } from "lucide-react";
+import { Play, Volume2, HelpCircle, CheckCircle2, AlertCircle, ChevronDown, ChevronUp, ArrowRight, ShieldAlert, Undo, CheckCircle, Lock } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { fireConfetti } from "./ConfettiCelebration";
 import ErrorReportButton from "./ErrorReportButton";
 import AdSenseWidget from "./AdSenseWidget";
-import { getTranslation } from "@/lib/i18n";
+import { getTranslation } from "../lib/i18n";
+import {
+  UserProgress,
+  Chapter,
+  Question,
+  CurriculumTier,
+  getProgress,
+  saveProgress,
+  buildCurriculum
+} from "../lib/levelsEngine";
+import { curriculumChapters } from "../lib/curriculumData";
 
 function localizeText(text: string, lang: string): string {
   if (!text || lang === "en") return text;
@@ -99,7 +109,7 @@ function localizeText(text: string, lang: string): string {
       "The tree represents the fixed point/source from which the leaf separates, taking the Ablative case.": "木は、葉がそこから分離する固定点/起点を示し、奪格をとります。",
       "In a passive construction (Karmaṇi Prayoga), the unexpressed agent (Rama) takes the 3rd (Instrumental) case.": "受動態（Karmaṇi Prayoga）では、動作主（ラーマ）は第3格（具格）をとります。",
       "The infix '-iṣya-' denotes the future tense (Lṛṭ Lakāra) and the suffix '-mi' denotes first person (Uttama) singular.": "挿入辞『-iṣya-』は未来時制（Lṛṭ Lakāra）を示し、接尾辞『-mi』は第一人称（Uttama）単数を示します。",
-      "The prefix 'a-' and the ending '-t' denote the past tense (Laṅg Lakāra) and third person singular.": "接頭辞『a-』と語尾の『-t』は過去時制（Laṅg Lakāra）と第三人称単数を示します。",
+      "The prefix 'a-' and the ending '-t' denote the past tense (Laṅg Lakāra) and third person singular.": "接頭辞『a-』と語尾の『-t』は過去時制（Laṅg Lakāra）と外部三人称単数を示します。",
       "The relationship is possessive ('king's servant'), representing the Genitive Tatpuruṣa compound.": "関係は所有格（『王の召使い』）であり、属格タトプルシャ複合語を表します。",
       "The compound refers to a third external entity ('he whose garments are yellow'), indicating Bahuvrīhi.": "この複合語は第3の外部要素（『衣服が黄色い者』）を指し、バフヴリーヒ複合語であることを示します。",
       "Start with the vocative address ('Sañjaya!'), followed by the locations, the subjects ('māmakāḥ pāṇḍavāḥ ca'), and end with the interrogative verb phrase.": "呼格による呼びかけ（『Sañjaya!』）から始め、次に場所、主語（『māmakāḥ pāṇḍavāḥ ca』）、そして疑問動詞句で終わります。",
@@ -128,7 +138,7 @@ function localizeText(text: string, lang: string): string {
       "Guru-Laghu-Laghu-Laghu-Guru": "गुरु-लघु-लघु-लघु-गुरु",
       "Guru-Guru-Laghu-Guru": "गुरु-लघु-लघु-लघु-गुरु",
       "Guru-Guru-Guru-Guru-Laghu-Guru-Guru-Guru": "गुरु-गुरु-गुरु-गुरु-लघु-गुरु-गुरु-गुरु",
-      "Kanthya, Oṣṭhya, Talavya": "कण्ठ्य, ओष्ठ्य, तालव्य",
+      "Kanthya, Oṣṭhya, Talavya": "कण्ठ्य, ओष्ठ्य, स्थानीय",
       "Talavya, Dantya, Kanthya": "तालव्य, दन्त्य, कण्ठ्य",
       "Dantya, Kanthya, Dantyoṣṭhya": "दन्त्य, कण्ठ्य, दन्त्यौष्ठ्य",
       "Mūrdhanya, Dantya, Kanthya, Oṣṭhya": "मूर्धन्य, दन्त्य, कण्ठ्य, ओष्ठ्य",
@@ -191,14 +201,14 @@ function localizeText(text: string, lang: string): string {
       "Analyze the compounding rules governing the term 'pītāmbaraḥ' (yellow-garmented one / Lord Vishnu).": "पीताम्बरः' (पीले वस्त्र धारण करने वाला / भगवान विष्णु) शब्द को नियंत्रित करने वाले समास नियमों का विश्लेषण करें।",
       "Observe the junction point: the 'a' at the end of 'Deva' and the 'ā' at the start of 'ālayaḥ' fuse into a long 'ā' (Devālayaḥ).": "संधि बिंदु पर ध्यान दें: 'Deva' के अंत का 'a' और 'ālayaḥ' के प्रारंभ का 'ā' मिलकर एक दीर्घ 'ā' (Devālayaḥ) में विलीन हो जाते हैं।",
       "The ending short 'i' in 'iti' undergoes transition into the semi-vowel 'y' when followed by the dissimilar vowel 'e' in 'evam'.": "'iti' के अंत का लघु 'i' इसके बाद आने वाले भिन्न स्वर 'e' के कारण अर्ध-स्वर 'y' में परिवर्तित हो जाता है।",
-      "The final Visarga 'ḥ' in 'Namaḥ' encounters the hard consonant 't' of 'te' and becomes a sibilant 's'.": "'Namaḥ' का अंतिम विसर्ग 'ḥ' 'te' के कठोर व्यंजन 't' से मिलकर सकार 's' बन जाता है।",
-      "Recall that karmaṇi (action) + eva (alone) + adhikāraḥ (right) + te (your) defines active execution without result dependency.": "याद करें कि karmaṇi (कर्म में) + eva (ही) + adhikāraḥ (अधिकार) + te (तुम्हारा) बिना परिणाम की चिंता के सक्रिय कर्तव्य पालन को परिभाषित करता है।",
+      "The final Visarga 'ḥ' in 'Namaḥ' encounters the hard consonant 't' of 'te' and becomes a s कार 's'.": "'Namaḥ' का अंतिम विसर्ग 'ḥ' 'te' के कठोर व्यंजन 't' से मिलकर सकार 's' बन जाता है।",
+      "Recall that karmaṇi (action) + eva (alone) + adhikāraḥ (right) + te (your) defines active duty without results.": "याद करें कि karmaṇi (कर्म में) + eva (ही) + adhikāraḥ (अधिकार) + te (तुम्हारा) बिना परिणाम की चिंता के सक्रिय कर्तव्य पालन को परिभाषित करता है।",
       "The ending vowel 'ā' in 'Mahā' meets the starting vowel 'u' in 'Utsavaḥ' to form the Guṇa vowel 'o'.": "'Mahā' के अंत का स्वर 'ā' और 'Utsavaḥ' का प्रारंभिक स्वर 'u' मिलकर गुण स्वर 'o' बनाते हैं।",
       "The short 'i' at the end of 'Yadi' changes to the semi-vowel 'y' when followed by the dissimilar vowel 'a'.": "'Yadi' के अंत का लघु 'i' इसके बाद आने वाले भिन्न स्वर 'a' के कारण अर्ध-स्वर 'y' में बदल जाता है।",
       "The vowel 'ā' at the end of 'Tathā' and the diphthong 'e' in 'Eva' combine into the long Vṛddhi vowel 'ai'.": "'Tathā' के अंत का स्वर 'ā' और 'Eva' का द्विस्वर 'e' मिलकर दीर्घ वृद्धि स्वर 'ai' बनाते हैं।",
       "The tree represents the fixed point/source from which the leaf separates, taking the Ablative case.": "वृक्ष वह निश्चित बिंदु/स्रोत है जिससे पत्ता अलग होता है, इसलिए इसमें अपादान (पंचमी विभक्ति) होती है।",
       "In a passive construction (Karmaṇi Prayoga), the unexpressed agent (Rama) takes the 3rd (Instrumental) case.": "कर्मवाच्य वाक्य (कर्मणि प्रयोग) में, अनकहा कर्ता (राम) तृतीया विभक्ति लेता है।",
-      "The infix '-iṣya-' denotes the future tense (Lṛṭ Lakāra) and the suffix '-mi' denotes first person (Uttama) singular.": "प्रत्यय '-iṣya-' को दर्शाता है और प्रत्यय '-mi' उत्तम पुरुष एकवचन को दर्शाता है।",
+      "The infix '-iṣya-' denotes the future tense (Lṛṭ Lakāra) and the suffix '-mi' denotes first person (Uttama) singular.": "प्रत्यय '-iṣya-' भविष्य काल को दर्शाता है और प्रत्यय '-mi' उत्तम पुरुष एकवचन को दर्शाता है।",
       "The prefix 'a-' and the ending '-t' denote the past tense (Laṅg Lakāra) and third person singular.": "उपसर्ग 'a-' और अंत का '-t' भूत काल (लङ् लकार) और प्रथम पुरुष एकवचन को दर्शाते हैं।",
       "The relationship is possessive ('king's servant'), representing the Genitive Tatpuruṣa compound.": "संबंध स्वत्वबोधक ('राजा का पुरुष') है, जो षष्ठी तत्पुरुष समास को दर्शाता है।",
       "The compound refers to a third external entity ('he whose garments are yellow'), indicating Bahuvrīhi.": "यौगिक शब्द किसी तीसरे बाहरी अस्तित्व ('वह जिसके वस्त्र पीले हैं') की ओर संकेत करता है, जो बहुव्रीहि समास को दर्शाता है।",
@@ -248,7 +258,7 @@ function localizeText(text: string, lang: string): string {
       "Recall that karmaṇi (action) + eva (alone) + adhikāraḥ (right) + te (your) defines active execution without result dependency.": "Recuerde que karmaṇi (acción) + eva (solo) + adhikāraḥ (derecho) + te (tu) define la ejecución activa sin dependencia del resultado.",
       "The ending vowel 'ā' in 'Mahā' meets the starting vowel 'u' in 'Utsavaḥ' to form the Guṇa vowel 'o'.": "El vocal final 'ā' en 'Mahā' se encuentra con el vocal inicial 'u' en 'Utsavaḥ' para formar el vocal Guṇa 'o'.",
       "The short 'i' at the end of 'Yadi' changes to the semi-vowel 'y' when followed by the dissimilar vowel 'a'.": "La 'i' corta al final de 'Yadi' cambia a la semivocal 'y' cuando es seguida por la vocal diferente 'a'.",
-      "The vowel 'ā' at the end of 'Tathā' and the diphchong 'e' in 'Eva' combine into the long Vṛddhi vowel 'ai'.": "El vocal 'ā' al final de 'Tathā' y el diptongo 'e' en 'Eva' se combinan en el vocal largo Vṛddhi 'ai'.",
+      "The vowel 'ā' at the end of 'Tathā' and the diphthong 'e' in 'Eva' combine into the long Vṛddhi vowel 'ai'.": "El vocal 'ā' al final de 'Tathā' y el diptongo 'e' en 'Eva' se combinan en el vocal largo Vṛddhi 'ai'.",
       "The tree represents the fixed point/source from which the leaf separates, taking the Ablative case.": "El árbol representa el punto fijo/fuente del cual la hoja se separa, tomando el caso ablativo.",
       "In a passive construction (Karmaṇi Prayoga), the unexpressed agent (Rama) takes the 3rd (Instrumental) case.": "En una construcción pasiva (Karmaṇi Prayoga), el agente no expresado (Rama) toma el tercer caso (instrumental).",
       "The infix '-iṣya-' denotes the future tense (Lṛṭ Lakāra) and the suffix '-mi' denotes first person (Uttama) singular.": "El infijo '-iṣya-' denota el tiempo futuro (Lṛṭ Lakāra) y el sufijo '-mi' denota la primera persona (Uttama) singular.",
@@ -450,7 +460,6 @@ function localizeText(text: string, lang: string): string {
       .replace("Karmadhāraya Samāsa (Vigraha: Pītam ambaram)", "Karmadhāraya Samāsa (Vigraha: Pītam ambaram)");
   }
 
-  // Handle pronunciation acoustics locations by splitting them
   if (text.includes(",") && (text.includes("Kanthya") || text.includes("Oṣṭhya") || text.includes("Talavya") || text.includes("Dantya") || text.includes("Mūrdhanya"))) {
     const parts = text.split(",").map(p => p.trim());
     const localizedParts = parts.map(p => localizeText(p, lang));
@@ -464,79 +473,76 @@ function localizeText(text: string, lang: string): string {
 interface DisplayOption {
   text: string;
   originalIndex: number;
-  label: string; // 'A', 'B', 'C', 'D'
+  label: string; 
 }
 
 interface PracticeCardProps {
-  id: string;
-  phrase: string; // Default Devanagari
-  transliterations: {
-    devanagari: string;
-    iast: string;
-    japanese: string;
-    french: string;
-  };
-  wordByWord: { sanskrit: string; english: string; role: string }[];
-  grammaticalRule: string;
-  sourceAttribution: string; // e.g. Ashtadhyayi 6.1.77 or Gita 2.47
-  options: string[]; // 4 options
-  correctIndex: number;
-  hint: string;
-  
-  // Concept and Telemetry Data
-  chapterId?: number;
   activeLang?: string;
-  onNextQuestion?: () => void;
-  hasNextQuestion?: boolean;
-  isCompleted?: boolean;
-  
-  conceptType: string;
-  paninianHeritage: string;
-  sourceAttributionTelemetry: string;
-  pronunciationAcoustics: {
-    akshara: string;
-    matra: string;
-    uchcharana: string;
-  };
+  activeSource?: "core" | "ncert";
 }
 
 export default function PracticeCard({
-  id,
-  phrase,
-  transliterations,
-  wordByWord,
-  grammaticalRule,
-  sourceAttribution,
-  options,
-  correctIndex,
-  hint,
-  chapterId = 1,
   activeLang = "en",
-  onNextQuestion,
-  hasNextQuestion = false,
-  isCompleted = false,
-  conceptType,
-  paninianHeritage,
-  sourceAttributionTelemetry,
-  pronunciationAcoustics
+  activeSource: initialActiveSource = "core"
 }: PracticeCardProps) {
+  const [activeSource, setActiveSource] = useState<"core" | "ncert">(initialActiveSource);
+  const [chapterId, setChapterId] = useState(1);
+  const [currentQIndex, setCurrentQIndex] = useState(0);
+  const [progress, setProgress] = useState<UserProgress | null>(null);
+  const [curriculum, setCurriculum] = useState<Chapter[]>([]);
+
   const t = getTranslation(activeLang);
   const [activeScript, setActiveScript] = useState("iast");
   const [isPlaying, setIsPlaying] = useState(false);
-  const [revealStep, setRevealStep] = useState(0); // 0: Question, 1: Meaning, 2: Grammar
+  const [revealStep, setRevealStep] = useState(0); 
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [feedback, setFeedback] = useState<"correct" | "incorrect" | null>(null);
   const [showHint, setShowHint] = useState(false);
-  
-  // Shuffled display options state
   const [shuffledOptions, setShuffledOptions] = useState<DisplayOption[]>([]);
+  const feedbackTimeoutRef = React.useRef<any>(null);
+
+  // Load curriculum and progress
+  useEffect(() => {
+    setCurriculum(buildCurriculum());
+    setProgress(getProgress());
+  }, []);
+
+  // Sync with URL query parameters
+  useEffect(() => {
+    const handleUrlChange = () => {
+      const params = new URLSearchParams(window.location.search);
+      const ch = parseInt(params.get("chapter") || "1", 10);
+      const src = (params.get("source") || "core") as "core" | "ncert";
+      setChapterId(ch);
+      setActiveSource(src);
+      setCurrentQIndex(0);
+      setFeedback(null);
+      setSelectedOption(null);
+      setShowHint(false);
+      setRevealStep(0);
+    };
+
+    handleUrlChange();
+    window.addEventListener("popstate", handleUrlChange);
+    window.addEventListener("chapterChanged", handleUrlChange);
+    return () => {
+      window.removeEventListener("popstate", handleUrlChange);
+      window.removeEventListener("chapterChanged", handleUrlChange);
+    };
+  }, []);
+
+  const activeChapter = activeSource === "core"
+    ? (curriculum.find((c) => c.id === chapterId) || curriculum[0])
+    : (curriculumChapters.find((c) => c.id === chapterId) || curriculumChapters[0]);
+
+  const activeQuestions = activeChapter?.questions || [];
+  const currentQuestion = activeQuestions[currentQIndex];
 
   useEffect(() => {
     // Read script on mount
     const saved = localStorage.getItem("transliteration_target");
     if (saved) setActiveScript(saved);
 
-    // Listen to changes from LanguageSelector
     const handleScriptChange = () => {
       const current = localStorage.getItem("transliteration_target") || "iast";
       setActiveScript(current);
@@ -546,16 +552,17 @@ export default function PracticeCard({
     return () => window.removeEventListener("transliterationChange", handleScriptChange);
   }, []);
 
-  // Fisher-Yates Shuffle Variant upon mounting or question ID change
+  // Shuffle option selections
   useEffect(() => {
-    const originalOptions = [...options];
+    if (!currentQuestion) return;
+
+    const originalOptions = [...currentQuestion.options];
     const mapped: DisplayOption[] = originalOptions.map((opt, idx) => ({
       text: opt,
       originalIndex: idx,
       label: ""
     }));
 
-    // Immutable Fisher-Yates Shuffling algorithm
     const shuffleArray = (arr: DisplayOption[]) => {
       const copy = [...arr];
       for (let i = copy.length - 1; i > 0; i--) {
@@ -574,10 +581,36 @@ export default function PracticeCard({
 
     setShuffledOptions(labeled);
     setSelectedOption(null);
-    setFeedback(isCompleted ? "correct" : null);
+    setFeedback(null);
     setShowHint(false);
     setRevealStep(0);
-  }, [id, isCompleted, options]);
+  }, [currentQuestion]);
+
+  if (!activeChapter || !currentQuestion) {
+    return (
+      <div className="w-full text-center py-12 bg-white border border-saffron-100 rounded-3xl font-latin text-charcoal/50">
+        Loading Sanskrit practice questions...
+      </div>
+    );
+  }
+
+  const {
+    id,
+    phrase,
+    transliterations,
+    wordByWord,
+    grammaticalRule,
+    sourceAttribution,
+    options,
+    correctIndex,
+    hint,
+    conceptType,
+    paninianHeritage,
+    sourceAttributionTelemetry,
+    pronunciationAcoustics
+  } = currentQuestion;
+
+  const isCompleted = progress?.completedChapters.includes(chapterId) || false;
 
   const getActiveText = () => {
     switch (activeScript) {
@@ -593,7 +626,6 @@ export default function PracticeCard({
     }
   };
 
-  // Hybrid Pronunciation Engine - Pre-recorded systematic files with Web Speech Fallback
   const handlePlayAudio = () => {
     if (isPlaying) return;
     setIsPlaying(true);
@@ -604,40 +636,39 @@ export default function PracticeCard({
 
     audio.onended = () => setIsPlaying(false);
     audio.onerror = () => {
-      // Fallback vector: speech synthesis wrapping Indian Accent localizations (hi-IN or sa-IN)
       if (typeof window !== "undefined" && window.speechSynthesis) {
         window.speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(phrase);
-        
-        // Target Indian/Sanskrit accent locales specifically
         utterance.lang = "sa-IN"; 
-        utterance.rate = 0.65; // Slow deliberate pronunciation
+        utterance.rate = 0.65;
         utterance.pitch = 1.0;
 
         utterance.onstart = () => setIsPlaying(true);
         utterance.onend = () => setIsPlaying(false);
         utterance.onerror = () => {
-          // Absolute fallback if synthesis fails
           setIsPlaying(true);
           setTimeout(() => setIsPlaying(false), 1500);
         };
 
         window.speechSynthesis.speak(utterance);
       } else {
-        // Absolute fallback simulation
         setIsPlaying(true);
         setTimeout(() => setIsPlaying(false), 1500);
       }
     };
 
     audio.play().catch(() => {
-      // Catch autoplay restrictions and trigger fallback chain immediately
       audio.onerror!(new Event("error"));
     });
   };
 
   const handleOptionSelect = (shuffledIndex: number, originalIndex: number) => {
     if (feedback === "correct" || isCompleted) return;
+
+    if (feedbackTimeoutRef.current) {
+      clearTimeout(feedbackTimeoutRef.current);
+      feedbackTimeoutRef.current = null;
+    }
 
     setSelectedOption(shuffledIndex);
 
@@ -654,14 +685,166 @@ export default function PracticeCard({
       setFeedback("incorrect");
       setShowHint(true);
       
-      // Auto reset shake state
-      setTimeout(() => {
+      feedbackTimeoutRef.current = setTimeout(() => {
         setFeedback(null);
+        feedbackTimeoutRef.current = null;
       }, 600);
     }
   };
 
+  const handleNextQuestion = () => {
+    if (currentQIndex < activeQuestions.length - 1) {
+      setCurrentQIndex((prev) => prev + 1);
+    } else {
+      // Complete active chapter
+      if (progress) {
+        let nextCompleted = progress.completedChapters;
+        if (activeSource === "core" && !progress.completedChapters.includes(chapterId)) {
+          nextCompleted = [...progress.completedChapters, chapterId];
+        }
+
+        const today = new Date().toISOString().split("T")[0];
+        let nextStreak = progress.streakCount;
+        if (progress.lastPracticeDate !== today) {
+          nextStreak += 1;
+        }
+
+        const nextProgress = {
+          ...progress,
+          completedChapters: nextCompleted,
+          streakCount: nextStreak,
+          lastPracticeDate: today
+        };
+
+        setProgress(nextProgress);
+        saveProgress(nextProgress);
+        window.dispatchEvent(new Event("streakUpdated"));
+      }
+    }
+  };
+
+  const restartChapter = () => {
+    setCurrentQIndex(0);
+    setFeedback(null);
+    setSelectedOption(null);
+    setShowHint(false);
+    setRevealStep(0);
+    if (activeSource === "core" && progress) {
+      const nextCompleted = progress.completedChapters.filter((id) => id !== chapterId);
+      const nextProgress = { ...progress, completedChapters: nextCompleted };
+      setProgress(nextProgress);
+      saveProgress(nextProgress);
+    }
+  };
+
+  const handleNextChapter = () => {
+    if (activeSource === "core") {
+      const nextChId = chapterId + 1;
+      const nextCh = curriculum.find((c) => c.id === nextChId);
+      if (nextCh) {
+        const url = new URL(window.location.href);
+        url.searchParams.set("chapter", String(nextChId));
+        url.searchParams.set("source", "core");
+        window.history.pushState({}, "", url.toString());
+        window.dispatchEvent(new Event("chapterChanged"));
+      } else {
+        // Redirect to learning map
+        window.dispatchEvent(new Event("openJourneyMap"));
+      }
+    } else {
+      const currentNcertClass = activeChapter.ncertClass;
+      const ncertChs = curriculumChapters.filter(c => c.ncertClass === currentNcertClass);
+      const currentIdx = ncertChs.findIndex(c => c.id === chapterId);
+      if (currentIdx !== -1 && currentIdx < ncertChs.length - 1) {
+        const nextChId = ncertChs[currentIdx + 1].id;
+        const url = new URL(window.location.href);
+        url.searchParams.set("chapter", String(nextChId));
+        url.searchParams.set("source", "ncert");
+        window.history.pushState({}, "", url.toString());
+        window.dispatchEvent(new Event("chapterChanged"));
+      }
+    }
+  };
+
+  const isChapterLocked = () => {
+    if (activeSource !== "core") return false;
+    const currentProgress = progress || getProgress();
+    const gatewayScores = currentProgress.gatewayScores || {};
+    if (chapterId >= 31 && chapterId <= 60) {
+      const beginnerScore = gatewayScores.beginner || 0;
+      return beginnerScore < 80;
+    }
+    if (chapterId >= 61 && chapterId <= 90) {
+      const professionalScore = gatewayScores.professional || 0;
+      return professionalScore < 80;
+    }
+    return false;
+  };
+
+  const isLocked = isChapterLocked();
+
+  if (isLocked) {
+    const isProfessional = chapterId >= 31 && chapterId <= 60;
+    const requiredGateway = isProfessional ? "Beginner" : "Professional";
+    
+    return (
+      <div className="bg-white dark:bg-zinc-900 border-2 border-amber-500 rounded-3xl p-8 text-center space-y-6 max-w-md w-full shadow-lg shadow-amber-500/5 mx-auto">
+        <Lock className="w-16 h-16 text-amber-500 mx-auto animate-bounce" />
+        <div>
+          <h3 className="text-xl font-black text-charcoal dark:text-cream font-latin">Chapter Locked</h3>
+          <p className="text-sm text-charcoal/70 dark:text-cream/70 mt-2 font-latin leading-relaxed">
+            This chapter is part of the <strong>{isProfessional ? "Professional" : "Expert"}</strong> tier.
+            To access these lessons, you must pass the <strong>{requiredGateway} Diagnostic Gateway</strong> test with a score of 80% or higher.
+          </p>
+        </div>
+
+        <div className="pt-2">
+          <button
+            onClick={() => window.dispatchEvent(new Event("openJourneyMap"))}
+            className="w-full py-3 rounded-2xl bg-saffron-500 hover:bg-saffron-600 text-white font-bold text-xs uppercase tracking-wider shadow-md transition-colors cursor-pointer flex items-center justify-center gap-1.5 animate-pulse"
+          >
+            <span>Open Journey Map</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   const isSuccessState = feedback === "correct" || isCompleted;
+  const isChapterFinished = isCompleted && currentQIndex === activeQuestions.length - 1;
+
+  if (isChapterFinished) {
+    const chapterName = activeSource === "core" ? activeChapter.name : activeChapter.name;
+    return (
+      <div className="bg-white border-2 border-emerald-500 rounded-3xl p-8 text-center space-y-6 max-w-md w-full shadow-lg shadow-emerald-50/50 mx-auto">
+        <CheckCircle className="w-16 h-16 text-emerald-500 mx-auto animate-bounce" />
+        <div>
+          <h3 className="text-xl font-black text-charcoal font-latin">{t.practice.chapterAccomplished}</h3>
+          <p className="text-sm text-charcoal/70 mt-2 font-latin leading-relaxed">
+            {t.practice.chapterAccomplishedDesc.replace("{chapterName}", chapterName)}
+          </p>
+        </div>
+
+        <div className="flex gap-3 pt-2">
+          <button
+            onClick={restartChapter}
+            className="flex-1 py-3 rounded-2xl border border-charcoal/10 hover:bg-saffron-50 text-charcoal font-bold text-xs uppercase tracking-wider transition-colors cursor-pointer flex items-center justify-center gap-1.5"
+          >
+            <Undo className="w-4 h-4" />
+            <span>{t.practice.practiceAgain}</span>
+          </button>
+          <button
+            onClick={handleNextChapter}
+            className="flex-1 py-3 rounded-2xl bg-saffron-500 hover:bg-saffron-600 text-white font-bold text-xs uppercase tracking-wider shadow-md transition-colors cursor-pointer flex items-center justify-center gap-1.5"
+          >
+            <span>{t.practice.nextChapter}</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full space-y-6">
@@ -701,7 +884,7 @@ export default function PracticeCard({
         {/* Sanskrit Phrase Text */}
         <div className="flex flex-col items-center text-center mb-6">
           <h3 className="text-2xl md:text-3xl font-extrabold text-saffron-600 mb-2 font-sanskrit leading-relaxed">
-            {transliterations.devanagari}
+            {phrase}
           </h3>
           
           {activeScript !== "devanagari" && (
@@ -725,7 +908,7 @@ export default function PracticeCard({
               {isPlaying ? <Volume2 className="w-6 h-6" /> : <Play className="w-6 h-6 pl-0.5" />}
             </button>
 
-            {/* Precise unshakeable articulatory location rules display block (SEO-Crawlable) */}
+            {/* Articulatory locations */}
             <div 
               className="pronunciation-telemetry mt-4 bg-saffron-50/40 border border-saffron-100/60 rounded-2xl p-4 text-xs font-latin text-charcoal/85 max-w-md w-full text-center space-y-1.5 shadow-xs"
               data-crawler-pronunciation="true"
@@ -743,7 +926,7 @@ export default function PracticeCard({
           </div>
         </div>
 
-        {/* Shuffled Quad-Option Layout - A, B, C, D */}
+        {/* Shuffled Quad-Option Layout */}
         <div className="space-y-3 mb-6">
           <p className="text-xs font-bold uppercase tracking-wider text-charcoal/60 mb-2 font-latin">
             {t.practice.identifyCorrect}
@@ -786,7 +969,7 @@ export default function PracticeCard({
           </div>
         </div>
 
-        {/* Vyakaran Hint (Visible on Incorrect Choice) */}
+        {/* Vyakaran Hint */}
         <AnimatePresence>
           {showHint && (
             <motion.div
@@ -811,7 +994,6 @@ export default function PracticeCard({
           </p>
           
           <div className="space-y-4">
-            {/* Step 1: Word-by-Word Meaning */}
             {revealStep >= 1 ? (
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
@@ -841,7 +1023,6 @@ export default function PracticeCard({
               </button>
             )}
 
-            {/* Step 2: Grammatical Rules */}
             {revealStep >= 1 && (
               <>
                 {revealStep >= 2 ? (
@@ -869,7 +1050,6 @@ export default function PracticeCard({
               </>
             )}
 
-            {/* Collapse Option */}
             {revealStep > 0 && (
               <button
                 onClick={() => setRevealStep(0)}
@@ -891,19 +1071,18 @@ export default function PracticeCard({
             transliterationSettings={activeScript}
           />
           
-          {isSuccessState && onNextQuestion && (
+          {isSuccessState && (
             <button
-              onClick={onNextQuestion}
+              onClick={handleNextQuestion}
               className="flex items-center gap-1.5 px-5 py-2.5 rounded-2xl bg-saffron-500 hover:bg-saffron-600 text-white font-bold text-sm shadow-md shadow-saffron-500/10 transition-all cursor-pointer"
             >
-              <span>{hasNextQuestion ? t.practice.nextQuestion : t.practice.completeChapter}</span>
+              <span>{currentQIndex < activeQuestions.length - 1 ? t.practice.nextQuestion : t.practice.completeChapter}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           )}
         </div>
       </div>
 
-      {/* Inline Banner Ad Slot */}
       <AdSenseWidget slot="inline-banner-slot" variant="inline-banner" />
     </div>
   );

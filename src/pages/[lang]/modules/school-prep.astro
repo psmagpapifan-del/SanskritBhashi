@@ -1,0 +1,619 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import PracticeCard from "../../../components/PracticeCard";
+import JourneyMap from "../../../components/JourneyMap";
+import AdSenseWidget from "../../../components/AdSenseWidget";
+import { getTranslation } from "../../../lib/i18n";
+import { buildCurriculum } from "../../../lib/levelsEngine";
+import { curriculumChapters } from "../../../lib/curriculumData";
+import {
+  GraduationCap,
+  BookOpen,
+  Layers,
+  ChevronRight,
+  ChevronLeft,
+  CheckCircle,
+  Flame
+} from "lucide-react";
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: "en" } },
+    { params: { lang: "hi" } },
+    { params: { lang: "ja" } },
+    { params: { lang: "es" } },
+  ];
+}
+
+const { lang } = Astro.params;
+const t = getTranslation(lang);
+const curriculum = buildCurriculum();
+
+function localizeChapterName(name: string, lang: string): string {
+  if (lang === "en") return name;
+  const parts = name.split(":");
+  const prefix = parts[0];
+  const suffix = parts[1] ? parts[1].trim() : "";
+  
+  let localizedPrefix = prefix;
+  let localizedSuffix = suffix;
+  
+  const tierMatch = prefix.match(/^(BEGINNER|PROFESSIONAL|EXPERT)\s+Chapter\s+(\d+)$/i);
+  if (tierMatch) {
+    const tier = tierMatch[1].toUpperCase();
+    const chNum = tierMatch[2];
+    
+    let locTier = tier;
+    let locCh = `Chapter ${chNum}`;
+    
+    if (lang === "ja") {
+      locTier = tier === "BEGINNER" ? "初級" : tier === "PROFESSIONAL" ? "中級" : "上級";
+      locCh = `第${chNum}章`;
+      localizedPrefix = `${locTier} ${locCh}`;
+    } else if (lang === "hi") {
+      locTier = tier === "BEGINNER" ? "प्रारंभिक" : tier === "PROFESSIONAL" ? "व्यावसायिक" : "विशेषज्ञ";
+      locCh = `अध्याय ${chNum}`;
+      localizedPrefix = `${locTier} ${locCh}`;
+    } else if (lang === "es") {
+      locTier = tier === "BEGINNER" ? "PRINCIPIANTE" : tier === "PROFESSIONAL" ? "PROFESIONAL" : "EXPERTO";
+      locCh = `Capítulo ${chNum}`;
+      localizedPrefix = `${locTier} ${locCh}`;
+    }
+  }
+  
+  if (suffix === "Vowels and Basic Sandhi") {
+    localizedSuffix = lang === "ja" ? "母音の基礎と基本的なサンディ (連声)" : lang === "hi" ? "स्वर और बुनियादी संधि" : "Vocales y Sandhi Básico";
+  } else if (suffix === "Advanced Kāraka Relations") {
+    localizedSuffix = lang === "ja" ? "高度なカーラカ関係 (格関係)" : lang === "hi" ? "उन्नत कारक संबंध" : "Relaciones Avanzadas de Kāraka";
+  } else if (suffix === "Shastra Commentary & Anvaya") {
+    localizedSuffix = lang === "ja" ? "シャーストラ釈義とアンヴァヤ" : lang === "hi" ? "शास्त्र व्याख्या और अन्वय" : "Comentario de Shastra y Anvaya";
+  } else if (suffix.startsWith("Curriculum Topic Part")) {
+    const partNum = suffix.split(" ").pop();
+    localizedSuffix = lang === "ja" ? `カリキュラムトピック パート ${partNum}` : lang === "hi" ? `पाठ्यक्रम विषय भाग ${partNum}` : `Tema del Currículo Parte ${partNum}`;
+  }
+  
+  return parts[1] ? `${localizedPrefix}: ${localizedSuffix}` : localizedPrefix;
+}
+
+const coreInstances = curriculum
+  .filter((c) => c.tier === "beginner" || c.tier === "professional")
+  .map((c) => ({
+    "@type": "CourseInstance",
+    "name": localizeChapterName(c.name, lang),
+    "courseMode": "online",
+    "description": `Core progression chapter covering Sanskrit grammar rules.`
+  }));
+
+const ncertInstances = curriculumChapters.map((c) => ({
+  "@type": "CourseInstance",
+  "name": c.name,
+  "courseMode": "online",
+  "description": `NCERT Class ${c.ncertClass} Chapter ${c.chapterNumber} syllabus practice.`
+}));
+
+const courseSchema = {
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "name": t.schoolPrep.title,
+  "description": t.schoolPrep.desc,
+  "provider": {
+    "@type": "Organization",
+    "name": "Sanskritbhashi",
+    "url": "https://sanskritbhashi.com"
+  },
+  "hasCourseInstance": [...coreInstances, ...ncertInstances]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Are the Sanskritbhashi modules aligned with the NCERT Class syllabus?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, our School Prep module is fully aligned with the NCERT Sanskrit syllabus for CBSE Classes 6 through 10. Each chapter is parsed into interactive lessons covering grammatical rules, shabdarupas, and dhaturupas, structured to complement school curricula."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the Sanskritbhashi Core Journey progression?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The Sanskritbhashi Core Journey consists of 90 levels divided into three tiers: Beginner (Levels 1-30), Professional (Levels 31-60), and Expert (Levels 61-90). Users must pass a Diagnostic Gateway test with a score of 80% or higher to unlock the Professional and Expert tiers."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does Sanskritbhashi teach Paninian grammar rules?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We utilize standard Sanskrit texts (like the Ashtadhyayi and Bhagavad Gita) to teach Paninian grammar. Each lesson provides word-by-word grammatical breakdowns, rules analysis, and audio recordings to clarify pronunciation and phonetic sandhi rules."
+      }
+    }
+  ]
+};
+---
+
+<Layout lang={lang} title={`${t.schoolPrep.title} | Sanskritbhashi`}>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(courseSchema)} />
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(faqSchema)} />
+
+  <div class="flex flex-col xl:flex-row gap-6 items-stretch min-h-[75vh] w-full">
+    
+    {/* COLUMN 1: LEFT CHAPTER SIDEBAR NAVIGATION */}
+    <aside id="nav-sidebar" class="w-full xl:w-1/4 flex flex-col space-y-4 xl:sticky xl:top-20 self-start z-10">
+      <div class="bg-white dark:bg-zinc-900 border border-saffron-100 dark:border-zinc-800 rounded-3xl p-5 space-y-4">
+        <h3 class="text-xs font-black text-charcoal/60 dark:text-cream/60 uppercase tracking-widest font-latin">
+          Syllabus Navigation
+        </h3>
+        
+        <div class="space-y-3">
+          {/* Core Journey Section */}
+          <div class="border border-saffron-100 dark:border-zinc-800 rounded-2xl overflow-hidden bg-white dark:bg-zinc-900">
+            <button
+              id="btn-toggle-core"
+              class="w-full px-4 py-3 bg-saffron-50 dark:bg-zinc-800 hover:bg-saffron-100 dark:hover:bg-zinc-700 flex items-center justify-between text-xs font-bold text-saffron-800 dark:text-saffron-200 uppercase tracking-wider cursor-pointer"
+            >
+              <span>🏆 Core Journey Tiers</span>
+              <ChevronRight id="icon-toggle-core" class="w-4 h-4 transition-transform rotate-90" />
+            </button>
+            
+            <div id="container-core" class="p-2 space-y-1 max-h-[300px] overflow-y-auto bg-white dark:bg-zinc-900">
+              <div class="text-[10px] font-bold text-charcoal/40 dark:text-cream/40 uppercase tracking-widest px-2 py-1">
+                Beginner Tiers (1-30)
+              </div>
+              {curriculum.filter(c => c.tier === "beginner").map(c => (
+                <a
+                  href={`?source=core&chapter=${c.id}`}
+                  data-chapter-btn
+                  data-chapter-id={c.id}
+                  data-source="core"
+                  class="w-full text-left px-3 py-2 rounded-xl text-xs flex justify-between items-center transition-colors cursor-pointer text-charcoal dark:text-cream hover:bg-saffron-50 dark:hover:bg-zinc-800"
+                >
+                  <span class="truncate">{localizeChapterName(c.name, lang)}</span>
+                  <CheckCircle data-completed-check={c.id} class="w-3.5 h-3.5 text-emerald-500 hidden" />
+                </a>
+              ))}
+
+              <div class="text-[10px] font-bold text-charcoal/40 dark:text-cream/40 uppercase tracking-widest px-2 py-1 pt-3">
+                Professional Tiers (31-60)
+              </div>
+              {curriculum.filter(c => c.tier === "professional").map(c => (
+                <a
+                  href={`?source=core&chapter=${c.id}`}
+                  data-chapter-btn
+                  data-chapter-id={c.id}
+                  data-source="core"
+                  class="w-full text-left px-3 py-2 rounded-xl text-xs flex justify-between items-center transition-colors cursor-pointer text-charcoal dark:text-cream hover:bg-saffron-50 dark:hover:bg-zinc-800"
+                >
+                  <span class="truncate flex items-center gap-1">
+                    <span class="hidden text-[10px]" data-lock-icon={c.id}>🔒</span>
+                    <span>{localizeChapterName(c.name, lang)}</span>
+                  </span>
+                  <CheckCircle data-completed-check={c.id} class="w-3.5 h-3.5 text-emerald-500 hidden" />
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* NCERT Class Syllabus Section */}
+          <div class="border border-saffron-100 dark:border-zinc-800 rounded-2xl overflow-hidden bg-white dark:bg-zinc-900">
+            <button
+              id="btn-toggle-ncert"
+              class="w-full px-4 py-3 bg-saffron-50 dark:bg-zinc-800 hover:bg-saffron-100 dark:hover:bg-zinc-700 flex items-center justify-between text-xs font-bold text-saffron-800 dark:text-saffron-200 uppercase tracking-wider cursor-pointer"
+            >
+              <span>📚 NCERT Class Syllabus</span>
+              <ChevronRight id="icon-toggle-ncert" class="w-4 h-4 transition-transform" />
+            </button>
+
+            <div id="container-ncert" class="p-3 bg-white dark:bg-zinc-900 space-y-3 hidden">
+              {/* Class selection pills */}
+              <div class="grid grid-cols-4 gap-1">
+                {[6, 7, 8, 9, 10, 11, 12].map(cl => (
+                  <button
+                    data-class-pill={cl}
+                    class={`py-1.5 rounded-lg text-xs font-bold text-center transition-colors cursor-pointer border ${
+                      cl === 6 ? "bg-saffron-500 border-saffron-600 text-white" : "bg-cream dark:bg-zinc-800 border-charcoal/5 dark:border-zinc-700 text-charcoal dark:text-cream hover:bg-saffron-50 dark:hover:bg-zinc-750"
+                    }`}
+                  >
+                    Cl {cl}
+                  </button>
+                ))}
+              </div>
+
+              {/* Chapters list */}
+              <div class="space-y-1 max-h-[200px] overflow-y-auto pr-1">
+                {curriculumChapters.map(c => (
+                  <a
+                    href={`?source=ncert&chapter=${c.id}`}
+                    data-chapter-btn
+                    data-chapter-id={c.id}
+                    data-source="ncert"
+                    data-ncert-class={c.ncertClass}
+                    class={`w-full text-left px-3 py-2 rounded-xl text-xs transition-colors cursor-pointer text-charcoal dark:text-cream hover:bg-saffron-50 dark:hover:bg-zinc-800 ${c.ncertClass === 6 ? "" : "hidden"}`}
+                  >
+                    <span class="truncate">{c.name}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    {/* COLUMN 2: CENTER WORKSPACE */}
+    <div class="flex-1 w-full xl:w-2/4 flex flex-col justify-between space-y-6">
+      
+      {/* Header bar */}
+      <div class="bg-white dark:bg-zinc-900 border border-saffron-100 dark:border-zinc-800 rounded-2xl p-4 flex flex-wrap justify-between items-center gap-3">
+        <div class="flex items-center gap-2">
+          <button
+            id="toggle-nav-btn"
+            class="p-2 rounded-xl hover:bg-saffron-50 dark:hover:bg-zinc-800 border border-charcoal/5 dark:border-zinc-800 flex items-center justify-center cursor-pointer text-charcoal dark:text-cream"
+            title="Toggle Sidebar"
+          >
+            <ChevronLeft id="toggle-nav-icon" class="w-5 h-5" />
+          </button>
+          <div>
+            <h1 class="text-[10px] font-bold uppercase tracking-wider text-charcoal/40 dark:text-cream/40 font-latin">
+              {t.schoolPrep.title}
+            </h1>
+            <h2 class="text-sm font-black text-charcoal dark:text-cream flex items-center gap-1.5 font-latin">
+              <span id="active-chapter-name">Sanskrit Practice Chassis</span>
+            </h2>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button
+            id="toggle-rules-btn"
+            class="p-2 rounded-xl hover:bg-saffron-50 dark:hover:bg-zinc-800 border border-charcoal/5 dark:border-zinc-800 flex items-center justify-center cursor-pointer text-charcoal dark:text-cream"
+            title="Toggle Rules"
+          >
+            <Layers class="w-5 h-5 text-charcoal/60 dark:text-cream/60" />
+          </button>
+          <button
+            id="journey-map-btn"
+            class="px-4 py-2 rounded-xl bg-saffron-500 hover:bg-saffron-600 text-white font-bold text-xs uppercase tracking-wider shadow-md shadow-saffron-500/10 cursor-pointer flex items-center gap-1.5"
+          >
+            <BookOpen class="w-3.5 h-3.5" />
+            <span>Journey</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Interactive practice island */}
+      <div class="flex-1 flex flex-col justify-center items-center w-full">
+        <PracticeCard client:load activeLang={lang} activeSource="core" />
+      </div>
+
+      {/* Expanded Educational Curriculum Detail (GEO & SEO optimized) */}
+      <section class="bg-white dark:bg-zinc-900 border border-saffron-100 dark:border-zinc-800 rounded-3xl p-6 space-y-6">
+        <h3 class="text-xl font-bold text-charcoal dark:text-cream font-latin">
+          NCERT Sanskrit Curriculum & Paninian Grammar Integration
+        </h3>
+        <div class="prose dark:prose-invert text-xs md:text-sm text-charcoal/80 dark:text-cream/80 space-y-4 leading-relaxed font-latin">
+          <p>
+            Welcome to the <strong>Sanskritbhashi School Prep Module</strong>, a comprehensive educational framework meticulously aligned with the National Council of Educational Research and Training (NCERT) curriculum for Sanskrit. Our platform targets students from Class 6 through Class 10, transforming traditional grammar learning into an interactive, gamified journey.
+          </p>
+          <p>
+            The curriculum is structured around the core elements of Sanskrit grammar as defined by classical Paninian linguistics. Learning Sanskrit requires understanding the foundational blocks: <em>Shabdarupa</em> (noun declensions across genders, numbers, and cases) and <em>Dhaturupa</em> (verb conjugations across various tenses, moods, and persons). By parsing these topics into distinct, bite-sized practice levels, we ensure that students can master complex topics step-by-step.
+          </p>
+          <p>
+            Our lessons are categorized into three main categories:
+          </p>
+          <ul class="list-disc pl-5 space-y-2">
+            <li>
+              <strong>Beginner Syllabus (Classes 6 & 7):</strong> Introduces basic vocabulary, Varnamala (Sanskrit alphabet), vowels and basic Sandhi rules, and simple present tense conjugations (Lat Lakara). Students learn to construct short sentences and translate simple terms.
+            </li>
+            <li>
+              <strong>Intermediate/Professional Syllabus (Classes 8 & 9):</strong> Explores advanced noun declensions, past tense (Lang Lakara) and future tense (Lrt Lakara) verb forms, and the concept of Karaka (case relations). We introduce basic Avyayas (indeclinables) and simple compound words (Samasa).
+            </li>
+            <li>
+              <strong>Advanced/Expert Syllabus (Class 10 and beyond):</strong> Focuses on complex Sandhis (such as Visarga and Hal Sandhi), intricate compound formations (Dvigu, Bahuvrihi, etc.), and active/passive voice transitions (Kartari and Karmani Prayoga). Students practice on actual passages from NCERT textbooks like Shemushi and Ruchira.
+            </li>
+          </ul>
+          <p>
+            To guide students and maintain high academic standards, Sanskritbhashi employs a <strong>Diagnostic Gateway lock</strong>. When a student attempts to progress from the Beginner levels to the Professional levels (specifically at Chapter 31), the system locks access until they pass the Beginner Gateway Test. A score of 80% or higher is required to unlock the next levels. This ensures that students have fully mastered foundational declensions and sandhi transformations before attempting more challenging compound analysis or passive voice translations.
+          </p>
+          <p>
+            By combining high-quality audio files for perfect pronunciation, inline grammatical rule explanations, and an adaptive feedback loop, Sanskritbhashi provides a modern laboratory for learning the language of the devas. Explore the syllabus sidebar to select your desired class and chapter, or follow the Core Journey road to success.
+          </p>
+        </div>
+      </section>
+    </div>
+
+    {/* COLUMN 3: RIGHT COLLAPSIBLE SIDEBAR */}
+    <aside id="rules-sidebar" class="w-full xl:w-1/4 flex flex-col space-y-6 xl:sticky xl:top-20 self-start z-10">
+      
+      {/* progress stats */}
+      <div class="bg-white dark:bg-zinc-900 border border-saffron-100 dark:border-zinc-800 rounded-3xl p-6 space-y-4 shadow-xs">
+        <h3 class="text-xs font-black text-charcoal/60 dark:text-cream/60 uppercase tracking-widest font-latin">
+          {t.practice.yourProgress}
+        </h3>
+
+        <div class="space-y-3">
+          <div class="flex justify-between text-xs font-bold font-latin">
+            <span class="text-charcoal/50 dark:text-cream/50">{t.practice.currentTier}</span>
+            <span id="progress-tier" class="text-saffron-600 dark:text-saffron-400 uppercase">BEGINNER</span>
+          </div>
+          
+          <div class="flex justify-between text-xs font-bold font-latin">
+            <span class="text-charcoal/50 dark:text-cream/50">{t.practice.chaptersCompleted}</span>
+            <span id="progress-completed" class="text-charcoal dark:text-cream">0 / 90</span>
+          </div>
+
+          <div class="w-full bg-cream dark:bg-zinc-800 rounded-full h-2.5 overflow-hidden border border-saffron-100 dark:border-zinc-750">
+            <div
+              id="progress-bar"
+              class="bg-saffron-500 h-full rounded-full transition-all duration-300 w-0"
+            />
+          </div>
+
+          <div class="flex items-center gap-2 bg-saffron-50 dark:bg-zinc-800 border border-saffron-100 dark:border-zinc-800 rounded-2xl p-3 text-xs font-bold text-saffron-700 dark:text-saffron-300 font-latin">
+            <Flame class="w-5 h-5 text-saffron-500 fill-saffron-500" />
+            <span>{t.practice.streakCount}: <span id="progress-streak">0 Days</span></span>
+          </div>
+        </div>
+      </div>
+
+      {/* Shorthand rules */}
+      <div class="bg-white dark:bg-zinc-900 border border-saffron-100 dark:border-zinc-800 rounded-3xl p-6 space-y-4 flex-1">
+        <h3 class="text-xs font-black text-charcoal/60 dark:text-cream/60 uppercase tracking-widest font-latin">
+          {t.practice.syllabusShorthand}
+        </h3>
+
+        <div id="rules-blocks-container">
+          {curriculum.map(ch => (
+            <div id={`rules-core-${ch.id}`} data-rules-block class="hidden space-y-4 max-h-[300px] overflow-y-auto pr-1">
+              {ch.questions.map((q, qidx) => (
+                <div class="text-xs space-y-1.5 border-b border-saffron-50 pb-3 last:border-0 last:pb-0">
+                  <h3 class="font-bold text-saffron-600 font-latin">{localizeChapterName(ch.name, lang)} - Card {qidx + 1}</h3>
+                  <p class="text-charcoal/70 leading-relaxed font-latin">{q.grammaticalRule}</p>
+                  <p class="text-[10px] text-charcoal/40 font-bold uppercase font-latin">
+                    <span class="text-charcoal/50">Source:</span> <cite class="not-italic">{q.sourceAttribution}</cite>
+                  </p>
+                </div>
+              ))}
+            </div>
+          ))}
+
+          {curriculumChapters.map(ch => (
+            <div id={`rules-ncert-${ch.id}`} data-rules-block class="hidden space-y-4 max-h-[300px] overflow-y-auto pr-1">
+              {ch.questions.map((q, qidx) => (
+                <div class="text-xs space-y-1.5 border-b border-saffron-50 pb-3 last:border-0 last:pb-0">
+                  <h3 class="font-bold text-saffron-600 font-latin">{ch.name} - Card {qidx + 1}</h3>
+                  <p class="text-charcoal/70 leading-relaxed font-latin">{q.grammaticalRule}</p>
+                  <p class="text-[10px] text-charcoal/40 font-bold uppercase font-latin">
+                    <span class="text-charcoal/50">Source:</span> <cite class="not-italic">{q.sourceAttribution}</cite>
+                  </p>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <AdSenseWidget slot="sidebar-ad-slot" variant="sidebar-ad" client:idle />
+    </aside>
+
+  </div>
+
+  <JourneyMap client:idle currentLang={lang} />
+</Layout>
+
+{/* Client-Side Sidebar and UI Sync Script */}
+<script is:inline define:vars={{ curriculum, curriculumChapters, lang }}>
+  // Toggle Left Navigation Sidebar
+  document.getElementById('toggle-nav-btn')?.addEventListener('click', () => {
+    const sidebar = document.getElementById('nav-sidebar');
+    const icon = document.getElementById('toggle-nav-icon');
+    if (sidebar?.classList.contains('hidden')) {
+      sidebar.classList.remove('hidden');
+      icon?.classList.add('rotate-0');
+      icon?.classList.remove('rotate-180');
+    } else {
+      sidebar?.classList.add('hidden');
+      icon?.classList.remove('rotate-0');
+      icon?.classList.add('rotate-180');
+    }
+  });
+
+  // Toggle Right Rules Sidebar
+  document.getElementById('toggle-rules-btn')?.addEventListener('click', () => {
+    const sidebar = document.getElementById('rules-sidebar');
+    sidebar?.classList.toggle('hidden');
+  });
+
+  // Open Learning map modal
+  document.getElementById('journey-map-btn')?.addEventListener('click', () => {
+    window.dispatchEvent(new Event('openJourneyMap'));
+  });
+
+  // Core Journey drawer toggle
+  document.getElementById('btn-toggle-core')?.addEventListener('click', () => {
+    const drawer = document.getElementById('container-core');
+    const icon = document.getElementById('icon-toggle-core');
+    drawer?.classList.toggle('hidden');
+    icon?.classList.toggle('rotate-90');
+  });
+
+  // NCERT drawer toggle
+  document.getElementById('btn-toggle-ncert')?.addEventListener('click', () => {
+    const drawer = document.getElementById('container-ncert');
+    const icon = document.getElementById('icon-toggle-ncert');
+    drawer?.classList.toggle('hidden');
+    icon?.classList.toggle('rotate-90');
+  });
+
+  // NCERT class selection pills handler
+  document.querySelectorAll('[data-class-pill]').forEach(pill => {
+    pill.addEventListener('click', (e) => {
+      const selectedClass = parseInt(e.target.getAttribute('data-class-pill'), 10);
+      
+      // Update pill styles
+      document.querySelectorAll('[data-class-pill]').forEach(p => {
+        p.classList.remove('bg-saffron-500', 'border-saffron-600', 'text-white');
+        p.classList.add('bg-cream', 'border-charcoal/5', 'text-charcoal');
+      });
+      e.target.classList.add('bg-saffron-500', 'border-saffron-600', 'text-white');
+      e.target.classList.remove('bg-cream', 'border-charcoal/5', 'text-charcoal');
+
+      // Filter chapter list buttons
+      document.querySelectorAll('[data-ncert-class]').forEach(btn => {
+        const btnClass = parseInt(btn.getAttribute('data-ncert-class'), 10);
+        if (btnClass === selectedClass) {
+          btn.classList.remove('hidden');
+        } else {
+          btn.classList.add('hidden');
+        }
+      });
+    });
+  });
+
+  // Highlight active sidebar links and rules block
+  function syncUIState() {
+    const params = new URLSearchParams(window.location.search);
+    const chapterId = parseInt(params.get('chapter') || '1', 10);
+    const source = params.get('source') || 'core';
+    
+    // Highlight sidebar active button
+    document.querySelectorAll('[data-chapter-btn]').forEach(btn => {
+      const btnCh = parseInt(btn.getAttribute('data-chapter-id'), 10);
+      const btnSrc = btn.getAttribute('data-source');
+      if (btnCh === chapterId && btnSrc === source) {
+        btn.classList.add('bg-saffron-500', 'text-white', 'font-bold');
+        btn.classList.remove('text-charcoal', 'hover:bg-saffron-50');
+      } else {
+        btn.classList.remove('bg-saffron-500', 'text-white', 'font-bold');
+        btn.classList.add('text-charcoal', 'hover:bg-saffron-50');
+      }
+    });
+
+    // Expand correct navigation drawer if it's ncert
+    if (source === 'ncert') {
+      document.getElementById('container-ncert')?.classList.remove('hidden');
+      document.getElementById('icon-toggle-ncert')?.classList.add('rotate-90');
+      document.getElementById('container-core')?.classList.add('hidden');
+      document.getElementById('icon-toggle-core')?.classList.remove('rotate-90');
+
+      // Activate the correct class pill
+      const activeCh = curriculumChapters.find(c => c.id === chapterId);
+      if (activeCh) {
+        const classPill = document.querySelector(`[data-class-pill="${activeCh.ncertClass}"]`);
+        if (classPill) {
+          classPill.dispatchEvent(new Event('click'));
+        }
+      }
+    }
+
+    // Update rules blocks visibility
+    document.querySelectorAll('[data-rules-block]').forEach(block => {
+      block.classList.add('hidden');
+    });
+    const rulesId = `rules-${source}-${chapterId}`;
+    const activeRules = document.getElementById(rulesId);
+    if (activeRules) {
+      activeRules.classList.remove('hidden');
+    }
+
+    // Update active chapter name in header
+    const activeCh = source === 'core' 
+      ? curriculum.find(c => c.id === chapterId)
+      : curriculumChapters.find(c => c.id === chapterId);
+    const titleSpan = document.getElementById('active-chapter-name');
+    if (titleSpan && activeCh) {
+      titleSpan.innerText = activeCh.name;
+    }
+  }
+
+  // Initial Sync
+  syncUIState();
+  window.addEventListener('popstate', syncUIState);
+  window.addEventListener('chapterChanged', syncUIState);
+
+  // Sync user progress from LocalStorage
+  function updateProgressUI() {
+    const saved = localStorage.getItem("sanskrit_user_progress");
+    let isCore31Locked = true;
+    
+    if (saved) {
+      try {
+        const progress = JSON.parse(saved);
+        
+        // Check gateway lock
+        const gatewayScores = progress.gatewayScores || {};
+        const beginnerScore = gatewayScores.beginner || 0;
+        if (beginnerScore >= 80) {
+          isCore31Locked = false;
+        }
+
+        // Current Tier
+        const tierEl = document.getElementById("progress-tier");
+        if (tierEl) {
+          let tierText = progress.currentTier.toUpperCase();
+          if (lang === "ja") {
+            tierText = progress.currentTier === "beginner" ? "初級" : progress.currentTier === "professional" ? "中級" : "上級";
+          } else if (lang === "hi") {
+            tierText = progress.currentTier === "beginner" ? "प्रारंभिक" : progress.currentTier === "professional" ? "व्यावसायिक" : "विशेषज्ञ";
+          } else if (lang === "es") {
+            tierText = progress.currentTier === "beginner" ? "PRINCIPIANTE" : progress.currentTier === "professional" ? "PROFESIONAL" : "EXPERTO";
+          }
+          tierEl.innerText = tierText;
+        }
+        
+        // Chapters Completed
+        const completedEl = document.getElementById("progress-completed");
+        if (completedEl) {
+          const completedCount = progress.completedChapters.length;
+          completedEl.innerText = `${completedCount} / 90`;
+          
+          const barEl = document.getElementById("progress-bar");
+          if (barEl) {
+            barEl.style.width = `${Math.round((completedCount / 90) * 100)}%`;
+          }
+        }
+        
+        // Streak Count
+        const streakEl = document.getElementById("progress-streak");
+        if (streakEl) {
+          streakEl.innerText = `${progress.streakCount} Days`;
+        }
+
+        // Sidebar checkmarks
+        document.querySelectorAll('[data-completed-check]').forEach(check => {
+          const chId = parseInt(check.getAttribute('data-completed-check'), 10);
+          if (progress.completedChapters.includes(chId)) {
+            check.classList.remove('hidden');
+          } else {
+            check.classList.add('hidden');
+          }
+        });
+
+      } catch(e) {
+        console.error(e);
+      }
+    }
+
+    // Update lock icons in sidebar based on lock state
+    document.querySelectorAll('[data-lock-icon]').forEach(iconEl => {
+      const chId = parseInt(iconEl.getAttribute('data-lock-icon'), 10);
+      if (chId >= 31 && chId <= 60) {
+        if (isCore31Locked) {
+          iconEl.classList.remove('hidden');
+          iconEl.closest('a')?.classList.add('opacity-60');
+        } else {
+          iconEl.classList.add('hidden');
+          iconEl.closest('a')?.classList.remove('opacity-60');
+        }
+      }
+    });
+  }
+
+  updateProgressUI();
+  window.addEventListener("streakUpdated", updateProgressUI);
+  window.addEventListener("chapterChanged", updateProgressUI);
+</script>

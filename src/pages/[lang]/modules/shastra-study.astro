@@ -1,0 +1,441 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import PracticeCard from "../../../components/PracticeCard";
+import JourneyMap from "../../../components/JourneyMap";
+import AdSenseWidget from "../../../components/AdSenseWidget";
+import { getTranslation } from "../../../lib/i18n";
+import { buildCurriculum } from "../../../lib/levelsEngine";
+import {
+  BookOpen,
+  Layers,
+  ChevronRight,
+  ChevronLeft,
+  CheckCircle,
+  Flame
+} from "lucide-react";
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: "en" } },
+    { params: { lang: "hi" } },
+    { params: { lang: "ja" } },
+    { params: { lang: "es" } },
+  ];
+}
+
+const { lang } = Astro.params;
+const t = getTranslation(lang);
+const curriculum = buildCurriculum();
+
+function localizeChapterName(name: string, lang: string): string {
+  if (lang === "en") return name;
+  const parts = name.split(":");
+  const prefix = parts[0];
+  const suffix = parts[1] ? parts[1].trim() : "";
+  
+  let localizedPrefix = prefix;
+  let localizedSuffix = suffix;
+  
+  const tierMatch = prefix.match(/^(BEGINNER|PROFESSIONAL|EXPERT)\s+Chapter\s+(\d+)$/i);
+  if (tierMatch) {
+    const tier = tierMatch[1].toUpperCase();
+    const chNum = tierMatch[2];
+    
+    let locTier = tier;
+    let locCh = `Chapter ${chNum}`;
+    
+    if (lang === "ja") {
+      locTier = tier === "BEGINNER" ? "初級" : tier === "PROFESSIONAL" ? "中級" : "上級";
+      locCh = `第${chNum}章`;
+      localizedPrefix = `${locTier} ${locCh}`;
+    } else if (lang === "hi") {
+      locTier = tier === "BEGINNER" ? "प्रारंभिक" : tier === "PROFESSIONAL" ? "व्यावसायिक" : "विशेषज्ञ";
+      locCh = `अध्याय ${chNum}`;
+      localizedPrefix = `${locTier} ${locCh}`;
+    } else if (lang === "es") {
+      locTier = tier === "BEGINNER" ? "PRINCIPIANTE" : tier === "PROFESSIONAL" ? "PROFESIONAL" : "EXPERTO";
+      locCh = `Capítulo ${chNum}`;
+      localizedPrefix = `${locTier} ${locCh}`;
+    }
+  }
+  
+  if (suffix === "Vowels and Basic Sandhi") {
+    localizedSuffix = lang === "ja" ? "母音の基礎と基本的なサンディ (連声)" : lang === "hi" ? "स्वर और बुनियादी संधि" : "Vocales y Sandhi Básico";
+  } else if (suffix === "Advanced Kāraka Relations") {
+    localizedSuffix = lang === "ja" ? "高度なカーラカ関係 (格関係)" : lang === "hi" ? "उन्नत कारक संबंध" : "Relaciones Avanzadas de Kāraka";
+  } else if (suffix === "Shastra Commentary & Anvaya") {
+    localizedSuffix = lang === "ja" ? "シャーストラ釈義とアンヴァヤ" : lang === "hi" ? "शास्त्र व्याख्या और अन्वय" : "Comentario de Shastra y Anvaya";
+  } else if (suffix.startsWith("Curriculum Topic Part")) {
+    const partNum = suffix.split(" ").pop();
+    localizedSuffix = lang === "ja" ? `カリキュラムトピック パート ${partNum}` : lang === "hi" ? `पाठ्यक्रम विषय भाग ${partNum}` : `Tema del Currículo Parte ${partNum}`;
+  }
+  
+  return parts[1] ? `${localizedPrefix}: ${localizedSuffix}` : localizedPrefix;
+}
+
+const shastraSchema = {
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "Bhagavad Gita (भगवद्गीता)",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Krishna (कृष्ण)",
+      "description": "Speaker of the Bhagavad Gita"
+    },
+    {
+      "@type": "Person",
+      "name": "Vyasa (व्यास)",
+      "description": "Compiler of the Mahabharata"
+    }
+  ],
+  "description": t.shastraStudy.desc,
+  "inLanguage": "sa"
+};
+---
+
+<Layout lang={lang} title={`${t.shastraStudy.title} | Sanskritbhashi`}>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(shastraSchema)} />
+
+  <div class="flex flex-col xl:flex-row gap-6 items-stretch min-h-[75vh] w-full">
+    
+    {/* COLUMN 1: LEFT CHAPTER SIDEBAR NAVIGATION */}
+    <aside id="nav-sidebar" class="w-full xl:w-1/4 flex flex-col space-y-4 xl:sticky xl:top-20 self-start z-10">
+      <div class="bg-white dark:bg-zinc-900 border border-saffron-100 dark:border-zinc-800 rounded-3xl p-5 space-y-4">
+        <h3 class="text-xs font-black text-charcoal/60 dark:text-cream/60 uppercase tracking-widest font-latin">
+          Syllabus Navigation
+        </h3>
+        
+        <div class="space-y-3">
+          {/* Core Journey Section */}
+          <div class="border border-saffron-100 dark:border-zinc-800 rounded-2xl overflow-hidden bg-white dark:bg-zinc-900">
+            <button
+              id="btn-toggle-core"
+              class="w-full px-4 py-3 bg-saffron-50 dark:bg-zinc-800 hover:bg-saffron-100 dark:hover:bg-zinc-700 flex items-center justify-between text-xs font-bold text-saffron-800 dark:text-saffron-200 uppercase tracking-wider cursor-pointer"
+            >
+              <span>🏆 Expert Shastra Tiers</span>
+              <ChevronRight id="icon-toggle-core" class="w-4 h-4 transition-transform rotate-90" />
+            </button>
+            
+            <div id="container-core" class="p-2 space-y-1 max-h-[400px] overflow-y-auto bg-white dark:bg-zinc-900">
+              <div class="text-[10px] font-bold text-charcoal/40 dark:text-cream/40 uppercase tracking-widest px-2 py-1">
+                Expert Tiers (61-90)
+              </div>
+              {curriculum.filter(c => c.tier === "expert").map(c => (
+                <a
+                  href={`?source=core&chapter=${c.id}`}
+                  data-chapter-btn
+                  data-chapter-id={c.id}
+                  data-source="core"
+                  class="w-full text-left px-3 py-2 rounded-xl text-xs flex justify-between items-center transition-colors cursor-pointer text-charcoal dark:text-cream hover:bg-saffron-50 dark:hover:bg-zinc-800"
+                >
+                  <span class="truncate">{localizeChapterName(c.name, lang)}</span>
+                  <CheckCircle data-completed-check={c.id} class="w-3.5 h-3.5 text-emerald-500 hidden" />
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    {/* COLUMN 2: CENTER WORKSPACE */}
+    <div class="flex-1 w-full xl:w-2/4 flex flex-col justify-between space-y-6">
+      
+      {/* Header bar */}
+      <div class="bg-white dark:bg-zinc-900 border border-saffron-100 dark:border-zinc-800 rounded-2xl p-4 flex flex-wrap justify-between items-center gap-3">
+        <div class="flex items-center gap-2">
+          <button
+            id="toggle-nav-btn"
+            class="p-2 rounded-xl hover:bg-saffron-50 dark:hover:bg-zinc-800 border border-charcoal/5 dark:border-zinc-800 flex items-center justify-center cursor-pointer text-charcoal dark:text-cream"
+            title="Toggle Sidebar"
+          >
+            <ChevronLeft id="toggle-nav-icon" class="w-5 h-5" />
+          </button>
+          <div>
+            <h1 class="text-[10px] font-bold uppercase tracking-wider text-charcoal/40 dark:text-cream/40 font-latin">
+              {t.shastraStudy.title}
+            </h1>
+            <h2 class="text-sm font-black text-charcoal dark:text-cream flex items-center gap-1.5 font-latin">
+              <span id="active-chapter-name">Bhagavad Gita Commentary</span>
+            </h2>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button
+            id="toggle-rules-btn"
+            class="p-2 rounded-xl hover:bg-saffron-50 dark:hover:bg-zinc-800 border border-charcoal/5 dark:border-zinc-800 flex items-center justify-center cursor-pointer text-charcoal dark:text-cream"
+            title="Toggle Rules"
+          >
+            <Layers class="w-5 h-5 text-charcoal/60 dark:text-cream/60" />
+          </button>
+          <button
+            id="journey-map-btn"
+            class="px-4 py-2 rounded-xl bg-saffron-500 hover:bg-saffron-600 text-white font-bold text-xs uppercase tracking-wider shadow-md shadow-saffron-500/10 cursor-pointer flex items-center gap-1.5"
+          >
+            <BookOpen class="w-3.5 h-3.5" />
+            <span>Journey</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Interactive practice island */}
+      <div class="flex-1 flex flex-col justify-center items-center w-full">
+        <PracticeCard client:load activeLang={lang} activeSource="core" />
+      </div>
+
+      {/* Expanded Shastra Study Article Section for GEO bots */}
+      <section class="bg-white dark:bg-zinc-900 border border-saffron-100 dark:border-zinc-800 rounded-3xl p-6 space-y-6">
+        <h3 class="text-xl font-bold text-charcoal dark:text-cream font-latin">
+          Shastra Study: Grammatical Analysis of Scriptural Sanskrit
+        </h3>
+        <div class="prose dark:prose-invert text-xs md:text-sm text-charcoal/80 dark:text-cream/80 space-y-4 leading-relaxed font-latin">
+          <p>
+            Welcome to the <strong>Sanskritbhashi Shastra Study Module</strong>, a specialized repository designed to lead advanced learners, Indologists, and spiritual seekers into direct engagement with classical Sanskrit scriptures. This module moves beyond simple vernacular translations, equipping students with the tools to perform verse-by-verse grammatical analysis (Anvaya) and word decomposition of texts like the Bhagavad Gita, the Upanishads, and the Srimad Bhagavatam.
+          </p>
+          <p>
+            Studying scriptural texts requires a deep appreciation of <em>Vedic</em> and <em>Classical Sanskrit</em> grammar as described in Panini’s <em>Ashtadhyayi</em>. Our curriculum at this expert level (Levels 61-90) is dedicated to unlocking the complex linguistic structures embedded in these timeless verses. By breaking down each shloka into its constituent words (Pada-chedha), identifying their case relations (Karaka), and rearranging them into logical prose order (Anvaya), we allow the original meaning of the text to shine through without filter.
+          </p>
+          <p>
+            Key components of our Shastra curriculum include:
+          </p>
+          <ul class="list-disc pl-5 space-y-2">
+            <li>
+              <strong>Shloka Anvaya (Prose Reordering):</strong> Standard Sanskrit verses are written in metered poetry (Chandas) where word order is flexible. Anvaya is the process of reordering these words into a natural subject-object-verb prose sequence (similar to modern syntax) to enable clear translation and comprehension.
+            </li>
+            <li>
+              <strong>Vigraha (Compound Resolution):</strong> Scriptural Sanskrit relies heavily on long compound words (Samasa). We teach users how to write out the Vigraha (analytical sentence showing compound relations) for Dvandva, Tatpuruṣa, Karmadhāraya, and Bahuvrīhi compounds found in the Gita.
+            </li>
+            <li>
+              <strong>Commentary Analysis (Tika):</strong> Students are introduced to classical commentaries such as those by Adi Shankaracharya, Ramanujacharya, and Sridhara Svamin. We analyze how commentators resolve grammatical ambiguities to derive specific philosophical interpretations.
+            </li>
+          </ul>
+          <p>
+            To maintain structural rigor, access to these Expert Shastra levels is locked under our <strong>Professional Diagnostic Gateway</strong>. To unlock these materials, a student must achieve a score of 80% or higher on the Professional Gateway test (representing mastery of advanced sandhis, karakas, and verb tenses). This prevents premature exposure to complex scriptural compounds before foundational syntax is fully understood.
+          </p>
+          <p>
+            Our interactive workspace provides direct feedback, word-by-word structural breakdowns, and standard pronunciation audio clips to help you master both the acoustics and semantics of scriptural Sanskrit. Start exploring the Bhagavad Gita chapters in the sidebar to deepen your understanding.
+          </p>
+        </div>
+      </section>
+    </div>
+
+    {/* COLUMN 3: RIGHT COLLAPSIBLE SIDEBAR */}
+    <aside id="rules-sidebar" class="w-full xl:w-1/4 flex flex-col space-y-6 xl:sticky xl:top-20 self-start z-10">
+      
+      {/* progress stats */}
+      <div class="bg-white dark:bg-zinc-900 border border-saffron-100 dark:border-zinc-800 rounded-3xl p-6 space-y-4 shadow-xs">
+        <h3 class="text-xs font-black text-charcoal/60 dark:text-cream/60 uppercase tracking-widest font-latin">
+          {t.practice.yourProgress}
+        </h3>
+
+        <div class="space-y-3">
+          <div class="flex justify-between text-xs font-bold font-latin">
+            <span class="text-charcoal/50 dark:text-cream/50">{t.practice.currentTier}</span>
+            <span id="progress-tier" class="text-saffron-600 dark:text-saffron-400 uppercase">EXPERT</span>
+          </div>
+          
+          <div class="flex justify-between text-xs font-bold font-latin">
+            <span class="text-charcoal/50 dark:text-cream/50">{t.practice.chaptersCompleted}</span>
+            <span id="progress-completed" class="text-charcoal dark:text-cream">0 / 90</span>
+          </div>
+
+          <div class="w-full bg-cream dark:bg-zinc-800 rounded-full h-2.5 overflow-hidden border border-saffron-100 dark:border-zinc-750">
+            <div
+              id="progress-bar"
+              class="bg-saffron-500 h-full rounded-full transition-all duration-300 w-0"
+            />
+          </div>
+
+          <div class="flex items-center gap-2 bg-saffron-50 dark:bg-zinc-800 border border-saffron-100 dark:border-zinc-800 rounded-2xl p-3 text-xs font-bold text-saffron-700 dark:text-saffron-300 font-latin">
+            <Flame class="w-5 h-5 text-saffron-500 fill-saffron-500" />
+            <span>{t.practice.streakCount}: <span id="progress-streak">0 Days</span></span>
+          </div>
+        </div>
+      </div>
+
+      {/* Shloka Analysis Context rules */}
+      <div class="bg-white dark:bg-zinc-900 border border-saffron-100 dark:border-zinc-800 rounded-3xl p-6 space-y-4 flex-1">
+        <h3 class="text-xs font-black text-charcoal/60 dark:text-cream/60 uppercase tracking-widest font-latin">
+          {t.practice.scriptureCommentaryContext}
+        </h3>
+
+        <div id="rules-blocks-container">
+          {curriculum.filter(c => c.tier === "expert").map(ch => (
+            <div id={`rules-core-${ch.id}`} data-rules-block class="hidden space-y-4 max-h-[300px] overflow-y-auto pr-1">
+              {ch.questions.map((q, qidx) => (
+                <div class="text-xs space-y-1.5 border-b border-saffron-50 pb-3 last:border-0 last:pb-0">
+                  <h3 class="font-bold text-saffron-600 font-latin">{localizeChapterName(ch.name, lang)} - Card {qidx + 1}</h3>
+                  <p class="text-charcoal/70 leading-relaxed font-latin">{q.grammaticalRule}</p>
+                  <p class="text-[10px] text-charcoal/40 font-bold uppercase font-latin">
+                    <span class="text-charcoal/50">Source:</span> <cite class="not-italic">{q.sourceAttribution}</cite>
+                  </p>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <AdSenseWidget slot="sidebar-ad-slot-shastra" variant="sidebar-ad" client:idle />
+    </aside>
+
+  </div>
+
+  <JourneyMap client:idle currentLang={lang} />
+</Layout>
+
+{/* Client-Side Sidebar and UI Sync Script */}
+<script is:inline define:vars={{ curriculum, lang }}>
+  // Enforce chapter range of 61-90 for Shastra Study
+  const params = new URLSearchParams(window.location.search);
+  const rawCh = params.get('chapter');
+  const rawSrc = params.get('source') || 'core';
+  const chNum = rawCh ? parseInt(rawCh, 10) : NaN;
+
+  if (isNaN(chNum) || rawSrc !== 'core' || chNum < 61 || chNum > 90) {
+    params.set('chapter', '61');
+    params.set('source', 'core');
+    window.history.replaceState({}, '', `${window.location.pathname}?${params.toString()}`);
+    // Delay slightly to allow PracticeCard to bind its listener
+    setTimeout(() => {
+      window.dispatchEvent(new Event('chapterChanged'));
+    }, 50);
+  }
+
+  // Toggle Left Navigation Sidebar
+  document.getElementById('toggle-nav-btn')?.addEventListener('click', () => {
+    const sidebar = document.getElementById('nav-sidebar');
+    const icon = document.getElementById('toggle-nav-icon');
+    if (sidebar?.classList.contains('hidden')) {
+      sidebar.classList.remove('hidden');
+      icon?.classList.add('rotate-0');
+      icon?.classList.remove('rotate-180');
+    } else {
+      sidebar?.classList.add('hidden');
+      icon?.classList.remove('rotate-0');
+      icon?.classList.add('rotate-180');
+    }
+  });
+
+  // Toggle Right Rules Sidebar
+  document.getElementById('toggle-rules-btn')?.addEventListener('click', () => {
+    const sidebar = document.getElementById('rules-sidebar');
+    sidebar?.classList.toggle('hidden');
+  });
+
+  // Open Learning map modal
+  document.getElementById('journey-map-btn')?.addEventListener('click', () => {
+    window.dispatchEvent(new Event('openJourneyMap'));
+  });
+
+  // Core Journey drawer toggle
+  document.getElementById('btn-toggle-core')?.addEventListener('click', () => {
+    const drawer = document.getElementById('container-core');
+    const icon = document.getElementById('icon-toggle-core');
+    drawer?.classList.toggle('hidden');
+    icon?.classList.toggle('rotate-90');
+  });
+
+  // Highlight active sidebar links and rules block
+  function syncUIState() {
+    const params = new URLSearchParams(window.location.search);
+    const chapterId = parseInt(params.get('chapter') || '61', 10);
+    const source = params.get('source') || 'core';
+    
+    // Highlight sidebar active button
+    document.querySelectorAll('[data-chapter-btn]').forEach(btn => {
+      const btnCh = parseInt(btn.getAttribute('data-chapter-id'), 10);
+      const btnSrc = btn.getAttribute('data-source');
+      if (btnCh === chapterId && btnSrc === source) {
+        btn.classList.add('bg-saffron-500', 'text-white', 'font-bold');
+        btn.classList.remove('text-charcoal', 'hover:bg-saffron-50');
+      } else {
+        btn.classList.remove('bg-saffron-500', 'text-white', 'font-bold');
+        btn.classList.add('text-charcoal', 'hover:bg-saffron-50');
+      }
+    });
+
+    // Update rules blocks visibility
+    document.querySelectorAll('[data-rules-block]').forEach(block => {
+      block.classList.add('hidden');
+    });
+    const rulesId = `rules-${source}-${chapterId}`;
+    const activeRules = document.getElementById(rulesId);
+    if (activeRules) {
+      activeRules.classList.remove('hidden');
+    }
+
+    // Update active chapter name in header
+    const activeCh = curriculum.find(c => c.id === chapterId);
+    const titleSpan = document.getElementById('active-chapter-name');
+    if (titleSpan && activeCh) {
+      titleSpan.innerText = activeCh.name;
+    }
+  }
+
+  // Initial Sync
+  syncUIState();
+  window.addEventListener('popstate', syncUIState);
+  window.addEventListener('chapterChanged', syncUIState);
+
+  // Sync user progress from LocalStorage
+  function updateProgressUI() {
+    const saved = localStorage.getItem("sanskrit_user_progress");
+    if (saved) {
+      try {
+        const progress = JSON.parse(saved);
+        
+        // Current Tier
+        const tierEl = document.getElementById("progress-tier");
+        if (tierEl) {
+          let tierText = progress.currentTier.toUpperCase();
+          if (lang === "ja") {
+            tierText = progress.currentTier === "beginner" ? "初級" : progress.currentTier === "professional" ? "中級" : "上級";
+          } else if (lang === "hi") {
+            tierText = progress.currentTier === "beginner" ? "प्रारंभिक" : progress.currentTier === "professional" ? "व्यावसायिक" : "विशेषज्ञ";
+          } else if (lang === "es") {
+            tierText = progress.currentTier === "beginner" ? "PRINCIPIANTE" : progress.currentTier === "professional" ? "PROFESIONAL" : "EXPERTO";
+          }
+          tierEl.innerText = tierText;
+        }
+        
+        // Chapters Completed
+        const completedEl = document.getElementById("progress-completed");
+        if (completedEl) {
+          const completedCount = progress.completedChapters.length;
+          completedEl.innerText = `${completedCount} / 90`;
+          
+          const barEl = document.getElementById("progress-bar");
+          if (barEl) {
+            barEl.style.width = `${Math.round((completedCount / 90) * 100)}%`;
+          }
+        }
+        
+        // Streak Count
+        const streakEl = document.getElementById("progress-streak");
+        if (streakEl) {
+          streakEl.innerText = `${progress.streakCount} Days`;
+        }
+
+        // Sidebar checkmarks
+        document.querySelectorAll('[data-completed-check]').forEach(check => {
+          const chId = parseInt(check.getAttribute('data-completed-check'), 10);
+          if (progress.completedChapters.includes(chId)) {
+            check.classList.remove('hidden');
+          } else {
+            check.classList.add('hidden');
+          }
+        });
+
+      } catch(e) {
+        console.error(e);
+      }
+    }
+  }
+
+  updateProgressUI();
+  window.addEventListener("streakUpdated", updateProgressUI);
+  window.addEventListener("chapterChanged", updateProgressUI);
+</script>

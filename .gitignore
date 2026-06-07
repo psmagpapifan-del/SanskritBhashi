@@ -39,3 +39,17 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Astro / Vite build and cache
+.astro/
+dist/
+
+# Cloudflare Wrangler cache
+.wrangler/
+
+# Playwright test artifacts
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+

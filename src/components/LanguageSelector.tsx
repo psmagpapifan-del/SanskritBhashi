@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { useRouter, usePathname } from "next/navigation";
 import { Globe, Languages, ChevronDown, Check } from "lucide-react";
 
 interface LanguageSelectorProps {
   currentLang: string;
+  currentPathname: string;
 }
 
 const interfaceLanguages = [
@@ -22,9 +22,7 @@ const transliterations = [
   { code: "french", name: "French (Phonétique)" },
 ];
 
-export default function LanguageSelector({ currentLang }: LanguageSelectorProps) {
-  const router = useRouter();
-  const pathname = usePathname();
+export default function LanguageSelector({ currentLang, currentPathname }: LanguageSelectorProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [transliteration, setTransliteration] = useState("iast");
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -53,11 +51,11 @@ export default function LanguageSelector({ currentLang }: LanguageSelectorProps)
     
     // Replace the language segment in pathname
     // e.g. /en/about -> /hi/about
-    const segments = pathname.split("/");
+    const segments = currentPathname.split("/");
     segments[1] = newLang;
     const newPathname = segments.join("/");
     
-    router.push(newPathname);
+    window.location.href = newPathname;
     setIsOpen(false);
   };
 

@@ -1,7 +1,6 @@
 "use client";
 
-import React from "react";
-import Script from "next/script";
+import React, { useEffect } from "react";
 
 interface AdSenseProps {
   slot: string;
@@ -10,6 +9,14 @@ interface AdSenseProps {
 }
 
 export default function AdSenseWidget({ slot, format = "auto", variant }: AdSenseProps) {
+  useEffect(() => {
+    try {
+      ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({});
+    } catch (e) {
+      // Catch adsense init errors if script not loaded yet
+    }
+  }, [slot]);
+
   return (
     <div
       className={`adsense-wrapper ${variant} my-6 mx-auto w-full overflow-hidden rounded-2xl bg-[#FAF9F6] p-3 border border-[#FFB300]/20 min-h-[100px] flex flex-col items-center justify-center relative select-none`}
@@ -30,14 +37,6 @@ export default function AdSenseWidget({ slot, format = "auto", variant }: AdSens
         data-ad-slot={slot}
         data-ad-format={format}
         data-full-width-responsive="true"
-      />
-
-      <Script
-        id={`adsense-init-${slot}`}
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: "(window.adsbygoogle = window.adsbygoogle || []).push({});",
-        }}
       />
     </div>
   );

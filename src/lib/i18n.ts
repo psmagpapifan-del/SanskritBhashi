@@ -606,7 +606,8 @@ export const translations: Record<string, Translation> = {
       about: "会社概要",
       faqs: "よくある質問",
       privacy: "プライバシーポリシー",
-      terms: "利用規約"
+      terms: "利用規約",
+      contact: "お問い合わせ"
     },
     home: {
       heroSub: "🔥 オンボーディングツアーを開始する",
@@ -813,7 +814,8 @@ export const translations: Record<string, Translation> = {
       about: "Nosotros",
       faqs: "FAQs",
       privacy: "Política de Privacidad",
-      terms: "Términos de Servicio"
+      terms: "Términos de Servicio",
+      contact: "Contacto"
     },
     home: {
       heroSub: "🔥 Experimente el Onboarding de Sanskritbhashi",

@@ -13,9 +13,6 @@ export default defineConfig({
   output: 'static',
   adapter: isDev ? undefined : cloudflare({ platformProxy: { enabled: true } }),
   trailingSlash: 'never',
-  build: {
-    format: 'file',
-  },
   integrations: [
     react(),
     sitemap(),

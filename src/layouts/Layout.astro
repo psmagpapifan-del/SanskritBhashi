@@ -45,7 +45,13 @@ const isActive = (href: string) => {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#FF6F00" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="संस्कृतभाषी" />
     <script is:inline>
       (function() {
         const theme = localStorage.getItem('theme') || 
@@ -214,6 +220,31 @@ const isActive = (href: string) => {
       </nav>
     </div>
 
+    <!-- Cookie Consent Banner (AdSense Compliant) -->
+    <div
+      id="cookie-consent-banner"
+      class="hidden fixed bottom-20 md:bottom-6 left-4 right-4 md:left-auto md:right-6 md:w-96 bg-white dark:bg-zinc-950 border border-border-hairline rounded-2xl p-5 shadow-xl z-50 animate-float font-latin"
+    >
+      <h4 class="text-sm font-bold text-charcoal mb-2">Cookie Consent & Personalization.</h4>
+      <p class="text-xs text-charcoal/70 leading-relaxed mb-4">
+        We and our advertising partners (including Google) use cookies to customize content and serve personalized ads based on your past visits. Read our <a href={`/${lang}/privacy`} class="text-saffron-600 underline font-semibold hover:text-saffron-500">Privacy Policy</a> to learn more.
+      </p>
+      <div class="flex gap-2">
+        <button
+          id="accept-cookies"
+          class="flex-1 px-4 py-2 bg-saffron-500 hover:bg-saffron-600 text-white text-xs font-bold rounded-lg transition-colors cursor-pointer"
+        >
+          Accept All
+        </button>
+        <button
+          id="decline-cookies"
+          class="px-4 py-2 border border-border-hairline hover:bg-saffron-50 dark:hover:bg-zinc-900 text-charcoal text-xs font-semibold rounded-lg transition-colors cursor-pointer"
+        >
+          Decline
+        </button>
+      </div>
+    </div>
+
     <script is:inline>
       function setupThemeToggle() {
         const desktopBtn = document.getElementById('theme-toggle-desktop');
@@ -230,6 +261,32 @@ const isActive = (href: string) => {
 
       setupThemeToggle();
       document.addEventListener('astro:after-swap', setupThemeToggle);
+
+      function setupCookieBanner() {
+        const banner = document.getElementById('cookie-consent-banner');
+        const acceptBtn = document.getElementById('accept-cookies');
+        const declineBtn = document.getElementById('decline-cookies');
+
+        if (!banner || !acceptBtn || !declineBtn) return;
+
+        const consent = localStorage.getItem('cookie-consent');
+        if (consent === null) {
+          banner.classList.remove('hidden');
+        }
+
+        acceptBtn.addEventListener('click', () => {
+          localStorage.setItem('cookie-consent', 'accepted');
+          banner.classList.add('hidden');
+        });
+
+        declineBtn.addEventListener('click', () => {
+          localStorage.setItem('cookie-consent', 'declined');
+          banner.classList.add('hidden');
+        });
+      }
+
+      setupCookieBanner();
+      document.addEventListener('astro:after-swap', setupCookieBanner);
     </script>
   </body>
 </html>

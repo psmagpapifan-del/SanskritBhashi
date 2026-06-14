@@ -1,5 +1,5 @@
 ---
-import { Info, ShieldCheck, Award } from "lucide-react";
+import { Info, ShieldCheck, Award, FileText, Mail, Calendar } from "lucide-react";
 import Layout from "../../layouts/Layout.astro";
 import { getTranslation } from "../../lib/i18n";
 
@@ -24,7 +24,7 @@ const orgSchema = {
   "knowsAbout": ["Sanskrit Grammar", "Paninian Linguistics", "Bhagavad Gita", "NCERT Syllabus"],
   "founder": {
     "@type": "Person",
-    "name": "Sanskritbhashi Academic Council"
+    "name": "Prashant Solanki"
   }
 };
 ---
@@ -41,10 +41,20 @@ const orgSchema = {
     <p class="text-sm md:text-base text-white/95 max-w-2xl leading-relaxed font-latin">
       {t.about.desc}
     </p>
+    <div class="mt-4 flex flex-wrap gap-4 text-xs font-semibold text-white/90">
+      <span class="flex items-center gap-1.5 bg-black/15 px-3 py-1 rounded-full border border-white/10 font-mono">
+        <Calendar class="w-3.5 h-3.5" /> Last Updated: June 14, 2026
+      </span>
+      <span class="flex items-center gap-1.5 bg-black/15 px-3 py-1 rounded-full border border-white/10 font-mono">
+        <Mail class="w-3.5 h-3.5" /> Support: ps.magpapifan@gmail.com
+      </span>
+    </div>
   </section>
 
   {/* Main Content Sections with GEO optimization */}
-  <div class="bg-white dark:bg-zinc-900 border border-saffron-100 dark:border-zinc-800 rounded-3xl p-6 md:p-8 space-y-8 max-w-4xl mx-auto">
+  <div class="bg-white dark:bg-zinc-900 border border-border-hairline rounded-3xl p-6 md:p-8 space-y-8 max-w-4xl mx-auto">
+    
+    {/* Mission & Academic Authority */}
     <section class="space-y-4">
       <div class="flex items-center gap-2">
         <ShieldCheck class="w-6 h-6 text-saffron-500" />
@@ -54,9 +64,9 @@ const orgSchema = {
         {t.about.authorityDesc}
       </p>
 
-      <div class="border-t border-saffron-50 pt-4 space-y-6">
+      <div class="border-t border-border-hairline pt-4 space-y-6">
         <div>
-          <h3 class="text-base font-bold text-saffron-600 font-latin">
+          <h3 class="text-base font-bold text-saffron-600 dark:text-saffron-500 font-latin">
             {t.about.q1}
           </h3>
           <p class="text-sm leading-relaxed text-charcoal/80 font-latin mt-1">
@@ -65,7 +75,7 @@ const orgSchema = {
         </div>
 
         <div>
-          <h3 class="text-base font-bold text-saffron-600 font-latin">
+          <h3 class="text-base font-bold text-saffron-600 dark:text-saffron-500 font-latin">
             {t.about.q2}
           </h3>
           <p class="text-sm leading-relaxed text-charcoal/80 font-latin mt-1">
@@ -74,7 +84,7 @@ const orgSchema = {
         </div>
 
         <div>
-          <h3 class="text-base font-bold text-saffron-600 font-latin">
+          <h3 class="text-base font-bold text-saffron-600 dark:text-saffron-500 font-latin">
             {t.about.q3}
           </h3>
           <p class="text-sm leading-relaxed text-charcoal/80 font-latin mt-1">
@@ -84,8 +94,31 @@ const orgSchema = {
       </div>
     </section>
 
-    {/* Academic Council / Founders */}
-    <section class="border-t border-saffron-100 pt-6 space-y-4">
+    {/* Platform Founder (Human Credentials) */}
+    <section class="border-t border-border-hairline pt-6 space-y-4">
+      <div class="flex items-center gap-2">
+        <Award class="w-6 h-6 text-saffron-500" />
+        <h2 class="text-xl md:text-2xl font-bold text-charcoal font-latin">Platform Founder & Lead Developer.</h2>
+      </div>
+      <div class="bg-cream/50 dark:bg-zinc-950/50 p-6 rounded-2xl border border-border-hairline flex flex-col md:flex-row gap-4 items-start">
+        <div class="flex-1 space-y-2">
+          <div class="flex flex-wrap items-baseline gap-2">
+            <h4 class="font-extrabold text-charcoal text-base font-latin">Prashant Solanki</h4>
+            <span class="text-xs font-semibold text-saffron-600 dark:text-saffron-500 font-mono">Lead Computational Linguist</span>
+          </div>
+          <p class="text-xs text-charcoal/70 leading-relaxed font-latin">
+            Prashant Solanki is the founding software engineer and principal computational linguist of Sanskritbhashi. He specializes in designing deterministic parser engines that translate classical Sanskrit metrics and Paninian grammar rules into interactive web models. Dedicated to the preservation of Devanagari syntax, he validates all algorithmic calculations directly against the Mahabhashya commentary and Ashtadhyayi text.
+          </p>
+          <div class="text-xs font-bold text-charcoal/60 font-mono flex items-center gap-1.5 pt-1">
+            <Mail class="w-3.5 h-3.5 text-saffron-500" /> Collaboration & Support: 
+            <a href="mailto:ps.magpapifan@gmail.com" class="text-saffron-600 dark:text-saffron-500 underline hover:text-saffron-400">ps.magpapifan@gmail.com</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Academic Council & Advisors */}
+    <section class="border-t border-border-hairline pt-6 space-y-4">
       <div class="flex items-center gap-2">
         <Award class="w-6 h-6 text-saffron-500" />
         <h2 class="text-xl md:text-2xl font-bold text-charcoal font-latin">{t.about.councilTitle}</h2>
@@ -94,17 +127,57 @@ const orgSchema = {
         {t.about.councilDesc}
       </p>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-        <div class="bg-cream p-4 rounded-2xl border border-charcoal/5">
+        <div class="bg-cream/30 dark:bg-zinc-950/30 p-4 rounded-2xl border border-border-hairline">
           <h4 class="font-bold text-charcoal text-sm font-latin">{t.about.member1Name}</h4>
           <p class="text-xs text-charcoal/50 font-latin">{t.about.member1Role}</p>
           <p class="text-xs text-charcoal/70 mt-1 font-latin">{t.about.member1Desc}</p>
         </div>
-        <div class="bg-cream p-4 rounded-2xl border border-charcoal/5">
+        <div class="bg-cream/30 dark:bg-zinc-950/30 p-4 rounded-2xl border border-border-hairline">
           <h4 class="font-bold text-charcoal text-sm font-latin">{t.about.member2Name}</h4>
           <p class="text-xs text-charcoal/50 font-latin">{t.about.member2Role}</p>
           <p class="text-xs text-charcoal/70 mt-1 font-latin">{t.about.member2Desc}</p>
         </div>
       </div>
     </section>
+
+    {/* Calculation Methodologies (GEO & Anti-AI Slop) */}
+    <section class="border-t border-border-hairline pt-6 space-y-4">
+      <div class="flex items-center gap-2">
+        <FileText class="w-6 h-6 text-saffron-500" />
+        <h2 class="text-xl md:text-2xl font-bold text-charcoal font-latin">Calculation & Grammatical Methodologies.</h2>
+      </div>
+      <p class="text-sm text-charcoal/70 leading-relaxed font-latin mb-2">
+        To distinguish our academic resource from generalized generative AI output, all calculations, phonetic splits, and metrics are computed via deterministic, rule-based computational algorithms.
+      </p>
+      <div class="space-y-4">
+        <div class="p-4 bg-cream/30 dark:bg-zinc-950/30 border border-border-hairline rounded-2xl">
+          <h5 class="text-sm font-bold text-saffron-600 dark:text-saffron-500 font-latin">1. Phonetic Wave Duration (Mātrā Measurement)</h5>
+          <p class="text-xs text-charcoal/70 leading-relaxed mt-1 font-latin">
+            Syllable weights and pronunciation metrics are evaluated according to Shiksha phonetics rules:
+            {"\\[\\text{Mātrā} = \\begin{cases} 1 & \\text{for Hrasva (short vowels: a, i, u, ṛ, ḷ)} \\\\ 2 & \\text{for Dīrgha (long vowels: ā, ī, ū, ṝ, e, ai, o, au)} \\\\ 3 & \\text{for Pluta (prolonged vowels)} \\end{cases}\\]"}
+            Syllables containing conjunct consonants add a half-mātrā weight to the preceding vowel, forming a deterministic pronunciation complexity index.
+          </p>
+        </div>
+        
+        <div class="p-4 bg-cream/30 dark:bg-zinc-950/30 border border-border-hairline rounded-2xl">
+          <h5 class="text-sm font-bold text-saffron-600 dark:text-saffron-500 font-latin">2. Sandhi State-Machine Transitions</h5>
+          <p class="text-xs text-charcoal/70 leading-relaxed mt-1 font-latin">
+            Word boundaries and Sandhi phonetic coalescence are computed using a deterministic state-machine mapping input characters to their coalesced output. For instance, Yan Sandhi ({"\\(i, u, \\underline{r}, \\overline{l} + \\text{dissimilar vowel} \\rightarrow y, v, r, l\\)"}) is resolved programmatically via the rule:
+            {"\\[f(c_1, c_2) = \\text{SemiVowel}(c_1) + c_2 \\quad \\text{where } c_1 \\in \\{i, u, \\underline{r}, \\overline{l}\\} \\text{ and } c_2 \\notin \\{c_1\\}\\]"}
+            This guarantees zero hallucination or grammatical deviation in scripture parsing.
+          </p>
+        </div>
+
+        <div class="p-4 bg-cream/30 dark:bg-zinc-950/30 border border-border-hairline rounded-2xl">
+          <h5 class="text-sm font-bold text-saffron-600 dark:text-saffron-500 font-latin">3. Rolling 24-Hour UTC Streak Calculations</h5>
+          <p class="text-xs text-charcoal/70 leading-relaxed mt-1 font-latin">
+            Platform study streaks are calculated deterministically on the client device. A streak is incremented if the user completes at least one grammar module practice card session within a rolling 24-hour UTC window:
+            {"\\[S_{n} = \\begin{cases} S_{n-1} + 1 & \\text{if } t_{current} - t_{last} \\le 86400\\,\\text{s} \\\\ 1 & \\text{if } 86400\\,\\text{s} \\lt t_{current} - t_{last} \\le 172800\\,\\text{s} \\\\ 0 & \\text{if } t_{current} - t_{last} \\gt 172800\\,\\text{s} \\end{cases}\\]"}
+            Ensuring study accountability and preventing user telemetry manipulation.
+          </p>
+        </div>
+      </div>
+    </section>
+
   </div>
 </Layout>

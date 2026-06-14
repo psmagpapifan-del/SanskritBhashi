@@ -26,9 +26,11 @@ const navItems = [
 ];
 
 const pathname = Astro.url.pathname;
+const cleanPath = pathname.replace(/\/$/, "");
+const canonicalURL = `https://sanskritbhashi.com${cleanPath}`;
 
 const isActive = (href: string) => {
-  // Normalize pathnames by removing trailing slashes for comparison
+  // Normalize pathnames by removing trailing shashes for comparison
   const normPath = pathname.replace(/\/$/, "");
   const normHref = href.replace(/\/$/, "");
   if (normHref === `/${lang}`) {
@@ -45,6 +47,7 @@ const isActive = (href: string) => {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/favicon.svg" />
     <link rel="manifest" href="/manifest.json" />

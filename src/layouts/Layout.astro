@@ -48,9 +48,10 @@ const isActive = (href: string) => {
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
-    <link rel="apple-touch-icon" href="/favicon.svg?v=2" />
-    <link rel="shortcut icon" type="image/svg+xml" href="/favicon.svg?v=2" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=3" />
+    <link rel="apple-touch-icon" href="/favicon.svg?v=3" />
+    <link rel="shortcut icon" type="image/svg+xml" href="/favicon.svg?v=3" />
+
     <link rel="manifest" href="/manifest.json" />
     <meta name="theme-color" content="#FF6F00" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -184,13 +185,14 @@ const isActive = (href: string) => {
 
           {/* GLOBAL MAIN FOOTER */}
           <footer class="mt-16 border-t border-border-hairline pt-8 pb-4 text-center text-xs text-charcoal/50 w-full">
-            <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-4 font-semibold">
+            <div class="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 mb-4 font-semibold">
               <a href={`/${lang}`} class="hover:text-saffron-600 transition-colors">{t.nav.home}</a>
               <a href={`/${lang}/about`} class="hover:text-saffron-600 transition-colors">{t.nav.about}</a>
               <a href={`/${lang}/contact`} class="hover:text-saffron-600 transition-colors">{t.nav.contact}</a>
               <a href={`/${lang}/privacy`} class="hover:text-saffron-600 transition-colors">{t.nav.privacy}</a>
               <a href={`/${lang}/terms`} class="hover:text-saffron-600 transition-colors">{t.nav.terms}</a>
               <a href={`/${lang}/faqs`} class="hover:text-saffron-600 transition-colors">{t.nav.faqs}</a>
+              <button id="open-cookie-preferences" class="hover:text-saffron-600 transition-colors cursor-pointer bg-transparent border-0 p-0 font-semibold text-xs text-charcoal/50">Cookie Preferences</button>
             </div>
             <p class="text-[10px] tracking-wider uppercase opacity-75 font-mono">
               © 2026 Sanskritbhashi. All rights reserved.
@@ -236,18 +238,114 @@ const isActive = (href: string) => {
       <div class="flex gap-2">
         <button
           id="accept-cookies"
-          class="flex-1 px-4 py-2 bg-saffron-500 hover:bg-saffron-600 text-white text-xs font-bold rounded-lg transition-colors cursor-pointer"
+          class="flex-1 px-3 py-2 bg-saffron-500 hover:bg-saffron-600 text-white text-[11px] font-bold rounded-lg transition-colors cursor-pointer"
         >
           Accept All
         </button>
         <button
           id="decline-cookies"
-          class="px-4 py-2 border border-border-hairline hover:bg-saffron-50 dark:hover:bg-zinc-900 text-charcoal text-xs font-semibold rounded-lg transition-colors cursor-pointer"
+          class="px-3 py-2 border border-border-hairline hover:bg-saffron-50 dark:hover:bg-zinc-900 text-charcoal text-[11px] font-semibold rounded-lg transition-colors cursor-pointer"
         >
           Decline
         </button>
+        <button
+          id="customize-cookies"
+          class="px-3 py-2 border border-border-hairline hover:bg-saffron-50 dark:hover:bg-zinc-900 text-charcoal text-[11px] font-semibold rounded-lg transition-colors cursor-pointer"
+        >
+          Customize
+        </button>
       </div>
     </div>
+
+    <!-- Cookie Preferences Modal -->
+    <dialog
+      id="cookie-preferences-dialog"
+      closedby="any"
+      class="fixed inset-0 m-auto w-full max-w-md bg-white dark:bg-zinc-950 border border-border-hairline rounded-3xl p-6 shadow-2xl z-50 text-charcoal font-latin backdrop:bg-black/50 backdrop:backdrop-blur-xs"
+    >
+      <div class="flex flex-col h-full">
+        <div class="flex items-center justify-between mb-4 border-b border-border-hairline pb-3">
+          <h3 class="text-base font-bold text-charcoal">Cookie Preferences</h3>
+          <button
+            id="close-preferences-x"
+            class="text-charcoal/50 hover:text-charcoal p-1.5 rounded-lg border border-border-hairline hover:bg-saffron-50 dark:hover:bg-zinc-900 transition-colors cursor-pointer"
+            aria-label="Close dialog"
+          >
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <p class="text-xs text-charcoal/70 leading-relaxed mb-5">
+          Customize how cookies are used on our site. Some cookies are essential for the website to function, while others help us personalize ads and analyze traffic.
+        </p>
+
+        <!-- Preference Toggles -->
+        <div class="space-y-4 mb-6">
+          <!-- Necessary -->
+          <div class="flex items-start justify-between gap-4 p-3 rounded-xl border border-border-hairline bg-cream/30 dark:bg-zinc-900/30">
+            <div class="flex-1">
+              <h4 class="text-xs font-bold text-charcoal flex items-center gap-1.5">
+                Strictly Necessary Cookies
+                <span class="text-[9px] px-1.5 py-0.5 bg-saffron-500/10 dark:bg-saffron-500/20 text-saffron-600 dark:text-saffron-400 rounded-md font-extrabold uppercase">Required</span>
+              </h4>
+              <p class="text-[10px] text-charcoal/60 leading-normal mt-1">
+                Essential for basic features like language preference preservation, dark/light mode toggles, and secure navigation.
+              </p>
+            </div>
+            <div class="relative flex items-center select-none mt-1">
+              <input type="checkbox" checked disabled class="sr-only peer" />
+              <div class="w-10 h-6 bg-saffron-500 rounded-full peer-disabled:opacity-50"></div>
+              <div class="absolute left-[20px] top-[4px] bg-white w-4 h-4 rounded-full transition-transform"></div>
+            </div>
+          </div>
+
+          <!-- Personalization & Ads -->
+          <div class="flex items-start justify-between gap-4 p-3 rounded-xl border border-border-hairline">
+            <div class="flex-1">
+              <h4 class="text-xs font-bold text-charcoal">Personalization & Ads</h4>
+              <p class="text-[10px] text-charcoal/60 leading-normal mt-1">
+                Allows Google and ad partners to serve personalized ads based on your past visits to this or other websites.
+              </p>
+            </div>
+            <label class="relative inline-flex items-center cursor-pointer mt-1">
+              <input type="checkbox" id="cookie-pref-ads" class="sr-only peer" />
+              <div class="w-10 h-6 bg-zinc-200 dark:bg-zinc-800 peer-focus:outline-hidden rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-zinc-700 peer-checked:bg-saffron-500"></div>
+            </label>
+          </div>
+
+          <!-- Analytics -->
+          <div class="flex items-start justify-between gap-4 p-3 rounded-xl border border-border-hairline">
+            <div class="flex-1">
+              <h4 class="text-xs font-bold text-charcoal">Analytics & Performance</h4>
+              <p class="text-[10px] text-charcoal/60 leading-normal mt-1">
+                Helps us understand how users interact with the site, allowing us to analyze page performance and improve courses.
+              </p>
+            </div>
+            <label class="relative inline-flex items-center cursor-pointer mt-1">
+              <input type="checkbox" id="cookie-pref-analytics" class="sr-only peer" />
+              <div class="w-10 h-6 bg-zinc-200 dark:bg-zinc-800 peer-focus:outline-hidden rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-zinc-700 peer-checked:bg-saffron-500"></div>
+            </label>
+          </div>
+        </div>
+
+        <div class="flex gap-2 border-t border-border-hairline pt-4 mt-auto">
+          <button
+            id="cookie-save-preferences"
+            class="flex-1 px-4 py-2.5 bg-saffron-500 hover:bg-saffron-600 text-white text-xs font-bold rounded-lg transition-colors cursor-pointer"
+          >
+            Save Choices
+          </button>
+          <button
+            id="cookie-accept-all-pref"
+            class="px-4 py-2.5 border border-border-hairline hover:bg-saffron-50 dark:hover:bg-zinc-900 text-charcoal text-xs font-semibold rounded-lg transition-colors cursor-pointer"
+          >
+            Accept All
+          </button>
+        </div>
+      </div>
+    </dialog>
 
     <script is:inline>
       function setupThemeToggle() {
@@ -270,23 +368,125 @@ const isActive = (href: string) => {
         const banner = document.getElementById('cookie-consent-banner');
         const acceptBtn = document.getElementById('accept-cookies');
         const declineBtn = document.getElementById('decline-cookies');
+        const customizeBtn = document.getElementById('customize-cookies');
+        const dialog = document.getElementById('cookie-preferences-dialog');
+        const closeXBtn = document.getElementById('close-preferences-x');
+        const savePrefBtn = document.getElementById('cookie-save-preferences');
+        const acceptAllPrefBtn = document.getElementById('cookie-accept-all-pref');
+        const footerBtn = document.getElementById('open-cookie-preferences');
 
-        if (!banner || !acceptBtn || !declineBtn) return;
+        const prefAds = document.getElementById('cookie-pref-ads');
+        const prefAnalytics = document.getElementById('cookie-pref-analytics');
 
+        if (!banner || !acceptBtn || !declineBtn || !customizeBtn || !dialog) return;
+
+        // Initialize state from localStorage
+        function loadPreferences() {
+          const consent = localStorage.getItem('cookie-consent');
+          const consentAds = localStorage.getItem('cookie-consent-ads');
+          const consentAnalytics = localStorage.getItem('cookie-consent-analytics');
+
+          if (consent === 'accepted') {
+            if (prefAds) prefAds.checked = true;
+            if (prefAnalytics) prefAnalytics.checked = true;
+          } else if (consent === 'declined') {
+            if (prefAds) prefAds.checked = false;
+            if (prefAnalytics) prefAnalytics.checked = false;
+          } else {
+            if (prefAds) prefAds.checked = consentAds === 'true';
+            if (prefAnalytics) prefAnalytics.checked = consentAnalytics === 'true';
+          }
+        }
+
+        // Show banner if no consent exists
         const consent = localStorage.getItem('cookie-consent');
         if (consent === null) {
           banner.classList.remove('hidden');
         }
 
-        acceptBtn.addEventListener('click', () => {
+        // Action: Accept All
+        function acceptAll() {
           localStorage.setItem('cookie-consent', 'accepted');
+          localStorage.setItem('cookie-consent-necessary', 'true');
+          localStorage.setItem('cookie-consent-ads', 'true');
+          localStorage.setItem('cookie-consent-analytics', 'true');
           banner.classList.add('hidden');
+          dialog.close();
+          window.dispatchEvent(new Event('cookie-consent-updated'));
+        }
+
+        // Action: Decline
+        function declineAll() {
+          localStorage.setItem('cookie-consent', 'declined');
+          localStorage.setItem('cookie-consent-necessary', 'true');
+          localStorage.setItem('cookie-consent-ads', 'false');
+          localStorage.setItem('cookie-consent-analytics', 'false');
+          banner.classList.add('hidden');
+          dialog.close();
+          window.dispatchEvent(new Event('cookie-consent-updated'));
+        }
+
+        // Action: Save Custom choices
+        function saveCustomChoices() {
+          const ads = prefAds ? prefAds.checked : false;
+          const analytics = prefAnalytics ? prefAnalytics.checked : false;
+
+          localStorage.setItem('cookie-consent', 'custom');
+          localStorage.setItem('cookie-consent-necessary', 'true');
+          localStorage.setItem('cookie-consent-ads', ads ? 'true' : 'false');
+          localStorage.setItem('cookie-consent-analytics', analytics ? 'true' : 'false');
+
+          banner.classList.add('hidden');
+          dialog.close();
+          window.dispatchEvent(new Event('cookie-consent-updated'));
+        }
+
+        // Event Listeners
+        acceptBtn.addEventListener('click', acceptAll);
+        declineBtn.addEventListener('click', declineAll);
+        customizeBtn.addEventListener('click', () => {
+          loadPreferences();
+          dialog.showModal();
         });
 
-        declineBtn.addEventListener('click', () => {
-          localStorage.setItem('cookie-consent', 'declined');
-          banner.classList.add('hidden');
-        });
+        if (footerBtn) {
+          footerBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            loadPreferences();
+            dialog.showModal();
+          });
+        }
+
+        if (closeXBtn) {
+          closeXBtn.addEventListener('click', () => {
+            dialog.close();
+          });
+        }
+
+        if (savePrefBtn) {
+          savePrefBtn.addEventListener('click', saveCustomChoices);
+        }
+
+        if (acceptAllPrefBtn) {
+          acceptAllPrefBtn.addEventListener('click', acceptAll);
+        }
+
+        // Backdrop click / Light-dismiss fallback for unsupported browsers
+        if (!('closedBy' in HTMLDialogElement.prototype)) {
+          dialog.addEventListener('click', (event) => {
+            if (event.target !== dialog) return;
+            const rect = dialog.getBoundingClientRect();
+            const isDialogContent = (
+              rect.top <= event.clientY &&
+              event.clientY <= rect.top + rect.height &&
+              rect.left <= event.clientX &&
+              event.clientX <= rect.left + rect.width
+            );
+            if (!isDialogContent) {
+              dialog.close();
+            }
+          });
+        }
       }
 
       setupCookieBanner();

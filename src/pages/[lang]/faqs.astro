@@ -1,0 +1,58 @@
+---
+import { HelpCircle } from "lucide-react";
+import Layout from "../../layouts/Layout.astro";
+import FAQAccordion from "../../components/FAQAccordion";
+import { getTranslation } from "../../lib/i18n";
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: "en" } },
+    { params: { lang: "hi" } },
+    { params: { lang: "ja" } },
+    { params: { lang: "es" } },
+  ];
+}
+
+const { lang } = Astro.params;
+const t = getTranslation(lang);
+
+const faqPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": t.faqs.list.map((faq) => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": `${faq.primaryAnswer} ${faq.detailedAnswer}`
+    }
+  }))
+};
+---
+
+<Layout lang={lang} title={`${t.nav.faqs} | Sanskritbhashi`}>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(faqPageSchema)} />
+
+  {/* Header Banner */}
+  <section class="bg-linear-to-r from-saffron-500 to-saffron-600 rounded-3xl p-6 md:p-8 text-white mb-8 shadow-md">
+    <div class="flex items-center gap-3 mb-2">
+      <HelpCircle class="w-8 h-8 text-marigold-500" />
+      <h1 class="text-2xl md:text-3xl font-bold font-latin">{t.faqs.title}</h1>
+    </div>
+    <p class="text-sm md:text-base text-white/95 max-w-2xl leading-relaxed font-latin">
+      {t.faqs.desc}
+    </p>
+  </section>
+
+  {/* FAQs List */}
+  <div class="space-y-4 max-w-3xl mx-auto py-4">
+    {t.faqs.list.map((faq) => (
+      <FAQAccordion
+        id={faq.id}
+        question={faq.question}
+        primaryAnswer={faq.primaryAnswer}
+        detailedAnswer={faq.detailedAnswer}
+      />
+    ))}
+  </div>
+</Layout>

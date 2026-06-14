@@ -1,0 +1,120 @@
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@300;400;500;600&family=Noto+Sans+JP:wght@400;700&family=Noto+Serif+Devanagari:wght@400;700&family=Rozha+One&family=Tiro+Sanskrit&display=swap");
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+.dark {
+  --color-cream: #121212;
+  --color-charcoal: #F5F5F5;
+  --color-saffron-50: #2C180F;
+  --color-saffron-100: #4B2713;
+  --color-saffron-500: #FF8F33;
+  --color-saffron-600: #E66100;
+  --color-marigold-500: #FFC43D;
+  --color-marigold-600: #E6AA00;
+  --color-border-hairline: #2A2A2A;
+  color-scheme: dark;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #3A3A3A;
+}
+
+.dark ::selection {
+  background-color: var(--color-saffron-100);
+  color: var(--color-cream);
+}
+
+@theme {
+  /* Default sans and mono fonts updated to Geist/Inter and Geist Mono */
+  --font-sans: "Geist", "Inter", sans-serif;
+  --font-mono: "Geist Mono", "JetBrains Mono", monospace;
+  --font-sanskrit: "Tiro Sanskrit", "Rozha One", "Noto Serif Devanagari", serif;
+  --font-cjk: "Noto Sans JP", sans-serif;
+  --font-latin: "Geist", "Inter", sans-serif;
+
+  /* Custom Color System */
+  --color-saffron-50: #FFF9F2;
+  --color-saffron-100: #FFEAD4;
+  --color-saffron-500: #FF6F00;
+  --color-saffron-600: #E65100;
+  --color-marigold-500: #FFB300;
+  --color-marigold-600: #E6A100;
+  --color-charcoal: #212121;
+  --color-cream: #FAF9F6;
+  --color-border-hairline: #E2E0D8;
+
+  /* Gamified Micro-Interaction Animations */
+  --animate-shake: shake 0.5s ease-in-out;
+  --animate-float: float 3s ease-in-out infinite;
+  --animate-success-bounce: success-bounce 0.6s ease-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  15%, 45%, 75% { transform: translateX(-8px); }
+  30%, 60%, 90% { transform: translateX(8px); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes success-bounce {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.08); }
+  50% { transform: scale(0.95); }
+  80% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+/* Base resets and defaults */
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-sans);
+  background-color: var(--color-cream);
+  color: var(--color-charcoal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Custom scrollbar optimized for premium aesthetic */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-cream);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #E0DED7;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-marigold-500);
+}
+
+/* Selection highlight styling */
+::selection {
+  background-color: var(--color-saffron-100);
+  color: var(--color-saffron-600);
+}
+
+/* Details and summary resets for accordion stability */
+details > summary {
+  list-style: none;
+}
+
+details > summary::-webkit-details-marker {
+  display: none;
+}

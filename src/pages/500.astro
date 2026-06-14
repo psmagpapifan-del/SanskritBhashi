@@ -1,0 +1,28 @@
+---
+import { AlertTriangle, RotateCcw } from "lucide-react";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout lang="en" title="Server Error (500) | Sanskritbhashi">
+  <div class="flex flex-col items-center justify-center py-20 text-center max-w-lg mx-auto">
+    <AlertTriangle class="w-16 h-16 text-saffron-600 mb-6 animate-float" />
+    <h1 class="text-3xl font-extrabold text-charcoal mb-4 font-sans tracking-tight">500: Internal Server Error.</h1>
+    <p class="text-sm text-charcoal/70 mb-8 font-latin leading-relaxed">
+      Something went wrong on our server. Try refreshing the page, or return home if the issue persists.
+    </p>
+    <div class="flex items-center gap-4 justify-center">
+      <button
+        onclick="window.location.reload()"
+        class="flex items-center gap-2 px-6 py-3 border border-border-hairline bg-white dark:bg-zinc-900 hover:bg-saffron-50 dark:hover:bg-zinc-800 text-charcoal font-bold rounded-xl transition-colors cursor-pointer"
+      >
+        <RotateCcw class="w-4 h-4" /> Refresh Page
+      </button>
+      <a
+        href="/en"
+        class="flex items-center gap-2 px-6 py-3 bg-saffron-500 hover:bg-saffron-600 text-white font-bold rounded-xl shadow-xs transition-colors cursor-pointer"
+      >
+        Go back home
+      </a>
+    </div>
+  </div>
+</Layout>

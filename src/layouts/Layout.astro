@@ -1,0 +1,235 @@
+---
+import { Home, GraduationCap, BookMarked, Info, HelpCircle, ChevronLeft, Menu, Mail } from "lucide-react";
+import LanguageSelector from "../components/LanguageSelector";
+import StreakCounter from "../components/StreakCounter";
+import OnboardingTour from "../components/OnboardingTour";
+import ConfettiCelebration from "../components/ConfettiCelebration";
+import { getTranslation } from "../lib/i18n";
+import "../styles/globals.css";
+
+interface Props {
+  lang: string;
+  title?: string;
+  description?: string;
+}
+
+const { lang, title = "Sanskritbhashi | Learn and Practice Sanskrit", description = "Learn and practice Sanskrit grammar and Shastras" } = Astro.props;
+const t = getTranslation(lang);
+
+const navItems = [
+  { name: t.nav.home, href: `/${lang}`, icon: Home, id: "tour-step-1" },
+  { name: t.nav.schoolPrep, href: `/${lang}/modules/school-prep`, icon: GraduationCap, id: "tour-step-3" },
+  { name: t.nav.shastraStudy, href: `/${lang}/modules/shastra-study`, icon: BookMarked, id: "tour-step-4" },
+  { name: t.nav.about, href: `/${lang}/about`, icon: Info },
+  { name: t.nav.contact, href: `/${lang}/contact`, icon: Mail },
+  { name: t.nav.faqs, href: `/${lang}/faqs`, icon: HelpCircle, id: "tour-step-8" },
+];
+
+const pathname = Astro.url.pathname;
+
+const isActive = (href: string) => {
+  // Normalize pathnames by removing trailing slashes for comparison
+  const normPath = pathname.replace(/\/$/, "");
+  const normHref = href.replace(/\/$/, "");
+  if (normHref === `/${lang}`) {
+    return normPath === normHref || normPath === "";
+  }
+  return normPath.startsWith(normHref);
+};
+---
+
+<!DOCTYPE html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <script is:inline>
+      (function() {
+        const theme = localStorage.getItem('theme') || 
+          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      })();
+    </script>
+    <slot name="head" />
+  </head>
+  <body>
+    <div class="flex flex-col md:flex-row min-h-dvh bg-cream text-charcoal w-full transition-colors duration-200">
+      {/* Confetti & Tour Providers */}
+      <ConfettiCelebration client:only="react" />
+      <OnboardingTour client:only="react" />
+
+      {/* MOBILE TOP BAR (Only visible on mobile/tablet) */}
+      <header class="md:hidden sticky top-0 flex items-center justify-between px-4 py-3 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-md border-b border-border-hairline z-30 shadow-xs w-full">
+        <a href={`/${lang}`} class="flex items-center gap-1.5">
+          <span class="text-xl font-bold bg-linear-to-r from-saffron-500 to-saffron-600 bg-clip-text text-transparent font-sanskrit">
+            संस्कृतभाषी
+          </span>
+          <span class="text-xs font-bold uppercase tracking-wider text-charcoal/40 font-latin hidden xs:inline">
+            bhashi
+          </span>
+        </a>
+        <div class="flex items-center gap-2">
+          <button
+            id="theme-toggle-mobile"
+            class="p-2 rounded-xl border border-border-hairline hover:bg-saffron-50 dark:hover:bg-zinc-900 text-charcoal/70 transition-colors"
+            aria-label="Toggle theme"
+          >
+            <svg class="w-5 h-5 hidden dark:block text-marigold-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 9h-1m15.364-3.636l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707m2.828 9.9a5 5 0 117.072 0l-7.072 0z" />
+            </svg>
+            <svg class="w-5 h-5 block dark:hidden text-charcoal/70" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            </svg>
+          </button>
+          <StreakCounter client:idle />
+          <LanguageSelector client:load currentLang={lang} currentPathname={pathname} />
+        </div>
+      </header>
+
+      {/* DESKTOP SIDEBAR (Only visible on desktop) */}
+      <aside
+        id="tour-step-2"
+        class="hidden md:flex flex-col w-64 fixed h-dvh bg-white dark:bg-zinc-950 border-r border-border-hairline p-6 z-20"
+      >
+        {/* Logo */}
+        <a href={`/${lang}`} class="flex flex-col gap-0.5 mb-8 select-none">
+          <span class="text-2xl font-black bg-linear-to-r from-saffron-500 to-saffron-600 bg-clip-text text-transparent font-sanskrit">
+            संस्कृतभाषी
+          </span>
+          <span class="text-[10px] font-bold uppercase tracking-widest text-charcoal/40 font-latin pl-1">
+            Sanskritbhashi.com
+          </span>
+        </a>
+
+        {/* Sidebar Nav */}
+        <nav class="flex-1 space-y-1.5 overflow-y-auto">
+          {navItems.map((item) => {
+            const active = isActive(item.href);
+            const Icon = item.icon;
+            return (
+              <a
+                href={item.href}
+                id={item.id}
+                class={`flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold transition-all duration-200 cursor-pointer ${
+                  active
+                    ? "bg-saffron-500 text-white shadow-md shadow-saffron-500/10 scale-102"
+                    : "text-charcoal/70 hover:bg-saffron-50 dark:hover:bg-zinc-900 hover:text-saffron-600 dark:hover:text-saffron-500"
+                }`}
+              >
+                <Icon class={`w-5 h-5 ${active ? "text-white" : "text-charcoal/40 group-hover:text-saffron-500"}`} />
+                <span>{item.name}</span>
+              </a>
+            );
+          })}
+        </nav>
+
+        {/* Sidebar Footer */}
+        <div class="border-t border-border-hairline pt-4 text-center">
+          <p class="text-[10px] font-bold text-charcoal/30 font-latin uppercase tracking-widest">
+            © 2026 Sanskritbhashi
+          </p>
+        </div>
+      </aside>
+
+      {/* DESKTOP HEADER & CONTENT AREA */}
+      <div class="flex-1 flex flex-col md:pl-64 w-full">
+        {/* DESKTOP TOP HEADER */}
+        <header class="hidden md:flex items-center justify-between h-16 px-8 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md border-b border-border-hairline sticky top-0 z-10 w-full">
+          <nav class="flex items-center gap-6 text-sm font-medium text-charcoal/70">
+            <a href={`/${lang}/about`} class={`hover:text-saffron-600 transition-colors ${isActive(`/${lang}/about`) ? "text-saffron-600 font-bold" : ""}`}>{t.nav.about}</a>
+            <a href={`/${lang}/contact`} class={`hover:text-saffron-600 transition-colors ${isActive(`/${lang}/contact`) ? "text-saffron-600 font-bold" : ""}`}>{t.nav.contact}</a>
+            <a href={`/${lang}/privacy`} class={`hover:text-saffron-600 transition-colors ${isActive(`/${lang}/privacy`) ? "text-saffron-600 font-bold" : ""}`}>{t.nav.privacy}</a>
+            <a href={`/${lang}/terms`} class={`hover:text-saffron-600 transition-colors ${isActive(`/${lang}/terms`) ? "text-saffron-600 font-bold" : ""}`}>{t.nav.terms}</a>
+          </nav>
+          <div class="flex items-center gap-4">
+            <button
+              id="theme-toggle-desktop"
+              class="p-2 rounded-xl border border-border-hairline hover:bg-saffron-50 dark:hover:bg-zinc-900 text-charcoal/70 transition-colors"
+              aria-label="Toggle theme"
+            >
+              <svg class="w-5 h-5 hidden dark:block text-marigold-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 9h-1m15.364-3.636l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707m2.828 9.9a5 5 0 117.072 0l-7.072 0z" />
+              </svg>
+              <svg class="w-5 h-5 block dark:hidden text-charcoal/70" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+              </svg>
+            </button>
+            <StreakCounter client:idle />
+            <LanguageSelector client:load currentLang={lang} currentPathname={pathname} />
+          </div>
+        </header>
+
+        {/* MAIN BODY CONTENT */}
+        <main class="flex-1 p-4 md:p-8 pb-24 md:pb-8 max-w-6xl w-full mx-auto flex flex-col">
+          <div class="flex-1">
+            <slot />
+          </div>
+
+          {/* GLOBAL MAIN FOOTER */}
+          <footer class="mt-16 border-t border-border-hairline pt-8 pb-4 text-center text-xs text-charcoal/50 w-full">
+            <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-4 font-semibold">
+              <a href={`/${lang}`} class="hover:text-saffron-600 transition-colors">{t.nav.home}</a>
+              <a href={`/${lang}/about`} class="hover:text-saffron-600 transition-colors">{t.nav.about}</a>
+              <a href={`/${lang}/contact`} class="hover:text-saffron-600 transition-colors">{t.nav.contact}</a>
+              <a href={`/${lang}/privacy`} class="hover:text-saffron-600 transition-colors">{t.nav.privacy}</a>
+              <a href={`/${lang}/terms`} class="hover:text-saffron-600 transition-colors">{t.nav.terms}</a>
+              <a href={`/${lang}/faqs`} class="hover:text-saffron-600 transition-colors">{t.nav.faqs}</a>
+            </div>
+            <p class="text-[10px] tracking-wider uppercase opacity-75 font-mono">
+              © 2026 Sanskritbhashi. All rights reserved.
+            </p>
+          </footer>
+        </main>
+      </div>
+
+      {/* MOBILE BOTTOM NAVIGATION BAR (Duolingo style, only visible on mobile/tablet) */}
+      <nav class="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-white dark:bg-zinc-950 border-t border-border-hairline flex items-center justify-around px-2 z-30 shadow-lg w-full">
+        {navItems.map((item) => {
+          const active = isActive(item.href);
+          const Icon = item.icon;
+          return (
+            <a
+              href={item.href}
+              class={`flex flex-col items-center justify-center flex-1 h-full min-w-[44px] min-h-[44px] transition-colors relative ${
+                active ? "text-saffron-600" : "text-charcoal/50 hover:text-saffron-500"
+              }`}
+            >
+              <Icon class="w-5 h-5 mb-0.5" />
+              <span class="text-[9px] font-bold tracking-tight font-latin">
+                {item.name.split(" ")[0]}
+              </span>
+              {active && (
+                <span class="absolute bottom-1 w-1.5 h-1.5 bg-saffron-500 rounded-full" />
+              )}
+            </a>
+          );
+        })}
+      </nav>
+    </div>
+
+    <script is:inline>
+      function setupThemeToggle() {
+        const desktopBtn = document.getElementById('theme-toggle-desktop');
+        const mobileBtn = document.getElementById('theme-toggle-mobile');
+        
+        function toggle() {
+          const isDark = document.documentElement.classList.toggle('dark');
+          localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
+        
+        if (desktopBtn) desktopBtn.addEventListener('click', toggle);
+        if (mobileBtn) mobileBtn.addEventListener('click', toggle);
+      }
+
+      setupThemeToggle();
+      document.addEventListener('astro:after-swap', setupThemeToggle);
+    </script>
+  </body>
+</html>

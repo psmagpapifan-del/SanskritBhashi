@@ -1,0 +1,119 @@
+---
+import { Mail, MessageSquare, Send, User } from "lucide-react";
+import Layout from "../../layouts/Layout.astro";
+import { getTranslation } from "../../lib/i18n";
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: "en" } },
+    { params: { lang: "hi" } },
+    { params: { lang: "ja" } },
+    { params: { lang: "es" } },
+  ];
+}
+
+const { lang } = Astro.params;
+const t = getTranslation(lang);
+---
+
+<Layout lang={lang} title={`Contact Us | Sanskritbhashi`}>
+  {/* Header Banner */}
+  <section class="bg-linear-to-r from-saffron-500 to-saffron-600 rounded-3xl p-6 md:p-8 text-white mb-8 shadow-md">
+    <div class="flex items-center gap-3 mb-2">
+      <Mail class="w-8 h-8 text-marigold-500" />
+      <h1 class="text-2xl md:text-3xl font-bold font-latin">Contact Us.</h1>
+    </div>
+    <p class="text-sm md:text-base text-white/95 max-w-2xl leading-relaxed font-latin">
+      Have questions, feedback, or interest in collaborating? Reach out directly using our contact channel.
+    </p>
+  </section>
+
+  {/* Form Container */}
+  <div class="bg-white dark:bg-zinc-900 border border-border-hairline rounded-3xl p-6 md:p-8 max-w-2xl mx-auto shadow-xs">
+    <form id="contact-form" class="space-y-6">
+      <div>
+        <label for="name" class="block text-sm font-semibold text-charcoal/85 mb-2 flex items-center gap-1.5 font-latin">
+          <User class="w-4 h-4 text-saffron-500" /> Your Name
+        </label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          required
+          placeholder="E.g., Dr. Rajesh Sharma"
+          class="w-full px-4 py-3 rounded-xl border border-border-hairline bg-cream/50 dark:bg-zinc-950/50 text-charcoal focus:outline-hidden focus:border-saffron-500 text-sm transition-colors"
+        />
+      </div>
+
+      <div>
+        <label for="email" class="block text-sm font-semibold text-charcoal/85 mb-2 flex items-center gap-1.5 font-latin">
+          <Mail class="w-4 h-4 text-saffron-500" /> Email Address
+        </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          placeholder="your.email@university.edu"
+          class="w-full px-4 py-3 rounded-xl border border-border-hairline bg-cream/50 dark:bg-zinc-950/50 text-charcoal focus:outline-hidden focus:border-saffron-500 text-sm transition-colors"
+        />
+      </div>
+
+      <div>
+        <label for="subject" class="block text-sm font-semibold text-charcoal/85 mb-2 flex items-center gap-1.5 font-latin">
+          <MessageSquare class="w-4 h-4 text-saffron-500" /> Subject
+        </label>
+        <input
+          type="text"
+          id="subject"
+          name="subject"
+          required
+          placeholder="E.g., Collaboration Inquiry - Paninian Grammar Modules"
+          class="w-full px-4 py-3 rounded-xl border border-border-hairline bg-cream/50 dark:bg-zinc-950/50 text-charcoal focus:outline-hidden focus:border-saffron-500 text-sm transition-colors"
+        />
+      </div>
+
+      <div>
+        <label for="message" class="block text-sm font-semibold text-charcoal/85 mb-2 flex items-center gap-1.5 font-latin">
+          <MessageSquare class="w-4 h-4 text-saffron-500" /> Message
+        </label>
+        <textarea
+          id="message"
+          name="message"
+          rows="5"
+          required
+          placeholder="Describe your inquiry, feedback, or suggestion in detail..."
+          class="w-full px-4 py-3 rounded-xl border border-border-hairline bg-cream/50 dark:bg-zinc-950/50 text-charcoal focus:outline-hidden focus:border-saffron-500 text-sm transition-colors resize-y"
+        ></textarea>
+      </div>
+
+      <button
+        type="submit"
+        class="w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-saffron-500 hover:bg-saffron-600 text-white font-bold rounded-xl shadow-xs transition-colors cursor-pointer"
+      >
+        <Send class="w-4 h-4" /> Send Message
+      </button>
+    </form>
+  </div>
+
+  <script is:inline>
+    const form = document.getElementById("contact-form");
+    if (form) {
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const subject = document.getElementById("subject").value;
+        const message = document.getElementById("message").value;
+
+        const mailtoEmail = "ps.magpapifan@gmail.com";
+        const emailSubject = encodeURIComponent(subject);
+        
+        const bodyText = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
+        const emailBody = encodeURIComponent(bodyText);
+
+        window.location.href = `mailto:${mailtoEmail}?subject=${emailSubject}&body=${emailBody}`;
+      });
+    }
+  </script>
+</Layout>

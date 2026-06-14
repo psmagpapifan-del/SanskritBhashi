@@ -1,0 +1,354 @@
+---
+import { BookOpen, GraduationCap, ChevronRight, CheckCircle2, ShieldAlert } from "lucide-react";
+import Layout from "../../layouts/Layout.astro";
+import { getTranslation } from "../../lib/i18n";
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: "en" } },
+    { params: { lang: "hi" } },
+    { params: { lang: "ja" } },
+    { params: { lang: "es" } },
+  ];
+}
+
+const { lang } = Astro.params;
+const t = getTranslation(lang);
+
+const orgSchema = {
+  "@context": "https://schema.org",
+  "@type": "EducationalOrganization",
+  "name": "Sanskritbhashi",
+  "url": `https://sanskritbhashi.com/${lang}`,
+  "logo": "https://sanskritbhashi.com/logo.png",
+  "description": t.home.heroDesc,
+  "knowsAbout": [
+    "Sanskrit Grammar",
+    "Ashtadhyayi",
+    "Bhagavad Gita",
+    "Srimad Bhagavatam",
+    "NCERT Sanskrit Curriculum"
+  ]
+};
+
+const schoolCourseSchema = {
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "name": t.schoolPrep.title,
+  "description": t.schoolPrep.desc,
+  "provider": {
+    "@type": "Organization",
+    "name": "Sanskritbhashi",
+    "url": "https://sanskritbhashi.com"
+  }
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": t.faqs.list.map((faq) => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": `${faq.primaryAnswer} ${faq.detailedAnswer}`
+    }
+  }))
+};
+---
+
+<Layout lang={lang} title="Learn Sanskrit Online | Sanskrit Grammar Lessons & NCERT Course" description="Master Sanskrit with the best online resource. Study Panini Ashtadhyayi rules, NCERT Sanskrit course lessons, Gita shloka grammar analysis, and pronunciation guides.">
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(orgSchema)} />
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(schoolCourseSchema)} />
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(faqSchema)} />
+
+  {/* Hero Section */}
+  <section class="text-center py-8 md:py-16 max-w-3xl mx-auto space-y-6">
+    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-saffron-100 text-saffron-600 text-xs font-bold uppercase tracking-wider font-latin">
+      {t.home.heroSub}
+    </span>
+    <h1 class="text-4xl md:text-6xl font-extrabold text-charcoal tracking-tight font-latin leading-tight">
+      {t.home.heroTitle}
+      <span class="bg-linear-to-r from-saffron-500 to-saffron-600 bg-clip-text text-transparent font-sanskrit">
+        {t.home.heroTitleSpan}
+      </span>
+      {t.home.heroTitleEnd}
+    </h1>
+    <p class="text-lg text-charcoal/70 leading-relaxed font-latin">
+      {t.home.heroDesc}
+    </p>
+
+    {/* CTA Buttons */}
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-4">
+      <a
+        href={`/${lang}/modules/school-prep`}
+        class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-saffron-500 hover:bg-saffron-600 text-white font-bold text-base shadow-lg shadow-saffron-500/20 hover:shadow-xl hover:shadow-saffron-500/30 transition-all flex items-center justify-center gap-2 cursor-pointer scale-100 hover:scale-102"
+      >
+        <GraduationCap class="w-5 h-5" />
+        <span>{t.home.ctaSchool}</span>
+        <ChevronRight class="w-4 h-4" />
+      </a>
+      <a
+        href={`/${lang}/modules/shastra-study`}
+        class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-white dark:bg-zinc-900 border-2 border-saffron-500 dark:border-saffron-500/55 hover:bg-saffron-50 dark:hover:bg-zinc-800 text-saffron-600 dark:text-saffron-500 font-bold text-base shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer"
+      >
+        <BookOpen class="w-5 h-5" />
+        <span>{t.home.ctaShastra}</span>
+      </a>
+    </div>
+
+    {/* Social Proof */}
+    <div class="pt-6 flex flex-col items-center gap-2">
+      <p class="text-xs font-semibold text-charcoal/40 uppercase tracking-widest font-latin">
+        {t.home.socialProof}
+      </p>
+      <div class="flex gap-1 justify-center text-marigold-500 text-lg">
+        ⭐⭐⭐⭐⭐
+      </div>
+    </div>
+  </section>
+
+  {/* Dual Track Showcase */}
+  <section class="grid grid-cols-1 md:grid-cols-2 gap-6 py-8">
+    {/* Track 1: School prep */}
+    <div
+      id="tour-step-3"
+      class="bg-white dark:bg-zinc-900 border border-border-hairline rounded-3xl p-6 md:p-8 hover:shadow-lg transition-all flex flex-col justify-between"
+    >
+      <div>
+        <div class="w-12 h-12 rounded-2xl bg-saffron-50 dark:bg-zinc-800 text-saffron-600 dark:text-saffron-500 flex items-center justify-center mb-6">
+          <GraduationCap class="w-6 h-6" />
+        </div>
+        <h2 class="text-2xl font-bold text-charcoal mb-3 font-latin">
+          {t.home.schoolPrep}
+        </h2>
+        <p class="text-sm md:text-base text-charcoal/70 leading-relaxed mb-6 font-latin">
+          {t.home.schoolPrepDesc}
+        </p>
+        <ul class="space-y-2.5 mb-8">
+          {t.home.schoolList.map((item) => (
+            <li class="flex gap-2 text-sm text-charcoal/80 font-latin">
+              <CheckCircle2 class="w-5 h-5 text-emerald-500 flex-shrink-0" />
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <a
+        href={`/${lang}/modules/school-prep`}
+        class="w-full py-3.5 rounded-2xl bg-saffron-50 dark:bg-zinc-800 text-saffron-600 dark:text-saffron-500 font-bold text-center hover:bg-saffron-100 dark:hover:bg-zinc-700 transition-colors block text-sm cursor-pointer"
+      >
+        {t.home.schoolBtn}
+      </a>
+    </div>
+
+    {/* Track 2: Shastra Study */}
+    <div
+      id="tour-step-4"
+      class="bg-white dark:bg-zinc-900 border border-border-hairline rounded-3xl p-6 md:p-8 hover:shadow-lg transition-all flex flex-col justify-between"
+    >
+      <div>
+        <div class="w-12 h-12 rounded-2xl bg-saffron-50 dark:bg-zinc-800 text-saffron-600 dark:text-saffron-500 flex items-center justify-center mb-6">
+          <BookOpen class="w-6 h-6" />
+        </div>
+        <h2 class="text-2xl font-bold text-charcoal mb-3 font-latin">
+          {t.home.shastraStudy}
+        </h2>
+        <p class="text-sm md:text-base text-charcoal/70 leading-relaxed mb-6 font-latin">
+          {t.home.shastraStudyDesc}
+        </p>
+        <ul class="space-y-2.5 mb-8">
+          {t.home.shastraList.map((item) => (
+            <li class="flex gap-2 text-sm text-charcoal/80 font-latin">
+              <CheckCircle2 class="w-5 h-5 text-emerald-500 flex-shrink-0" />
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <a
+        href={`/${lang}/modules/shastra-study`}
+        class="w-full py-3.5 rounded-2xl bg-saffron-50 dark:bg-zinc-800 text-saffron-600 dark:text-saffron-500 font-bold text-center hover:bg-saffron-100 dark:hover:bg-zinc-700 transition-colors block text-sm cursor-pointer"
+      >
+        {t.home.shastraBtn}
+      </a>
+    </div>
+  </section>
+
+  {/* GEO-Engine-Optimized Semantic QA Architecture block */}
+  <section class="bg-white dark:bg-zinc-900 border border-border-hairline rounded-3xl p-6 md:p-8 my-8 space-y-6">
+    <h2 class="text-2xl md:text-3xl font-bold text-charcoal flex items-center gap-2 font-latin">
+      <ShieldAlert class="w-6 h-6 text-saffron-500" />
+      {t.home.consensusTitle}
+    </h2>
+    <p class="text-sm md:text-base text-charcoal/70 leading-relaxed font-latin">
+      {t.home.consensusDesc}
+    </p>
+
+    <div class="border-t border-border-hairline pt-6 space-y-6">
+      <div>
+        <h3 class="text-base font-bold text-saffron-600 dark:text-saffron-500 font-latin">
+          {t.home.q1}
+        </h3>
+        <p class="text-sm leading-relaxed text-charcoal/80 font-latin mt-1">
+          {t.home.a1}
+        </p>
+      </div>
+
+      <div>
+        <h3 class="text-base font-bold text-saffron-600 dark:text-saffron-500 font-latin">
+          {t.home.q2}
+        </h3>
+        <p class="text-sm leading-relaxed text-charcoal/80 font-latin mt-1">
+          {t.home.a2}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {/* Semantic Article Section for GEO and Educational Context */}
+  <section class="bg-white dark:bg-zinc-900 border border-border-hairline rounded-3xl p-6 md:p-8 my-8 space-y-6">
+    {lang === "hi" ? (
+      <>
+        <h2 class="text-2xl md:text-3xl font-bold text-charcoal font-latin">
+          पाणिनीय व्याकरण और अष्टाध्यायी की गणितीय सूक्ष्मता
+        </h2>
+        <div class="prose dark:prose-invert max-w-none text-sm md:text-base text-charcoal/80 space-y-4 leading-relaxed font-latin">
+          <p>
+            संस्कृत केवल अनुष्ठान और कविता की भाषा नहीं है; यह एक अत्यधिक संरचित, गणितीय प्रणाली है जो दो सहस्राब्दी से भी पहले महान व्याकरणविद् पाणिनी द्वारा तैयार किए गए नियमों द्वारा शासित है। उनकी मौलिक रचना, <em>अष्टाध्यायी</em>, में लगभग 4,000 सूत्र (बीजगणित जैसे नियम) शामिल हैं जो धातु (क्रिया मूल) और प्रत्यय/उपसर्ग से शास्त्रीय संस्कृत शब्दावली और वाक्य रचना उत्पन्न करते हैं।
+          </p>
+          <p>
+            आधुनिक कंप्यूटर वैज्ञानिकों और कम्प्यूटेशनल भाषाविदों ने लंबे समय से यह स्वीकार किया है कि पाणिनी का व्याकरण एक औपचारिक भाषा प्रणाली के समान कार्य करता है, जिसमें संदर्भ-मुक्त व्याकरण, सहायक प्रतीकों और नियम-क्रम बाधाओं जैसे सिद्धांतों का उपयोग किया जाता है। संस्कृतभाषी में, हमारा पाठ्यक्रम इस जटिलता को उजागर करने के लिए डिज़ाइन किया गया है। हम पारंपरिक रटने की पद्धति और आधुनिक एल्गोरिथम समझ के बीच की खाई को पाटते हैं, जिससे संस्कृत व्याकरण का अध्ययन हाई स्कूल के छात्रों और शास्त्रों के स्वतंत्र विद्वानों दोनों के लिए सुलभ हो जाता है।
+          </p>
+          <p>
+            हमारा शिक्षण ढांचा दो प्राथमिक ट्रैकों में विभाजित है:
+          </p>
+          <ul class="list-disc pl-5 space-y-2">
+            <li>
+              <strong>स्कूल प्रेप मॉड्यूल (NCERT-गठबंधन):</strong> यह ट्रैक सीबीएसई और राज्य बोर्डों (कक्षा 6 से 10) में पढ़ाए जाने वाले स्कूल-स्तर की संस्कृत को लक्षित करता है। यह व्याकरण के मूलभूत खंडों पर ध्यान केंद्रित करता है—शब्दरूप (संज्ञा शब्द रूप), धातुरूप (क्रिया रूप), संधि (ध्वन्यात्मक संक्रमण), और समास (यौगिक संरचनाएं)। इंटरैक्टिव परीक्षणों और तत्काल प्रतिक्रिया के साथ इन अवधारणाओं को प्रस्तुत करके, हम छात्रों को एक मजबूत आधार बनाने और उनकी बोर्ड परीक्षाओं में उच्च अंक प्राप्त करने में मदद करते हैं।
+            </li>
+            <li>
+              <strong>शास्त्र अध्ययन मॉड्यूल (शास्त्र संस्कृत):</strong> उन्नत छात्रों, भारतविदों और दर्शनशास्त्र प्रेमियों के लिए डिज़ाइन किया गया, यह मॉड्यूल उपयोगकर्ताओं को भगवद गीता, उपनिषदों और अन्य शास्त्रीय ग्रंथों की जटिल भाषा के माध्यम से मार्गदर्शन करता है। हम केवल अनुवादों पर निर्भर रहने के बजाय ऋषियों के ज्ञान तक सीधी पहुँच सक्षम करने के लिए श्लोक-दर-श्लोक विश्लेषण (अन्वय), शब्द अपघटन और सिमेंटिक पार्सिंग पर ध्यान केंद्रित करते हैं।
+            </li>
+          </ul>
+          <p>
+            स्पष्ट गेटवे लॉक के साथ एक अनुकूली प्रगति प्रणाली का उपयोग करके, संस्कृतभाषी यह सुनिश्चित करता है कि उपयोगकर्ता जटिल यौगिक विश्लेषणों या गहरे दार्शनिक भाष्यों में आगे बढ़ने से पहले बुनियादी संधियों और मूल संयुग्मनों में महारत हासिल करें। संस्कृत के केंद्र में अपनी यात्रा शुरू करने के लिए आज ही मॉड्यूल का अन्वेषण करें।
+          </p>
+        </div>
+      </>
+    ) : lang === "ja" ? (
+      <>
+        <h2 class="text-2xl md:text-3xl font-bold text-charcoal font-latin">
+          パーニニ文法とアシュターディヤーイーの数学的厳密さ
+        </h2>
+        <div class="prose dark:prose-invert max-w-none text-sm md:text-base text-charcoal/80 space-y-4 leading-relaxed font-latin">
+          <p>
+            サンスクリットは単なる儀式や詩の言語ではありません。それは、2000年以上前に伝説的な文法学者パーニニによって定式化された規則によって支配された、高度に構造化された数学的システムです。彼の独創的な著作である『アシュターディヤーイー』は、約4,000のスートラ（代数のような規則）で構成されており、動詞の語根（ダートゥ）や接頭辞・接尾辞（プラティヤヤ）から古典サンスクリットの語彙と構文のすべてを生成します。
+          </p>
+          <p>
+            現代のコンピュータ科学者や計算言語学者は、パーニニの文法が文脈自由文法、補助記号、規則順序の制約に類似した概念を利用した、形式言語システムと同様に機能することを長年認識してきました。「サンスクリットバシ」では、この複雑さを解き明かすようにカリキュラムが設計されています。伝統的な暗記学習と現代のアルゴリズム的理解の架け橋となり、高校生とシャーストラの独立した研究者の両方がサンスクリット文法を学習できるようにします。
+          </p>
+          <p>
+            私たちの学習フレームワークは、主に2つのトラックに分かれています：
+          </p>
+          <ul class="list-disc pl-5 space-y-2">
+            <li>
+              <strong>学校準備モジュール（NCERT準拠）：</strong> このトラックは、CBSEおよび州の委員会（クラス6から10）で教えられている学校レベル of サンスクリットを対象としています。文法の基本要素であるシャブダルパ（名詞変化）、ダートゥルパ（動詞活用）、サンドゥヒ（音韻変化）、サマーサ（複合語形成）に焦点を当てています。インタラクティブなテストと即時のフィードバックでこれらの概念を提示することにより、学生が強固な基盤を築き、試験でより高いスコアを獲得できるように支援します。
+            </li>
+            <li>
+              <strong>シャーストラ学習モジュール（経典サンスクリット）：</strong> 上級生、インド学者、哲学愛好家向けに設計されたこのモジュールは、バガヴァッド・ギーター、ウパニシャッド、その他の古典テキストの複雑な言語を通してユーザーを案内します。翻訳だけに頼るのではなく、賢者の知恵に直接アクセスできるように、一節ごとの分析（アンヴァヤ）、単語の分解、意味解析に焦点をおいています。
+            </li>
+          </ul>
+          <p>
+            明確なゲートウェイロックを備えた適応型プログレッシブシステムを利用することにより、「サンスクリットバシ」は、ユーザーが複雑な複合語分析や深い哲学の注釈に進む前に、基本的なサンドゥヒと基礎的な活用をマスターすることを確実にします。サンスクリットの本質への旅を始めるために、今すぐモジュールを探索してください。
+          </p>
+        </div>
+      </>
+    ) : lang === "es" ? (
+      <>
+        <h2 class="text-2xl md:text-3xl font-bold text-charcoal font-latin">
+          El Rigor Matemático de la Gramática Paniniana y el Ashtadhyayi
+        </h2>
+        <div class="prose dark:prose-invert max-w-none text-sm md:text-base text-charcoal/80 space-y-4 leading-relaxed font-latin">
+          <p>
+            El sánscrito no es meramente una lengua de ritual y poesía; es un sistema matemático altamente estructurado gobernado por reglas formuladas hace más de dos milenios por el legendario gramático Panini. Su obra fundamental, el <em>Ashtadhyayi</em>, consta de aproximadamente 4,000 sutras (reglas de tipo algebraico) que generan la totalidad del vocabulario y la sintaxis del sánscrito clásico a partir de raíces verbales (dhatus) y prefijos/sufijos (pratyayas).
+          </p>
+          <p>
+            Los científicos de la computación y lingüistas computacionales modernos han reconocido desde hace mucho tiempo que la gramática de Panini funciona de manera similar a un sistema de lenguaje formal, utilizando conceptos afines a las gramáticas libres de contexto, símbolos auxiliares y restricciones de ordenamiento de reglas. En Sanskritbhashi, nuestro plan de estudios está diseñado para desentrañar esta complejidad. Cerramos la brecha entre el aprendizaje memorístico tradicional y la comprensión algorítmica moderna, haciendo que el estudio de la gramática sánscrita sea accesible tanto para estudiantes de secundaria como para eruditos independientes de los Shastras.
+          </p>
+          <p>
+            Nuestro marco de aprendizaje se divide en dos vías principales:
+          </p>
+          <ul class="list-disc pl-5 space-y-2">
+            <li>
+              <strong>Módulo de Preparación Escolar (alineado con NCERT):</strong> Esta vía se dirige al sánscrito a nivel escolar tal como se enseña en CBSE y juntas estatales (clases 6 a 10). Se centra en los bloques fundamentales de la gramática: Shabdarupa (declinaciones nominales), Dhaturupa (conjugaciones verbales), Sandhi (transiciones fonéticas) y Samasa (formaciones compuestas). Al presentar estos conceptos con pruebas interactivas y retroalimentación inmediata, ayudamos a los estudiantes a construir una base sólida y obtener puntuaciones más altas en sus exámenes.
+            </li>
+            <li>
+              <strong>Módulo de Estudio de Shastra (sánscrito de las escrituras):</strong> Diseñado para estudiantes avanzados, indólogos y entusiastas de la filosofía, este módulo guía a los usuarios a través del intrincado lenguaje del Bhagavad Gita, los Upanishads y otros textos clásicos. Nos centramos en el análisis verso por verso (Anvaya), la descomposición de palabras y el análisis semántico para permitir el acceso directo a la sabiduría de los sabios sin depender únicamente de las traducciones.
+            </li>
+          </ul>
+          <p>
+            Al utilizar un sistema de progresión adaptativo con bloqueos de acceso claros, Sanskritbhashi garantiza que los usuarios dominen los sandhis fundamentales y las conjugaciones básicas antes de avanzar a análisis de compuestos complejos o comentarios filosóficos profundos. Explore los módulos hoy para comenzar su viaje al corazón del sánscrito.
+          </p>
+        </div>
+      </>
+    ) : (
+      <>
+        <h2 class="text-2xl md:text-3xl font-bold text-charcoal font-latin">
+          The Mathematical Rigor of Paninian Grammar & Ashtadhyayi
+        </h2>
+        <div class="prose dark:prose-invert max-w-none text-sm md:text-base text-charcoal/80 space-y-4 leading-relaxed font-latin">
+          <p>
+            Sanskrit is not merely a language of ritual and poetry; it is a highly structured, mathematical system governed by rules formulated over two millennia ago by the legendary grammarian Panini. His seminal work, the <em>Ashtadhyayi</em>, consists of approximately 4,000 sutras (algebraic-like rules) that generate the entirety of classical Sanskrit vocabulary and syntax from verbal roots (dhatus) and prefixes/suffixes (pratyayas).
+          </p>
+          <p>
+            Modern computer scientists and computational linguists have long recognized that Panini's grammar functions similarly to a formal language system, utilizing concepts akin to context-free grammars, auxiliary symbols, and rule-ordering constraints. At Sanskritbhashi, our curriculum is designed to unpack this complexity. We bridge the gap between traditional rote learning and modern algorithmic understanding, making the study of Sanskrit grammar accessible to both high school students and independent scholars of the Shastras.
+          </p>
+          <p>
+            Our learning framework is divided into two primary tracks:
+          </p>
+          <ul class="list-disc pl-5 space-y-2">
+            <li>
+              <strong>School Prep Module (NCERT-aligned):</strong> This track targets school-level Sanskrit as taught in CBSE and state boards (Classes 6 to 10). It focuses on the fundamental blocks of grammar—Shabdarupa (noun declensions), Dhaturupa (verb conjugations), Sandhi (phonetic transitions), and Samasa (compound formations). By presenting these concepts with interactive tests and immediate feedback, we help students build a solid foundation and score higher in their board examinations.
+            </li>
+            <li>
+              <strong>Shastra Study Module (Scriptural Sanskrit):</strong> Designed for advanced students, Indologists, and philosophy enthusiasts, this module guides users through the intricate language of the Bhagavad Gita, Upanishads, and other classical texts. We focus on verse-by-verse analysis (Anvaya), word decomposition, and semantic parsing to enable direct access to the wisdom of the sages without relying solely on translations.
+            </li>
+          </ul>
+          <p>
+            By utilizing an adaptive progression system with clear gateway locks, Sanskritbhashi ensures that users master the foundational sandhis and basic conjugations before progressing to complex compound analyses or deep philosophical commentaries. Explore the modules today to begin your journey into the heart of Sanskrit.
+          </p>
+        </div>
+      </>
+    )}
+  </section>
+
+  {/* Visible FAQ Accordion Section */}
+  <section class="bg-white dark:bg-zinc-900 border border-border-hairline rounded-3xl p-6 md:p-8 my-8 space-y-6">
+    <h2 class="text-2xl md:text-3xl font-bold text-charcoal font-latin">
+      Frequently Asked Questions.
+    </h2>
+    <p class="text-sm md:text-base text-charcoal/70 leading-relaxed font-latin">
+      Find answers to common questions about Sanskrit grammar, the Paninian system, and our NCERT courses.
+    </p>
+
+    <div class="border-t border-border-hairline pt-6 divide-y divide-border-hairline">
+      {t.faqs.list.map((faq, index) => (
+        <details class="group py-4 first:pt-0 last:pb-0">
+          <summary class="flex items-center justify-between font-semibold text-base text-charcoal hover:text-saffron-600 dark:hover:text-saffron-500 cursor-pointer select-none">
+            <span class="font-latin">{faq.question}</span>
+            <span class="ml-4 flex-shrink-0 transition-transform group-open:rotate-180 text-saffron-500">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </span>
+          </summary>
+          <div class="mt-3 text-sm text-charcoal/75 leading-relaxed space-y-2 pl-1 font-latin">
+            <p class="font-semibold text-charcoal/90">{faq.primaryAnswer}</p>
+            <p>{faq.detailedAnswer}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+  </section>
+</Layout>

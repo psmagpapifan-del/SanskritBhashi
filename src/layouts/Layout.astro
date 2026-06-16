@@ -69,6 +69,31 @@ const isActive = (href: string) => {
         }
       })();
     </script>
+    <!-- Google tag (gtag.js) Conditional Loading -->
+    <script is:inline>
+      function loadGoogleAnalytics() {
+        const consent = localStorage.getItem('cookie-consent');
+        const consentAnalytics = localStorage.getItem('cookie-consent-analytics');
+        const isConsentGranted = consent === 'accepted' || consentAnalytics === 'true';
+
+        if (isConsentGranted && !window.gtagInitialized) {
+          window.gtagInitialized = true;
+          
+          const script = document.createElement('script');
+          script.async = true;
+          script.src = "https://www.googletagmanager.com/gtag/js?id=G-MKCEGWRH04";
+          document.head.appendChild(script);
+
+          window.dataLayer = window.dataLayer || [];
+          window.gtag = function() { window.dataLayer.push(arguments); };
+          gtag('js', new Date());
+          gtag('config', 'G-MKCEGWRH04');
+        }
+      }
+      loadGoogleAnalytics();
+      window.addEventListener('cookie-consent-updated', loadGoogleAnalytics);
+      document.addEventListener('astro:after-swap', loadGoogleAnalytics);
+    </script>
     <slot name="head" />
   </head>
   <body>

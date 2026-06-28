@@ -178,7 +178,7 @@ const isActive = (href: string) => {
       {/* DESKTOP HEADER & CONTENT AREA */}
       <div class="flex-1 flex flex-col md:pl-64 w-full">
         {/* DESKTOP TOP HEADER */}
-        <header class="hidden md:flex items-center justify-between h-16 px-8 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md border-b border-border-hairline sticky top-0 z-10 w-full">
+        <header class="hidden md:flex items-center justify-between h-16 px-8 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md border-b border-border-hairline sticky top-0 z-30 w-full">
           <nav class="flex items-center gap-6 text-sm font-medium text-charcoal/70">
             <a href={`/${lang}/about`} class={`hover:text-saffron-600 transition-colors ${isActive(`/${lang}/about`) ? "text-saffron-600 font-bold" : ""}`}>{t.nav.about}</a>
             <a href={`/${lang}/contact`} class={`hover:text-saffron-600 transition-colors ${isActive(`/${lang}/contact`) ? "text-saffron-600 font-bold" : ""}`}>{t.nav.contact}</a>

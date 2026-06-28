@@ -47,6 +47,27 @@ dist/
 # Cloudflare Wrangler cache
 .wrangler/
 
+# ── Capacitor Native Projects ─────────────────────────────────────────────────
+# Keep: android/ and ios/ project sources (manifests, build.gradle, Swift files)
+# Ignore: generated build artefacts, local signing configs, Pods cache
+
+# Android build outputs and local configs
+android/.gradle/
+android/app/build/
+android/build/
+android/local.properties
+android/app/google-services.json
+
+# iOS CocoaPods and Xcode derived data (regenerated with `pod install`)
+ios/App/Pods/
+ios/App/App.xcworkspace/xcuserdata/
+ios/App/App.xcodeproj/xcuserdata/
+ios/DerivedData/
+ios/.xcode.env.local
+
+# Capacitor CLI temp files
+.capacitor/
+
 # Playwright test artifacts
 test-results/
 playwright-report/

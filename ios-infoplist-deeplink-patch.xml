@@ -1,0 +1,96 @@
+<!--
+  Info.plist Deep Link Patch — SanskritBhashi iOS
+  ══════════════════════════════════════════════════════════════════════════════
+
+  APPLY AFTER: `cap add ios`
+  FILE LOCATION: ios/App/App/Info.plist
+
+  Merge the XML key/dict blocks below into the existing Info.plist.
+  Do NOT replace the file wholesale — Capacitor populates many required keys.
+
+  ── What this adds ────────────────────────────────────────────────────────────
+  1. CFBundleURLTypes  → registers the `sanskritbhashi://` custom URL scheme
+  2. LSApplicationQueriesSchemes → allows querying https:// links
+  3. Associated Domains (see entitlements section below) → enables Universal Links
+
+  ── Test commands ─────────────────────────────────────────────────────────────
+  Custom scheme (simulator):
+    xcrun simctl openurl booted "sanskritbhashi://app/en?chapter=1&source=core"
+
+  Universal Link (requires device + AASA file):
+    xcrun simctl openurl booted "https://sanskritbhashi.com/hi/modules/shastra-study"
+-->
+
+<!--
+  ════════════════════════════════════════════════════════════════════════════
+  BLOCK 1 — Paste inside the root <dict> in Info.plist
+  ════════════════════════════════════════════════════════════════════════════
+-->
+
+<!-- Custom URL scheme: sanskritbhashi:// -->
+<key>CFBundleURLTypes</key>
+<array>
+    <dict>
+        <key>CFBundleURLName</key>
+        <string>com.sanskritbhashi.app</string>
+        <key>CFBundleURLSchemes</key>
+        <array>
+            <string>sanskritbhashi</string>
+        </array>
+    </dict>
+</array>
+
+<!-- Allow the app to detect and open https:// URLs (Universal Links) -->
+<key>LSApplicationQueriesSchemes</key>
+<array>
+    <string>https</string>
+    <string>http</string>
+</array>
+
+<!--
+  ════════════════════════════════════════════════════════════════════════════
+  BLOCK 2 — Associated Domains Entitlement for Universal Links
+  ════════════════════════════════════════════════════════════════════════════
+
+  FILE LOCATION: ios/App/App/App.entitlements
+  (Create this file if it doesn't exist, or add the key to the existing one)
+
+  You must also:
+  1. Enable "Associated Domains" in Xcode → Signing & Capabilities
+  2. Host an Apple App Site Association file at:
+       https://sanskritbhashi.com/.well-known/apple-app-site-association
+
+  AASA template:
+  {
+    "applinks": {
+      "apps": [],
+      "details": [
+        {
+          "appID": "TEAM_ID.com.sanskritbhashi.app",
+          "paths": ["/en/*", "/hi/*", "/ja/*", "/es/*"]
+        }
+      ]
+    }
+  }
+  Replace TEAM_ID with your Apple Developer Team ID from developer.apple.com.
+-->
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- Associated Domains entitlement for Universal Links -->
+    <key>com.apple.developer.associated-domains</key>
+    <array>
+        <string>applinks:sanskritbhashi.com</string>
+    </array>
+</dict>
+</plist>
+
+<!--
+  NOTE: The App.entitlements file content above is a STANDALONE file,
+  not a fragment of Info.plist. Save it to:
+    ios/App/App/App.entitlements
+  and reference it in Xcode under:
+    Target → Build Settings → Code Signing Entitlements
+-->

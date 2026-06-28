@@ -1,4 +1,5 @@
 import { Translation } from "./i18n";
+import { prefGet, prefSet } from "./capacitorBridge";
 
 export type CurriculumTier = "beginner" | "professional" | "expert";
 
@@ -654,7 +655,21 @@ export const generateQuestionsForChapter = (chapterId: number, tier: CurriculumT
   return generateCurriculumQuestions(chapterId, tier);
 };
 
-// Global engine state access and local storage synchronization
+// ─── Global engine state access ───────────────────────────────────────────────
+//
+// Storage Strategy: Async Write-Through Memory Cache
+//
+// Native (Capacitor):  Reads come from the in-memory cache hydrated by
+//                      capacitorBridge.initPreferencesCache() at startup.
+//                      Writes update the cache synchronously (instant),
+//                      then fire-and-forget to @capacitor/preferences natively.
+//
+// Web (browser):       prefGet/prefSet transparently fall through to
+//                      localStorage — identical behaviour to the original.
+//
+// The call signatures of getProgress() and saveProgress() are UNCHANGED so
+// PracticeCard.tsx requires zero async refactoring.
+
 export const INITIAL_PROGRESS: UserProgress = {
   currentTier: "beginner",
   completedChapters: [],
@@ -663,27 +678,56 @@ export const INITIAL_PROGRESS: UserProgress = {
   gatewayScores: {}
 };
 
+/** Native preference key — must match the key in capacitorBridge KNOWN_PREF_KEYS */
+const PROGRESS_KEY = "sb_progress";
+
+/**
+ * Returns the current UserProgress state.
+ * Reads synchronously from the write-through memory cache (or localStorage on web).
+ * Returns INITIAL_PROGRESS if no saved state is found.
+ */
 export const getProgress = (): UserProgress => {
   if (typeof window === "undefined") return INITIAL_PROGRESS;
   try {
-    const saved = localStorage.getItem("sanskrit_user_progress");
-    if (saved) {
-      return JSON.parse(saved);
+    // Primary read: write-through cache (populated at init; falls back to
+    // localStorage automatically inside prefGet on web).
+    const cached = prefGet(PROGRESS_KEY);
+    if (cached) return JSON.parse(cached);
+
+    // Legacy fallback: old localStorage key used before native bridge migration.
+    // Allows a seamless upgrade for existing users.
+    const legacy = localStorage.getItem("sanskrit_user_progress");
+    if (legacy) {
+      // One-time migration: persist to the new key
+      prefSet(PROGRESS_KEY, legacy);
+      return JSON.parse(legacy);
     }
   } catch (e) {
-    console.error("Failed to parse progress from localStorage", e);
+    console.error("[levelsEngine] Failed to parse progress:", e);
   }
   return INITIAL_PROGRESS;
 };
 
+/**
+ * Persists a UserProgress snapshot.
+ *  1. Writes to the in-memory cache synchronously (PracticeCard reads are instant)
+ *  2. Writes to localStorage synchronously (web fallback + StreakCounter compat)
+ *  3. Fire-and-forgets the write to @capacitor/preferences on native devices
+ */
 export const saveProgress = (progress: UserProgress): void => {
   if (typeof window === "undefined") return;
   try {
-    localStorage.setItem("sanskrit_user_progress", JSON.stringify(progress));
-    // Backwards compatibility sync for the StreakCounter
+    const serialised = JSON.stringify(progress);
+
+    // 1 & 3: Write-through cache + async native storage (handled inside prefSet)
+    prefSet(PROGRESS_KEY, serialised);
+
+    // 2: Backwards-compatible direct localStorage writes for StreakCounter
+    //    and any other legacy consumers that read these keys directly.
+    localStorage.setItem("sanskrit_user_progress", serialised);
     localStorage.setItem("streak_count", String(progress.streakCount));
     localStorage.setItem("last_practice_date", progress.lastPracticeDate);
   } catch (e) {
-    console.error("Failed to save progress to localStorage", e);
+    console.error("[levelsEngine] Failed to save progress:", e);
   }
 };

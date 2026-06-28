@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { AlertTriangle, X, ShieldAlert, CheckCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { getTranslation } from "@/lib/i18n";
+import { getCapacitorMeta } from "@/lib/capacitorBridge";
 
 interface ErrorReportButtonProps {
   chapterId: number;
@@ -38,6 +39,28 @@ export default function ErrorReportButton({
     setIsSubmitting(true);
     setStatus("idle");
 
+    // ─── Automated Runtime Protocol Switch ─────────────────────────────────
+    // When running inside a Capacitor native shell, `window.Capacitor` is
+    // injected by the WebView bridge before any JS executes. In that context
+    // `fetch('/api/report-error')` would resolve against `file://` and fail
+    // because there is no local server. We detect this and route to the
+    // absolute Cloudflare Worker URL instead.
+    //
+    // On web (browser), the detection returns false and we keep the relative
+    // path so no environment variables or build-time config is needed.
+    const isNativeApp =
+      typeof window !== "undefined" &&
+      Object.prototype.hasOwnProperty.call(window, 'Capacitor');
+
+    const targetUrl = isNativeApp
+      ? 'https://sanskritbhashi.com/api/report-error'
+      : '/api/report-error';
+
+    // ─── Native telemetry metadata ──────────────────────────────────────
+    // getCapacitorMeta() is safe to call on web — it degrades gracefully,
+    // returning platform='web' and the browser userAgent as osVersion.
+    const nativeMeta = getCapacitorMeta();
+
     const payload = {
       chapterId: String(chapterId),
       questionText,
@@ -45,11 +68,17 @@ export default function ErrorReportButton({
       userDetails: details,
       lang,
       transliterationSettings,
-      userAgent: typeof window !== "undefined" ? navigator.userAgent : "SSR"
+      userAgent: typeof window !== "undefined" ? navigator.userAgent : "SSR",
+      // Native enrichment fields
+      platform: nativeMeta.platform,
+      osVersion: nativeMeta.osVersion,
+      capacitorVersion: nativeMeta.capacitorVersion,
+      pixelRatio: nativeMeta.pixelRatio,
+      isNative: nativeMeta.isNativeApp,
     };
 
     try {
-      const res = await fetch("/api/report-error", {
+      const res = await fetch(targetUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)

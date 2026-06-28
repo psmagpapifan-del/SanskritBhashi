@@ -5,8 +5,9 @@ import { Play, Volume2, HelpCircle, CheckCircle2, AlertCircle, ChevronDown, Chev
 import { motion, AnimatePresence } from "framer-motion";
 import { fireConfetti } from "./ConfettiCelebration";
 import ErrorReportButton from "./ErrorReportButton";
-import AdSenseWidget from "./AdSenseWidget";
+import NativeAdWidget from "./NativeAdWidget";
 import { getTranslation } from "../lib/i18n";
+import { hapticImpact } from "../lib/capacitorBridge";
 import {
   UserProgress,
   Chapter,
@@ -676,6 +677,8 @@ export default function PracticeCard({
       setFeedback("correct");
       setShowHint(false);
       fireConfetti();
+      // Native haptic: light confirmation tap on correct answer progression
+      hapticImpact('light').catch(() => {});
       
       // Streak counter sync
       if (typeof window !== "undefined") {
@@ -684,6 +687,8 @@ export default function PracticeCard({
     } else {
       setFeedback("incorrect");
       setShowHint(true);
+      // Native haptic: medium impact on error (noticeable but not harsh)
+      hapticImpact('medium').catch(() => {});
       
       feedbackTimeoutRef.current = setTimeout(() => {
         setFeedback(null);
@@ -1083,7 +1088,9 @@ export default function PracticeCard({
         </div>
       </div>
 
-      <AdSenseWidget slot="inline-banner-slot" variant="inline-banner" />
+      {/* Native AdMob banner (Android/iOS) — falls back to AdSense on web.
+          The bounding box is always reserved in DOM to prevent CLS. */}
+      <NativeAdWidget type="banner" adSenseSlot="inline-banner-slot" />
     </div>
   );
 }

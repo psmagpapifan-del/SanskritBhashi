@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  AndroidManifest.xml — SanskritBhashi Native App
+  ══════════════════════════════════════════════════════════════════════════════
+
+  DEEP LINKING PATCH — apply this after running `cap add android`
+  ══════════════════════════════════════════════════════════════════════════════
+
+  This file is a PATCH TEMPLATE. After `cap add android` generates the default
+  AndroidManifest at:
+    android/app/src/main/AndroidManifest.xml
+
+  Merge the two <intent-filter> blocks below into the existing <activity>
+  element. Do NOT replace the entire file — Capacitor adds its own required
+  permissions and intent filters that must be preserved.
+
+  ── What this adds ────────────────────────────────────────────────────────────
+  1. Custom URL scheme:  sanskritbhashi://app/{lang}[/modules/{module}]
+  2. Android App Links:  https://sanskritbhashi.com/{lang}[/modules/{module}]
+     (requires Digital Asset Links JSON at https://sanskritbhashi.com/.well-known/assetlinks.json)
+
+  ── Test commands ─────────────────────────────────────────────────────────────
+  Custom scheme:
+    adb shell am start -W -a android.intent.action.VIEW \
+      -d "sanskritbhashi://app/en?chapter=1&source=core" \
+      com.sanskritbhashi.app
+
+  App Link (HTTPS):
+    adb shell am start -W -a android.intent.action.VIEW \
+      -d "https://sanskritbhashi.com/en/modules/school-prep?chapter=12&source=ncert" \
+      com.sanskritbhashi.app
+-->
+
+<!--
+  ════════════════════════════════════════════════════════════════════════════
+  PASTE THIS BLOCK inside the <activity> element in AndroidManifest.xml
+  ════════════════════════════════════════════════════════════════════════════
+-->
+
+<!-- 1 ── Custom URL scheme: sanskritbhashi://app/* -->
+<intent-filter android:label="@string/app_name">
+    <action android:name="android.intent.action.VIEW" />
+    <category android:name="android.intent.category.DEFAULT" />
+    <category android:name="android.intent.category.BROWSABLE" />
+
+    <!-- Custom scheme: sanskritbhashi://app/{lang}[/modules/{module}] -->
+    <data
+        android:scheme="sanskritbhashi"
+        android:host="app" />
+</intent-filter>
+
+<!-- 2 ── Android App Links: https://sanskritbhashi.com/* -->
+<!--
+  Android App Links require verified domain ownership. You must serve a
+  Digital Asset Links file at:
+    https://sanskritbhashi.com/.well-known/assetlinks.json
+
+  Template for assetlinks.json (replace SHA256 with your keystore fingerprint):
+  [
+    {
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "com.sanskritbhashi.app",
+        "sha256_cert_fingerprints": ["YOUR_APP_SHA256_CERT_FINGERPRINT"]
+      }
+    }
+  ]
+
+  Get your fingerprint:
+    keytool -list -v -keystore your-release.keystore -alias your-alias -storepass <pass>
+-->
+<intent-filter android:autoVerify="true" android:label="@string/app_name">
+    <action android:name="android.intent.action.VIEW" />
+    <category android:name="android.intent.category.DEFAULT" />
+    <category android:name="android.intent.category.BROWSABLE" />
+
+    <data android:scheme="https"
+          android:host="sanskritbhashi.com"
+          android:pathPrefix="/en" />
+    <data android:scheme="https"
+          android:host="sanskritbhashi.com"
+          android:pathPrefix="/hi" />
+    <data android:scheme="https"
+          android:host="sanskritbhashi.com"
+          android:pathPrefix="/ja" />
+    <data android:scheme="https"
+          android:host="sanskritbhashi.com"
+          android:pathPrefix="/es" />
+</intent-filter>
+
+<!--
+  ════════════════════════════════════════════════════════════════════════════
+  Full AndroidManifest.xml reference structure (do not copy verbatim)
+  ════════════════════════════════════════════════════════════════════════════
+
+  <?xml version="1.0" encoding="utf-8"?>
+  <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+      <!-- Capacitor-required permissions (added by cap add android) -->
+      <uses-permission android:name="android.permission.INTERNET" />
+      <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+      <!-- Push notification (added by @capacitor/push-notifications plugin) -->
+      <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+
+      <application
+          android:allowBackup="true"
+          android:icon="@mipmap/ic_launcher"
+          android:label="@string/app_name"
+          android:roundIcon="@mipmap/ic_launcher_round"
+          android:supportsRtl="true"
+          android:theme="@style/AppTheme">
+
+          <activity
+              android:name="com.getcapacitor.BridgeActivity"
+              android:exported="true"
+              android:hardwareAccelerated="true"
+              android:launchMode="singleTask"
+              android:configChanges="...">
+
+              <!-- Default Capacitor launcher intent (do NOT remove) -->
+              <intent-filter>
+                  <action android:name="android.intent.action.MAIN" />
+                  <category android:name="android.intent.category.LAUNCHER" />
+              </intent-filter>
+
+              ← PASTE THE TWO INTENT FILTER BLOCKS FROM ABOVE HERE →
+
+          </activity>
+      </application>
+  </manifest>
+-->

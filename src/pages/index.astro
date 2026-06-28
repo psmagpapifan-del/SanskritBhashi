@@ -1,3 +1,44 @@
 ---
-return Astro.redirect('/en');
+/**
+ * Root entry point.
+ *
+ * WEB (Cloudflare adapter):   server-side 302 redirect to /en
+ * CAPACITOR (static build):   client-side JS redirect to ./en.html
+ *
+ * Capacitor serves assets from file:// so absolute paths like /en resolve
+ * to file:///en (non-existent). We must use a relative path: ./en.html
+ */
+const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
+
+if (!isCapacitorBuild) {
+  return Astro.redirect('/en');
+}
 ---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SanskritBhashi</title>
+  <meta name="robots" content="noindex" />
+  <!--
+    Capacitor file:// redirect shim.
+    Redirects to ./en.html which resolves correctly inside the WebView asset bundle.
+    The JS redirect fires immediately; the meta refresh is a 0ms fallback.
+  -->
+  <meta http-equiv="refresh" content="0;url=./en.html" />
+  <script>
+    // Detect browser language and redirect to the appropriate locale if available.
+    // Falls back to English (/en) if the preferred locale isn't supported.
+    (function () {
+      var supported = ['en', 'hi', 'ja', 'es'];
+      var lang = (navigator.language || 'en').split('-')[0].toLowerCase();
+      var locale = supported.includes(lang) ? lang : 'en';
+      // Use location.replace so the redirect page isn't in history.
+      window.location.replace('./' + locale + '.html');
+    })();
+  </script>
+</head>
+<body>
+  <a href="./en.html">Loading SanskritBhashi…</a>
+</body>
+</html>

@@ -1,5 +1,5 @@
 ---
-import { Home, GraduationCap, BookMarked, Info, HelpCircle, ChevronLeft, Menu, Mail } from "lucide-react";
+import { Home, GraduationCap, BookMarked, Info, HelpCircle, ChevronLeft, Menu, Mail, Sun, Moon } from "lucide-react";
 import LanguageSelector from "../components/LanguageSelector";
 import StreakCounter from "../components/StreakCounter";
 import OnboardingTour from "../components/OnboardingTour";
@@ -115,15 +115,15 @@ const isActive = (href: string) => {
         <div class="flex items-center gap-2">
           <button
             id="theme-toggle-mobile"
-            class="p-2 rounded-xl border border-border-hairline hover:bg-saffron-50 dark:hover:bg-zinc-900 text-charcoal/70 transition-colors"
+            class="relative flex items-center justify-center w-9 h-9 shrink-0 rounded-xl border border-border-hairline hover:bg-saffron-50 dark:hover:bg-zinc-900 transition-colors overflow-hidden"
             aria-label="Toggle theme"
           >
-            <svg class="w-5 h-5 hidden dark:block text-marigold-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 9h-1m15.364-3.636l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707m2.828 9.9a5 5 0 117.072 0l-7.072 0z" />
-            </svg>
-            <svg class="w-5 h-5 block dark:hidden text-charcoal/70" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-            </svg>
+            <div class="absolute inset-0 flex items-center justify-center transition-all duration-500 -rotate-90 scale-0 opacity-0 dark:rotate-0 dark:scale-100 dark:opacity-100">
+              <Sun class="w-5 h-5 text-marigold-500" className="w-5 h-5 text-marigold-500" />
+            </div>
+            <div class="absolute inset-0 flex items-center justify-center transition-all duration-500 rotate-0 scale-100 opacity-100 dark:rotate-90 dark:scale-0 dark:opacity-0">
+              <Moon class="w-5 h-5 text-charcoal/70 dark:text-zinc-400" className="w-5 h-5 text-charcoal/70 dark:text-zinc-400" />
+            </div>
           </button>
           <StreakCounter client:idle />
           <LanguageSelector client:load currentLang={lang} currentPathname={pathname} />
@@ -133,20 +133,31 @@ const isActive = (href: string) => {
       {/* DESKTOP SIDEBAR (Only visible on desktop) */}
       <aside
         id="tour-step-2"
-        class="hidden md:flex flex-col w-64 fixed h-dvh bg-white dark:bg-zinc-950 border-r border-border-hairline p-6 z-20"
+        class="group/sidebar hidden md:flex flex-col w-64 fixed h-dvh bg-white/80 dark:bg-zinc-950/80 backdrop-blur-xl border-r border-border-hairline dark:border-white/5 p-6 z-40 transition-all duration-300"
       >
-        {/* Logo */}
-        <a href={`/${lang}`} class="flex flex-col gap-0.5 mb-8 select-none">
-          <span class="text-2xl font-black bg-linear-to-r from-saffron-500 to-saffron-600 bg-clip-text text-transparent font-sanskrit">
-            संस्कृतभाषी
-          </span>
-          <span class="text-[10px] font-bold uppercase tracking-widest text-charcoal/40 font-latin pl-1">
-            Sanskritbhashi.com
-          </span>
-        </a>
+        {/* Floating Toggle Button */}
+        <button
+          id="sidebar-toggle"
+          class="absolute -right-3.5 top-8 w-7 h-7 rounded-full bg-white dark:bg-zinc-900 border border-border-hairline dark:border-white/10 flex items-center justify-center text-charcoal/50 hover:text-saffron-600 dark:hover:text-saffron-500 hover:bg-saffron-50 dark:hover:bg-zinc-800 shadow-sm transition-all duration-300 hover:scale-110 z-50 cursor-pointer"
+          aria-label="Toggle Sidebar"
+        >
+          <ChevronLeft class="w-4 h-4 transition-transform duration-300" id="sidebar-toggle-icon" />
+        </button>
+
+        <div class="flex items-center mb-8 overflow-hidden h-10 shrink-0 relative">
+          {/* Logo */}
+          <a href={`/${lang}`} class="flex flex-col gap-0.5 select-none sidebar-text transition-all duration-300 w-auto opacity-100 visible overflow-hidden drop-shadow-sm">
+            <span class="text-2xl font-black bg-linear-to-r from-saffron-500 to-saffron-600 bg-clip-text text-transparent font-sanskrit leading-none drop-shadow-sm">
+              संस्कृतभाषी
+            </span>
+            <span class="text-[10px] font-bold uppercase tracking-widest text-charcoal/40 font-latin pl-1 leading-none">
+              Sanskritbhashi.com
+            </span>
+          </a>
+        </div>
 
         {/* Sidebar Nav */}
-        <nav class="flex-1 space-y-1.5 overflow-y-auto">
+        <nav class="flex-1 space-y-1.5 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           {navItems.map((item) => {
             const active = isActive(item.href);
             const Icon = item.icon;
@@ -154,29 +165,37 @@ const isActive = (href: string) => {
               <a
                 href={item.href}
                 id={item.id}
-                class={`flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold transition-all duration-200 cursor-pointer ${
+                class={`sidebar-link group relative flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-300 cursor-pointer overflow-hidden ${
                   active
-                    ? "bg-saffron-500 text-white shadow-md shadow-saffron-500/10 scale-102"
-                    : "text-charcoal/70 hover:bg-saffron-50 dark:hover:bg-zinc-900 hover:text-saffron-600 dark:hover:text-saffron-500"
+                    ? "bg-linear-to-r from-saffron-500 to-saffron-600 text-white shadow-lg shadow-saffron-500/20 ring-1 ring-white/20 dark:ring-white/10 scale-[1.02]"
+                    : "text-charcoal/70 hover:bg-saffron-50 dark:hover:bg-white/5 hover:text-saffron-600 dark:hover:text-saffron-400 hover:-translate-y-0.5"
                 }`}
               >
-                <Icon class={`w-5 h-5 ${active ? "text-white" : "text-charcoal/40 group-hover:text-saffron-500"}`} />
-                <span>{item.name}</span>
+                {active && (
+                  <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-1/2 bg-white rounded-r-full shadow-[0_0_8px_rgba(255,255,255,0.8)]"></div>
+                )}
+                <Icon class={`w-5 h-5 shrink-0 transition-colors ${active ? "text-white drop-shadow-md" : "text-charcoal/40 group-hover:text-saffron-500 dark:group-hover:text-saffron-400"}`} />
+                <span class="sidebar-text transition-all duration-300 w-auto opacity-100 visible whitespace-nowrap">{item.name}</span>
+                
+                {/* Tooltip for collapsed state */}
+                <div class="hidden group-data-[collapsed=true]/sidebar:block absolute left-14 opacity-0 group-hover:opacity-100 px-2.5 py-1 bg-charcoal dark:bg-zinc-800 text-cream text-[11px] font-bold rounded-md pointer-events-none transition-opacity duration-200 z-50 shadow-xl border border-white/5 whitespace-nowrap">
+                  {item.name}
+                </div>
               </a>
             );
           })}
         </nav>
 
         {/* Sidebar Footer */}
-        <div class="border-t border-border-hairline pt-4 text-center">
-          <p class="text-[10px] font-bold text-charcoal/30 font-latin uppercase tracking-widest">
+        <div class="border-t border-border-hairline pt-4 text-center overflow-hidden shrink-0 h-10">
+          <p class="sidebar-text text-[10px] font-bold text-charcoal/30 font-latin uppercase tracking-widest transition-all duration-300 w-auto opacity-100 visible whitespace-nowrap">
             © 2026 Sanskritbhashi
           </p>
         </div>
       </aside>
 
       {/* DESKTOP HEADER & CONTENT AREA */}
-      <div class="flex-1 flex flex-col md:pl-64 w-full">
+      <div id="desktop-content-area" class="flex-1 flex flex-col md:pl-64 w-full transition-all duration-300">
         {/* DESKTOP TOP HEADER */}
         <header class="hidden md:flex items-center justify-between h-16 px-8 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md border-b border-border-hairline sticky top-0 z-30 w-full">
           <nav class="flex items-center gap-6 text-sm font-medium text-charcoal/70">
@@ -188,15 +207,15 @@ const isActive = (href: string) => {
           <div class="flex items-center gap-4">
             <button
               id="theme-toggle-desktop"
-              class="p-2 rounded-xl border border-border-hairline hover:bg-saffron-50 dark:hover:bg-zinc-900 text-charcoal/70 transition-colors"
+              class="relative flex items-center justify-center w-9 h-9 shrink-0 rounded-xl border border-border-hairline hover:bg-saffron-50 dark:hover:bg-zinc-900 transition-colors overflow-hidden"
               aria-label="Toggle theme"
             >
-              <svg class="w-5 h-5 hidden dark:block text-marigold-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 9h-1m15.364-3.636l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707m2.828 9.9a5 5 0 117.072 0l-7.072 0z" />
-              </svg>
-              <svg class="w-5 h-5 block dark:hidden text-charcoal/70" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-              </svg>
+              <div class="absolute inset-0 flex items-center justify-center transition-all duration-500 -rotate-90 scale-0 opacity-0 dark:rotate-0 dark:scale-100 dark:opacity-100">
+                <Sun class="w-5 h-5 text-marigold-500" className="w-5 h-5 text-marigold-500" />
+              </div>
+              <div class="absolute inset-0 flex items-center justify-center transition-all duration-500 rotate-0 scale-100 opacity-100 dark:rotate-90 dark:scale-0 dark:opacity-0">
+                <Moon class="w-5 h-5 text-charcoal/70 dark:text-zinc-400" className="w-5 h-5 text-charcoal/70 dark:text-zinc-400" />
+              </div>
             </button>
             <StreakCounter client:idle />
             <LanguageSelector client:load currentLang={lang} currentPathname={pathname} />
@@ -378,9 +397,56 @@ const isActive = (href: string) => {
         const desktopBtn = document.getElementById('theme-toggle-desktop');
         const mobileBtn = document.getElementById('theme-toggle-mobile');
         
-        function toggle() {
-          const isDark = document.documentElement.classList.toggle('dark');
-          localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        function toggle(event) {
+          const isDark = document.documentElement.classList.contains('dark');
+          const newTheme = isDark ? 'light' : 'dark';
+
+          if (!document.startViewTransition) {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', newTheme);
+            return;
+          }
+
+          let x = event?.clientX ?? window.innerWidth / 2;
+          let y = event?.clientY ?? 50;
+
+          const btn = event?.currentTarget;
+          if (btn instanceof Element) {
+            const rect = btn.getBoundingClientRect();
+            // Validate the button is actually visible before using its coordinates
+            if (rect.width > 0 && rect.height > 0) {
+              x = window.innerWidth - 75; // Fine-tuned slightly left from the far right edge
+              y = rect.top + rect.height / 2;
+            }
+          }
+          
+          const endRadius = Math.hypot(
+            Math.max(x, window.innerWidth - x),
+            Math.max(y, window.innerHeight - y)
+          );
+
+          const transition = document.startViewTransition(() => {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', newTheme);
+          });
+
+          transition.ready.then(() => {
+            const clipPath = [
+              `circle(0px at ${x}px ${y}px)`,
+              `circle(${endRadius}px at ${x}px ${y}px)`
+            ];
+
+            document.documentElement.animate(
+              {
+                clipPath: clipPath
+              },
+              {
+                duration: 500,
+                easing: 'ease-in-out',
+                pseudoElement: '::view-transition-new(root)'
+              }
+            );
+          });
         }
         
         if (desktopBtn) desktopBtn.addEventListener('click', toggle);
@@ -517,6 +583,80 @@ const isActive = (href: string) => {
 
       setupCookieBanner();
       document.addEventListener('astro:after-swap', setupCookieBanner);
+      function setupSidebarToggle() {
+        const toggleBtn = document.getElementById('sidebar-toggle');
+        const sidebar = document.getElementById('tour-step-2');
+        const content = document.getElementById('desktop-content-area');
+        const texts = document.querySelectorAll('.sidebar-text');
+        const links = document.querySelectorAll('.sidebar-link');
+        const toggleIcon = document.getElementById('sidebar-toggle-icon');
+        
+        if (!toggleBtn || !sidebar || !content) return;
+
+        let isCollapsed = localStorage.getItem('sidebar-collapsed') === 'true';
+
+        function applyState(animate = true) {
+          if (!animate) {
+            sidebar.classList.remove('transition-all', 'duration-300');
+            content.classList.remove('transition-all', 'duration-300');
+          }
+
+          if (isCollapsed) {
+            if (sidebar.classList.contains('w-64')) {
+              sidebar.dataset.collapsed = "true";
+              sidebar.classList.replace('w-64', 'w-20');
+              sidebar.classList.replace('p-6', 'p-4');
+              content.classList.replace('md:pl-64', 'md:pl-20');
+              toggleIcon.classList.add('rotate-180');
+              texts.forEach(t => {
+                t.classList.remove('w-auto', 'opacity-100', 'visible');
+                t.classList.add('w-0', 'opacity-0', 'invisible');
+              });
+              links.forEach(l => {
+                l.classList.replace('px-4', 'px-0');
+                l.classList.replace('gap-3', 'gap-0');
+                l.classList.add('justify-center');
+              });
+            }
+          } else {
+            if (sidebar.classList.contains('w-20')) {
+              delete sidebar.dataset.collapsed;
+              sidebar.classList.replace('w-20', 'w-64');
+              sidebar.classList.replace('p-4', 'p-6');
+              content.classList.replace('md:pl-20', 'md:pl-64');
+              toggleIcon.classList.remove('rotate-180');
+              texts.forEach(t => {
+                t.classList.remove('w-0', 'opacity-0', 'invisible');
+                t.classList.add('w-auto', 'opacity-100', 'visible');
+              });
+              links.forEach(l => {
+                l.classList.replace('px-0', 'px-4');
+                l.classList.replace('gap-0', 'gap-3');
+                l.classList.remove('justify-center');
+              });
+            }
+          }
+
+          if (!animate) {
+            // Force layout recalculation
+            void sidebar.offsetWidth;
+            sidebar.classList.add('transition-all', 'duration-300');
+            content.classList.add('transition-all', 'duration-300');
+          }
+        }
+
+        // Apply immediately without animation
+        applyState(false);
+
+        toggleBtn.addEventListener('click', () => {
+          isCollapsed = !isCollapsed;
+          localStorage.setItem('sidebar-collapsed', isCollapsed);
+          applyState(true);
+        });
+      }
+
+      setupSidebarToggle();
+      document.addEventListener('astro:after-swap', setupSidebarToggle);
     </script>
   </body>
 </html>

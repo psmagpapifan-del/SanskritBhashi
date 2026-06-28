@@ -12,7 +12,7 @@
     "app:ios": "cap open ios",
     "app:run:android": "cap run android",
     "app:run:ios": "cap run ios",
-    "postinstall": "sed -i '' \"s/getDefaultProguardFile('proguard-android.txt')/getDefaultProguardFile('proguard-android-optimize.txt')/g\" node_modules/@capacitor-community/admob/android/build.gradle 2>/dev/null || true"
+    "postinstall": "node scripts/postinstall.js"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^13.6.1",

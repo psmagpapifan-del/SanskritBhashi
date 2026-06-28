@@ -721,6 +721,7 @@ export default function PracticeCard({
         saveProgress(nextProgress);
         window.dispatchEvent(new Event("streakUpdated"));
       }
+      handleNextChapter();
     }
   };
 

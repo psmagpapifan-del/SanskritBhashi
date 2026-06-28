@@ -17,6 +17,7 @@ import {
   buildCurriculum
 } from "../lib/levelsEngine";
 import { curriculumChapters } from "../lib/curriculumData";
+import { vocabTranslations } from "../lib/vocabTranslations";
 
 function localizeText(text: string, lang: string): string {
   if (!text || lang === "en") return text;
@@ -309,7 +310,7 @@ function localizeText(text: string, lang: string): string {
     }
   };
 
-  const localizedText = dict[lang]?.[text];
+  const localizedText = dict[lang]?.[text] || vocabTranslations[lang]?.[text];
   if (localizedText) return localizedText;
 
   let newText = text;
@@ -361,7 +362,7 @@ function localizeText(text: string, lang: string): string {
   const catMap = categories[lang];
   if (catMap) {
     for (const [eng, loc] of Object.entries(catMap)) {
-      newText = newText.replace(new RegExp(`\\b${eng}\\b`, "g"), loc);
+      newText = newText.replace(new RegExp(eng, "g"), loc);
     }
   }
 

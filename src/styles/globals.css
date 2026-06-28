@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Noto+Serif+Devanagari:wght@400;700&family=Rozha+One&family=Tiro+Sanskrit&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@300;400;500;600&family=Noto+Sans+JP:wght@400;700&family=Noto+Serif+Devanagari:wght@400;700&family=Rozha+One&family=Tiro+Sanskrit&display=swap");
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
@@ -12,6 +12,7 @@
   --color-saffron-600: #E66100;
   --color-marigold-500: #FFC43D;
   --color-marigold-600: #E6AA00;
+  --color-border-hairline: #2A2A2A;
   color-scheme: dark;
 }
 
@@ -24,12 +25,13 @@
   color: var(--color-cream);
 }
 
-
 @theme {
-  /* Dynamic font variables injected from layout + imported fonts */
+  /* Default sans and mono fonts updated to Geist/Inter and Geist Mono */
+  --font-sans: "Geist", "Inter", sans-serif;
+  --font-mono: "Geist Mono", "JetBrains Mono", monospace;
   --font-sanskrit: "Tiro Sanskrit", "Rozha One", "Noto Serif Devanagari", serif;
   --font-cjk: "Noto Sans JP", sans-serif;
-  --font-latin: var(--font-inter), var(--font-poppins), sans-serif;
+  --font-latin: "Geist", "Inter", sans-serif;
 
   /* Custom Color System */
   --color-saffron-50: #FFF9F2;
@@ -40,6 +42,7 @@
   --color-marigold-600: #E6A100;
   --color-charcoal: #212121;
   --color-cream: #FAF9F6;
+  --color-border-hairline: #E2E0D8;
 
   /* Gamified Micro-Interaction Animations */
   --animate-shake: shake 0.5s ease-in-out;
@@ -69,7 +72,7 @@
 /* Base resets and defaults */
 html {
   scroll-behavior: smooth;
-  font-family: var(--font-latin);
+  font-family: var(--font-sans);
   background-color: var(--color-cream);
   color: var(--color-charcoal);
   -webkit-font-smoothing: antialiased;
@@ -115,3 +118,35 @@ details > summary {
 details > summary::-webkit-details-marker {
   display: none;
 }
+
+/* Dialog transition and backdrop filter styles */
+dialog {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.2s ease-out, transform 0.2s ease-out, display 0.2s allow-discrete, overlay 0.2s allow-discrete;
+}
+
+dialog[open] {
+  opacity: 1;
+  transform: scale(1);
+  @starting-style {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0);
+  backdrop-filter: blur(0px);
+  transition: background-color 0.2s ease-out, backdrop-filter 0.2s ease-out, display 0.2s allow-discrete, overlay 0.2s allow-discrete;
+}
+
+dialog[open]::backdrop {
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  @starting-style {
+    background-color: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(0px);
+  }
+}
+

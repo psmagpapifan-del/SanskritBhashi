@@ -14,6 +14,7 @@ export interface Translation {
     faqs: string;
     privacy: string;
     terms: string;
+    contact: string;
   };
   home: {
     heroSub: string;
@@ -165,7 +166,8 @@ export const translations: Record<string, Translation> = {
       about: "About Us",
       faqs: "FAQs",
       privacy: "Privacy Policy",
-      terms: "Terms of Service"
+      terms: "Terms of Service",
+      contact: "Contact Us"
     },
     home: {
       heroSub: "🔥 Experience Sanskritbhashi Onboarding",
@@ -309,6 +311,18 @@ export const translations: Record<string, Translation> = {
           question: "What are the six Karakas and their corresponding grammatical cases?",
           primaryAnswer: "The six Karakas are Karta, Karma, Karana, Sampradana, Apadana, and Adhikarana, mapping to cases one, two, three, four, five, and seven respectively.",
           detailedAnswer: "Genitive case (Sasthi Vibhakti, relation) and Vocative case (Sambodhana) are not considered true Karakas because they do not have a direct relation to the action or verb of the sentence."
+        },
+        {
+          id: "faq-dhatus-role",
+          question: "What is the role of Dhatus (verbal roots) in Sanskrit word derivation?",
+          primaryAnswer: "Dhatus are the foundational verbal roots from which nouns, adjectives, and verbs are derived through the addition of suffixes (Pratyayas).",
+          detailedAnswer: "According to the Paninian system, there are around 2,000 verbal roots listed in the Dhatupatha. Every noun stem (Pratipadika) is derived from a verbal root using Krt or Taddhita suffixes, making Sanskrit a highly systematic and semantic language."
+        },
+        {
+          id: "faq-exam-prep",
+          question: "How does Sanskritbhashi help students preparing for CBSE / NCERT school exams?",
+          primaryAnswer: "Sanskritbhashi provides interactive curriculum-aligned practice cards specifically targeting CBSE/NCERT Class 6-12 grammar topics like Sandhi, Karak, and Vibhakti.",
+          detailedAnswer: "Our platform breaks down complex exam syllabus rules into simple step-by-step interactive cards, providing immediate correctness feedback, rule hints, and progressive reveals to ensure concept mastery and exam confidence."
         }
       ]
     },
@@ -372,7 +386,8 @@ export const translations: Record<string, Translation> = {
       about: "हमारे बारे में",
       faqs: "पूछे जाने वाले प्रश्न",
       privacy: "गोपनीयता नीति",
-      terms: "सेवा की शर्तें"
+      terms: "सेवा की शर्तें",
+      contact: "सम्पर्क करें"
     },
     home: {
       heroSub: "🔥 संस्कृतभाषी परिचय गाइड का अनुभव करें",
@@ -516,6 +531,18 @@ export const translations: Record<string, Translation> = {
           question: "छह मुख्य कारक कौन से हैं और वे किन विभक्तियों से जुड़े हैं?",
           primaryAnswer: "छह कारक कर्ता, कर्म, करण, सम्प्रदान, अपादान और अधिकरण हैं, जो क्रमशः प्रथमा, द्वितीया, तृतीया, चतुर्थी, पंचमी और सप्तमी से जुड़े हैं।",
           detailedAnswer: "सम्बन्ध (षष्ठी विभक्ति) और सम्बोधन को सीधे क्रिया से न जुड़े होने के कारण संस्कृत में स्वतंत्र कारक नहीं माना जाता।"
+        },
+        {
+          id: "faq-dhatus-role",
+          question: "संस्कृत शब्द व्युत्पत्ति में धातुओं (क्रिया मूलों) की क्या भूमिका है?",
+          primaryAnswer: "धातुएं वे मूलभूत क्रिया मूल हैं जिनसे प्रत्यय जोड़कर संज्ञा, विशेषण और क्रिया शब्द बनाए जाते हैं।",
+          detailedAnswer: "पाणिनीय प्रणाली के अनुसार, धातुपाठ में लगभग 2,000 क्रिया मूल सूचीबद्ध हैं। प्रत्येक संज्ञा प्रतिपादक किसी न किसी धातु से कृत् या तद्धित प्रत्ययों के माध्यम से बनता है, जिससे संस्कृत एक अत्यधिक व्यवस्थित भाषा बनती है।"
+        },
+        {
+          id: "faq-exam-prep",
+          question: "संस्कृतभाषी छात्रों को सीबीएसई/एनसीईआरटी स्कूल परीक्षाओं की तैयारी में कैसे मदद करता है?",
+          primaryAnswer: "संस्कृतभाषी सीबीएसई/एनसीईआरटी कक्षा 6-12 के व्याकरण विषयों जैसे संधि, कारक और विभक्ति को लक्षित करने वाले इंटरैक्टिव अभ्यास कार्ड प्रदान करता है।",
+          detailedAnswer: "हमारा मंच परीक्षा पाठ्यक्रम के नियमों को सरल चरणों में विभाजित करता है, तत्काल प्रतिक्रिया और नियम संकेत प्रदान करता है ताकि छात्र अवधारणाओं को आसानी से समझ सकें और परीक्षा में बेहतर अंक प्राप्त कर सकें।"
         }
       ]
     },
@@ -579,7 +606,8 @@ export const translations: Record<string, Translation> = {
       about: "会社概要",
       faqs: "よくある質問",
       privacy: "プライバシーポリシー",
-      terms: "利用規約"
+      terms: "利用規約",
+      contact: "お問い合わせ"
     },
     home: {
       heroSub: "🔥 オンボーディングツアーを開始する",
@@ -786,7 +814,8 @@ export const translations: Record<string, Translation> = {
       about: "Nosotros",
       faqs: "FAQs",
       privacy: "Política de Privacidad",
-      terms: "Términos de Servicio"
+      terms: "Términos de Servicio",
+      contact: "Contacto"
     },
     home: {
       heroSub: "🔥 Experimente el Onboarding de Sanskritbhashi",

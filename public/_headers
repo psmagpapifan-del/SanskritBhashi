@@ -1,4 +1,2 @@
-https://sanskritbhashi.pages.dev/*
-  X-Robots-Tag: noindex
-https://:subdomain.sanskritbhashi.pages.dev/*
-  X-Robots-Tag: noindex
+https://:subdomain.pages.dev/*
+  X-Robots-Tag: noindex, nofollow, noarchive

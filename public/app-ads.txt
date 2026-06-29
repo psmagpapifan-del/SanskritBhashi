@@ -1,0 +1,11 @@
+# app-ads.txt for Sanskritbhashi
+# https://sanskritbhashi.com/app-ads.txt
+#
+# IAB Tech Lab app-ads.txt spec: https://iabtechlab.com/ads-txt/
+#
+# This file authorizes Google AdMob (pub-3511250070838869) as a DIRECT
+# seller of in-app ad inventory for the Sanskritbhashi app
+# (com.sanskritbhashi.app on Google Play / App Store).
+#
+# Format: <ad system domain>, <publisher ID>, <relationship>, <certification authority ID>
+google.com, pub-3511250070838869, DIRECT, f08c47fec0942fa0

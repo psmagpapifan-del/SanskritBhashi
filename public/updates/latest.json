@@ -1,8 +1,8 @@
 {
-  "version": "0.1.0+20260629131924",
+  "version": "0.1.0+20260629132356",
   "url": "https://sanskritbhashi.com/updates/bundle-latest.zip",
-  "checksum": "04dd2fd8c4d90760d0c282d4fb352d85bd0d37a909ba8a7b973c4f3073d194c5",
-  "size": 1238960,
-  "builtAt": "2026-06-29T13:19:24.769Z",
+  "checksum": "ce29449a66c4c0f8ee04f546d8807da76ff3f7ac931d14abb8b5d9d56ce2bd16",
+  "size": 1228529,
+  "builtAt": "2026-06-29T13:23:56.457Z",
   "minNativeVersion": "1.0.0"
 }

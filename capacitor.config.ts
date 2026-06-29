@@ -78,6 +78,26 @@ const config: CapacitorConfig = {
       testingDevices: [],
       initializeForTesting: false,
     },
+
+    // ── Live Updates (OTA) ───────────────────────────────────────────────────
+    // @capgo/capacitor-updater self-hosted configuration.
+    // The plugin polls updateUrl on every app launch, downloads the bundle
+    // zip in the background, and hot-swaps the WebView on next foreground.
+    // No Play Store review needed for web-only changes (content, layout, logic).
+    CapacitorUpdater: {
+      // Version manifest served from Cloudflare Pages.
+      updateUrl:       'https://sanskritbhashi.com/updates/latest.json',
+
+      // Check for updates automatically on every app launch.
+      autoUpdate:      true,
+
+      // Reset JS state cleanly when a new bundle is activated.
+      resetWhenUpdate: true,
+
+      // How many failed launches before rolling back to factory bundle.
+      // notifyAppReady() in capacitorBridge.ts resets this counter.
+      appReadyTimeout: 10000,
+    },
   },
 };
 

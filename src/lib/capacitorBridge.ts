@@ -11,6 +11,7 @@
  *  - Preferences      → async write-through memory cache (see §Storage below)
  *  - PushNotifications→ one-time init, exposes FCM/APNs token via callback
  *  - getCapacitorMeta → enriched telemetry snapshot for ErrorReportButton
+ *  - initLiveUpdates  → OTA hot-swap engine (@capgo/capacitor-updater)
  */
 
 // ─── Type-safe lazy imports ───────────────────────────────────────────────────
@@ -22,6 +23,8 @@ let _Haptics: typeof import('@capacitor/haptics').Haptics | null = null;
 let _ImpactStyle: typeof import('@capacitor/haptics').ImpactStyle | null = null;
 let _Preferences: typeof import('@capacitor/preferences').Preferences | null = null;
 let _PushNotifications: typeof import('@capacitor/push-notifications').PushNotifications | null = null;
+let _CapacitorUpdater: typeof import('@capgo/capacitor-updater').CapacitorUpdater | null = null;
+
 
 async function getCapacitorCore() {
   if (!_Capacitor) {
@@ -323,4 +326,66 @@ export function getCapacitorMeta(): CapacitorMeta {
     pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio : 1,
     isNativeApp: native,
   };
+}
+
+// ─── Live Updates (OTA) ───────────────────────────────────────────────────────
+/**
+ * initLiveUpdates()
+ *
+ * Initialises the @capgo/capacitor-updater OTA engine. Call this ONCE,
+ * as early as possible after the app shell mounts (e.g. in the root
+ * Astro layout or a top-level React effect).
+ *
+ * Lifecycle:
+ *  1. notifyAppReady() — confirms the current bundle is healthy.
+ *     Without this call the updater automatically rolls back to the
+ *     last good bundle after a configurable number of bad launches.
+ *  2. Polls https://sanskritbhashi.com/updates/latest.json silently.
+ *  3. If a newer version is found, downloads bundle-latest.zip in the
+ *     background without blocking any UI.
+ *  4. On next app foreground → WebView hot-swaps to new assets.
+ *     No Play Store review required for web-only changes.
+ *
+ * Safe to call on web (no-ops gracefully outside a Capacitor shell).
+ */
+export async function initLiveUpdates(): Promise<void> {
+  if (!isNative()) return; // no-op on web / SSR
+
+  try {
+    if (!_CapacitorUpdater) {
+      const mod = await import('@capgo/capacitor-updater');
+      _CapacitorUpdater = mod.CapacitorUpdater;
+    }
+
+    // CRITICAL — must be called so the updater knows this bundle is stable.
+    await _CapacitorUpdater.notifyAppReady();
+
+    // Stage the new bundle when the background download completes.
+    // set() does NOT reload the app immediately — it activates on the
+    // next time the user brings the app to the foreground.
+    _CapacitorUpdater.addListener('updateAvailable', async (res) => {
+      console.log('[OTA] New bundle available:', res.bundle.version);
+      try {
+        await _CapacitorUpdater!.set(res.bundle);
+        console.log('[OTA] Bundle staged — activates on next foreground.');
+      } catch (e) {
+        console.warn('[OTA] Failed to stage bundle:', e);
+      }
+    });
+
+    _CapacitorUpdater.addListener('downloadFailed', (info) => {
+      console.warn('[OTA] Download failed:', info);
+    });
+
+    // Trigger the background version check against our self-hosted manifest.
+    // Network errors are swallowed silently — the next launch retries.
+    await _CapacitorUpdater.download({
+      url:     'https://sanskritbhashi.com/updates/latest.json',
+      version: 'latest',
+    }).catch(() => { /* network unavailable — retry on next launch */ });
+
+  } catch {
+    // Plugin not available (web build / not yet synced) — ignore silently.
+    console.debug('[OTA] Live updates not available in this environment.');
+  }
 }

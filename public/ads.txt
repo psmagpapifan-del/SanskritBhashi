@@ -1,0 +1,8 @@
+# ads.txt for Sanskritbhashi website
+# https://sanskritbhashi.com/ads.txt
+#
+# This file authorizes Google AdSense (pub-3511250070838869) as a DIRECT
+# seller of web ad inventory for the Sanskritbhashi website.
+#
+# Format: <ad system domain>, <publisher ID>, <relationship>, <certification authority ID>
+google.com, pub-3511250070838869, DIRECT, f08c47fec0942fa0

@@ -38,6 +38,8 @@ const isActive = (href: string) => {
   }
   return normPath.startsWith(normHref);
 };
+
+const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
 ---
 
 <!DOCTYPE html>
@@ -94,39 +96,39 @@ const isActive = (href: string) => {
       window.addEventListener('cookie-consent-updated', loadGoogleAnalytics);
       document.addEventListener('astro:after-swap', loadGoogleAnalytics);
     </script>
-    <!-- Google AdSense — Loaded unconditionally on web for verification; GDPR-compliant via default NPA -->
-    <script is:inline>
-      function setupAdSense() {
-        // Skip entirely inside native Android/iOS app — AdMob handles ads there.
-        if (window.Capacitor && window.Capacitor.isNativePlatform()) return;
+    <!-- Google AdSense — Statically loaded on web for verification; GDPR-compliant via default NPA; omitted in native Capacitor builds -->
+    {!isCapacitorBuild && (
+      <>
+        <script is:inline>
+          (function() {
+            window.adsbygoogle = window.adsbygoogle || [];
+            const consent = localStorage.getItem('cookie-consent');
+            const consentAds = localStorage.getItem('cookie-consent-ads');
+            const isConsentGranted = consent === 'accepted' || consentAds === 'true';
+            
+            if (!isConsentGranted) {
+              window.adsbygoogle.requestNonPersonalizedAds = 1;
+            }
 
-        window.adsbygoogle = window.adsbygoogle || [];
-
-        const consent = localStorage.getItem('cookie-consent');
-        const consentAds = localStorage.getItem('cookie-consent-ads');
-        const isConsentGranted = consent === 'accepted' || consentAds === 'true';
-
-        if (isConsentGranted) {
-          // Consent granted: Allow personalized ads
-          delete window.adsbygoogle.requestNonPersonalizedAds;
-        } else {
-          // No consent or default state: Force non-personalized ads (GDPR-compliant)
-          window.adsbygoogle.requestNonPersonalizedAds = 1;
-        }
-
-        if (!window.adsbygoogleInitialized) {
-          window.adsbygoogleInitialized = true;
-          const script = document.createElement('script');
-          script.async = true;
-          script.crossOrigin = 'anonymous';
-          script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3511250070838869';
-          document.head.appendChild(script);
-        }
-      }
-      setupAdSense();
-      window.addEventListener('cookie-consent-updated', setupAdSense);
-      document.addEventListener('astro:after-swap', setupAdSense);
-    </script>
+            // Sync personalized ads state when user updates consent
+            window.addEventListener('cookie-consent-updated', function() {
+              const updatedConsent = localStorage.getItem('cookie-consent');
+              const updatedConsentAds = localStorage.getItem('cookie-consent-ads');
+              if (updatedConsent === 'accepted' || updatedConsentAds === 'true') {
+                delete window.adsbygoogle.requestNonPersonalizedAds;
+              } else {
+                window.adsbygoogle.requestNonPersonalizedAds = 1;
+              }
+            });
+          })();
+        </script>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3511250070838869"
+          crossorigin="anonymous"
+        />
+      </>
+    )}
     <slot name="head" />
   </head>
   <body>

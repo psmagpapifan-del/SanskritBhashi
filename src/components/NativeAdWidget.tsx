@@ -88,16 +88,16 @@ const TESTING = {
 // ── Replace these with your real AdMob ad unit IDs after console setup ────────
 const PRODUCTION = {
   banner: {
-    android: '', // TODO: paste ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX
-    ios:     '', // TODO: paste ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX
+    android: 'ca-app-pub-3511250070838869/8154187725', // sb-banner-android
+    ios:     '', // TODO: add after iOS AdMob registration
   },
   interstitial: {
-    android: '', // TODO: paste ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX
-    ios:     '', // TODO: paste ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX
+    android: 'ca-app-pub-3511250070838869/4614966186', // sb-interstitial-android
+    ios:     '', // TODO: add after iOS AdMob registration
   },
   rewarded: {
-    android: '', // TODO: paste ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX
-    ios:     '', // TODO: paste ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX
+    android: 'ca-app-pub-3511250070838869/2145971127', // sb-rewarded-android
+    ios:     '', // TODO: add after iOS AdMob registration
   },
 } as const;
 

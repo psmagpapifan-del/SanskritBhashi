@@ -5,13 +5,10 @@ import type { CapacitorConfig } from '@capacitor/cli';
  *
  * webDir must always point to the Astro static build output directory.
  * Run `npm run app:build` before `cap sync` to keep the bundle fresh.
- *
- * TODO: Replace all AdMob placeholders with production App IDs from
- *       https://apps.admob.com before submitting to app stores.
  */
 const config: CapacitorConfig = {
   appId: 'com.sanskritbhashi.app',
-  appName: 'SanskritBhashi',
+  appName: 'Sanskritbhashi',
 
   // ── Web bundle ─────────────────────────────────────────────────────────────
   // Maps to Astro's static output directory. Keep in sync with
@@ -70,20 +67,15 @@ const config: CapacitorConfig = {
     },
 
     // ── AdMob ────────────────────────────────────────────────────────────────
-    // TODO: Replace these placeholder App IDs with your production IDs.
-    //       Android: Google Play Console → AdMob → Apps → App ID
-    //       iOS:     App Store Connect  → AdMob → Apps → App ID
     AdMob: {
-      // Android AdMob App ID (ca-app-pub-XXXXXXXXXXXXXXXX~XXXXXXXXXX)
-      appIdAndroid: 'ca-app-pub-XXXXXXXXXXXXXXXX~XXXXXXXXXX',
+      // Android AdMob App ID — Sanskritbhashi
+      appIdAndroid: 'ca-app-pub-3511250070838869~7333995842',
 
-      // iOS AdMob App ID (ca-app-pub-XXXXXXXXXXXXXXXX~XXXXXXXXXX)
+      // iOS AdMob App ID — fill in after iOS app is registered in AdMob
       appIdIos: 'ca-app-pub-XXXXXXXXXXXXXXXX~XXXXXXXXXX',
 
-      // Disable test mode in production — set to true during development
+      // Production mode — real ads will serve
       testingDevices: [],
-
-      // COPPA / user messaging platform — set to true if needed
       initializeForTesting: false,
     },
   },

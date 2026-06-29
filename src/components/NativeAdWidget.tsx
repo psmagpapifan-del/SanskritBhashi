@@ -58,22 +58,54 @@ async function loadAdMob() {
 }
 
 // ─── Ad Unit IDs ─────────────────────────────────────────────────────────────
-// TODO: Swap these for your real production ad unit IDs.
+//
+// STEP 1 — TESTING (active now):
+//   Google's official SDK test IDs are hardcoded below. They serve real test
+//   creatives so every format can be visually confirmed before going live.
+//   These IDs are safe to use in any dev/staging build.
+//
+// STEP 2 — PRODUCTION (fill in after AdMob Console setup):
+//   Go to https://apps.admob.com → Your App → Ad units
+//   Create: sb-banner-android, sb-interstitial-android, sb-rewarded-android
+//   Paste the resulting ca-app-pub-XXX/YYY IDs into PRODUCTION below,
+//   then switch AD_UNITS to point to PRODUCTION.
 
-const AD_UNITS = {
+const TESTING = {
   banner: {
-    android: 'ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX', // TODO: Android banner ID
-    ios: 'ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX',     // TODO: iOS banner ID
+    android: 'ca-app-pub-3940256099942544/6300978111', // Google test — Adaptive Banner
+    ios:     'ca-app-pub-3940256099942544/2934735716', // Google test — Adaptive Banner iOS
   },
   interstitial: {
-    android: 'ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX', // TODO: Android interstitial ID
-    ios: 'ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX',     // TODO: iOS interstitial ID
+    android: 'ca-app-pub-3940256099942544/1033173712', // Google test — Interstitial
+    ios:     'ca-app-pub-3940256099942544/4411468910', // Google test — Interstitial iOS
   },
   rewarded: {
-    android: 'ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX', // TODO: Android rewarded ID
-    ios: 'ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX',     // TODO: iOS rewarded ID
+    android: 'ca-app-pub-3940256099942544/5224354917', // Google test — Rewarded Video
+    ios:     'ca-app-pub-3940256099942544/1712485313', // Google test — Rewarded Video iOS
   },
 } as const;
+
+// ── Replace these with your real AdMob ad unit IDs after console setup ────────
+const PRODUCTION = {
+  banner: {
+    android: '', // TODO: paste ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX
+    ios:     '', // TODO: paste ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX
+  },
+  interstitial: {
+    android: '', // TODO: paste ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX
+    ios:     '', // TODO: paste ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX
+  },
+  rewarded: {
+    android: '', // TODO: paste ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX
+    ios:     '', // TODO: paste ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX
+  },
+} as const;
+
+// ── Active selection ──────────────────────────────────────────────────────────
+// Switch to PRODUCTION once all IDs are filled in:
+//   const AD_UNITS = PRODUCTION;
+const AD_UNITS = PRODUCTION.banner.android ? PRODUCTION : TESTING;
+
 
 function getPlatformAdId(type: keyof typeof AD_UNITS): string {
   if (typeof window === 'undefined') return AD_UNITS[type].android;

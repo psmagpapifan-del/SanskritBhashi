@@ -57,6 +57,11 @@ android/app/build/
 android/build/
 android/local.properties
 android/app/google-services.json
+android/app/keystore.properties
+
+# Release keystore — NEVER commit; back up securely
+*.keystore
+*.jks
 
 # iOS CocoaPods and Xcode derived data (regenerated with `pod install`)
 ios/App/Pods/

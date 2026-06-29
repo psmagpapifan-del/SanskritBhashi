@@ -15,6 +15,7 @@
     "app:run:ios": "cap run ios",
     "deploy:all": "node scripts/deploy.js all",
     "deploy:native": "node scripts/deploy.js native",
+    "deploy": "node scripts/deploy.js all",
     "postinstall": "sed -i '' \"s/getDefaultProguardFile('proguard-android.txt')/getDefaultProguardFile('proguard-android-optimize.txt')/g\" node_modules/@capacitor-community/admob/android/build.gradle 2>/dev/null || true"
   },
   "dependencies": {

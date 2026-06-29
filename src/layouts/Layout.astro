@@ -94,6 +94,30 @@ const isActive = (href: string) => {
       window.addEventListener('cookie-consent-updated', loadGoogleAnalytics);
       document.addEventListener('astro:after-swap', loadGoogleAnalytics);
     </script>
+    <!-- Google AdSense — consent-gated, skipped in Capacitor native shell -->
+    <script is:inline>
+      function loadAdSense() {
+        // Skip entirely inside native Android/iOS app — AdMob handles ads there.
+        if (window.Capacitor && window.Capacitor.isNativePlatform()) return;
+
+        const consent = localStorage.getItem('cookie-consent');
+        const consentAds = localStorage.getItem('cookie-consent-ads');
+        const isConsentGranted = consent === 'accepted' || consentAds === 'true';
+
+        if (isConsentGranted && !window.adsbygoogleInitialized) {
+          window.adsbygoogleInitialized = true;
+
+          const script = document.createElement('script');
+          script.async = true;
+          script.crossOrigin = 'anonymous';
+          script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3511250070838869';
+          document.head.appendChild(script);
+        }
+      }
+      loadAdSense();
+      window.addEventListener('cookie-consent-updated', loadAdSense);
+      document.addEventListener('astro:after-swap', loadAdSense);
+    </script>
     <slot name="head" />
   </head>
   <body>

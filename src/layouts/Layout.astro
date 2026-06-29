@@ -94,19 +94,28 @@ const isActive = (href: string) => {
       window.addEventListener('cookie-consent-updated', loadGoogleAnalytics);
       document.addEventListener('astro:after-swap', loadGoogleAnalytics);
     </script>
-    <!-- Google AdSense — consent-gated, skipped in Capacitor native shell -->
+    <!-- Google AdSense — Loaded unconditionally on web for verification; GDPR-compliant via default NPA -->
     <script is:inline>
-      function loadAdSense() {
+      function setupAdSense() {
         // Skip entirely inside native Android/iOS app — AdMob handles ads there.
         if (window.Capacitor && window.Capacitor.isNativePlatform()) return;
+
+        window.adsbygoogle = window.adsbygoogle || [];
 
         const consent = localStorage.getItem('cookie-consent');
         const consentAds = localStorage.getItem('cookie-consent-ads');
         const isConsentGranted = consent === 'accepted' || consentAds === 'true';
 
-        if (isConsentGranted && !window.adsbygoogleInitialized) {
-          window.adsbygoogleInitialized = true;
+        if (isConsentGranted) {
+          // Consent granted: Allow personalized ads
+          delete window.adsbygoogle.requestNonPersonalizedAds;
+        } else {
+          // No consent or default state: Force non-personalized ads (GDPR-compliant)
+          window.adsbygoogle.requestNonPersonalizedAds = 1;
+        }
 
+        if (!window.adsbygoogleInitialized) {
+          window.adsbygoogleInitialized = true;
           const script = document.createElement('script');
           script.async = true;
           script.crossOrigin = 'anonymous';
@@ -114,9 +123,9 @@ const isActive = (href: string) => {
           document.head.appendChild(script);
         }
       }
-      loadAdSense();
-      window.addEventListener('cookie-consent-updated', loadAdSense);
-      document.addEventListener('astro:after-swap', loadAdSense);
+      setupAdSense();
+      window.addEventListener('cookie-consent-updated', setupAdSense);
+      document.addEventListener('astro:after-swap', setupAdSense);
     </script>
     <slot name="head" />
   </head>

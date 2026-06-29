@@ -54,7 +54,7 @@ console.log(`\n📦  Packaging OTA bundle  v${bundleVersion} …`);
 if (fs.existsSync(ZIP_PATH)) fs.unlinkSync(ZIP_PATH);
 
 execSync(
-  `zip -r "${ZIP_PATH}" . --exclude "*.DS_Store" --exclude ".git*"`,
+  `zip -r "${ZIP_PATH}" . --exclude "*.DS_Store" --exclude ".git*" --exclude "updates/*"`,
   { cwd: DIST, stdio: 'inherit' }
 );
 

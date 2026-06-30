@@ -2,7 +2,6 @@
 import Layout from "../../../layouts/Layout.astro";
 import PracticeCard from "../../../components/PracticeCard";
 import JourneyMap from "../../../components/JourneyMap";
-import AdSenseWidget from "../../../components/AdSenseWidget";
 import { getTranslation } from "../../../lib/i18n";
 import { buildCurriculum } from "../../../lib/levelsEngine";
 import { curriculumChapters } from "../../../lib/curriculumData";
@@ -542,8 +541,6 @@ const nt = navTranslations[lang] || navTranslations.en;
           ))}
         </div>
       </div>
-
-      <AdSenseWidget slot="sidebar-ad-slot" variant="sidebar-ad" client:idle />
     </aside>
 
   </div>

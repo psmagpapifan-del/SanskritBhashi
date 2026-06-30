@@ -134,7 +134,7 @@ export default function OnboardingTour() {
     return (
       <button
         onClick={restartTour}
-        className="fixed bottom-20 right-4 md:bottom-6 md:right-6 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-charcoal text-cream hover:bg-saffron-600 transition-colors shadow-lg z-40 text-xs font-semibold cursor-pointer border border-white/20"
+        className="fixed bottom-20 right-4 md:bottom-6 md:right-6 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-charcoal dark:bg-zinc-800 text-white hover:bg-saffron-600 transition-colors shadow-lg z-40 text-xs font-semibold cursor-pointer border border-white/20"
         title="Restart Guided Tour"
       >
         <HelpCircle className="w-4 h-4 text-marigold-500" />

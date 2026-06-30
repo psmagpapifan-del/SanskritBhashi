@@ -5,17 +5,18 @@ import { Play, Volume2, HelpCircle, CheckCircle2, AlertCircle, ChevronDown, Chev
 import { motion, AnimatePresence } from "framer-motion";
 import { fireConfetti } from "./ConfettiCelebration";
 import ErrorReportButton from "./ErrorReportButton";
-import NativeAdWidget from "./NativeAdWidget";
 import { getTranslation } from "../lib/i18n";
 import { hapticImpact } from "../lib/capacitorBridge";
 import {
-  UserProgress,
-  Chapter,
-  Question,
-  CurriculumTier,
   getProgress,
   saveProgress,
   buildCurriculum
+} from "../lib/levelsEngine";
+import type {
+  UserProgress,
+  Chapter,
+  Question,
+  CurriculumTier
 } from "../lib/levelsEngine";
 import { curriculumChapters } from "../lib/curriculumData";
 
@@ -1088,9 +1089,7 @@ export default function PracticeCard({
         </div>
       </div>
 
-      {/* Native AdMob banner (Android/iOS) — falls back to AdSense on web.
-          The bounding box is always reserved in DOM to prevent CLS. */}
-      <NativeAdWidget type="banner" adSenseSlot="inline-banner-slot" />
+      {/* Native AdMob banner removed to fix dark mode layout rendering. */}
     </div>
   );
 }

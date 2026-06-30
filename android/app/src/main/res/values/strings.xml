@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">SanskritBhashi</string>
-    <string name="title_activity_main">SanskritBhashi</string>
+    <string name="app_name">Sanskritbhashi</string>
+    <string name="title_activity_main">Sanskritbhashi</string>
     <string name="package_name">com.sanskritbhashi.app</string>
     <string name="custom_url_scheme">com.sanskritbhashi.app</string>
 </resources>

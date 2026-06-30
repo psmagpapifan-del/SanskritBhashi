@@ -38,6 +38,8 @@ const isActive = (href: string) => {
   }
   return normPath.startsWith(normHref);
 };
+
+const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
 ---
 
 <!DOCTYPE html>
@@ -94,6 +96,39 @@ const isActive = (href: string) => {
       window.addEventListener('cookie-consent-updated', loadGoogleAnalytics);
       document.addEventListener('astro:after-swap', loadGoogleAnalytics);
     </script>
+    <!-- Google AdSense — Statically loaded for verification; GDPR-compliant via default NPA -->
+    <script is:inline>
+      (function() {
+        // Skip execution entirely inside native app — AdMob handles native ads
+        if (window.Capacitor && window.Capacitor.isNativePlatform()) return;
+
+        window.adsbygoogle = window.adsbygoogle || [];
+        const consent = localStorage.getItem('cookie-consent');
+        const consentAds = localStorage.getItem('cookie-consent-ads');
+        const isConsentGranted = consent === 'accepted' || consentAds === 'true';
+        
+        if (!isConsentGranted) {
+          window.adsbygoogle.requestNonPersonalizedAds = 1;
+        }
+
+        // Sync personalized ads state when user updates consent
+        window.addEventListener('cookie-consent-updated', function() {
+          const updatedConsent = localStorage.getItem('cookie-consent');
+          const updatedConsentAds = localStorage.getItem('cookie-consent-ads');
+          if (updatedConsent === 'accepted' || updatedConsentAds === 'true') {
+            delete window.adsbygoogle.requestNonPersonalizedAds;
+          } else {
+            window.adsbygoogle.requestNonPersonalizedAds = 1;
+          }
+        });
+      })();
+    </script>
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3511250070838869"
+      crossorigin="anonymous"
+    />
+    <meta name="google-adsense-account" content="ca-pub-3511250070838869" />
     <slot name="head" />
   </head>
   <body>

@@ -637,30 +637,26 @@ export default function PracticeCard({
     const audio = new Audio(audioUrl);
 
     audio.onended = () => setIsPlaying(false);
-    audio.onerror = () => {
+    
+    audio.play().catch(() => {
+      // Fallback to SpeechSynthesis if mp3 fails/is missing
       if (typeof window !== "undefined" && window.speechSynthesis) {
         window.speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(phrase);
-        utterance.lang = "sa-IN"; 
+        // Use hi-IN as fallback because sa-IN is rarely available natively,
+        // and Hindi TTS handles Devanagari perfectly.
+        utterance.lang = "hi-IN"; 
         utterance.rate = 0.65;
         utterance.pitch = 1.0;
 
         utterance.onstart = () => setIsPlaying(true);
         utterance.onend = () => setIsPlaying(false);
-        utterance.onerror = () => {
-          setIsPlaying(true);
-          setTimeout(() => setIsPlaying(false), 1500);
-        };
+        utterance.onerror = () => setIsPlaying(false);
 
         window.speechSynthesis.speak(utterance);
       } else {
-        setIsPlaying(true);
-        setTimeout(() => setIsPlaying(false), 1500);
+        setIsPlaying(false);
       }
-    };
-
-    audio.play().catch(() => {
-      audio.onerror!(new Event("error"));
     });
   };
 

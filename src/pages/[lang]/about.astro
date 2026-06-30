@@ -2,6 +2,13 @@
 import { Info, ShieldCheck, Award, FileText, Mail, Calendar } from "lucide-react";
 import Layout from "../../layouts/Layout.astro";
 import { getTranslation } from "../../lib/i18n";
+import katex from "katex";
+import "katex/dist/katex.min.css";
+
+const matraEq = katex.renderToString("\\text{Mātrā} = \\begin{cases} 1 & \\text{for Hrasva (short vowels: a, i, u, ṛ, ḷ)} \\\\ 2 & \\text{for Dīrgha (long vowels: ā, ī, ū, ṝ, e, ai, o, au)} \\\\ 3 & \\text{for Pluta (prolonged vowels)} \\end{cases}", { displayMode: true, throwOnError: false });
+const sandhiEqInline = katex.renderToString("i, u, \\underline{r}, \\overline{l} + \\text{dissimilar vowel} \\rightarrow y, v, r, l", { displayMode: false, throwOnError: false });
+const sandhiEq = katex.renderToString("f(c_1, c_2) = \\text{SemiVowel}(c_1) + c_2 \\quad \\text{where } c_1 \\in \\{i, u, \\underline{r}, \\overline{l}\\} \\text{ and } c_2 \\notin \\{c_1\\}", { displayMode: true, throwOnError: false });
+const streakEq = katex.renderToString("S_{n} = \\begin{cases} S_{n-1} + 1 & \\text{if } t_{current} - t_{last} \\le 86400\\,\\text{s} \\\\ 1 & \\text{if } 86400\\,\\text{s} \\lt t_{current} - t_{last} \\le 172800\\,\\text{s} \\\\ 0 & \\text{if } t_{current} - t_{last} \\gt 172800\\,\\text{s} \\end{cases}", { displayMode: true, throwOnError: false });
 
 export function getStaticPaths() {
   return [
@@ -154,7 +161,9 @@ const orgSchema = {
           <h5 class="text-sm font-bold text-saffron-600 dark:text-saffron-500 font-latin">1. Phonetic Wave Duration (Mātrā Measurement)</h5>
           <p class="text-xs text-charcoal/70 leading-relaxed mt-1 font-latin">
             Syllable weights and pronunciation metrics are evaluated according to Shiksha phonetics rules:
-            {"\\[\\text{Mātrā} = \\begin{cases} 1 & \\text{for Hrasva (short vowels: a, i, u, ṛ, ḷ)} \\\\ 2 & \\text{for Dīrgha (long vowels: ā, ī, ū, ṝ, e, ai, o, au)} \\\\ 3 & \\text{for Pluta (prolonged vowels)} \\end{cases}\\]"}
+          </p>
+          <div set:html={matraEq} />
+          <p class="text-xs text-charcoal/70 leading-relaxed mt-1 font-latin">
             Syllables containing conjunct consonants add a half-mātrā weight to the preceding vowel, forming a deterministic pronunciation complexity index.
           </p>
         </div>
@@ -162,8 +171,10 @@ const orgSchema = {
         <div class="p-4 bg-cream/30 dark:bg-zinc-950/30 border border-border-hairline rounded-2xl">
           <h5 class="text-sm font-bold text-saffron-600 dark:text-saffron-500 font-latin">2. Sandhi State-Machine Transitions</h5>
           <p class="text-xs text-charcoal/70 leading-relaxed mt-1 font-latin">
-            Word boundaries and Sandhi phonetic coalescence are computed using a deterministic state-machine mapping input characters to their coalesced output. For instance, Yan Sandhi ({"\\(i, u, \\underline{r}, \\overline{l} + \\text{dissimilar vowel} \\rightarrow y, v, r, l\\)"}) is resolved programmatically via the rule:
-            {"\\[f(c_1, c_2) = \\text{SemiVowel}(c_1) + c_2 \\quad \\text{where } c_1 \\in \\{i, u, \\underline{r}, \\overline{l}\\} \\text{ and } c_2 \\notin \\{c_1\\}\\]"}
+            Word boundaries and Sandhi phonetic coalescence are computed using a deterministic state-machine mapping input characters to their coalesced output. For instance, Yan Sandhi (<span set:html={sandhiEqInline} />) is resolved programmatically via the rule:
+          </p>
+          <div set:html={sandhiEq} />
+          <p class="text-xs text-charcoal/70 leading-relaxed mt-1 font-latin">
             This guarantees zero hallucination or grammatical deviation in scripture parsing.
           </p>
         </div>
@@ -172,7 +183,9 @@ const orgSchema = {
           <h5 class="text-sm font-bold text-saffron-600 dark:text-saffron-500 font-latin">3. Rolling 24-Hour UTC Streak Calculations</h5>
           <p class="text-xs text-charcoal/70 leading-relaxed mt-1 font-latin">
             Platform study streaks are calculated deterministically on the client device. A streak is incremented if the user completes at least one grammar module practice card session within a rolling 24-hour UTC window:
-            {"\\[S_{n} = \\begin{cases} S_{n-1} + 1 & \\text{if } t_{current} - t_{last} \\le 86400\\,\\text{s} \\\\ 1 & \\text{if } 86400\\,\\text{s} \\lt t_{current} - t_{last} \\le 172800\\,\\text{s} \\\\ 0 & \\text{if } t_{current} - t_{last} \\gt 172800\\,\\text{s} \\end{cases}\\]"}
+          </p>
+          <div set:html={streakEq} />
+          <p class="text-xs text-charcoal/70 leading-relaxed mt-1 font-latin">
             Ensuring study accountability and preventing user telemetry manipulation.
           </p>
         </div>

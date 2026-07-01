@@ -168,8 +168,14 @@ export default function OnboardingTour() {
         
         if (!hasVisible) {
           localStorage.setItem("tour_resume_step", String(nextStep));
+          const isNative = typeof window !== 'undefined' && (window as any).Capacitor?.isNativePlatform?.();
           const lang = window.location.pathname.split("/")[1] || "en";
-          window.location.href = `/${lang}/modules/school-prep`;
+          const cleanLang = lang.replace('.html', '');
+          let redirectUrl = `/${cleanLang}/modules/school-prep`;
+          if (isNative) {
+            redirectUrl += '.html';
+          }
+          window.location.href = redirectUrl;
           return;
         }
       }

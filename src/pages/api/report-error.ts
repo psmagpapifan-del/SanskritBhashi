@@ -86,6 +86,9 @@ export const POST: APIRoute = async ({ request }) => {
     // ── Response headers ──────────────────────────────────────────────────────
     const responseHeaders: Record<string, string> = {
       'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, X-Native-Report',
     };
 
     // Tag native reports for downstream log pipeline filtering
@@ -103,7 +106,25 @@ export const POST: APIRoute = async ({ request }) => {
   } catch (error) {
     return new Response(
       JSON.stringify({ error: 'Internal Telemetry Pipeline Crash' }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
+      {
+        status: 500,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        }
+      }
     );
   }
+};
+
+// Handle CORS Preflight OPTIONS requests
+export const OPTIONS: APIRoute = async () => {
+  return new Response(null, {
+    status: 204,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, X-Native-Report',
+    },
+  });
 };

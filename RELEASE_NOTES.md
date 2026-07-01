@@ -8,7 +8,7 @@ This file tracks all bug fixes, improvements, and features implemented across ap
 
 ### Error Reporting System Fix
 - **CORS & Preflight Options Handler:** Added `Access-Control-Allow-Origin: *` headers and a native `OPTIONS` preflight response handler to `/api/report-error` to resolve WebView CORS blocks when native app shells report questions/translation anomalies to the live server.
-- **Astro Hybrid Mode Build:** Switched Astro build config from `static` to `hybrid` mode for web deployments, compiling the `/api/report-error` route as an active Cloudflare Pages serverless Function while keeping the rest of the site fully cached and static (resolving HTTP 405 Method Not Allowed errors).
+- **Astro Serverless Routing:** Enabled dynamic routing for the `/api/report-error` endpoint by setting `prerender = false`, allowing Astro 6 to compile it as a serverless Cloudflare Pages Function while serving the rest of the pages (which are prerendered) as static CDN assets.
 
 ---
 

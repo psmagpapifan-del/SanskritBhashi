@@ -66,43 +66,45 @@ export default function StreakCounter() {
 
   return (
     <div
-      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-sm font-semibold select-none cursor-help transition-all ${
+      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-sm font-semibold select-none cursor-help transition-all duration-300 ${
         isActive
-          ? "bg-saffron-50 border-saffron-500 text-saffron-600 shadow-sm shadow-saffron-100"
-          : "bg-white dark:bg-zinc-900 border-charcoal/10 dark:border-zinc-800 text-charcoal/40"
+          ? "bg-linear-to-r from-saffron-50 to-marigold-50 dark:from-saffron-500/10 dark:to-marigold-500/10 border-saffron-500/30 text-saffron-600 dark:text-saffron-400 shadow-[0_2px_10px_rgba(245,158,11,0.15)] hover:shadow-[0_2px_15px_rgba(245,158,11,0.25)] hover:border-saffron-500/50"
+          : "bg-white dark:bg-zinc-900 border-charcoal/10 dark:border-zinc-800 text-charcoal/40 hover:bg-charcoal/5 dark:hover:bg-white/5"
       }`}
       title={isActive ? "Streak active! Great job." : "Complete a practice question to start your streak!"}
       id="tour-step-5"
     >
-      <div className="relative">
+      <div className="relative flex items-center justify-center">
+        {isActive && (
+          <motion.div
+            animate={{ scale: [0.8, 1.3, 0.8], opacity: [0.2, 0.5, 0.2] }}
+            transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute inset-0 w-4 h-4 m-auto bg-saffron-500 rounded-full blur-[6px] z-0"
+          />
+        )}
         {isActive ? (
           <motion.div
             animate={{
-              scale: [1, 1.15, 1, 1.2, 1],
-              rotate: [0, -6, 6, -3, 0],
-              y: [0, -3, 0, -4, 0]
+              scale: [1, 1.08, 0.95, 1.05, 1],
+              rotate: [0, -4, 3, -2, 0],
             }}
             transition={{
-              duration: 2.2,
+              duration: 3,
               repeat: Infinity,
               ease: "easeInOut"
             }}
-            className="text-saffron-500"
+            className="relative z-10"
           >
-            <Flame className="w-5 h-5 fill-saffron-500 stroke-saffron-600 filter drop-shadow-[0_1px_3px_rgba(230,81,0,0.3)]" />
+            <Flame className="w-5 h-5 fill-saffron-500 stroke-saffron-600 drop-shadow-[0_1px_2px_rgba(230,81,0,0.5)]" />
           </motion.div>
         ) : (
-          <Flame className="w-5 h-5 opacity-40" />
-        )}
-        {isActive && (
-          <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-marigold-500 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-marigold-500"></span>
-          </span>
+          <Flame className="w-5 h-5 opacity-40 relative z-10" />
         )}
       </div>
-      <span className="font-bold tabular-nums">{streak}</span>
-      <span className="text-xs uppercase tracking-wide opacity-80 hidden sm:inline">Days</span>
+      <div className="flex items-baseline gap-1 relative z-10">
+        <span className="font-black tabular-nums tracking-tight text-[15px]">{streak}</span>
+        <span className="text-[10px] font-black uppercase tracking-widest opacity-80 hidden sm:inline pt-0.5">Days</span>
+      </div>
     </div>
   );
 }

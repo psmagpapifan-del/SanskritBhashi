@@ -4,14 +4,16 @@ import React, { useState, useEffect } from "react";
 import { Lock, Unlock, Award, CheckCircle2, Play, Flame, HelpCircle, Hourglass, ShieldAlert } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  UserProgress,
-  Chapter,
-  Question,
-  CurriculumTier,
   getProgress,
   saveProgress,
   buildCurriculum,
   generateQuestionsForChapter
+} from "../lib/levelsEngine";
+import type {
+  UserProgress,
+  Chapter,
+  Question,
+  CurriculumTier
 } from "../lib/levelsEngine";
 
 interface JourneyMapProps {

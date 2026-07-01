@@ -5,19 +5,21 @@ import { Play, Volume2, HelpCircle, CheckCircle2, AlertCircle, ChevronDown, Chev
 import { motion, AnimatePresence } from "framer-motion";
 import { fireConfetti } from "./ConfettiCelebration";
 import ErrorReportButton from "./ErrorReportButton";
-import NativeAdWidget from "./NativeAdWidget";
 import { getTranslation } from "../lib/i18n";
 import { hapticImpact } from "../lib/capacitorBridge";
 import {
-  UserProgress,
-  Chapter,
-  Question,
-  CurriculumTier,
   getProgress,
   saveProgress,
   buildCurriculum
 } from "../lib/levelsEngine";
+import type {
+  UserProgress,
+  Chapter,
+  Question,
+  CurriculumTier
+} from "../lib/levelsEngine";
 import { curriculumChapters } from "../lib/curriculumData";
+import type { CurriculumChapter } from "../lib/curriculumData";
 
 function localizeText(text: string, lang: string): string {
   if (!text || lang === "en") return text;
@@ -636,30 +638,26 @@ export default function PracticeCard({
     const audio = new Audio(audioUrl);
 
     audio.onended = () => setIsPlaying(false);
-    audio.onerror = () => {
+    
+    audio.play().catch(() => {
+      // Fallback to SpeechSynthesis if mp3 fails/is missing
       if (typeof window !== "undefined" && window.speechSynthesis) {
         window.speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(phrase);
-        utterance.lang = "sa-IN"; 
+        // Use hi-IN as fallback because sa-IN is rarely available natively,
+        // and Hindi TTS handles Devanagari perfectly.
+        utterance.lang = "hi-IN"; 
         utterance.rate = 0.65;
         utterance.pitch = 1.0;
 
         utterance.onstart = () => setIsPlaying(true);
         utterance.onend = () => setIsPlaying(false);
-        utterance.onerror = () => {
-          setIsPlaying(true);
-          setTimeout(() => setIsPlaying(false), 1500);
-        };
+        utterance.onerror = () => setIsPlaying(false);
 
         window.speechSynthesis.speak(utterance);
       } else {
-        setIsPlaying(true);
-        setTimeout(() => setIsPlaying(false), 1500);
+        setIsPlaying(false);
       }
-    };
-
-    audio.play().catch(() => {
-      audio.onerror!(new Event("error"));
     });
   };
 
@@ -757,7 +755,7 @@ export default function PracticeCard({
         window.dispatchEvent(new Event("openJourneyMap"));
       }
     } else {
-      const currentNcertClass = activeChapter.ncertClass;
+      const currentNcertClass = (activeChapter as CurriculumChapter).ncertClass;
       const ncertChs = curriculumChapters.filter(c => c.ncertClass === currentNcertClass);
       const currentIdx = ncertChs.findIndex(c => c.id === chapterId);
       if (currentIdx !== -1 && currentIdx < ncertChs.length - 1) {
@@ -1088,9 +1086,7 @@ export default function PracticeCard({
         </div>
       </div>
 
-      {/* Native AdMob banner (Android/iOS) — falls back to AdSense on web.
-          The bounding box is always reserved in DOM to prevent CLS. */}
-      <NativeAdWidget type="banner" adSenseSlot="inline-banner-slot" />
+      {/* Native AdMob banner removed to fix dark mode layout rendering. */}
     </div>
   );
 }

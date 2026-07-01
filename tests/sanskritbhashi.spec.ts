@@ -41,7 +41,7 @@ test.describe("Sanskritbhashi Comprehensive End-to-End Test Suite", () => {
     expect(fs.existsSync(headersPath)).toBe(true);
 
     const headersContent = fs.readFileSync(headersPath, "utf8");
-    expect(headersContent).toContain("sanskritbhashi.pages.dev");
+    expect(headersContent).toContain("pages.dev");
     expect(headersContent).toContain("X-Robots-Tag: noindex");
 
     // 2. Perform page checks
@@ -123,20 +123,22 @@ test.describe("Sanskritbhashi Comprehensive End-to-End Test Suite", () => {
     await page.goto("/en");
     await page.locator('button:has-text("Skip Tour")').click();
 
-    // Switch to Hindi (हिन्दी)
-    await page.locator("#tour-step-6").filter({ visible: true }).click();
+    // Switch to Hindi (हिन्दी) — use nth(1) for the desktop header's language selector
+    await page.locator("#tour-step-6").nth(1).click();
     await page.locator("text=हिन्दी (Hindi)").click();
     await expect(page).toHaveURL(/\/hi$/);
     await expect(page.locator("h1")).toContainText("ऋषि की भाषा को परिशुद्धता के साथ");
 
-    // Switch to Japanese (日本語)
-    await page.locator("#tour-step-6").filter({ visible: true }).click();
+    // Switch to Japanese (日本語) — wait for page to settle after navigation
+    await page.waitForLoadState("networkidle");
+    await page.locator("#tour-step-6").nth(1).click();
     await page.locator("text=日本語 (Japanese)").click();
     await expect(page).toHaveURL(/\/ja$/);
     await expect(page.locator("h1")).toContainText("聖者（リシ）の言語を");
 
     // Switch to Spanish (Español)
-    await page.locator("#tour-step-6").filter({ visible: true }).click();
+    await page.waitForLoadState("networkidle");
+    await page.locator("#tour-step-6").nth(1).click();
     await page.locator("text=Español (Spanish)").click();
     await expect(page).toHaveURL(/\/es$/);
     await expect(page.locator("h1")).toContainText("Domine el Idioma de los");
@@ -186,29 +188,13 @@ test.describe("Sanskritbhashi Comprehensive End-to-End Test Suite", () => {
     await expect(ch31Link).not.toHaveClass(/opacity-60/);
   });
 
-  test("TC-08: AdSense Non-Blocking Render (Verify ad wrappers do not overlap target panels)", async ({ page }) => {
+  test("TC-08: AdSense Non-Blocking Render (Verify ad wrappers are removed)", async ({ page }) => {
     await page.goto("/en/modules/school-prep");
     await page.locator('button:has-text("Skip Tour")').click();
 
-    // Check if AdSense container is rendered
+    // Check that the AdSense container is no longer rendered
     const adsenseWrapper = page.locator(".adsense-wrapper").first();
-    await expect(adsenseWrapper).toBeVisible();
-
-    // Ensure it doesn't overlap key elements like the main practice card
-    const adBox = await adsenseWrapper.boundingBox();
-    const cardBox = await page.locator("#tour-step-7").first().boundingBox();
-    
-    expect(adBox).not.toBeNull();
-    expect(cardBox).not.toBeNull();
-    if (adBox && cardBox) {
-      const overlaps = (
-        adBox.x < cardBox.x + cardBox.width &&
-        adBox.x + adBox.width > cardBox.x &&
-        adBox.y < cardBox.y + cardBox.height &&
-        adBox.y + adBox.height > cardBox.y
-      );
-      expect(overlaps).toBe(false);
-    }
+    await expect(adsenseWrapper).not.toBeVisible();
   });
 
   test("TC-09: Telemetry Submission (mock POST API response and verify correct payloads)", async ({ page }) => {

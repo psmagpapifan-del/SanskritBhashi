@@ -8,7 +8,7 @@ import type { APIRoute } from 'astro';
  * In web/Cloudflare builds this route is server-rendered (prerender = false)
  * and runs as a Cloudflare Workers edge function.
  */
-export const prerender = import.meta.env.CAPACITOR_BUILD ? true : false;
+export const prerender = process.env.CAPACITOR_BUILD === 'true';
 
 /**
  * POST /api/report-error

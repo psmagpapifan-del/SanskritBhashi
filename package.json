@@ -5,8 +5,16 @@
   "scripts": {
     "dev": "astro dev --port 3000",
     "build": "astro build",
-    "preview": "astro preview --port 3000",
+    "preview": "astro preview --port 3005",
     "lint": "eslint",
+    "test:e2e": "npx playwright test tests/sanskritbhashi.spec.ts --project=chromium",
+    "test:ui": "npx playwright test tests/ui-visual.spec.ts --project=chromium",
+    "test:functional": "npx playwright test tests/functional.spec.ts --project=chromium",
+    "test:a11y": "npx playwright test tests/accessibility.spec.ts --project=chromium",
+    "test:content": "npx playwright test tests/content.spec.ts --project=chromium",
+    "test:security": "npx playwright test tests/security.spec.ts --project=chromium",
+    "test:perf": "npx playwright test tests/performance.spec.ts --project=chromium",
+    "test:all": "npx playwright test --project=chromium",
     "app:build": "CAPACITOR_BUILD=true astro build && cap sync",
     "app:bundle": "node scripts/package-ota.js",
     "app:android": "cap open android",
@@ -16,7 +24,7 @@
     "deploy:all": "node scripts/deploy.js all",
     "deploy:native": "node scripts/deploy.js native",
     "deploy": "node scripts/deploy.js all",
-    "postinstall": "sed -i '' \"s/getDefaultProguardFile('proguard-android.txt')/getDefaultProguardFile('proguard-android-optimize.txt')/g\" node_modules/@capacitor-community/admob/android/build.gradle 2>/dev/null || true"
+    "postinstall": "node scripts/postinstall.js"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^13.6.1",
@@ -35,6 +43,7 @@
     "astro": "^6.4.4",
     "canvas-confetti": "^1.9.4",
     "framer-motion": "^12.40.0",
+    "katex": "^0.17.0",
     "lucide-react": "^1.17.0",
     "react": "19.2.4",
     "react-dom": "19.2.4"

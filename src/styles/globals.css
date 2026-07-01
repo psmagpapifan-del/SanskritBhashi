@@ -150,3 +150,9 @@ dialog[open]::backdrop {
   }
 }
 
+/* View Transition API for Theme Toggle Wave Effect */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}

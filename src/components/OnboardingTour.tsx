@@ -65,12 +65,22 @@ const tourSteps: TourStep[] = [
 export default function OnboardingTour() {
   const [isVisible, setIsVisible] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
+  const [targetRect, setTargetRect] = useState<DOMRect | null>(null);
 
   useEffect(() => {
-    // Check if tour was already completed
+    // First, check if there's a pending resume step (e.g., from an auto-navigation)
+    // This takes priority even if the tour was previously completed.
+    const resumeStep = localStorage.getItem("tour_resume_step");
+    if (resumeStep !== null) {
+      setCurrentStep(parseInt(resumeStep, 10));
+      localStorage.removeItem("tour_resume_step");
+      const timer = setTimeout(() => setIsVisible(true), 1200);
+      return () => clearTimeout(timer);
+    }
+
+    // Otherwise, check if it's their first time
     const completed = localStorage.getItem("tour_completed") === "true";
     if (!completed) {
-      // Small delay to let the page load
       const timer = setTimeout(() => setIsVisible(true), 1200);
       return () => clearTimeout(timer);
     }
@@ -78,36 +88,93 @@ export default function OnboardingTour() {
 
   useEffect(() => {
     if (!isVisible) {
+      setTargetRect(null);
       cleanupHighlights();
       return;
     }
 
-    // Apply glowing border to the active step's element
-    cleanupHighlights();
     const activeStep = tourSteps[currentStep];
+    let el: HTMLElement | null = null;
+    let frameId: number;
+
+    const updateRect = () => {
+      if (el) {
+        setTargetRect(el.getBoundingClientRect());
+      }
+    };
+
+    cleanupHighlights();
+    
     if (activeStep.targetId) {
-      const el = document.getElementById(activeStep.targetId);
+      // Find all elements with this ID (handles desktop/mobile duplicates)
+      const elements = document.querySelectorAll(`[id="${activeStep.targetId}"]`);
+      
+      // Find the first visible element
+      for (let i = 0; i < elements.length; i++) {
+        const tempRect = elements[i].getBoundingClientRect();
+        if (tempRect.width > 0 && tempRect.height > 0) {
+          el = elements[i] as HTMLElement;
+          break;
+        }
+      }
+
       if (el) {
         el.classList.add("ring-4", "ring-marigold-500", "ring-offset-2", "transition-all", "duration-300");
         el.scrollIntoView({ behavior: "smooth", block: "center" });
+        
+        let startTime = performance.now();
+        const animLoop = (time: number) => {
+          updateRect();
+          if (time - startTime < 800) {
+            frameId = requestAnimationFrame(animLoop);
+          }
+        };
+        frameId = requestAnimationFrame(animLoop);
+      } else {
+        setTargetRect(null);
       }
+    } else {
+      setTargetRect(null);
     }
+
+    window.addEventListener('resize', updateRect);
+    window.addEventListener('scroll', updateRect, true);
+
+    return () => {
+      if (frameId) cancelAnimationFrame(frameId);
+      window.removeEventListener('resize', updateRect);
+      window.removeEventListener('scroll', updateRect, true);
+    };
   }, [currentStep, isVisible]);
 
   const cleanupHighlights = () => {
     tourSteps.forEach((step) => {
       if (step.targetId) {
-        const el = document.getElementById(step.targetId);
-        if (el) {
-          el.classList.remove("ring-4", "ring-marigold-500", "ring-offset-2");
-        }
+        const elements = document.querySelectorAll(`[id="${step.targetId}"]`);
+        elements.forEach(el => el.classList.remove("ring-4", "ring-marigold-500", "ring-offset-2"));
       }
     });
   };
 
   const handleNext = () => {
     if (currentStep < tourSteps.length - 1) {
-      setCurrentStep((prev) => prev + 1);
+      const nextStep = currentStep + 1;
+      const targetStepInfo = tourSteps[nextStep];
+      
+      // Auto-navigate if step 7 (Practice Cards) isn't on the current page
+      if (targetStepInfo.targetId === "tour-step-7") {
+        const els = document.querySelectorAll(`[id="tour-step-7"]`);
+        const hasVisible = Array.from(els).some(el => el.getBoundingClientRect().width > 0);
+        
+        if (!hasVisible) {
+          localStorage.setItem("tour_resume_step", String(nextStep));
+          const lang = window.location.pathname.split("/")[1] || "en";
+          window.location.href = `/${lang}/modules/school-prep`;
+          return;
+        }
+      }
+
+      setCurrentStep(nextStep);
     } else {
       completeTour();
     }
@@ -121,6 +188,7 @@ export default function OnboardingTour() {
 
   const completeTour = () => {
     setIsVisible(false);
+    setTargetRect(null);
     localStorage.setItem("tour_completed", "true");
     cleanupHighlights();
   };
@@ -134,7 +202,7 @@ export default function OnboardingTour() {
     return (
       <button
         onClick={restartTour}
-        className="fixed bottom-20 right-4 md:bottom-6 md:right-6 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-charcoal text-white hover:bg-saffron-600 transition-colors shadow-lg z-40 text-xs font-semibold cursor-pointer border border-white/20"
+        className="fixed bottom-20 right-4 md:bottom-6 md:right-6 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-charcoal dark:bg-zinc-800 text-white hover:bg-saffron-600 transition-colors shadow-lg z-40 text-xs font-semibold cursor-pointer border border-white/20"
         title="Restart Guided Tour"
       >
         <HelpCircle className="w-4 h-4 text-marigold-500" />
@@ -145,17 +213,39 @@ export default function OnboardingTour() {
 
   const stepInfo = tourSteps[currentStep];
 
+  let clipPathStyle = "none";
+  if (targetRect && stepInfo.targetId) {
+    const padding = 12;
+    const left = Math.max(0, targetRect.left - padding);
+    const top = Math.max(0, targetRect.top - padding);
+    const right = Math.min(window.innerWidth, targetRect.right + padding);
+    const bottom = Math.min(window.innerHeight, targetRect.bottom + padding);
+
+    clipPathStyle = `polygon(0% 0%, 0% 100%, 100% 100%, 100% 0%, 0% 0%, ${left}px ${top}px, ${right}px ${top}px, ${right}px ${bottom}px, ${left}px ${bottom}px, ${left}px ${top}px)`;
+  }
+
   return (
-    <div className="fixed inset-0 bg-black/40 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={currentStep}
-          initial={{ opacity: 0, scale: 0.95, y: 15 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: -15 }}
-          transition={{ duration: 0.25 }}
-          className="bg-white dark:bg-zinc-900 border-2 border-saffron-500 rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl relative"
-        >
+    <>
+      {/* Blurred Background with a Cutout */}
+      <div 
+        className="fixed inset-0 bg-black/40 backdrop-blur-xs z-50 pointer-events-none transition-all duration-300"
+        style={{ clipPath: clipPathStyle }}
+      />
+
+      {/* Invisible Click Catcher to block clicks outside the highlighted area */}
+      <div className="fixed inset-0 z-[51] pointer-events-auto" style={{ clipPath: clipPathStyle }} />
+
+      {/* Modal Container */}
+      <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 pointer-events-none">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentStep}
+            initial={{ opacity: 0, scale: 0.95, y: 15 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: -15 }}
+            transition={{ duration: 0.25 }}
+            className="pointer-events-auto bg-white dark:bg-zinc-900 border-2 border-saffron-500 rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl relative"
+          >
           {/* Header */}
           <div className="flex justify-between items-start mb-4">
             <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-saffron-50 text-saffron-600 text-xs font-bold uppercase tracking-wider">
@@ -221,5 +311,6 @@ export default function OnboardingTour() {
         </motion.div>
       </AnimatePresence>
     </div>
+    </>
   );
 }

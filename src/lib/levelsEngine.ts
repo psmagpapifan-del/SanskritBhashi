@@ -1,4 +1,4 @@
-import { Translation } from "./i18n";
+import type { Translation } from "./i18n";
 import { prefGet, prefSet } from "./capacitorBridge";
 
 export type CurriculumTier = "beginner" | "professional" | "expert";

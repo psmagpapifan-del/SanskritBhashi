@@ -4,6 +4,13 @@ This file tracks all bug fixes, improvements, and features implemented across ap
 
 ---
 
+## [1.0.3] - 2026-07-01 (Version Code 4)
+
+### Tour Guide Navigation Fix
+- **Programmatic Redirection Fix:** Configured `OnboardingTour.tsx` to append the `.html` extension to the target redirection URL when auto-navigating from Step 6 (on home page) to Step 7 (on School Prep practice card page) on native platforms (resolving local assets loading failures during tour).
+
+---
+
 ## [1.0.2] - 2026-07-01 (Version Code 3)
 
 ### Merged Updates (from Arjun/Parth branch)

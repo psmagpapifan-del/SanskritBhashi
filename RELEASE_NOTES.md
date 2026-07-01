@@ -4,6 +4,14 @@ This file tracks all bug fixes, improvements, and features implemented across ap
 
 ---
 
+## [1.0.4] - 2026-07-01 (Version Code 5)
+
+### Error Reporting System Fix
+- **CORS & Preflight Options Handler:** Added `Access-Control-Allow-Origin: *` headers and a native `OPTIONS` preflight response handler to `/api/report-error` to resolve WebView CORS blocks when native app shells report questions/translation anomalies to the live server.
+- **Astro Hybrid Mode Build:** Switched Astro build config from `static` to `hybrid` mode for web deployments, compiling the `/api/report-error` route as an active Cloudflare Pages serverless Function while keeping the rest of the site fully cached and static (resolving HTTP 405 Method Not Allowed errors).
+
+---
+
 ## [1.0.3] - 2026-07-01 (Version Code 4)
 
 ### Tour Guide Navigation Fix

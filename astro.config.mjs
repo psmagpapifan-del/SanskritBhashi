@@ -27,7 +27,7 @@ export default defineConfig({
   // 'static' always — Cloudflare adapter switches internal mode to 'server'
   // automatically when installed. Without the adapter (Capacitor build) Astro
   // stays in pure static mode and all pages are prerendered to HTML files.
-  output: 'static',
+  output: isCapacitorBuild ? 'static' : 'hybrid',
   adapter: useCloudflareAdapter
     ? cloudflare({ platformProxy: { enabled: true } })
     : undefined,

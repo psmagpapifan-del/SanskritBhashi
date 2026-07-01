@@ -19,6 +19,7 @@ import type {
   CurriculumTier
 } from "../lib/levelsEngine";
 import { curriculumChapters } from "../lib/curriculumData";
+import type { CurriculumChapter } from "../lib/curriculumData";
 
 function localizeText(text: string, lang: string): string {
   if (!text || lang === "en") return text;
@@ -754,7 +755,7 @@ export default function PracticeCard({
         window.dispatchEvent(new Event("openJourneyMap"));
       }
     } else {
-      const currentNcertClass = activeChapter.ncertClass;
+      const currentNcertClass = (activeChapter as CurriculumChapter).ncertClass;
       const ncertChs = curriculumChapters.filter(c => c.ncertClass === currentNcertClass);
       const currentIdx = ncertChs.findIndex(c => c.id === chapterId);
       if (currentIdx !== -1 && currentIdx < ncertChs.length - 1) {

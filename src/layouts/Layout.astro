@@ -425,6 +425,34 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
       setupThemeToggle();
       document.addEventListener('astro:after-swap', setupThemeToggle);
 
+      function setupCapacitorLinkRewriter() {
+        // Guard: only execute inside Capacitor native app
+        if (!window.Capacitor || !window.Capacitor.isNativePlatform()) return;
+
+        document.addEventListener('click', function(e) {
+          const link = e.target.closest('a');
+          if (!link || !link.href) return;
+
+          try {
+            const url = new URL(link.href);
+            if (url.origin === window.location.origin) {
+              let path = url.pathname;
+              // If it's a relative/absolute path within the app, doesn't end in .html, and isn't a file (has no dot)
+              if (path !== '/' && !path.endsWith('.html') && !path.split('/').pop().includes('.')) {
+                e.preventDefault();
+                url.pathname = path + '.html';
+                window.location.href = url.toString();
+              }
+            }
+          } catch (err) {
+            console.error('[capacitorLinkRewriter] Error handling navigation:', err);
+          }
+        }, true); // Use capture phase to intercept clicks early
+      }
+
+      setupCapacitorLinkRewriter();
+      document.addEventListener('astro:after-swap', setupCapacitorLinkRewriter);
+
       function setupCookieBanner() {
         const banner = document.getElementById('cookie-consent-banner');
         const acceptBtn = document.getElementById('accept-cookies');

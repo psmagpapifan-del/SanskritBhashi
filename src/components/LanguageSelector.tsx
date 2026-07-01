@@ -49,11 +49,22 @@ export default function LanguageSelector({ currentLang, currentPathname }: Langu
   const handleInterfaceChange = (newLang: string) => {
     if (newLang === currentLang) return;
     
-    // Replace the language segment in pathname
-    // e.g. /en/about -> /hi/about
+    const isNative = typeof window !== 'undefined' && (window as any).Capacitor?.isNativePlatform?.();
     const segments = currentPathname.split("/");
-    segments[1] = newLang;
-    const newPathname = segments.join("/");
+    
+    let target = newLang;
+    if (isNative && currentPathname.endsWith('.html') && !target.endsWith('.html')) {
+      if (segments[1] && segments[1].endsWith('.html')) {
+        target = newLang + '.html';
+      }
+    }
+    
+    segments[1] = target;
+    let newPathname = segments.join("/");
+    
+    if (isNative && !newPathname.endsWith('.html') && !newPathname.includes('.')) {
+      newPathname += '.html';
+    }
     
     window.location.href = newPathname;
     setIsOpen(false);

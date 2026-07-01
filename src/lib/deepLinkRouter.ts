@@ -71,10 +71,15 @@ export function parseDeepLink(url: string): ParsedDeepLink | null {
  * Astro's static file format uses no trailing slash (trailingSlash: 'never').
  */
 export function buildWebPath(link: ParsedDeepLink): string {
+  const isNative = typeof window !== 'undefined' && (window as any).Capacitor?.isNativePlatform?.();
   let path = `/${link.lang}`;
 
   if (link.module) {
     path += `/modules/${link.module}`;
+  }
+
+  if (isNative && !path.endsWith('.html')) {
+    path += '.html';
   }
 
   const params = new URLSearchParams();

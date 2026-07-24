@@ -1,5 +1,5 @@
 ---
-import { Home, GraduationCap, BookMarked, Info, HelpCircle, ChevronLeft, Menu, Mail, Sun, Moon } from "lucide-react";
+import { Home, GraduationCap, BookMarked, BookOpen, Info, HelpCircle, ChevronLeft, Menu, Mail, Sun, Moon } from "lucide-react";
 import LanguageSelector from "../components/LanguageSelector";
 import StreakCounter from "../components/StreakCounter";
 import OnboardingTour from "../components/OnboardingTour";
@@ -20,6 +20,7 @@ const navItems = [
   { name: t.nav.home, href: `/${lang}`, icon: Home, id: "tour-step-1" },
   { name: t.nav.schoolPrep, href: `/${lang}/modules/school-prep`, icon: GraduationCap, id: "tour-step-3" },
   { name: t.nav.shastraStudy, href: `/${lang}/modules/shastra-study`, icon: BookMarked, id: "tour-step-4" },
+  { name: t.nav.learn, href: `/${lang}/learn`, icon: BookOpen },
   { name: t.nav.about, href: `/${lang}/about`, icon: Info },
   { name: t.nav.contact, href: `/${lang}/contact`, icon: Mail },
   { name: t.nav.faqs, href: `/${lang}/faqs`, icon: HelpCircle, id: "tour-step-8" },

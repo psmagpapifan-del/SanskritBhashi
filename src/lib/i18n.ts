@@ -15,6 +15,7 @@ export interface Translation {
     privacy: string;
     terms: string;
     contact: string;
+    learn: string;
   };
   home: {
     heroSub: string;
@@ -167,7 +168,8 @@ export const translations: Record<string, Translation> = {
       faqs: "FAQs",
       privacy: "Privacy Policy",
       terms: "Terms of Service",
-      contact: "Contact Us"
+      contact: "Contact Us",
+      learn: "Learn Hub"
     },
     home: {
       heroSub: "🔥 Experience Sanskritbhashi Onboarding",
@@ -387,7 +389,8 @@ export const translations: Record<string, Translation> = {
       faqs: "पूछे जाने वाले प्रश्न",
       privacy: "गोपनीयता नीति",
       terms: "सेवा की शर्तें",
-      contact: "सम्पर्क करें"
+      contact: "सम्पर्क करें",
+      learn: "अध्ययन केंद्र"
     },
     home: {
       heroSub: "🔥 संस्कृतभाषी परिचय गाइड का अनुभव करें",
@@ -607,7 +610,8 @@ export const translations: Record<string, Translation> = {
       faqs: "よくある質問",
       privacy: "プライバシーポリシー",
       terms: "利用規約",
-      contact: "お問い合わせ"
+      contact: "お問い合わせ",
+      learn: "学習ハブ"
     },
     home: {
       heroSub: "🔥 オンボーディングツアーを開始する",
@@ -815,7 +819,8 @@ export const translations: Record<string, Translation> = {
       faqs: "FAQs",
       privacy: "Política de Privacidad",
       terms: "Términos de Servicio",
-      contact: "Contacto"
+      contact: "Contacto",
+      learn: "Centro de Aprendizaje"
     },
     home: {
       heroSub: "🔥 Experimente el Onboarding de Sanskritbhashi",

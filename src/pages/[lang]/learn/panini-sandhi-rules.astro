@@ -1,0 +1,493 @@
+---
+export const prerender = true;
+import Layout from "../../../layouts/Layout.astro";
+import { getTranslation } from "../../../lib/i18n";
+import { BookOpen, Clock, ChevronLeft, Award, HelpCircle } from "lucide-react";
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: "en" } },
+    { params: { lang: "hi" } },
+    { params: { lang: "ja" } },
+    { params: { lang: "es" } },
+  ];
+}
+
+const { lang } = Astro.params;
+const t = getTranslation(lang);
+
+const title = lang === "en" 
+  ? "Mastering Sanskrit Sandhi Rules: Vowels, Consonants, and Visargas"
+  : lang === "hi"
+  ? "संस्कृत संधि नियमों पर महारत: स्वर, व्यंजन और विसर्ग"
+  : lang === "ja"
+  ? "サンスクリットのサンドゥヒ（連声）規則の完全解説：母音・子音・ヴィサルガ"
+  : "Dominando las Reglas de Sandhi en Sánscrito: Vocales, Consonantes y Visargas";
+
+const desc = lang === "en"
+  ? "A comprehensive phonetic guide to Sanskrit Sandhi transitions based on Paninian linguistics. Learn rules, formulas, and examples."
+  : lang === "hi"
+  ? "पाणिनीय भाषा विज्ञान के आधार पर संस्कृत संधि परिवर्तनों का एक व्यापक ध्वन्यात्मक गाइड। नियम, सूत्र और उदाहरण सीखें।"
+  : lang === "ja"
+  ? "パーニニ言語学に基づくサンスクリットのサンドゥヒ（連声）変化に関する音韻ガイド。詳細な規則、数式、および具体例を学びます。"
+  : "Una guía fonética completa de las transiciones de Sandhi en sánscrito basada en la lingüística paniniana. Aprenda reglas, fórmulas y ejemplos.";
+---
+
+<Layout lang={lang} title={title} description={desc}>
+  <main class="max-w-4xl mx-auto px-4 py-8 md:py-12">
+    {/* Navigation link back */}
+    <div class="mb-8">
+      <a 
+        href={`/${lang}/learn`} 
+        class="inline-flex items-center space-x-2 text-xs font-bold text-saffron-600 dark:text-saffron-400 hover:text-saffron-700 dark:hover:text-saffron-300 font-latin uppercase tracking-wider"
+      >
+        <ChevronLeft class="w-4 h-4" />
+        <span>{lang === "en" ? "Back to Learning Hub" : lang === "hi" ? "अध्ययन केंद्र पर वापस" : lang === "ja" ? "学習ハブに戻る" : "Volver al Centro de Aprendizaje"}</span>
+      </a>
+    </div>
+
+    {/* Localized Article Content */}
+    {lang === "en" ? (
+      <article class="space-y-8">
+        <header class="space-y-4">
+          <div class="flex items-center space-x-3 text-xs font-bold text-saffron-600 dark:text-saffron-400 uppercase tracking-widest font-latin">
+            <span>Sanskrit Grammar (Vyakaran)</span>
+            <span>•</span>
+            <span class="flex items-center space-x-1"><Clock class="w-3.5 h-3.5" /> <span>8 min read</span></span>
+          </div>
+          <h1 class="text-3xl md:text-5xl font-black text-charcoal dark:text-zinc-150 leading-tight">
+            Mastering Sanskrit Sandhi Rules: A Complete Phonetic Guide
+          </h1>
+          <p class="text-base md:text-lg text-charcoal/70 dark:text-zinc-400 leading-relaxed font-semibold italic">
+            How phonetic integration shapes flow, structure, and pronunciation in classical Paninian linguistics.
+          </p>
+        </header>
+
+        <hr class="border-saffron-100 dark:border-zinc-800" />
+
+        <div class="prose prose-saffron max-w-none dark:prose-invert text-charcoal/80 dark:text-zinc-350 space-y-6 leading-relaxed text-sm md:text-base">
+          <h2>1. What is Sandhi?</h2>
+          <p>
+            In Sanskrit, the word <strong>Sandhi (सन्धि)</strong> literally translates to "joining," "junction," or "phonetic transition." Unlike modern languages where adjacent words are pronounced distinctly, Sanskrit requires that adjacent sounds influence one another. This is not arbitrary; it is a systematic codification of natural human phonology.
+          </p>
+          <p>
+            According to the ancient grammarian <strong>Pāṇini</strong> in his seminal work the <em>Aṣṭādhyāyī</em>, Sandhi is governed by the rule <strong>संहिता (Saṃhitā)</strong>, defined as:
+          </p>
+          <blockquote class="bg-saffron-50/50 dark:bg-zinc-900 border-l-4 border-saffron-500 p-4 rounded-r-2xl font-bold font-sanskrit text-center py-6 my-6">
+            परः सन्निकर्षः संहिता (Paraḥ sannikarṣaḥ saṃhitā - 1.4.109)
+          </blockquote>
+          <p>
+            This rule dictates that when two speech sounds (phonemes) occur in immediate proximity without any pause, they undergo phonetic fusion. Sandhi is mandatory inside compounds (Samāsa), within verbal roots and prefixes, and during nominal declensions, while being optional between independent words in a sentence.
+          </p>
+
+          <h2>2. The Three Pillars of Sandhi</h2>
+          <p>
+            Sanskrit Sandhi is divided into three primary categories based on the nature of the phonemes involved:
+          </p>
+          <ol class="list-decimal pl-6 space-y-2">
+            <li><strong>Ac-Sandhi (अच्-सन्धि) / Vowel Sandhi:</strong> Occurs when a word ending in a vowel meets a word starting with a vowel.</li>
+            <li><strong>Hal-Sandhi (हल्-सन्धि) / Consonant Sandhi:</strong> Occurs when a word ending in a consonant meets another consonant or a vowel.</li>
+            <li><strong>Visarga-Sandhi (विसर्ग-सन्धि):</strong> Occurs when a word ending in a visarga (ḥ) meets a vowel or a consonant.</li>
+          </ol>
+
+          <h2>3. Vowel Sandhi (Ac-Sandhi)</h2>
+          <p>
+            Vowel Sandhi deals with transitions between vowels. Below are the most critical rules that every student must master:
+          </p>
+
+          <h3>A. Savarṇa-Dīrgha Sandhi (Homogeneous Vowel Prolongation)</h3>
+          <p>
+            When two similar vowels (short or long) meet, they merge into their corresponding long vowel.
+            <br />
+            <strong>Formula:</strong> <code>a/ā + a/ā = ā</code>, <code>i/ī + i/ī = ī</code>, <code>u/ū + u/ū = ū</code>.
+          </p>
+          <ul class="list-disc pl-6 space-y-1">
+            <li><em>Example 1:</em> देव + आलय = देवालय (deva + ālaya = devālaya - House of God)</li>
+            <li><em>Example 2:</em> गिरि + ईश = गिरीश (giri + īśa = girīśa - Lord of Mountains)</li>
+            <li><em>Example 3:</em> भानु + उदय = भानूदय (bhānu + udaya = bhānūdaya - Sunrise)</li>
+          </ul>
+
+          <h3>B. Guṇa Sandhi (Simple Vowel Blending)</h3>
+          <p>
+            When <code>a</code> or <code>ā</code> is followed by a dissimilar simple vowel, they blend into a single intermediate vowel.
+            <br />
+            <strong>Formula:</strong> <code>a/ā + i/ī = e</code>, <code>a/ā + u/ū = o</code>, <code>a/ā + ṛ/ṝ = ar</code>.
+          </p>
+          <ul class="list-disc pl-6 space-y-1">
+            <li><em>Example 1:</em> उप + इन्द्र = उपेन्द्र (upa + indra = upendra)</li>
+            <li><em>Example 2:</em> महा + उत्सव = महोत्सव (mahā + utsava = mahotsava - Great Festival)</li>
+            <li><em>Example 3:</em> देव + ऋषि = देवर्षि (deva + ṛṣi = devarṣi - Divine Sage)</li>
+          </ul>
+
+          <h3>C. Yaṇ Sandhi (Semivowel Substitution)</h3>
+          <p>
+            When simple vowels other than <code>a/ā</code> are followed by any dissimilar vowel, they transform into their corresponding semivowel (y, v, r, l).
+            <br />
+            <strong>Formula:</strong> <code>i/ī + dissimilar vowel = y</code>, <code>u/ū + dissimilar vowel = v</code>.
+          </p>
+          <ul class="list-disc pl-6 space-y-1">
+            <li><em>Example 1:</em> इति + आदि = इत्यादि (iti + ādi = ityādi - Etcetera)</li>
+            <li><em>Example 2:</em> अनु + अय = अन्वय (anu + aya = anvaya - Connection/Order)</li>
+            <li><em>Example 3:</em> सु + आगतम् = स्वागतम् (su + āgatam = svāgatam - Welcome)</li>
+          </ul>
+
+          <h2>4. Consonant Sandhi (Hal-Sandhi)</h2>
+          <p>
+            Consonant Sandhi involves modifications when consonants collide. These rules maintain the ease of pronunciation by adjusting the voicing and nasalization of adjacent sounds.
+          </p>
+
+          <h3>A. Ścutva Sandhi (Palatalization)</h3>
+          <p>
+            When the dental sibilant <code>s</code> or dental consonants (t-varga: t, th, d, dh, n) come in contact with the palatal sibilant <code>ś</code> or palatal consonants (c-varga: c, ch, j, jh, ñ), the dentals are replaced by their corresponding palatals.
+          </p>
+          <ul class="list-disc pl-6 space-y-1">
+            <li><em>Example:</em> सत् + चित् = सच्चित् (sat + cit = saccit - Pure Consciousness)</li>
+            <li><em>Example:</em> रामस् + च = रामश्च (rāmas + ca = rāmaśca - And Rama)</li>
+          </ul>
+
+          <h3>B. Jaśtva Sandhi (Voicing Substitution)</h3>
+          <p>
+            When a non-nasal consonant at the end of a word is followed by a vowel or a voiced consonant, it is replaced by the third (voiced unaspirated) consonant of its own class.
+          </p>
+          <ul class="list-disc pl-6 space-y-1">
+            <li><em>Example:</em> वाक् + ईश = वागीश (vāk + īśa = vāgīśa - Lord of Speech)</li>
+            <li><em>Example:</em> जगत् + ईश = जगदीश (jagat + īśa = jagadīśa - Lord of the Universe)</li>
+          </ul>
+
+          <h2>5. Visarga Sandhi</h2>
+          <p>
+            The visarga (ḥ) is a voiceless breathing sound. In Sanskrit sentences, it is highly sensitive to the sound that follows it.
+          </p>
+          <h3>A. Transformation to Sibilants</h3>
+          <p>
+            When a visarga is followed by voiceless palatals (c, ch), dentals (t, th), or retroflexes (ṭ, ṭh), it converts into the corresponding sibilant (ś, s, ṣ).
+          </p>
+          <ul class="list-disc pl-6 space-y-1">
+            <li><em>Example 1:</em> नमः + ते = नमस्ते (namaḥ + te = namaste - Salutations to you)</li>
+            <li><em>Example 2:</em> कः + चित् = कश्चित् (kaḥ + cit = kaścit - Someone)</li>
+          </ul>
+
+          <h3>B. The O-Modification (U-Sandhi)</h3>
+          <p>
+            When a visarga preceded by short <code>a</code> is followed by short <code>a</code> or a voiced consonant, the visarga blends with the preceding <code>a</code> to form <code>o</code>. If followed by <code>a</code>, the second <code>a</code> is elided and represented by an avagraha (ऽ).
+          </p>
+          <ul class="list-disc pl-6 space-y-1">
+            <li><em>Example 1:</em> कः + अपि = कोऽपि (kaḥ + api = ko'pi - Someone)</li>
+            <li><em>Example 2:</em> शिवः + वन्द्यः = शिवोवन्द्यः (śivaḥ + vandyaḥ = śivovandyaḥ - Shiva to be worshipped)</li>
+          </ul>
+
+          <h2>6. Summary</h2>
+          <p>
+            Sandhi is not just a collection of grammar tables to memorize. It is a mathematical model of phonological harmony. By understanding Sandhi, you will read shlokas with correct rhythm, parse long compound words with ease, and pronounce Sanskrit terms as the Rishis did thousands of years ago.
+          </p>
+        </div>
+      </article>
+    ) : lang === "hi" ? (
+      <article class="space-y-8">
+        <header class="space-y-4">
+          <div class="flex items-center space-x-3 text-xs font-bold text-saffron-600 dark:text-saffron-400 uppercase tracking-widest font-latin">
+            <span>संस्कृत व्याकरण</span>
+            <span>•</span>
+            <span class="flex items-center space-x-1"><Clock class="w-3.5 h-3.5" /> <span>8 मिनट पठन</span></span>
+          </div>
+          <h1 class="text-3xl md:text-5xl font-black text-charcoal dark:text-zinc-150 leading-tight">
+            संस्कृत संधि नियमों पर महारत: स्वर, व्यंजन और विसर्ग संधि
+          </h1>
+          <p class="text-base md:text-lg text-charcoal/70 dark:text-zinc-400 leading-relaxed font-semibold italic">
+            पाणिनीय व्याकरण में संधि का महत्व और विभिन्न संधियों के सूत्र एवं उदाहरण।
+          </p>
+        </header>
+
+        <hr class="border-saffron-100 dark:border-zinc-800" />
+
+        <div class="prose prose-saffron max-w-none dark:prose-invert text-charcoal/80 dark:text-zinc-350 space-y-6 leading-relaxed text-sm md:text-base">
+          <h2>1. संधि क्या है?</h2>
+          <p>
+            संस्कृत में <strong>संधि (सन्धि)</strong> शब्द का शाब्दिक अर्थ है "मेल", "जोड़" या "परस्पर मिलन"। जब दो निकटवर्ती वर्ण (ध्वनियाँ) बिना किसी विराम के आपस में मिलते हैं, तो उनके मेल से जो विकार (परिवर्तन) उत्पन्न होता है, उसे संधि कहते हैं।
+          </p>
+          <p>
+            महान वैयाकरण <strong>महर्षि पाणिनी</strong> ने अपने अष्टाध्यायी में संधि को <strong>संहिता (संहिता)</strong> के रूप में परिभाषित किया है:
+          </p>
+          <blockquote class="bg-saffron-55/50 dark:bg-zinc-900 border-l-4 border-saffron-500 p-4 rounded-r-2xl font-bold font-sanskrit text-center py-6 my-6">
+            परः सन्निकर्षः संहिता (अष्टाध्यायी - 1.4.109)
+          </blockquote>
+          <p>
+            इसका अर्थ है कि जब वर्णों के बीच अत्यधिक निकटता हो (अर्थात उच्चारण में कोई समय अंतराल न हो), तो वहां संहिता अनिवार्य होती है। संधि मुख्यतः समासों में, धातु और उपसर्गों के बीच, और संज्ञा या क्रिया रूपों के निर्माण में अनिवार्य होती है, जबकि वाक्य में स्वतंत्र पदों के बीच यह वक्ता की इच्छा (ऐच्छिक) पर निर्भर करती है।
+          </p>
+
+          <h2>2. संधि के तीन मुख्य प्रकार</h2>
+          <p>
+            संस्कृत में संधि को तीन मुख्य श्रेणियों में विभाजित किया गया है:
+          </p>
+          <ol class="list-decimal pl-6 space-y-2">
+            <li><strong>अच्-सन्धि (स्वर संधि):</strong> जब स्वर वर्ण का मेल दूसरे स्वर वर्ण के साथ होता है।</li>
+            <li><strong>हल्-सन्धि (व्यंजन संधि):</strong> जब किसी व्यंजन वर्ण का मेल किसी व्यंजन या स्वर वर्ण के साथ होता है।</li>
+            <li><strong>विसर्ग-सन्धि:</strong> जब विसर्ग (ः) का मेल किसी स्वर या व्यंजन वर्ण के साथ होता है।</li>
+          </ol>
+
+          <h2>3. स्वर संधि (अच्-सन्धि)</h2>
+          <p>
+            स्वर संधि के प्रमुख नियमों और उनके सूत्रों को नीचे विस्तार से समझाया गया है:
+          </p>
+
+          <h3>क. सवर्ण-दीर्घ संधि</h3>
+          <p>
+            जब समान स्वर (ह्रस्व या दीर्घ) आपस में मिलते हैं, तो वे दीर्घ स्वर में परिवर्तित हो जाते हैं।
+            <br />
+            <strong>सूत्र:</strong> <code>अकः सवर्णे दीर्घः</code> (अ/आ + अ/आ = आ, इ/ई + इ/ई = ई, उ/ऊ + उ/ऊ = ऊ)।
+          </p>
+          <ul class="list-disc pl-6 space-y-1">
+            <li><em>उदाहरण 1:</em> देव + आलय = देवालय (देवों का घर)</li>
+            <li><em>उदाहरण 2:</em> गिरि + ईश = गिरीश (पर्वतों का राजा)</li>
+            <li><em>उदाहरण 3:</em> भानु + उदय = भानूदय (सूर्य का उदय)</li>
+          </ul>
+
+          <h3>ख. गुण संधि</h3>
+          <p>
+            जब <code>अ</code> या <code>आ</code> के बाद यदि असमान ह्रस्व या दीर्घ स्वर (इ, उ, ऋ) आए, तो उनके स्थान पर क्रमशः <code>ए</code>, <code>ओ</code>, और <code>अर्</code> हो जाता है।
+            <br />
+            <strong>सूत्र:</strong> <code>आद्गुणः</code>।
+          </p>
+          <ul class="list-disc pl-6 space-y-1">
+            <li><em>उदाहरण 1:</em> उप + इन्द्र = उपेन्द्र</li>
+            <li><em>उदाहरण 2:</em> महा + उत्सव = महोत्सव (बड़ा उत्सव)</li>
+            <li><em>उदाहरण 3:</em> देव + ऋषि = देवर्षि</li>
+          </ul>
+
+          <h3>ग. यण संधि</h3>
+          <p>
+            जब <code>इ/ई</code>, <code>उ/ऊ</code>, या <code>ऋ</code> के बाद कोई असमान स्वर आता है, तो उनके स्थान पर क्रमशः <code>य्</code>, <code>व्</code>, <code>र्</code> हो जाता है।
+            <br />
+            <strong>सूत्र:</strong> <code>इको यणचि</code>।
+          </p>
+          <ul class="list-disc pl-6 space-y-1">
+            <li><em>उदाहरण 1:</em> इति + आदि = इत्यादि</li>
+            <li><em>उदाहरण 2:</em> अनु + अय = अन्वय (क्रम)</li>
+            <li><em>उदाहरण 3:</em> सु + आगतम् = स्वागतम् (शुभ आगमन)</li>
+          </ul>
+
+          <h2>4. व्यंजन संधि (हल्-सन्धि)</h2>
+          <p>
+            व्यंजन संधि में दो वर्णों के आपस में टकराने से व्यंजनों के उच्चारण स्थान या प्रयत्न में परिवर्तन होता है।
+          </p>
+
+          <h3>क. श्चुत्व संधि</h3>
+          <p>
+            यदि स-वर्ग (स) या त-वर्ग (त, थ, द, ध, न) का श-वर्ग (श) या च-वर्ग (च, छ, ज, झ, ञ) के साथ योग हो, तो त-वर्ग च-वर्ग में बदल जाता है।
+            <br />
+            <strong>सूत्र:</strong> <code>स्तोः श्चुना श्चुः</code>।
+          </p>
+          <ul class="list-disc pl-6 space-y-1">
+            <li><em>उदाहरण:</em> सत् + चित् = सच्चित् (सच्चा ज्ञान)</li>
+            <li><em>उदाहरण:</em> रामस् + च = रामश्च (और राम)</li>
+          </ul>
+
+          <h3>ख. जश्त्व संधि</h3>
+          <p>
+            यदि किसी वर्ग के प्रथम वर्ण के बाद कोई स्वर या सघोष व्यंजन आता है, तो वह प्रथम वर्ण अपने ही वर्ग के तीसरे वर्ण में परिवर्तित हो जाता है।
+            <br />
+            <strong>सूत्र:</strong> <code>झलां जशोऽन्ते</code>।
+          </p>
+          <ul class="list-disc pl-6 space-y-1">
+            <li><em>उदाहरण:</em> वाक् + ईश = वागीश (वाणी का स्वामी)</li>
+            <li><em>उदाहरण:</em> जगत् + ईश = जगदीश (जगत का स्वामी)</li>
+          </ul>
+
+          <h2>5. विसर्ग संधि</h2>
+          <p>
+            विसर्ग (ः) के बाद किसी स्वर या व्यंजन के आने से जो परिवर्तन होता है, उसे विसर्ग संधि कहते हैं।
+          </p>
+          <h3>क. विसर्ग का सत्व (विसर्ग का श्, ष्, स् में बदलना)</h3>
+          <p>
+            यदि विसर्ग के बाद च/छ आए तो विसर्ग 'श्', यदि ट/ठ आए तो 'ष्' और यदि त/थ आए तो 'स्' हो जाता है।
+            <br />
+            <strong>सूत्र:</strong> <code>विसर्जनीयस्य सः</code>।
+          </p>
+          <ul class="list-disc pl-6 space-y-1">
+            <li><em>उदाहरण 1:</em> नमः + ते = नमस्ते (आपको प्रणाम)</li>
+            <li><em>उदाहरण 2:</em> कः + चित् = कश्चित् (कोई)</li>
+          </ul>
+
+          <h3>ख. उत्व संधि (विसर्ग का ओ में बदलना)</h3>
+          <p>
+            यदि विसर्ग से पहले ह्रस्व 'अ' हो और बाद में भी ह्रस्व 'अ' या वर्गों का तीसरा, चौथा, पाँचवाँ वर्ण या य, र, ल, व, ह हो, तो विसर्ग और अ मिलकर 'ओ' बन जाते हैं।
+            <br />
+            <strong>सूत्र:</strong> <code>अतो रोरप्लुतादप्लुते</code>।
+          </p>
+          <ul class="list-disc pl-6 space-y-1">
+            <li><em>उदाहरण 1:</em> कः + अपि = कोऽपि</li>
+            <li><em>उदाहरण 2:</em> शिवः + वन्द्यः = शिवोवन्द्यः</li>
+          </ul>
+
+          <h2>6. निष्कर्ष</h2>
+          <p>
+            संधि केवल रटने के व्याकरण नियम नहीं हैं, बल्कि यह मानवीय उच्चारण की सहजता का वैज्ञानिक स्वरूप है। संधि के नियमों को समझकर आप श्लोकों का पाठ शुद्ध लय में कर सकते हैं और बड़े समासों को आसानी से विच्छेद करके उनका वास्तविक अर्थ जान सकते हैं।
+          </p>
+        </div>
+      </article>
+    ) : lang === "ja" ? (
+      <article class="space-y-8">
+        <header class="space-y-4">
+          <div class="flex items-center space-x-3 text-xs font-bold text-saffron-600 dark:text-saffron-400 uppercase tracking-widest font-latin">
+            <span>サンスクリット文法</span>
+            <span>•</span>
+            <span class="flex items-center space-x-1"><Clock class="w-3.5 h-3.5" /> <span>読了時間 8分</span></span>
+          </div>
+          <h1 class="text-3xl md:text-5xl font-black text-charcoal dark:text-zinc-150 leading-tight">
+            サンスクリットのサンドゥヒ（連声）規則をマスターする：完全音韻ガイド
+          </h1>
+          <p class="text-base md:text-lg text-charcoal/70 dark:text-zinc-400 leading-relaxed font-semibold italic">
+            パーニニ言語学における音韻融合のメカニズム、規則、数式、および具体例。
+          </p>
+        </header>
+
+        <hr class="border-saffron-100 dark:border-zinc-800" />
+
+        <div class="prose prose-saffron max-w-none dark:prose-invert text-charcoal/80 dark:text-zinc-350 space-y-6 leading-relaxed text-sm md:text-base font-latin">
+          <h2>1. サンドゥヒ（連声）とは？</h2>
+          <p>
+            サンスクリットにおいて、<strong>サンドゥヒ（सन्धि - Sandhi）</strong>という言葉は「結合」「接続」または「連声（音韻変化）」を意味します。単語を個別に明瞭に発音する現代の多くの言語とは異なり、サンスクリットでは隣り合う音が互いに影響し合って変化します。これは単なる形式的なものではなく、自然な発声の物理的特徴に基づいた高度な文法体系です。
+          </p>
+          <p>
+            古代の文法家<strong>パーニニ</strong>は、その代表作である『アシュターディヤーイー』において、サンドゥヒを<strong>サンヒター（संहिता - 密接な結合）</strong>として定義しています：
+          </p>
+          <blockquote class="bg-saffron-50/50 dark:bg-zinc-900 border-l-4 border-saffron-500 p-4 rounded-r-2xl font-bold font-sanskrit text-center py-6 my-6">
+            परः सन्निकर्षः संहिता (Paraḥ sannikarṣaḥ saṃhitā - 1.4.109)
+          </blockquote>
+          <p>
+            これは、休止（ポーズ）なく二つの音節が隣り合うとき、音韻の融合が生じることを意味します。サンドゥヒは、複合語（サマーサ）の内部、動詞の語根と接頭辞の間、および名詞格変化の過程では必須であり、文章内の独立した単語同士の間では任意（話者の選択）となります。
+          </p>
+
+          <h2>2. 連声の三つの柱</h2>
+          <p>
+            サンスクリットのサンドゥヒは、関与する音の種類によって主に次の三つに分類されます：
+          </p>
+          <ol class="list-decimal pl-6 space-y-2">
+            <li><strong>アッチュ・サンドゥヒ（Vowel Sandhi / 母音連声）:</strong> 母音で終わる言葉と母音で始まる言葉が出会うとき。</li>
+            <li><strong>ハッル・サンドゥヒ（Consonant Sandhi / 子音連声）:</strong> 子音で終わる言葉と子音または母音が出会うとき。</li>
+            <li><strong>ヴィサルガ・サンドゥヒ:</strong> ヴィサルガ（ḥ）で終わる言葉と母音または子音が出会うとき。</li>
+          </ol>
+
+          <h2>3. 母音連声（アッチュ・サンドゥヒ）</h2>
+          <p>
+            母音連声は、母音間の接続を扱います。最も重要な基本規則を以下に示します：
+          </p>
+
+          <h3>A. サヴァルナ・ディールガ・サンドゥヒ（同母音の長音化）</h3>
+          <p>
+            同類の母音（短母音または長母音）が連続するとき、それらは対応する長母音に融合します。
+            <br />
+            <strong>公式:</strong> <code>a/ā + a/ā = ā</code>、<code>i/ī + i/ī = ī</code>、<code>u/ū + u/ū = ū</code>。
+          </p>
+          <ul class="list-disc pl-6 space-y-1">
+            <li><em>例 1:</em> deva + ālaya = devālaya（神の家・寺院）</li>
+            <li><em>例 2:</em> giri + īśa = girīśa（山の主）</li>
+          </ul>
+
+          <h3>B. グナ・サンドゥヒ（単純母音の混合）</h3>
+          <p>
+            前接母音が <code>a</code> または <code>ā</code> で、後接母音が異なる単純母音のとき、それらは一本の中間母音へと融合します。
+            <br />
+            <strong>公式:</strong> <code>a/ā + i/ī = e</code>、<code>a/ā + u/ū = o</code>、<code>a/ā + ṛ/ṝ = ar</code>。
+          </p>
+          <ul class="list-disc pl-6 space-y-1">
+            <li><em>例 1:</em> upa + indra = upendra</li>
+            <li><em>例 2:</em> mahā + utsava = mahotsava（大祭）</li>
+          </ul>
+
+          <h3>C. ヤン・サンドゥヒ（半母音化）</h3>
+          <p>
+            <code>a/ā</code> 以外の単純母音の後に、それと異なる母音が続くとき、前接母音は対応する半母音（y, v, r, l）に変換されます。
+            <br />
+            <strong>公式:</strong> <code>i/ī + 異なる母音 = y</code>、<code>u/ū + 異なる母音 = v</code>。
+          </p>
+          <ul class="list-disc pl-6 space-y-1">
+            <li><em>例 1:</em> iti + आदि = इत्यादि (ityādi - などなど)</li>
+            <li><em>例 2:</em> su + āgatam = svāgatam（ようこそ）</li>
+          </ul>
+
+          <h2>4. まとめ</h2>
+          <p>
+            連声規則は、単に丸暗記するための文法表ではありません。それは人間の発声の調和を表す一種の数式モデルです。サンドゥヒを理解することで、シュローカを正しいリズムで音読できるようになり、複雑な複合語を分解して本来の意味を正しく把握できるようになります。
+          </p>
+        </div>
+      </article>
+    ) : (
+      <article class="space-y-8">
+        <header class="space-y-4">
+          <div class="flex items-center space-x-3 text-xs font-bold text-saffron-600 dark:text-saffron-400 uppercase tracking-widest font-latin">
+            <span>Gramática Sánscrita</span>
+            <span>•</span>
+            <span class="flex items-center space-x-1"><Clock class="w-3.5 h-3.5" /> <span>8 min de lectura</span></span>
+          </div>
+          <h1 class="text-3xl md:text-5xl font-black text-charcoal dark:text-zinc-150 leading-tight">
+            Dominando las Reglas de Sandhi: Vocales, Consonantes y Visarga
+          </h1>
+          <p class="text-base md:text-lg text-charcoal/70 dark:text-zinc-400 leading-relaxed font-semibold italic">
+            Cómo la integración fonética da forma al flujo y la estructura del idioma en la lingüística paniniana.
+          </p>
+        </header>
+
+        <hr class="border-saffron-100 dark:border-zinc-800" />
+
+        <div class="prose prose-saffron max-w-none dark:prose-invert text-charcoal/80 dark:text-zinc-350 space-y-6 leading-relaxed text-sm md:text-base font-latin">
+          <h2>1. ¿Qué es Sandhi?</h2>
+          <p>
+            En sánscrito, la palabra <strong>Sandhi (सन्धि)</strong> se traduce literalmente como "unión", "unión fonética" o "transición fonética". A diferencia de los idiomas modernos donde las palabras se pronuncian por separado, el sánscrito requiere que los sonidos contiguos influyan entre sí para facilitar el habla.
+          </p>
+          <p>
+            De acuerdo con el gramático <strong>Pāṇini</strong> en su obra fundamental el <em>Aṣṭādhyāyī</em>, el Sandhi se rige por el concepto de <strong>संहिता (Saṃhitā)</strong>:
+          </p>
+          <blockquote class="bg-saffron-50/50 dark:bg-zinc-900 border-l-4 border-saffron-500 p-4 rounded-r-2xl font-bold font-sanskrit text-center py-6 my-6">
+            परः सन्निकर्षः संहिता (Paraḥ sannikarṣaḥ saṃhitā - 1.4.109)
+          </blockquote>
+          <p>
+            Esta regla establece que cuando dos fonemas se encuentran en proximidad inmediata sin pausas, experimentan fusión fonética. El Sandhi es obligatorio dentro de palabras compuestas (Samāsa), raíces verbales y flexiones nominales, y opcional entre palabras independientes dentro de una oración.
+          </p>
+
+          <h2>2. Las Tres Categorías de Sandhi</h2>
+          <p>
+            El Sandhi se clasifica en tres tipos principales según la naturaleza de los fonemas en contacto:
+          </p>
+          <ol class="list-decimal pl-6 space-y-2">
+            <li><strong>Ac-Sandhi (Vocal):</strong> Ocurre cuando una vocal final se encuentra con una vocal inicial.</li>
+            <li><strong>Hal-Sandhi (Consonántica):</strong> Ocurre cuando un sonido consonántico choca con otra consonante o vocal.</li>
+            <li><strong>Visarga-Sandhi:</strong> Ocurre cuando un visarga (ḥ) final entra en contacto con vocales o consonantes.</li>
+          </ol>
+
+          <h2>3. Sandhi de Vocales (Ac-Sandhi)</h2>
+          <p>
+            Regula las transiciones vocálicas. Las reglas más importantes son:
+          </p>
+
+          <h3>A. Savarṇa-Dīrgha Sandhi (Prolongación Vocálica Homogénea)</h3>
+          <p>
+            Cuando dos vocales similares (cortas o largas) se encuentran, se fusionan en su correspondiente vocal larga.
+            <br />
+            <strong>Fórmula:</strong> <code>a/ā + a/ā = ā</code>, <code>i/ī + i/ī = ī</code>.
+          </p>
+          <ul class="list-disc pl-6 space-y-1">
+            <li><em>Ejemplo 1:</em> deva + ālaya = devālaya (Templo / Casa del Dios)</li>
+            <li><em>Ejemplo 2:</em> giri + īśa = girīśa (Señor de las Montañas)</li>
+          </ul>
+
+          <h3>B. Guṇa Sandhi (Fusión Vocálica Simple)</h3>
+          <p>
+            Cuando una vocal <code>a/ā</code> es seguida por una vocal simple diferente, se combinan en un sonido intermedio.
+            <br />
+            <strong>Fórmula:</strong> <code>a/ā + i/ī = e</code>, <code>a/ā + u/ū = o</code>.
+          </p>
+          <ul class="list-disc pl-6 space-y-1">
+            <li><em>Ejemplo 1:</em> upa + indra = upendra</li>
+            <li><em>Ejemplo 2:</em> mahā + utsava = mahotsava (Gran Festividad)</li>
+          </ul>
+
+          <h2>4. Resumen</h2>
+          <p>
+            El Sandhi no es simplemente una lista de reglas abstractas para memorizar. Es un reflejo de la armonía fonética humana. Comprenderlo le permitirá leer shlokas con la métrica correcta y descifrar palabras compuestas largas.
+          </p>
+        </div>
+      </article>
+    )}
+  </main>
+</Layout>

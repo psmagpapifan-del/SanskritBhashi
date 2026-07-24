@@ -4,6 +4,13 @@ This file tracks all bug fixes, improvements, and features implemented across ap
 
 ---
 
+## [1.0.5] - 2026-07-24 (Version Code 6)
+
+### Sanskrit Learning Hub (AdSense Approval)
+- **Multilingual Articles Hub [Feature]:** Added a comprehensive educational Sanskrit Learning Hub under the `/learn` route containing 6 long-form, academic articles (translated across English, Hindi, Japanese, and Spanish) to satisfy Google AdSense's content requirements and resolve the "Low value content" status rejection.
+- **Navigation Menu Integration [UI]:** Integrated the Learn Hub link and icon (`BookOpen`) into the sidebar navigation layout in `Layout.astro` and localized it in `i18n.ts`.
+- **Static Page Prerendering [Performance]:** Configured all new learning articles to prerender as static assets at build time to maintain sub-20ms edge delivery speeds on Cloudflare Pages.
+
 ## [1.0.4] - 2026-07-01 (Version Code 5)
 
 ### Error Reporting System Fix

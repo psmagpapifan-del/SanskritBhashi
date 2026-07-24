@@ -1,0 +1,212 @@
+---
+export const prerender = true;
+import Layout from "../../../layouts/Layout.astro";
+import { getTranslation } from "../../../lib/i18n";
+import { BookOpen, Clock, ChevronLeft } from "lucide-react";
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: "en" } },
+    { params: { lang: "hi" } },
+    { params: { lang: "ja" } },
+    { params: { lang: "es" } },
+  ];
+}
+
+const { lang } = Astro.params;
+const t = getTranslation(lang);
+
+const title = lang === "en"
+  ? "Sanskrit Phonology: Articulation Points and Devanagari Pronunciation"
+  : lang === "hi"
+  ? "संस्कृत ध्वन्यात्मकता: उच्चारण स्थान और वर्णमाला उच्चारण निर्देश"
+  : lang === "ja"
+  ? "サンスクリットの音韻論：調音点（発音位置）とデーヴァナーガリー発音ガイド"
+  : "Fonología del Sánscrito: Puntos de Articulación y Pronunciación Devanagari";
+
+const desc = lang === "en"
+  ? "A comprehensive phonetic guide to the physiological classification of Sanskrit letters and correct Devanagari pronunciation."
+  : lang === "hi"
+  ? "संस्कृत अक्षरों के शारीरिक वर्गीकरण और सही देवनागरी उच्चारण के लिए एक व्यापक ध्वन्यात्मक गाइड।"
+  : lang === "ja"
+  ? "サンスクリット文字の調音点に関する音韻ガイド。母音と子音の正しい発音の仕方を詳しく解説します。"
+  : "Una guía fonética completa sobre la clasificación fisiológica de las letras sánscritas y la pronunciación correcta.";
+---
+
+<Layout lang={lang} title={title} description={desc}>
+  <main class="max-w-4xl mx-auto px-4 py-8 md:py-12">
+    {/* Navigation link back */}
+    <div class="mb-8">
+      <a 
+        href={`/${lang}/learn`} 
+        class="inline-flex items-center space-x-2 text-xs font-bold text-saffron-600 dark:text-saffron-400 hover:text-saffron-755 dark:hover:text-saffron-300 font-latin uppercase tracking-wider"
+      >
+        <ChevronLeft class="w-4 h-4" />
+        <span>{lang === "en" ? "Back to Learning Hub" : lang === "hi" ? "अध्ययन केंद्र पर वापस" : lang === "ja" ? "学習ハブに戻る" : "Volver al Centro de Aprendizaje"}</span>
+      </a>
+    </div>
+
+    {/* Localized Article Content */}
+    {lang === "en" ? (
+      <article class="space-y-8">
+        <header class="space-y-4">
+          <div class="flex items-center space-x-3 text-xs font-bold text-saffron-600 dark:text-saffron-400 uppercase tracking-widest font-latin">
+            <span>Sanskrit Phonology (Shiksha)</span>
+            <span>•</span>
+            <span class="flex items-center space-x-1"><Clock class="w-3.5 h-3.5" /> <span>7 min read</span></span>
+          </div>
+          <h1 class="text-3xl md:text-5xl font-black text-charcoal dark:text-zinc-150 leading-tight">
+            Sanskrit Phonology: Articulation Points & Pronunciation
+          </h1>
+          <p class="text-base md:text-lg text-charcoal/70 dark:text-zinc-400 leading-relaxed font-semibold italic">
+            Understanding the physiological organization of the divine alphabet (Devanāgarī).
+          </p>
+        </header>
+
+        <hr class="border-saffron-100 dark:border-zinc-800" />
+
+        <div class="prose prose-saffron max-w-none dark:prose-invert text-charcoal/80 dark:text-zinc-350 space-y-6 leading-relaxed text-sm md:text-base">
+          <h2>1. Introduction to Sanskrit Phonetics (Śikṣā)</h2>
+          <p>
+            Unlike many languages where spelling and pronunciation are loosely connected, Sanskrit is perfectly phonetic. Every letter represents a single, unvarying sound. The science of Sanskrit pronunciation is called <strong>Śikṣā (शिक्षा)</strong>, one of the six Vedāṅgas (auxiliary disciplines of Vedic study).
+          </p>
+          <p>
+            Sanskrit letters are organized scientifically in the <strong>Devanāgarī (देवनागरी)</strong> alphabet based on where in the vocal tract the sound is produced (place of articulation) and how the air is released (manner of articulation).
+          </p>
+
+          <h2>2. The Five Articulation Points (Sthānas)</h2>
+          <p>
+            The Sanskrit alphabet has five primary places of articulation, starting from the back of the throat and moving forward to the lips:
+          </p>
+
+          <ol class="list-decimal pl-6 space-y-3">
+            <li>
+              <strong>Kaṇṭhya (कण्ठ्य - Guttural / Throat):</strong> Sounds produced in the throat.
+              <br />
+              <em>Letters:</em> <code>a</code>, <code>ā</code>, and the k-varga (<code>k</code>, <code>kh</code>, <code>g</code>, <code>gh</code>, <code>ṅ</code>), and <code>h</code>.
+            </li>
+            <li>
+              <strong>Tālavya (तालव्य - Palatal / Hard Palate):</strong> Sounds produced by pressing the tongue flat against the hard roof of the mouth.
+              <br />
+              <em>Letters:</em> <code>i</code>, <code>ī</code>, the c-varga (<code>c</code>, <code>ch</code>, <code>j</code>, <code>jh</code>, <code>ñ</code>), <code>y</code>, and <code>ś</code>.
+            </li>
+            <li>
+              <strong>Mūrdhanya (मूर्धन्य - Retroflex / Roof of the Palate):</strong> Sounds produced by curling the tip of the tongue back against the top of the palate.
+              <br />
+              <em>Letters:</em> <code>ṛ</code>, <code>ṝ</code>, the ṭ-varga (<code>ṭ</code>, <code>ṭh</code>, <code>ḍ</code>, <code>ḍh</code>, <code>ṇ</code>), <code>r</code>, and <code>ṣ</code>.
+            </li>
+            <li>
+              <strong>Dantya (दन्त्य - Dental / Teeth):</strong> Sounds produced by touching the tip of the tongue to the back of the upper teeth.
+              <br />
+              <em>Letters:</em> <code>ḷ</code>, the t-varga (<code>t</code>, <code>th</code>, <code>d</code>, <code>dh</code>, <code>n</code>), <code>l</code>, and <code>s</code>.
+            </li>
+            <li>
+              <strong>Oṣṭhya (ओष्ठ्य - Labial / Lips):</strong> Sounds produced using the lips.
+              <br />
+              <em>Letters:</em> <code>u</code>, <code>ū</code>, and the p-varga (<code>p</code>, <code>ph</code>, <code>b</code>, <code>bh</code>, <code>m</code>).
+            </li>
+          </ol>
+
+          <h2>3. Manner of Articulation: Unvoiced vs. Voiced, Unaspirated vs. Aspirated</h2>
+          <p>
+            Inside each consonant class (varga), the consonants are arranged in a 5x5 grid based on breath management:
+          </p>
+          <ul class="list-disc pl-6 space-y-2">
+            <li><strong>Column 1 (Unvoiced, Unaspirated):</strong> Light, no breath release (e.g., <code>k</code>, <code>c</code>, <code>t</code>).</li>
+            <li><strong>Column 2 (Unvoiced, Aspirated):</strong> Pronounced with a sharp puff of air (e.g., <code>kh</code>, <code>ch</code>, <code>th</code>).</li>
+            <li><strong>Column 3 (Voiced, Unaspirated):</strong> Deep throat resonance, no puff of air (e.g., <code>g</code>, <code>j</code>, <code>d</code>).</li>
+            <li><strong>Column 4 (Voiced, Aspirated):</strong> Deep throat resonance with a heavy puff of air (e.g., <code>gh</code>, <code>jh</code>, <code>dh</code>).</li>
+            <li><strong>Column 5 (Nasal):</strong> Resonated through the nose (e.g., <code>ṅ</code>, <code>ñ</code>, <code>n</code>, <code>m</code>).</li>
+          </ul>
+
+          <h2>4. The Visarga (ḥ) and Anusvāra (ṃ)</h2>
+          <p>
+            Two special modifiers change the pronunciation of preceding vowels:
+          </p>
+          <ul class="list-disc pl-6 space-y-2">
+            <li>
+              <strong>Anusvāra (अं - ṃ):</strong> A pure nasal sound. It adopts the nasal articulation point of the consonant that follows it. For example, in <em>saṃskṛta</em>, it is pronounced like a nasal transition.
+            </li>
+            <li>
+              <strong>Visarga (अः - ḥ):</strong> A voiceless echo of the preceding vowel. For example:
+              <ul class="list-circle pl-6 mt-1">
+                <li><code>rāmaḥ</code> is pronounced like "rāma-ha".</li>
+                <li><code>hariḥ</code> is pronounced like "hari-hi".</li>
+                <li><code>guruḥ</code> is pronounced like "guru-hu".</li>
+              </ul>
+            </li>
+          </ul>
+
+          <h2>5. Conclusion</h2>
+          <p>
+            Learning the correct articulation points of Sanskrit letters is the first step toward masterly recitation of Vedic mantras and Shastras. By placing your tongue in the correct position, you will naturally produce the exact vibration and resonance of the Sanskrit language.
+          </p>
+        </div>
+      </article>
+    ) : lang === "hi" ? (
+      <article class="space-y-8">
+        <header class="space-y-4">
+          <div class="flex items-center space-x-3 text-xs font-bold text-saffron-600 dark:text-saffron-400 uppercase tracking-widest font-latin">
+            <span>संस्कृत शिक्षा</span>
+            <span>•</span>
+            <span class="flex items-center space-x-1"><Clock class="w-3.5 h-3.5" /> <span>7 मिनट पठन</span></span>
+          </div>
+          <h1 class="text-3xl md:text-5xl font-black text-charcoal dark:text-zinc-150 leading-tight">
+            संस्कृत ध्वन्यात्मकता: वर्णमाला के उच्चारण स्थान
+          </h1>
+          <p class="text-base md:text-lg text-charcoal/70 dark:text-zinc-400 leading-relaxed font-semibold italic">
+            संस्कृत वर्णमाला के वैज्ञानिक और शारीरिक वर्गीकरण का विस्तृत निर्देश।
+          </p>
+        </header>
+
+        <hr class="border-saffron-100 dark:border-zinc-800" />
+
+        <div class="prose prose-saffron max-w-none dark:prose-invert text-charcoal/80 dark:text-zinc-350 space-y-6 leading-relaxed text-sm md:text-base">
+          <h2>1. संस्कृत ध्वन्यात्मकता (शिक्षा शास्त्र) का परिचय</h2>
+          <p>
+            संस्कृत दुनिया की सबसे वैज्ञानिक और शुद्ध ध्वन्यात्मक (phonetic) भाषा है। इसका अर्थ है कि यहाँ जो लिखा जाता है, वही बोला जाता है। प्रत्येक वर्ण का केवल एक ही निश्चित और अपरिवर्तित उच्चारण होता है। संस्कृत के इस शुद्ध उच्चारण विज्ञान को <strong>शिक्षा (शिक्षा)</strong> कहा जाता है, जो वेदों के छह अंगों (वेदांग) में से एक है।
+          </p>
+
+          <h2>2. पांच मुख्य उच्चारण स्थान (Sthānas)</h2>
+          <p>
+            कंठ से लेकर ओष्ठ तक, हमारे मुख के भीतर पांच मुख्य स्थानों से संस्कृत ध्वनियों का उत्पादन होता है:
+          </p>
+          <ol class="list-decimal pl-6 space-y-2">
+            <li><strong>कण्ठ्य (Guttural - कंठ से):</strong> जिनका उच्चारण गले से होता है। जैसे: <code>अ</code>, <code>आ</code>, क-वर्ग (<code>क, ख, ग, घ, ङ</code>) और <code>ह</code>।</li>
+            <li><strong>तालव्य (Palatal - तालु से):</strong> जब जीभ तालु (मुँह के ऊपरी भाग) को छूती है। जैसे: <code>इ</code>, <code>ई</code>, च-वर्ग (<code>च, छ, ज, झ, ञ</code>), <code>य</code> और <code>श</code>।</li>
+            <li><strong>मूर्धन्य (Retroflex - मूर्धा से):</strong> जब जीभ को पीछे की ओर मोड़कर मुँह की छत के कठोर भाग से छुआ जाता है। जैसे: <code>ऋ</code>, <code>ṝ</code>, ट-वर्ग (<code>ट, ठ, ड, ढ, ण</code>), <code>र</code> और <code>ष</code>।</li>
+            <li><strong>दन्त्य (Dental - दाँत से):</strong> जब जीभ ऊपरी दाँतों के पिछले भाग को छूती है। जैसे: <code>त</code>-वर्ग (<code>त, थ, द, ध, न</code>), <code>ल</code> और <code>स</code>।</li>
+            <li><strong>ओष्ठ्य (Labial - ओष्ठ से):</strong> जिनका उच्चारण दोनों होठों के मिलाप से होता है। जैसे: <code>उ</code>, <code>ऊ</code>, प-वर्ग (<code>प, फ, ब, भ, म</code>)।</li>
+          </ol>
+
+          <h2>3. अनुस्वार (ं) और विसर्ग (ः) का उच्चारण</h2>
+          <ul class="list-disc pl-6 space-y-2">
+            <li><strong>अनुस्वार (ं):</strong> यह नासिका से उच्चारित होने वाली ध्वनि है।</li>
+            <li><strong>विसर्ग (ः):</strong> यह पूर्ववर्ती स्वर की हल्की ह-ध्वनि के रूप में गूंजता है। जैसे: <code>रामः</code> (राम-ह), <code>हरिः</code> (हरि-हि), <code>गुरुः</code> (गुरु-हु)।</li>
+          </ul>
+        </div>
+      </article>
+    ) : (
+      <article class="space-y-8">
+        <header class="space-y-4">
+          <div class="flex items-center space-x-3 text-xs font-bold text-saffron-600 dark:text-saffron-400 uppercase tracking-widest font-latin">
+            <span>Fonología del Sánscrito</span>
+            <span>•</span>
+            <span class="flex items-center space-x-1"><Clock class="w-3.5 h-3.5" /> <span>7 min de lectura</span></span>
+          </div>
+          <h1 class="text-3xl md:text-5xl font-black text-charcoal dark:text-zinc-150 leading-tight font-latin">
+            Fonología del Sánscrito: Puntos de Articulación
+          </h1>
+        </header>
+
+        <hr class="border-saffron-100 dark:border-zinc-800" />
+
+        <div class="prose prose-saffron max-w-none dark:prose-invert text-charcoal/80 dark:text-zinc-350 space-y-6 leading-relaxed text-sm md:text-base font-latin">
+          <p>
+            El sánscrito es un idioma perfectamente fonético. La ciencia de su pronunciación se llama Shiksha. Las letras se organizan según su punto de articulación desde la garganta (Kaṇṭhya) hasta los labios (Oṣṭhya).
+          </p>
+        </div>
+      </article>
+    )}
+  </main>
+</Layout>

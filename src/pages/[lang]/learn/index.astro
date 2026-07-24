@@ -1,0 +1,287 @@
+---
+export const prerender = true;
+import Layout from "../../../layouts/Layout.astro";
+import { getTranslation } from "../../../lib/i18n";
+import { BookOpen, Clock, Calendar, ArrowRight, Bookmark } from "lucide-react";
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: "en" } },
+    { params: { lang: "hi" } },
+    { params: { lang: "ja" } },
+    { params: { lang: "es" } },
+  ];
+}
+
+const { lang } = Astro.params;
+const t = getTranslation(lang);
+
+// Localized article data
+const articles = [
+  {
+    slug: "panini-sandhi-rules",
+    category: "Vyakaran",
+    readingTime: lang === "en" ? "8 min read" : lang === "hi" ? "8 मिनट पठन" : lang === "ja" ? "読了時間 8分" : "8 min de lectura",
+    date: "2026-07-24",
+    title: lang === "en" 
+      ? "Mastering Sanskrit Sandhi Rules: A Complete Phonetic Guide"
+      : lang === "hi"
+      ? "संस्कृत संधि नियमों पर महारत: एक पूर्ण ध्वन्यात्मक गाइड"
+      : lang === "ja"
+      ? "サンスクリットのサンドゥヒ（連声）規則をマスターする：完全音韻ガイド"
+      : "Dominando las Reglas de Sandhi en Sánscrito: Una Guía Fonética Completa",
+    desc: lang === "en"
+      ? "Explore the mechanics of vowel, consonant, and visarga transitions. Learn the rules that govern phonetic cohesion in Paninian grammar."
+      : lang === "hi"
+      ? "स्वर, व्यंजन और विसर्ग संधियों के तंत्र का अन्वेषण करें। पाणिनीय व्याकरण में ध्वन्यात्मक संशक्ति को नियंत्रित करने वाले नियमों को सीखें।"
+      : lang === "ja"
+      ? "母音、子音、およびヴィサルガの連続変化の仕組みを探求します。パーニニ文法における音韻結合を支配する規則を学びましょう。"
+      : "Explore la mecánica de las transiciones de vocales, consonantes y visarga. Aprenda las reglas que rigen la cohesión fonética en la gramática paniniana.",
+    tags: ["Sandhi", "Grammar", "Panini"]
+  },
+  {
+    slug: "bhagavad-gita-anvaya-guide",
+    category: "Shastra",
+    readingTime: lang === "en" ? "10 min read" : lang === "hi" ? "10 मिनट पठन" : lang === "ja" ? "読了時間 10分" : "10 min de lectura",
+    date: "2026-07-24",
+    title: lang === "en"
+      ? "The Art of Anvaya: Reconstructing Gita Shlokas into Prose"
+      : lang === "hi"
+      ? "अन्वय की कला: गीता श्लोकों को गद्य क्रम में पुनर्गठित करना"
+      : lang === "ja"
+      ? "アンヴァヤの技術：ギーターのシュローカ（詩節）を散文に再構築する"
+      : "El Arte de Anvaya: Reconstrucción de Shlokas del Gita en Prosa",
+    desc: lang === "en"
+      ? "Demystify poetic verse structures. Learn Dandanvaya and Khandanvaya techniques to decipher complex classical shlokas."
+      : lang === "hi"
+      ? "काव्यात्मक श्लोक संरचनाओं को सरल बनाएं। जटिल शास्त्रीय श्लोकों को समझने के लिए दण्डान्वय और खण्डान्वय तकनीकों को सीखें।"
+      : lang === "ja"
+      ? "詩的な詩節構造を解明します。複雑な古典的シュローカを解読するためのダンダンヴァヤおよびカンダンヴァヤ技術を学びましょう。"
+      : "Desmitifique las estructuras de los versos poéticos. Aprenda las técnicas de Dandanvaya y Khandanvaya para descifrar shlokas clásicos complejos.",
+    tags: ["Anvaya", "Shastra", "Gita"]
+  },
+  {
+    slug: "sanskrit-declensions-vibhakti",
+    category: "Vyakaran",
+    readingTime: lang === "en" ? "9 min read" : lang === "hi" ? "9 मिनट पठन" : lang === "ja" ? "読了時間 9分" : "9 min de lectura",
+    date: "2026-07-24",
+    title: lang === "en"
+      ? "Demystifying Noun Cases: The Sanskrit Vibhakti System"
+      : lang === "hi"
+      ? "संज्ञा विभक्तियों को सरल बनाना: संस्कृत विभक्ति प्रणाली"
+      : lang === "ja"
+      ? "名詞の格変化を解明する：サンスクリットのヴィバクティ（格）システム"
+      : "Desmitificando los Casos Nominales: El Sistema Vibhakti en Sánscrito",
+    desc: lang === "en"
+      ? "An in-depth guide to the 8 nominal cases, their associated Kāraka semantic roles, and declension paradigms for common word stems."
+      : lang === "hi"
+      ? "काव्य विभक्तियों, उनके संबंधित कारक अर्थ भूमिकाओं और सामान्य शब्द रूपों के लिए रूप सिद्धि का एक गहन गाइड।"
+      : lang === "ja"
+      ? "8つの名詞の格、それらに関連するカーラカ（格関係）の役割、および一般的な語幹の変化形に関する詳細なガイド。"
+      : "Una guía detallada de los 8 casos nominales, sus roles semánticos de Kāraka asociados y paradigmas de declinación para raíces comunes.",
+    tags: ["Vibhakti", "Karaka", "Nouns"]
+  },
+  {
+    slug: "pronunciation-and-devanagari",
+    category: "Phonetics",
+    readingTime: lang === "en" ? "7 min read" : lang === "hi" ? "7 मिनट पठन" : lang === "ja" ? "読了時間 7分" : "7 min de lectura",
+    date: "2026-07-24",
+    title: lang === "en"
+      ? "Sanskrit Phonology: Articulation Points and Devanagari Pronunciation"
+      : lang === "hi"
+      ? "संस्कृत ध्वन्यात्मकता: उच्चारण स्थान और देवनागरी उच्चारण"
+      : lang === "ja"
+      ? "サンスクリット音韻論：調音点とデーヴァナーガリー発音ガイド"
+      : "Fonología del Sánscrito: Puntos de Articulación y Pronunciación Devanagari",
+    desc: lang === "en"
+      ? "Understand the anatomical classification of Sanskrit letters from throat to lips. Practice correct pronunciation of aspirated vowels."
+      : lang === "hi"
+      ? "कंठ से लेकर ओष्ठ तक संस्कृत अक्षरों के शारीरिक वर्गीकरण को समझें। महाप्राण स्वरों और व्यंजनों के सही उच्चारण का अभ्यास करें।"
+      : lang === "ja"
+      ? "喉から唇までのサンスクリット文字の解剖学的分類を理解します。気音化された母音や子音の正しい発音を練習しましょう。"
+      : "Comprenda la clasificación anatómica de las letras sánscritas desde la garganta hasta los labios. Practique la pronunciación correcta.",
+    tags: ["Phonetics", "Devanagari", "Speech"]
+  },
+  {
+    slug: "ncert-board-exam-strategy",
+    category: "School Prep",
+    readingTime: lang === "en" ? "8 min read" : lang === "hi" ? "8 मिनट पठन" : lang === "ja" ? "読了時間 8分" : "8 min de lectura",
+    date: "2026-07-24",
+    title: lang === "en"
+      ? "NCERT Sanskrit Board Exams: Proven Study and Writing Strategies"
+      : lang === "hi"
+      ? "एनसीईआरटी संस्कृत बोर्ड परीक्षा: सिद्ध अध्ययन और लेखन रणनीतियाँ"
+      : lang === "ja"
+      ? "NCERTサンスクリット定期試験対策：効果的な学習と解答作成の戦略"
+      : "Exámenes de Sánscrito de NCERT: Estrategias Probadas de Estudio y Escritura",
+    desc: lang === "en"
+      ? "Scoring tips for CBSE Class 10 Sanskrit. Learn to tackle comprehension passages, grammar translation, and formal letter writing."
+      : lang === "hi"
+      ? "सीबीएसई कक्षा 10 संस्कृत के लिए अंक प्राप्त करने के टिप्स। अपठित गद्यांश, व्याकरण अनुवाद और औपचारिक पत्र लेखन से निपटना सीखें।"
+      : lang === "ja"
+      ? "CBSEクラス10のサンスクリット試験対策。読解問題、文法翻訳、および公式な手紙作成への取り組み方を解説します。"
+      : "Consejos para calificar en Sánscrito de la Clase 10 de CBSE. Aprenda a abordar pasajes de comprensión y traducción gramatical.",
+    tags: ["NCERT", "Exam Prep", "Study Tips"]
+  },
+  {
+    slug: "scientific-relevance-of-sanskrit",
+    category: "Linguistics",
+    readingTime: lang === "en" ? "10 min read" : lang === "hi" ? "10 मिनट पठन" : lang === "ja" ? "読了時間 10分" : "10 min de lectura",
+    date: "2026-07-24",
+    title: lang === "en"
+      ? "The Computational Structure of Sanskrit: Paninian Grammar and Computer Science"
+      : lang === "hi"
+      ? "संस्कृत की संगणकीय संरचना: पाणिनीय व्याकरण और कंप्यूटर विज्ञान"
+      : lang === "ja"
+      ? "サンスクリットの計算構造：パーニニ文法とコンピュータサイエンス"
+      : "La Estructura Computacional del Sánscrito: Gramática Paniniana y Ciencia de la Computación",
+    desc: lang === "en"
+      ? "Discover the mathematical design of the Ashtadhyayi. Explore its mathematical parallels to formal language theory and compiler design."
+      : lang === "hi"
+      ? "अष्टाध्यायी के गणितीय डिजाइन की खोज करें। औपचारिक भाषा सिद्धांत (formal language theory) और कंपाइलर डिजाइन के साथ इसके गणितीय समानताएं खोजें।"
+      : lang === "ja"
+      ? "アシュターディヤーイーの数学的設計を発見しましょう。形式言語理論やコンパイラ設計との数学的な類似点を探求します。"
+      : "Descubra el diseño matemático del Ashtadhyayi. Explore sus paralelos matemáticos con la teoría del lenguaje formal y el diseño de compiladores.",
+    tags: ["Linguistics", "Panini", "Computer Science"]
+  }
+];
+
+const categoryTranslations: Record<string, Record<string, string>> = {
+  en: { Vyakaran: "Grammar", Shastra: "Classical Scripture", Phonetics: "Phonology & Speech", "School Prep": "Academic Prep", Linguistics: "Computational Linguistics" },
+  hi: { Vyakaran: "व्याकरण", Shastra: "शास्त्रीय ग्रंथ", Phonetics: "ध्वन्यात्मकता", "School Prep": "स्कूल परीक्षा तैयारी", Linguistics: "संगणकीय भाषा विज्ञान" },
+  ja: { Vyakaran: "文法", Shastra: "聖典学習", Phonetics: "音韻学", "School Prep": "試験対策", Linguistics: "計算言語学" },
+  es: { Vyakaran: "Gramática", Shastra: "Escritura Sagrada", Phonetics: "Fonología y Voz", "School Prep": "Preparación Académica", Linguistics: "Lingüística Computacional" }
+};
+
+const getCategory = (cat: string) => {
+  return categoryTranslations[lang]?.[cat] || cat;
+};
+
+const pageTitle = lang === "en" 
+  ? "Sanskrit Learning Hub — Articles, Guides & Tutorials"
+  : lang === "hi"
+  ? "संस्कृत अध्ययन केंद्र — लेख, गाइड और ट्यूटोरियल"
+  : lang === "ja"
+  ? "サンスクリット学習ハブ — 記事、解説ガイド、チュートリアル"
+  : "Centro de Aprendizaje de Sánscrito — Artículos, Guías y Tutoriales";
+
+const pageDesc = lang === "en"
+  ? "Deepen your knowledge of Sanskrit. Read detailed articles on Paninian grammar rules, Bhagavad Gita translation, nominal declensions, and NCERT exam prep."
+  : lang === "hi"
+  ? "संस्कृत के अपने ज्ञान को गहरा करें। पाणिनीय व्याकरण नियमों, भगवद गीता अनुवाद, संज्ञा विभक्तियों और एनसीईआरटी परीक्षा तैयारी पर विस्तृत लेख पढ़ें।"
+  : lang === "ja"
+  ? "サンスクリットの知識を深めましょう。パーニニ文法の規則、バガヴァッド・ギーターの解読、名詞の格変化、NCERT試験対策に関する詳細な記事をご覧ください。"
+  : "Profundice su conocimiento del sánscrito. Lea artículos detallados sobre reglas gramaticales paninianas, traducción del Bhagavad Gita y preparación escolar.";
+---
+
+<Layout lang={lang} title={pageTitle} description={pageDesc}>
+  <main class="max-w-6xl mx-auto px-4 py-8 md:py-12">
+    {/* Page Header */}
+    <header class="text-center max-w-3xl mx-auto space-y-4 mb-12 md:mb-16">
+      <div class="inline-flex items-center space-x-2 px-4 py-1.5 bg-saffron-55 dark:bg-zinc-800 border border-saffron-100 dark:border-zinc-700 rounded-full text-saffron-600 dark:text-saffron-400">
+        <BookOpen class="w-4 h-4" />
+        <span class="text-xs font-bold font-latin uppercase tracking-widest">
+          {lang === "en" ? "Knowledge Base" : lang === "hi" ? "ज्ञान कोष" : lang === "ja" ? "ナレッジベース" : "Base de Conocimiento"}
+        </span>
+      </div>
+      <h1 class="text-3xl md:text-5xl font-black text-charcoal dark:text-zinc-150 leading-tight">
+        {lang === "en" ? "Sanskrit " : lang === "hi" ? "संस्कृत " : lang === "ja" ? "サンスクリット " : "Centro de "}
+        <span class="text-saffron-600 dark:text-saffron-400">
+          {lang === "en" ? "Learning Hub" : lang === "hi" ? "अध्ययन केंद्र" : lang === "ja" ? "学習ハブ" : "Aprendizaje"}
+        </span>
+      </h1>
+      <p class="text-sm md:text-base text-charcoal/70 dark:text-zinc-400 leading-relaxed">
+        {pageDesc}
+      </p>
+    </header>
+
+    {/* Articles Grid */}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+      {articles.map((art) => (
+        <article class="group bg-white dark:bg-zinc-900 border border-saffron-105 dark:border-zinc-800 rounded-3xl p-6 flex flex-col justify-between hover:border-saffron-300 dark:hover:border-zinc-700 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+          <div class="space-y-4">
+            {/* Category and Metadata */}
+            <div class="flex justify-between items-center text-xs">
+              <span class="px-3 py-1 bg-saffron-55 dark:bg-zinc-800 border border-saffron-100/50 dark:border-zinc-700 rounded-full font-bold text-saffron-600 dark:text-saffron-400">
+                {getCategory(art.category)}
+              </span>
+              <div class="flex items-center space-x-3 text-charcoal/50 dark:text-zinc-500 font-latin font-semibold">
+                <span class="flex items-center space-x-1">
+                  <Clock class="w-3.5 h-3.5" />
+                  <span>{art.readingTime}</span>
+                </span>
+              </div>
+            </div>
+
+            {/* Title */}
+            <h2 class="text-lg md:text-xl font-bold text-charcoal dark:text-zinc-205 group-hover:text-saffron-600 dark:group-hover:text-saffron-400 transition-colors duration-200 line-clamp-2">
+              <a href={`/${lang}/learn/${art.slug}`}>
+                {art.title}
+              </a>
+            </h2>
+
+            {/* Description */}
+            <p class="text-xs md:text-sm text-charcoal/70 dark:text-zinc-400 line-clamp-3 leading-relaxed">
+              {art.desc}
+            </p>
+          </div>
+
+          {/* Card Footer */}
+          <div class="mt-6 pt-4 border-t border-cream dark:border-zinc-800 flex justify-between items-center">
+            {/* Tags */}
+            <div class="flex flex-wrap gap-1">
+              {art.tags.slice(0, 2).map((t) => (
+                <span class="text-[10px] font-bold font-latin text-charcoal/40 dark:text-zinc-500 uppercase tracking-wider">
+                  #{t}
+                </span>
+              ))}
+            </div>
+
+            {/* Action */}
+            <a 
+              href={`/${lang}/learn/${art.slug}`}
+              class="inline-flex items-center space-x-1.5 text-xs font-bold text-saffron-600 dark:text-saffron-400 group-hover:text-saffron-700 dark:group-hover:text-saffron-300 font-latin uppercase tracking-wider"
+            >
+              <span>{lang === "en" ? "Read" : lang === "hi" ? "पढ़ें" : lang === "ja" ? "読む" : "Leer"}</span>
+              <ArrowRight class="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform duration-200" />
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    {/* Call to action */}
+    <div class="mt-16 md:mt-24 bg-gradient-to-br from-saffron-500 to-saffron-600 dark:from-zinc-900 dark:to-zinc-950 border border-saffron-600/10 dark:border-zinc-800 rounded-3xl p-8 md:p-12 text-center text-white space-y-6 shadow-md relative overflow-hidden">
+      {/* Background visual highlight */}
+      <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-white/5 dark:bg-saffron-500/5 rounded-full blur-3xl pointer-events-none" />
+      
+      <Bookmark class="w-10 h-10 mx-auto text-white/90 dark:text-saffron-400 animate-pulse" />
+      <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight">
+        {lang === "en" ? "Practice What You Learn" : lang === "hi" ? "जो आप सीखते हैं उसका अभ्यास करें" : lang === "ja" ? "学んだことを実践してみましょう" : "Practique lo que Aprende"}
+      </h2>
+      <p class="max-w-2xl mx-auto text-sm md:text-base text-white/80 dark:text-zinc-400 leading-relaxed">
+        {lang === "en" 
+          ? "Reinforce your knowledge of Sanskrit rules by testing yourself in our interactive study labs. Master school syllabus prep or translate classical shlokas."
+          : lang === "hi"
+          ? "हमारे इंटरैक्टिव स्टडी लैब्स में खुद का परीक्षण करके संस्कृत नियमों के अपने ज्ञान को सुदृढ़ करें। स्कूल पाठ्यक्रम की तैयारी करें या शास्त्रीय श्लोकों का अनुवाद करें।"
+          : lang === "ja"
+          ? "インタラクティブな学習ラボでテストを受けることで、サンスクリット規則の知識を定着させましょう。定期試験対策や、古典的なシュローカの翻訳をマスターできます。"
+          : "Refuerce su conocimiento de las reglas sánscritas autoevaluándose en nuestros laboratorios de estudio interactivos. Domine el plan escolar o traduzca shlokas."}
+      </p>
+      <div class="flex flex-wrap justify-center gap-4 pt-4">
+        <a 
+          href={`/${lang}/modules/school-prep`}
+          class="px-6 py-3 bg-white text-saffron-600 dark:bg-zinc-800 dark:text-saffron-400 hover:bg-cream dark:hover:bg-zinc-750 font-bold rounded-2xl shadow-sm text-xs md:text-sm transition-colors duration-200"
+        >
+          {lang === "en" ? "Start School Prep" : lang === "hi" ? "स्कूल तैयारी शुरू करें" : lang === "ja" ? "試験対策を開始" : "Comenzar Prep Escolar"}
+        </a>
+        <a 
+          href={`/${lang}/modules/shastra-study`}
+          class="px-6 py-3 bg-saffron-700/25 border border-white/30 text-white hover:bg-saffron-700/40 font-bold rounded-2xl text-xs md:text-sm transition-colors duration-200"
+        >
+          {lang === "en" ? "Study Shastras" : lang === "hi" ? "शास्त्र अध्ययन शुरू करें" : lang === "ja" ? "シャーストラ学習" : "Estudiar Shastras"}
+        </a>
+      </div>
+    </div>
+  </main>
+</Layout>

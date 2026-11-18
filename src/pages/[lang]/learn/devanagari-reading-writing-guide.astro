@@ -1,0 +1,19 @@
+---
+export const prerender = true;
+import ArticlePage from "../../../components/ArticlePage.astro";
+import En from "../../../components/articles/devanagari-reading-writing-guide/en.astro";
+import Hi from "../../../components/articles/devanagari-reading-writing-guide/hi.astro";
+import Ja from "../../../components/articles/devanagari-reading-writing-guide/ja.astro";
+import Es from "../../../components/articles/devanagari-reading-writing-guide/es.astro";
+
+export function getStaticPaths() {
+  return ["en", "hi", "ja", "es"].map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params;
+const Body = { en: En, hi: Hi, ja: Ja, es: Es }[lang as "en" | "hi" | "ja" | "es"] ?? En;
+---
+
+<ArticlePage lang={lang} slug="devanagari-reading-writing-guide">
+  <Body />
+</ArticlePage>

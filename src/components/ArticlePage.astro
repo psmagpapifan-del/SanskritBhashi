@@ -1,0 +1,76 @@
+---
+/**
+ * Shared template for Learning Hub articles listed in src/lib/learnArticles.ts.
+ * Renders the layout, back link, localized header and byline; the article
+ * body (prose only) is passed in as the default slot.
+ */
+import Layout from "../layouts/Layout.astro";
+import ArticleByline from "./ArticleByline.astro";
+import { ChevronLeft, Clock } from "lucide-react";
+import { getLearnArticle, readingTime, type Lang } from "../lib/learnArticles";
+
+interface Props {
+  lang: string;
+  slug: string;
+}
+
+const { lang, slug } = Astro.props;
+const article = getLearnArticle(slug);
+const meta = article.meta[lang as Lang] ?? article.meta.en;
+
+const categoryLabels: Record<string, Record<string, string>> = {
+  en: { Vyakaran: "Sanskrit Grammar (Vyākaraṇa)", Shastra: "Shastra Study", Phonetics: "Script & Phonology", "School Prep": "Academic Prep (School)", Linguistics: "Linguistics" },
+  hi: { Vyakaran: "संस्कृत व्याकरण", Shastra: "शास्त्र अध्ययन", Phonetics: "लिपि एवं ध्वनि", "School Prep": "स्कूल तैयारी", Linguistics: "भाषा विज्ञान" },
+  ja: { Vyakaran: "サンスクリット文法", Shastra: "聖典学習", Phonetics: "文字と音韻", "School Prep": "学校の試験対策", Linguistics: "言語学" },
+  es: { Vyakaran: "Gramática Sánscrita", Shastra: "Estudio de los Shastras", Phonetics: "Escritura y Fonología", "School Prep": "Preparación Académica", Linguistics: "Lingüística" },
+};
+const category = (categoryLabels[lang] ?? categoryLabels.en)[article.category];
+const back = lang === "hi" ? "अध्ययन केंद्र पर वापस" : lang === "ja" ? "学習ハブに戻る" : lang === "es" ? "Volver al Centro de Aprendizaje" : "Back to Learning Hub";
+const latin = lang === "en" || lang === "es" ? "font-latin" : "";
+---
+
+<Layout lang={lang} title={meta.title} description={meta.desc}>
+  <div class="max-w-4xl mx-auto px-4 py-8 md:py-12">
+    <div class="mb-8">
+      <a
+        href={`/${lang}/learn`}
+        class="inline-flex items-center space-x-2 text-xs font-bold text-saffron-600 dark:text-saffron-400 hover:text-saffron-700 dark:hover:text-saffron-300 font-latin uppercase tracking-wider"
+      >
+        <ChevronLeft class="w-4 h-4" />
+        <span>{back}</span>
+      </a>
+    </div>
+
+    <article class="space-y-8">
+      <header class="space-y-4">
+        <div class="flex items-center space-x-3 text-xs font-bold text-saffron-600 dark:text-saffron-400 uppercase tracking-widest font-latin">
+          <span>{category}</span>
+          <span>•</span>
+          <span class="flex items-center space-x-1"><Clock class="w-3.5 h-3.5" /> <span>{readingTime(lang, article.minutes)}</span></span>
+        </div>
+        <h1 class={`text-3xl md:text-5xl font-black text-charcoal dark:text-zinc-150 leading-tight ${latin}`}>
+          {meta.title}
+        </h1>
+        <p class={`text-base md:text-lg text-charcoal/70 dark:text-zinc-400 leading-relaxed font-semibold italic ${latin}`}>
+          {meta.subtitle}
+        </p>
+      </header>
+
+      <hr class="border-saffron-100 dark:border-zinc-800" />
+
+      <div class={`prose prose-saffron max-w-none dark:prose-invert text-charcoal/80 dark:text-zinc-350 space-y-6 leading-relaxed text-sm md:text-base ${latin}`}>
+        <slot />
+      </div>
+    </article>
+
+    <ArticleByline
+      lang={lang}
+      slug={slug}
+      title={meta.title}
+      description={meta.desc}
+      published={article.published}
+      updated={article.updated}
+      module={article.module}
+    />
+  </div>
+</Layout>

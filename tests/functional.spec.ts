@@ -87,9 +87,9 @@ test.describe("Functional Testing", () => {
       // Navigate to school-prep and verify the school-prep link gets active class
       await page.goto("/en/modules/school-prep");
       const schoolLink = page.locator("#tour-step-2 #tour-step-3");
-      if (await schoolLink.isVisible()) {
-        await expect(schoolLink).toHaveClass(/bg-saffron-500/);
-      }
+      await expect(schoolLink).toBeVisible();
+      await expect(schoolLink).toHaveAttribute("aria-current", "page");
+      await expect(page.locator("#tour-step-2 #tour-step-1")).not.toHaveAttribute("aria-current", "page");
     });
 
     test("FN-05: Direct URL access works for all locale pages", async ({ page }) => {
@@ -192,14 +192,13 @@ test.describe("Functional Testing", () => {
         timeout: 5000,
       });
 
-      // Step through all 8 steps
-      for (let i = 0; i < 7; i++) {
-        const nextBtn = page.locator('button:has-text("Next")');
-        if (await nextBtn.isVisible()) {
-          await nextBtn.click();
-          await page.waitForTimeout(300);
-        }
+      // Step through all 8 steps. Step 6 -> 7 navigates to School Prep and the tour
+      // re-appears after a short delay, so wait for each step counter explicitly.
+      for (let step = 1; step < 8; step++) {
+        await expect(page.getByText(`(${step} of 8)`)).toBeVisible({ timeout: 10000 });
+        await page.getByRole("button", { name: "Next" }).click();
       }
+      await expect(page.getByText("(8 of 8)")).toBeVisible({ timeout: 10000 });
 
       // Last step should show "Get Started"
       await expect(page.locator('button:has-text("Get Started")')).toBeVisible();
@@ -228,11 +227,16 @@ test.describe("Functional Testing", () => {
       // Toggle dark mode
       const toggleBtn = page.locator("#theme-toggle-desktop");
       if (await toggleBtn.isVisible()) {
-        await toggleBtn.click();
-
-        const isDark = await page.evaluate(() =>
+        const wasDark = await page.evaluate(() =>
           document.documentElement.classList.contains("dark")
         );
+        await toggleBtn.click();
+
+        // The toggle runs inside a View Transition; wait for it to apply.
+        await expect
+          .poll(() => page.evaluate(() => localStorage.getItem("theme")))
+          .toBe(wasDark ? "light" : "dark");
+        const isDark = !wasDark;
 
         // Navigate to another page
         await page.goto("/en/about");

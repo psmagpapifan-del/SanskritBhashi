@@ -1,0 +1,93 @@
+---
+import Table from "../Table.astro";
+---
+
+<h2>1. ¿Qué es un Samāsa?</h2>
+<p>
+  Un <strong>Samāsa (समास)</strong> es una palabra compuesta: dos o más palabras independientes unidas en una sola. La definición tradicional es <em>samasanaṃ samāsaḥ</em>, «unir es samāsa». Al formar el compuesto, normalmente se eliminan las terminaciones de caso de todos los miembros salvo el último, y el compuesto entero se declina como una sola palabra.
+</p>
+<p>
+  El sánscrito usa compuestos mucho más que la mayoría de los idiomas. En la literatura clásica, un solo compuesto puede sustituir a una oración subordinada entera; por eso reconocerlos y analizarlos es esencial para leer los textos y una pregunta habitual en los exámenes escolares.
+</p>
+<p>
+  El proceso de descomponer un compuesto en sus palabras, con sus terminaciones de caso correctas, se llama <strong>Vigraha (विग्रह)</strong>. Por ejemplo, el vigraha de <code>राजपुरुषः</code> es <code>राज्ञः पुरुषः</code>, «el hombre del rey».
+</p>
+
+<h2>2. Los seis tipos principales de Samāsa</h2>
+<p>
+  Los compuestos se clasifican según qué miembro es el más importante (<em>pradhāna</em>) para el significado:
+</p>
+<Table
+  headers={["Samāsa", "Miembro principal", "Ejemplo", "Vigraha"]}
+  rows={[
+    ["Avyayībhāva", "El primero (un indeclinable)", "यथाशक्ति", "शक्तिम् अनतिक्रम्य"],
+    ["Tatpuruṣa", "El segundo", "राजपुरुषः", "राज्ञः पुरुषः"],
+    ["Karmadhāraya", "El segundo (adjetivo + sustantivo)", "नीलकमलम्", "नीलं कमलम्"],
+    ["Dvigu", "El segundo (primero un número)", "त्रिलोकी", "त्रयाणां लोकानां समाहारः"],
+    ["Dvandva", "Todos los miembros", "रामलक्ष्मणौ", "रामः च लक्ष्मणः च"],
+    ["Bahuvrīhi", "Algo fuera del compuesto", "पीताम्बरः", "पीतम् अम्बरं यस्य सः"],
+  ]}
+/>
+<p>
+  En sentido estricto, el Karmadhāraya y el Dvigu son subtipos del Tatpuruṣa, pero en la escuela suelen enseñarse por separado por lo frecuentes que son.
+</p>
+
+<h2>3. Avyayībhāva: compuestos que se vuelven indeclinables</h2>
+<p>
+  En un Avyayībhāva el primer miembro es un indeclinable (<em>avyaya</em>) como <code>यथा</code>, <code>उप</code> o <code>प्रति</code>, y todo el compuesto funciona como indeclinable, normalmente terminado en <code>-म्</code>.
+</p>
+<ul class="list-disc pl-6 space-y-1">
+  <li><code>उपगङ्गम्</code> = <code>गङ्गायाः समीपम्</code> (cerca del Ganges)</li>
+  <li><code>प्रतिदिनम्</code> = <code>दिनं दिनं प्रति</code> (cada día)</li>
+  <li><code>यथाशक्ति</code> = <code>शक्तिम् अनतिक्रम्य</code> (según la propia capacidad)</li>
+</ul>
+
+<h2>4. Tatpuruṣa, Karmadhāraya y Dvigu</h2>
+<p>
+  En un <strong>Tatpuruṣa</strong> la segunda palabra lleva el significado principal y la primera se relaciona con ella mediante un caso. El caso usado en el vigraha da nombre al subtipo:
+</p>
+<ul class="list-disc pl-6 space-y-1">
+  <li><code>ग्रामगतः</code> = <code>ग्रामं गतः</code> (ido a la aldea, 2.º caso)</li>
+  <li><code>चौरभयम्</code> = <code>चौरात् भयम्</code> (miedo a los ladrones, 5.º caso)</li>
+  <li><code>विद्यालयः</code> = <code>विद्यायाः आलयः</code> (casa del saber, es decir, escuela; 6.º caso)</li>
+</ul>
+<p>
+  Un <strong>Karmadhāraya</strong> une palabras que se refieren a lo mismo, típicamente un adjetivo y un sustantivo, o una comparación: <code>नीलकमलम्</code> = <code>नीलं कमलम्</code> (loto azul); <code>घनश्यामः</code> = <code>घनः इव श्यामः</code> (oscuro como una nube).
+</p>
+<p>
+  Un <strong>Dvigu</strong> es un Karmadhāraya cuyo primer miembro es un número y que suele designar un conjunto: <code>त्रिलोकी</code> (los tres mundos), <code>पञ्चवटी</code> (un grupo de cinco higueras de Bengala), <code>चतुर्युगम्</code> (las cuatro edades).
+</p>
+
+<h2>5. Dvandva: compuestos de iguales</h2>
+<p>
+  En un Dvandva todos los miembros son igual de importantes, unidos por un <code>च</code> («y») implícito.
+</p>
+<ul class="list-disc pl-6 space-y-1">
+  <li>El <strong>Itaretara Dvandva</strong> mantiene cada miembro diferenciado, de modo que el número refleja el total: <code>रामलक्ष्मणौ</code> = <code>रामः च लक्ष्मणः च</code> (dual).</li>
+  <li>El <strong>Samāhāra Dvandva</strong> trata los miembros como un colectivo, en neutro singular: <code>पाणिपादम्</code> = <code>पाणी च पादौ च, तेषां समाहारः</code> (manos y pies).</li>
+</ul>
+
+<h2>6. Bahuvrīhi: compuestos que describen a otro</h2>
+<p>
+  Un Bahuvrīhi se refiere a algo que <em>no</em> se nombra en él. Su vigraha usa un pronombre relativo como <code>यस्य</code> («cuyo») o <code>यः</code> («el que»).
+</p>
+<ul class="list-disc pl-6 space-y-1">
+  <li><code>पीताम्बरः</code> = <code>पीतम् अम्बरं यस्य सः</code> (aquel cuya vestidura es amarilla: Kṛṣṇa)</li>
+  <li><code>दशाननः</code> = <code>दश आननानि यस्य सः</code> (el que tiene diez rostros: Rāvaṇa)</li>
+  <li><code>लम्बोदरः</code> = <code>लम्बम् उदरं यस्य सः</code> (aquel cuyo vientre es grande: Gaṇeśa)</li>
+</ul>
+<p>
+  Un mismo compuesto puede leerse de dos maneras. <code>नीलकण्ठः</code> como Karmadhāraya significa «garganta azul» (<code>नीलः कण्ठः</code>); como Bahuvrīhi significa «aquel cuya garganta es azul», es decir, Śiva (<code>नीलः कण्ठः यस्य सः</code>). El contexto decide.
+</p>
+
+<h2>7. Un método para cualquier compuesto</h2>
+<ol class="list-decimal pl-6 space-y-2">
+  <li>Deshaga el sandhi en la unión (p. ej., <code>लम्बोदर</code> → <code>लम्ब + उदर</code>).</li>
+  <li>Compruebe si el primer miembro es un indeclinable (Avyayībhāva) o un número (Dvigu).</li>
+  <li>Compruebe si los miembros son iguales unidos por «y» (Dvandva).</li>
+  <li>Compruebe si el compuesto describe algo externo a él (Bahuvrīhi).</li>
+  <li>Si no, es un Tatpuruṣa o un Karmadhāraya: busque el caso que une las palabras.</li>
+</ol>
+<p>
+  Practique estos pasos con los compuestos de su libro de texto y después compruebe lo aprendido con los ejercicios del módulo de Preparación Escolar de Sanskritbhashi.
+</p>

@@ -2,6 +2,7 @@
 export const prerender = true;
 import Layout from "../../../layouts/Layout.astro";
 import { getTranslation } from "../../../lib/i18n";
+import { learnArticles, readingTime, type Lang } from "../../../lib/learnArticles";
 import { BookOpen, Clock, Calendar, ArrowRight, Bookmark } from "lucide-react";
 
 export function getStaticPaths() {
@@ -143,7 +144,20 @@ const articles = [
       ? "アシュターディヤーイーの数学的設計を発見しましょう。形式言語理論やコンパイラ設計との数学的な類似点を探求します。"
       : "Descubra el diseño matemático del Ashtadhyayi. Explore sus paralelos matemáticos con la teoría del lenguaje formal y el diseño de compiladores.",
     tags: ["Linguistics", "Panini", "Computer Science"]
-  }
+  },
+  // Articles that use the shared ArticlePage template (src/lib/learnArticles.ts)
+  ...learnArticles.map((a) => {
+    const m = a.meta[lang as Lang] ?? a.meta.en;
+    return {
+      slug: a.slug,
+      category: a.category,
+      readingTime: readingTime(lang, a.minutes),
+      date: a.published,
+      title: m.title,
+      desc: m.desc,
+      tags: a.tags,
+    };
+  }),
 ];
 
 const categoryTranslations: Record<string, Record<string, string>> = {
@@ -175,7 +189,7 @@ const pageDesc = lang === "en"
 ---
 
 <Layout lang={lang} title={pageTitle} description={pageDesc}>
-  <main class="max-w-6xl mx-auto px-4 py-8 md:py-12">
+  <div class="max-w-6xl mx-auto px-4 py-8 md:py-12">
     {/* Page Header */}
     <header class="text-center max-w-3xl mx-auto space-y-4 mb-12 md:mb-16">
       <div class="inline-flex items-center space-x-2 px-4 py-1.5 bg-saffron-55 dark:bg-zinc-800 border border-saffron-100 dark:border-zinc-700 rounded-full text-saffron-600 dark:text-saffron-400">
@@ -205,7 +219,7 @@ const pageDesc = lang === "en"
               <span class="px-3 py-1 bg-saffron-55 dark:bg-zinc-800 border border-saffron-100/50 dark:border-zinc-700 rounded-full font-bold text-saffron-600 dark:text-saffron-400">
                 {getCategory(art.category)}
               </span>
-              <div class="flex items-center space-x-3 text-charcoal/50 dark:text-zinc-500 font-latin font-semibold">
+              <div class="flex items-center space-x-3 text-charcoal/70 dark:text-zinc-500 font-latin font-semibold">
                 <span class="flex items-center space-x-1">
                   <Clock class="w-3.5 h-3.5" />
                   <span>{art.readingTime}</span>
@@ -231,7 +245,7 @@ const pageDesc = lang === "en"
             {/* Tags */}
             <div class="flex flex-wrap gap-1">
               {art.tags.slice(0, 2).map((t) => (
-                <span class="text-[10px] font-bold font-latin text-charcoal/40 dark:text-zinc-500 uppercase tracking-wider">
+                <span class="text-[10px] font-bold font-latin text-charcoal/70 dark:text-zinc-500 uppercase tracking-wider">
                   #{t}
                 </span>
               ))}
@@ -283,5 +297,5 @@ const pageDesc = lang === "en"
         </a>
       </div>
     </div>
-  </main>
+  </div>
 </Layout>

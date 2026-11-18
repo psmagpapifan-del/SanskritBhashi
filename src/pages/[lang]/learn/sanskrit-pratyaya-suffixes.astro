@@ -1,0 +1,19 @@
+---
+export const prerender = true;
+import ArticlePage from "../../../components/ArticlePage.astro";
+import En from "../../../components/articles/sanskrit-pratyaya-suffixes/en.astro";
+import Hi from "../../../components/articles/sanskrit-pratyaya-suffixes/hi.astro";
+import Ja from "../../../components/articles/sanskrit-pratyaya-suffixes/ja.astro";
+import Es from "../../../components/articles/sanskrit-pratyaya-suffixes/es.astro";
+
+export function getStaticPaths() {
+  return ["en", "hi", "ja", "es"].map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params;
+const Body = { en: En, hi: Hi, ja: Ja, es: Es }[lang as "en" | "hi" | "ja" | "es"] ?? En;
+---
+
+<ArticlePage lang={lang} slug="sanskrit-pratyaya-suffixes">
+  <Body />
+</ArticlePage>

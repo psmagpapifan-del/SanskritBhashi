@@ -1,0 +1,79 @@
+---
+import Table from "../Table.astro";
+---
+
+<h2>1. Un alfabeto basado en sílabas</h2>
+<p>
+  El sánscrito se escribe normalmente en <strong>Devanāgarī (देवनागरी)</strong>, la misma escritura que se usa para el hindi, el maratí y el nepalí. La Devanāgarī es un <em>abugida</em>: cada consonante lleva incorporada una vocal breve <code>a</code>. La letra <code>क</code> no es solo «k», sino <strong>ka</strong>. Las demás vocales se indican añadiendo pequeños signos a la consonante.
+</p>
+<p>
+  Se escribe de izquierda a derecha, y la mayoría de las letras cuelgan de una línea horizontal superior llamada <strong>śirorekhā (शिरोरेखा)</strong>. Al escribir una palabra, trace primero las letras y después únalas con una sola línea continua.
+</p>
+
+<h2>2. Las vocales (svara) y las mātrās</h2>
+<p>
+  Cada vocal tiene una forma independiente, que se usa al principio de una palabra o sílaba, y un signo dependiente (<strong>mātrā, मात्रा</strong>) que se usa tras una consonante. Aquí aparecen con <code>क</code>:
+</p>
+<Table
+  headers={["Vocal", "Independiente", "Mātrā con क", "Sonido"]}
+  rows={[
+    ["a", "अ", "क", "ka (inherente)"],
+    ["ā", "आ", "का", "kā"],
+    ["i", "इ", "कि", "ki"],
+    ["ī", "ई", "की", "kī"],
+    ["u", "उ", "कु", "ku"],
+    ["ū", "ऊ", "कू", "kū"],
+    ["ṛ", "ऋ", "कृ", "kṛ"],
+    ["ṝ", "ॠ", "कॄ", "kṝ"],
+    ["e", "ए", "के", "ke"],
+    ["ai", "ऐ", "कै", "kai"],
+    ["o", "ओ", "को", "ko"],
+    ["au", "औ", "कौ", "kau"],
+  ]}
+/>
+<p>
+  Atención a la <code>i</code> breve: su mātrā <code>ि</code> se escribe <em>delante</em> de la consonante aunque se pronuncia después. La vocal rara <code>ऌ</code> (ḷ) aparece solo en unas pocas palabras, como <code>कॢप्</code>.
+</p>
+
+<h2>3. Anusvāra, visarga y halanta</h2>
+<ul class="list-disc pl-6 space-y-2">
+  <li><strong>Anusvāra (ं):</strong> un punto sobre la letra que indica un sonido nasal: <code>संस्कृतम्</code> (saṃskṛtam).</li>
+  <li><strong>Visarga (ः):</strong> dos puntos tras la letra que indican un eco aspirado «h»: <code>रामः</code> (rāmaḥ).</li>
+  <li><strong>Halanta / virāma (्):</strong> un pequeño trazo bajo la consonante que anula su <code>a</code> inherente. <code>क्</code> es solo «k». Muchas palabras sánscritas terminan en consonante con halanta: <code>वाक्</code>, <code>जगत्</code>, <code>पठितुम्</code>.</li>
+</ul>
+
+<h2>4. Consonantes conjuntas (saṃyuktākṣara)</h2>
+<p>
+  Cuando dos o más consonantes se encuentran sin vocal intermedia, se escriben como una sola letra combinada. La mayoría se leen fácilmente una vez conocidos los patrones:
+</p>
+<ul class="list-disc pl-6 space-y-2">
+  <li><strong>Medias formas:</strong> las letras con trazo vertical lo pierden y se unen a la siguiente: <code>स् + थ = स्थ</code>, <code>प् + य = प्य</code>, <code>न् + त = न्त</code>.</li>
+  <li><strong>Formas apiladas:</strong> algunas letras se escriben una encima de otra: <code>द् + ध = द्ध</code>, <code>ट् + ट = ट्ट</code>.</li>
+  <li><strong>Formas especiales que hay que memorizar:</strong> <code>क्ष</code> (k + ṣa), <code>त्र</code> (t + ra), <code>ज्ञ</code> (j + ña), <code>श्र</code> (ś + ra).</li>
+  <li><strong>R antes de consonante (repha):</strong> se escribe como un gancho sobre la letra siguiente: <code>र् + म = र्म</code>, como en <code>धर्म</code> (dharma).</li>
+  <li><strong>R después de consonante:</strong> un pequeño trazo inclinado al pie de la letra: <code>प्र</code>, <code>क्र</code>, <code>ग्र</code>.</li>
+</ul>
+<p>
+  Si una fuente no puede formar el conjunto, el halanta se muestra explícitamente, p. ej. <code>द्‌ध</code>. Ambas grafías representan los mismos sonidos.
+</p>
+
+<h2>5. Puntuación y números</h2>
+<ul class="list-disc pl-6 space-y-2">
+  <li><strong>Daṇḍa (।):</strong> cierra una oración o medio verso.</li>
+  <li><strong>Doble daṇḍa (॥):</strong> cierra un verso completo, a menudo seguido de su número.</li>
+  <li><strong>Avagraha (ऽ):</strong> marca una <code>a</code> que ha desaparecido por sandhi: <code>कोऽपि</code> (ko'pi).</li>
+  <li><strong>Números:</strong> ० १ २ ३ ४ ५ ६ ७ ८ ९ (0–9).</li>
+</ul>
+
+<h2>6. Transliteración (IAST)</h2>
+<p>
+  Los libros académicos suelen imprimir el sánscrito en alfabeto latino con el sistema <strong>IAST</strong>, que añade diacríticos para que cada letra Devanāgarī tenga un equivalente único: las vocales largas llevan macrón (<code>ā ī ū</code>), las consonantes retroflejas un punto debajo (<code>ṭ ḍ ṇ ṣ</code>) y las otras dos sibilantes son <code>ś</code> (श) y <code>ṣ</code> (ष). Aprender IAST junto con la Devanāgarī facilita el uso de diccionarios y ediciones académicas.
+</p>
+
+<h2>7. Una rutina de práctica</h2>
+<ol class="list-decimal pl-6 space-y-2">
+  <li>Aprenda las vocales y sus mātrās con una sola consonante hasta leer <code>क का कि की ...</code> sin dudar.</li>
+  <li>Aprenda las consonantes fila por fila (<code>क ख ग घ ङ</code>, <code>च छ ज झ ञ</code> …), siguiendo el orden de articulación explicado en nuestra guía de pronunciación.</li>
+  <li>Lea en voz alta palabras cortas y después shlokas sencillos, pronunciando cada sílaba despacio.</li>
+  <li>Copie a mano un verso cada día, trazando la línea superior al final.</li>
+</ol>

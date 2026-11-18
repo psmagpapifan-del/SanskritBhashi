@@ -1,0 +1,78 @@
+---
+import Table from "../Table.astro";
+import Scansion from "./Scansion.astro";
+---
+
+<h2>1. Chandas: The Science of Metre</h2>
+<p>
+  Almost all classical Sanskrit literature, from the Vedas to the epics and the Bhagavad Gītā, is composed in verse. The discipline that describes how verses are measured is called <strong>Chandas (छन्दस्)</strong>, one of the six Vedāṅgas. Its foundational text is the <em>Chandaḥśāstra</em> attributed to <strong>Piṅgala</strong>.
+</p>
+<p>
+  Sanskrit metre is <strong>quantitative</strong>: it is built not on stress, as in English poetry, but on the length of syllables. Knowing the metre helps you recite correctly, memorise verses, and even spot copying errors in manuscripts, because a wrong word often breaks the metre.
+</p>
+
+<h2>2. Laghu and Guru: Light and Heavy Syllables</h2>
+<p>
+  Every syllable is either <strong>laghu (लघु, light)</strong>, worth one <em>mātrā</em>, or <strong>guru (गुरु, heavy)</strong>, worth two. Traditionally laghu is marked <code>।</code> and guru <code>ऽ</code>.
+</p>
+<ul class="list-disc pl-6 space-y-2">
+  <li>A syllable is <strong>guru</strong> if its vowel is long (<code>ā ī ū ṝ e ai o au</code>).</li>
+  <li>It is also <strong>guru</strong> if its short vowel is followed by a conjunct consonant, an anusvāra or a visarga: the <code>kar</code> of <code>karma</code>, the <code>saṃ</code> of <code>saṃskṛta</code>, the <code>maḥ</code> of <code>rāmaḥ</code>.</li>
+  <li>Otherwise the syllable is <strong>laghu</strong>: a short vowel followed by at most one consonant.</li>
+  <li>The last syllable of a quarter-verse (<em>pāda</em>) may count as either, depending on the metre.</li>
+</ul>
+
+<h2>3. The Gaṇa System</h2>
+<p>
+  Metres with a fixed pattern are described using eight groups of three syllables called <strong>gaṇas</strong>. They are remembered with the mnemonic <strong>यमाताराजभानसलगा</strong>: take any syllable and the two after it, and you get that gaṇa's pattern.
+</p>
+<Table
+  headers={["Gaṇa", "Pattern", "Marks"]}
+  rows={[
+    ["य (ya)", "light-heavy-heavy", "। ऽ ऽ"],
+    ["म (ma)", "heavy-heavy-heavy", "ऽ ऽ ऽ"],
+    ["त (ta)", "heavy-heavy-light", "ऽ ऽ ।"],
+    ["र (ra)", "heavy-light-heavy", "ऽ । ऽ"],
+    ["ज (ja)", "light-heavy-light", "। ऽ ।"],
+    ["भ (bha)", "heavy-light-light", "ऽ । ।"],
+    ["न (na)", "light-light-light", "। । ।"],
+    ["स (sa)", "light-light-heavy", "। । ऽ"],
+  ]}
+/>
+<p>
+  The last two letters of the mnemonic, <code>ल</code> and <code>गा</code>, stand for a single laghu and a single guru.
+</p>
+
+<h2>4. Anuṣṭubh: The Shloka Metre</h2>
+<p>
+  The most common metre in Sanskrit is the <strong>Anuṣṭubh</strong>, also simply called the <em>śloka</em>. It has four pādas of eight syllables each, 32 in all. Most of the Bhagavad Gītā, the Rāmāyaṇa and the Mahābhārata is written in it. Its key rule is summarised in a verse:
+</p>
+<blockquote class="bg-saffron-50/50 dark:bg-zinc-900 border-l-4 border-saffron-500 p-4 rounded-r-2xl font-bold font-sanskrit text-center py-6 my-6">
+  श्लोके षष्ठं गुरु ज्ञेयं सर्वत्र लघु पञ्चमम् ।<br />
+  द्विचतुष्पादयोर्ह्रस्वं सप्तमं दीर्घमन्ययोः ॥
+</blockquote>
+<ul class="list-disc pl-6 space-y-1">
+  <li>The <strong>6th</strong> syllable of every pāda is guru.</li>
+  <li>The <strong>5th</strong> syllable of every pāda is laghu.</li>
+  <li>The <strong>7th</strong> syllable is laghu in pādas 2 and 4, and guru in pādas 1 and 3.</li>
+</ul>
+
+<h2>5. Scanning Bhagavad Gītā 2.47</h2>
+<p>
+  Here is the famous verse <em>karmaṇy evādhikāras te</em> divided into syllables. The highlighted 5th, 6th and 7th positions follow the rules exactly.
+</p>
+<Scansion padaLabel="Pāda" />
+<p>
+  Notice how <code>kar</code> and <code>tur</code> are heavy even though their vowels are short, because a conjunct consonant follows (<code>rm</code>, <code>rbh</code>).
+</p>
+
+<h2>6. Other Well-Known Metres</h2>
+<ul class="list-disc pl-6 space-y-1">
+  <li><strong>Indravajrā</strong>: 11 syllables per pāda (त त ज + two guru).</li>
+  <li><strong>Vasantatilakā</strong>: 14 syllables per pāda, popular in classical poetry.</li>
+  <li><strong>Mandākrāntā</strong>: 17 syllables per pāda, the slow, "gently advancing" metre of Kālidāsa's <em>Meghadūta</em>.</li>
+  <li><strong>Śārdūlavikrīḍita</strong>: 19 syllables per pāda, used for grand descriptive verses.</li>
+</ul>
+<p>
+  Try scanning a verse yourself: split it into syllables, mark each one laghu or guru, then check positions 5, 6 and 7. It is one of the best ways to train your ear for correct Sanskrit recitation.
+</p>

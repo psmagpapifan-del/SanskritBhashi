@@ -1,0 +1,79 @@
+---
+import Table from "../Table.astro";
+---
+
+<h2>1. An Alphabet Built on Syllables</h2>
+<p>
+  Sanskrit is most commonly written in <strong>Devanāgarī (देवनागरी)</strong>, the same script used for Hindi, Marathi and Nepali. Devanāgarī is an <em>abugida</em>: every consonant letter carries a built-in short vowel <code>a</code>. The letter <code>क</code> is not just "k" but <strong>ka</strong>. Other vowels are shown by adding small marks to the consonant.
+</p>
+<p>
+  The script is written from left to right, and most letters hang from a horizontal headline called the <strong>śirorekhā (शिरोरेखा)</strong>. When you write a word, draw the letters first and then join them with one continuous headline.
+</p>
+
+<h2>2. The Vowels (Svara)</h2>
+<p>
+  Each vowel has an independent form, used at the start of a word or syllable, and a dependent sign (<strong>mātrā, मात्रा</strong>) used after a consonant. Here they are with <code>क</code>:
+</p>
+<Table
+  headers={["Vowel", "Independent", "Mātrā with क", "Sound"]}
+  rows={[
+    ["a", "अ", "क", "ka (inherent)"],
+    ["ā", "आ", "का", "kā"],
+    ["i", "इ", "कि", "ki"],
+    ["ī", "ई", "की", "kī"],
+    ["u", "उ", "कु", "ku"],
+    ["ū", "ऊ", "कू", "kū"],
+    ["ṛ", "ऋ", "कृ", "kṛ"],
+    ["ṝ", "ॠ", "कॄ", "kṝ"],
+    ["e", "ए", "के", "ke"],
+    ["ai", "ऐ", "कै", "kai"],
+    ["o", "ओ", "को", "ko"],
+    ["au", "औ", "कौ", "kau"],
+  ]}
+/>
+<p>
+  Watch the short <code>i</code>: its mātrā <code>ि</code> is written <em>before</em> the consonant even though it is pronounced after it. The rare vowel <code>ऌ</code> (ḷ) occurs in only a few words such as <code>कॢप्</code>.
+</p>
+
+<h2>3. Anusvāra, Visarga and Halanta</h2>
+<ul class="list-disc pl-6 space-y-2">
+  <li><strong>Anusvāra (ं):</strong> a dot above the letter marking a nasal sound: <code>संस्कृतम्</code> (saṃskṛtam).</li>
+  <li><strong>Visarga (ः):</strong> two dots after a letter marking a breathy "h" echo: <code>रामः</code> (rāmaḥ).</li>
+  <li><strong>Halanta / Virāma (्):</strong> a small stroke below a consonant that cancels its inherent <code>a</code>. <code>क्</code> is just "k". Many Sanskrit words end in a halanta consonant: <code>वाक्</code>, <code>जगत्</code>, <code>पठितुम्</code>.</li>
+</ul>
+
+<h2>4. Conjunct Consonants (Saṃyuktākṣara)</h2>
+<p>
+  When two or more consonants meet with no vowel between them, they are written as a single combined letter. Most conjuncts are easy to read once you know the patterns:
+</p>
+<ul class="list-disc pl-6 space-y-2">
+  <li><strong>Half forms:</strong> letters with a vertical stroke drop it and join the next letter: <code>स् + थ = स्थ</code>, <code>प् + य = प्य</code>, <code>न् + त = न्त</code>.</li>
+  <li><strong>Stacked forms:</strong> some letters are written one above the other: <code>द् + ध = द्ध</code>, <code>ट् + ट = ट्ट</code>.</li>
+  <li><strong>Special shapes to memorise:</strong> <code>क्ष</code> (k + ṣa), <code>त्र</code> (t + ra), <code>ज्ञ</code> (j + ña), <code>श्र</code> (ś + ra).</li>
+  <li><strong>R before a consonant (repha):</strong> written as a hook on top of the following letter: <code>र् + म = र्म</code>, as in <code>धर्म</code> (dharma).</li>
+  <li><strong>R after a consonant:</strong> written as a small slanted stroke at the foot: <code>प्र</code>, <code>क्र</code>, <code>ग्र</code>.</li>
+</ul>
+<p>
+  If a font cannot form a conjunct, the halanta is shown explicitly, e.g. <code>द्‌ध</code>. Both spellings represent the same sounds.
+</p>
+
+<h2>5. Punctuation and Numerals</h2>
+<ul class="list-disc pl-6 space-y-2">
+  <li><strong>Daṇḍa (।):</strong> ends a sentence or half-verse.</li>
+  <li><strong>Double daṇḍa (॥):</strong> ends a full verse, often followed by the verse number.</li>
+  <li><strong>Avagraha (ऽ):</strong> marks an <code>a</code> that has dropped out through sandhi: <code>कोऽपि</code> (ko'pi).</li>
+  <li><strong>Numerals:</strong> ० १ २ ३ ४ ५ ६ ७ ८ ९ (0–9).</li>
+</ul>
+
+<h2>6. Transliteration (IAST)</h2>
+<p>
+  Scholarly books often print Sanskrit in the Roman alphabet using <strong>IAST</strong>, which adds diacritics so that every Devanāgarī letter has a unique Roman equivalent: long vowels take a macron (<code>ā ī ū</code>), retroflex consonants a dot below (<code>ṭ ḍ ṇ ṣ</code>), and the two other sibilants are <code>ś</code> (श) and <code>ṣ</code> (ष). Learning IAST alongside Devanāgarī helps you use dictionaries and academic editions.
+</p>
+
+<h2>7. A Practice Routine</h2>
+<ol class="list-decimal pl-6 space-y-2">
+  <li>Learn the vowels and their mātrās with a single consonant until you can read <code>क का कि की ...</code> without hesitation.</li>
+  <li>Learn the consonants row by row (<code>क ख ग घ ङ</code>, <code>च छ ज झ ञ</code> …), following the articulation order explained in our pronunciation guide.</li>
+  <li>Read short words aloud, then simple shlokas, slowly sounding out each syllable.</li>
+  <li>Copy a verse by hand every day, drawing the headline last.</li>
+</ol>

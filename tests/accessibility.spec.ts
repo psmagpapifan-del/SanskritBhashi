@@ -17,6 +17,9 @@ const PAGES = [
   { name: "Privacy", path: "/en/privacy" },
   { name: "Terms", path: "/en/terms" },
   { name: "FAQs", path: "/en/faqs" },
+  { name: "LearnHub", path: "/en/learn" },
+  { name: "ArticleLakaras", path: "/en/learn/sanskrit-verb-lakaras" },
+  { name: "ArticleChandasJA", path: "/ja/learn/sanskrit-chandas-meter" },
 ];
 
 test.describe("Accessibility Testing", () => {
@@ -35,24 +38,10 @@ test.describe("Accessibility Testing", () => {
       await page.goto(pageInfo.path);
       await page.waitForLoadState("networkidle");
 
-      // Inject axe-core and run analysis
+      // Inject axe-core from the local package (no network dependency)
+      await page.addScriptTag({ path: require.resolve("axe-core/axe.min.js") });
+
       const violations = await page.evaluate(async () => {
-        // Inject axe-core from CDN
-        const script = document.createElement("script");
-        script.src = "https://cdnjs.cloudflare.com/ajax/libs/axe-core/4.10.2/axe.min.js";
-        document.head.appendChild(script);
-
-        await new Promise<void>((resolve, reject) => {
-          script.onload = () => resolve();
-          script.onerror = () => reject(new Error("Failed to load axe-core"));
-          // Timeout fallback
-          setTimeout(() => resolve(), 5000);
-        });
-
-        if (typeof (window as any).axe === "undefined") {
-          return [{ id: "axe-load-failed", impact: "critical", description: "Could not load axe-core library", nodes: [] }];
-        }
-
         const results = await (window as any).axe.run(document, {
           runOnly: {
             type: "tag",
@@ -66,6 +55,7 @@ test.describe("Accessibility Testing", () => {
           description: v.description,
           helpUrl: v.helpUrl,
           nodes: v.nodes.length,
+          targets: v.nodes.slice(0, 5).map((n: any) => `${n.target.join(" ")} :: ${n.failureSummary?.split("\n")[1] ?? ""}`),
         }));
       });
 
@@ -75,6 +65,7 @@ test.describe("Accessibility Testing", () => {
         for (const v of violations) {
           console.log(`  [${v.impact?.toUpperCase()}] ${v.id}: ${v.description} (${v.nodes} elements)`);
           if (v.helpUrl) console.log(`    Help: ${v.helpUrl}`);
+          for (const t of v.targets ?? []) console.log(`      - ${t}`);
         }
       }
 
@@ -83,12 +74,11 @@ test.describe("Accessibility Testing", () => {
         (v: any) => v.impact === "critical" || v.impact === "serious"
       );
 
-      // Soft assertion — log count but don't hard fail to collect all issues
-      if (criticalViolations.length > 0) {
-        console.warn(
-          `${pageInfo.name}: ${criticalViolations.length} critical/serious a11y violations found`
-        );
-      }
+      // Colour contrast is logged but not enforced yet: the remaining failures come
+      // from the saffron brand palette and need a design decision.
+      // Every other critical/serious violation fails the test.
+      const enforced = criticalViolations.filter((v: any) => v.id !== "color-contrast");
+      expect(enforced, `${pageInfo.name}: critical/serious a11y violations`).toEqual([]);
     });
   }
 
@@ -121,9 +111,7 @@ test.describe("Accessibility Testing", () => {
         }
       }
 
-      if (skips.length > 0) {
-        console.warn(`${pageInfo.name}: Heading hierarchy skips: ${skips.join(", ")}`);
-      }
+      expect(skips, `${pageInfo.name}: heading hierarchy skips`).toEqual([]);
     });
   }
 

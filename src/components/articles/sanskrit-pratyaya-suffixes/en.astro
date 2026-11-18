@@ -1,0 +1,70 @@
+---
+import Table from "../Table.astro";
+---
+
+<h2>1. What is a Pratyaya?</h2>
+<p>
+  A <strong>pratyaya (प्रत्यय)</strong> is a suffix added to a root or a word to create a new form. Sanskrit grammar groups the suffixes students meet most often into three families:
+</p>
+<ul class="list-disc pl-6 space-y-1">
+  <li><strong>Kṛt pratyayas (कृत्)</strong> are added to verbal roots (<em>dhātus</em>) and make words such as participles and infinitives.</li>
+  <li><strong>Taddhita pratyayas (तद्धित)</strong> are added to nouns and make new nouns and adjectives.</li>
+  <li><strong>Strī pratyayas (स्त्री)</strong> make feminine forms.</li>
+</ul>
+<p>
+  Pāṇini's suffix names contain marker letters (<em>it</em>) that are not pronounced but tell the grammarian how the suffix behaves. For example, in <code>क्त्वा</code> only <code>त्वा</code> is actually added.
+</p>
+
+<h2>2. Kṛt Suffixes: Building Words from Roots</h2>
+<Table
+  headers={["Suffix", "Meaning", "Examples"]}
+  rows={[
+    ["क्त्वा (-tvā)", "having done (gerund)", "पठित्वा, गत्वा, कृत्वा, दृष्ट्वा"],
+    ["ल्यप् (-ya)", "having done, after a prefix", "आगत्य, प्रणम्य, विज्ञाय, उपविश्य"],
+    ["तुमुन् (-tum)", "to do (infinitive)", "पठितुम्, गन्तुम्, कर्तुम्, द्रष्टुम्"],
+    ["क्त (-ta)", "done (past passive participle)", "पठितः, गतः, कृतः, दृष्टः"],
+    ["क्तवतु (-tavat)", "who did (past active participle)", "पठितवान्, गतवान्, कृतवान्"],
+    ["शतृ (-at)", "doing (present participle, Parasmaipada)", "पठन्, गच्छन्, पश्यन्"],
+    ["शानच् (-māna/-āna)", "doing (present participle, Ātmanepada)", "सेवमानः, लभमानः"],
+    ["तव्यत् / अनीयर्", "to be done (gerundive)", "कर्तव्यम्, पठितव्यम्, करणीयम्, पठनीयम्"],
+  ]}
+/>
+<p>
+  The most common exam trap is <strong>क्त्वा versus ल्यप्</strong>. Both mean "having done", but when the root has a prefix (<em>upasarga</em>) such as <code>आ</code>, <code>प्र</code>, <code>वि</code> or <code>उप</code>, <code>क्त्वा</code> is replaced by <code>ल्यप्</code>: <code>गम् + क्त्वा = गत्वा</code>, but <code>आ + गम् + ल्यप् = आगत्य</code>.
+</p>
+<p>
+  The participles behave like adjectives and agree with the noun they describe. <code>क्तवतु</code> is especially useful because it replaces a past-tense verb: <code>सः पाठं पठितवान्</code> (he read the lesson), <code>सा पाठं पठितवती</code> (she read the lesson).
+</p>
+
+<h2>3. Taddhita Suffixes: Building Words from Nouns</h2>
+<Table
+  headers={["Suffix", "Meaning", "Examples"]}
+  rows={[
+    ["मतुप् (-mat / -vat)", "possessing", "बुद्धिमान्, श्रीमान्, धनवान्, गुणवान्"],
+    ["ठक् (-ika)", "relating to", "धार्मिकः, सामाजिकः, ऐतिहासिकः, वैदिकः"],
+    ["त्व / तल् (-tva / -tā)", "-ness, abstract noun", "गुरुत्वम्, मनुष्यत्वम्, लघुता"],
+  ]}
+/>
+<p>
+  <strong>मतुप्</strong> appears as <code>-मत्</code> after most words (<code>बुद्धि → बुद्धिमान्</code>) but as <code>-वत्</code> after words ending in <code>a</code> or <code>ā</code> (<code>धन → धनवान्</code>). Its nominative masculine singular ends in <code>-मान्</code> / <code>-वान्</code>.
+</p>
+<p>
+  <strong>ठक्</strong> becomes <code>-इक</code> and also strengthens the first vowel of the word (<em>vṛddhi</em>): <code>धर्म → धार्मिक</code>, <code>इतिहास → ऐतिहासिक</code>, <code>वेद → वैदिक</code>.
+</p>
+
+<h2>4. Strī Suffixes: Making Feminine Forms</h2>
+<ul class="list-disc pl-6 space-y-2">
+  <li><strong>टाप् (-ā):</strong> the regular feminine of many <code>a</code>-stem words: <code>अज → अजा</code>, <code>बाल → बाला</code>, <code>छात्र → छात्रा</code>, <code>प्रिय → प्रिया</code>.</li>
+  <li><strong>ङीप् (-ī):</strong> used for many other words, including those formed with <code>मतुप्</code> and <code>शतृ</code>: <code>देव → देवी</code>, <code>कुमार → कुमारी</code>, <code>श्रीमत् → श्रीमती</code>, <code>भवत् → भवती</code>, <code>गच्छत् → गच्छन्ती</code>.</li>
+</ul>
+
+<h2>5. How to Split a Word into Root + Suffix</h2>
+<ol class="list-decimal pl-6 space-y-2">
+  <li>Look at the ending: <code>-त्वा</code>, <code>-य</code>, <code>-तुम्</code>, <code>-तवान्</code>, <code>-मान्</code>, <code>-इक</code> and so on.</li>
+  <li>Remove it and restore the root or noun, undoing any sound change (<code>दृष्ट्वा → दृश् + क्त्वा</code>).</li>
+  <li>Check for a prefix: if there is one, a gerund will use <code>ल्यप्</code>, not <code>क्त्वा</code>.</li>
+  <li>For feminine words, ask whether the base ends in <code>a</code> (usually <code>टाप्</code>) or is a <code>-मत्</code> / <code>-वत्</code> / <code>-अत्</code> word (usually <code>ङीप्</code>).</li>
+</ol>
+<p>
+  These suffixes make up a large part of the applied-grammar section of CBSE Sanskrit papers. Practise them chapter by chapter in Sanskritbhashi's School Prep module.
+</p>

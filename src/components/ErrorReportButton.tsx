@@ -126,7 +126,7 @@ export default function ErrorReportButton({
               {/* Close Button */}
               <button
                 onClick={() => setIsOpen(false)}
-                className="absolute top-4 right-4 text-charcoal/40 hover:text-charcoal transition-colors cursor-pointer p-1"
+                className="absolute top-4 right-4 text-charcoal/70 hover:text-charcoal transition-colors cursor-pointer p-1"
                 aria-label="Close modal"
               >
                 <X className="w-5 h-5" />
@@ -148,7 +148,7 @@ export default function ErrorReportButton({
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
                   {/* Question Info summary */}
-                  <div className="bg-cream rounded-2xl p-3 border border-charcoal/5 text-xs text-charcoal/60 leading-relaxed font-latin">
+                  <div className="bg-cream rounded-2xl p-3 border border-charcoal/5 text-xs text-charcoal/70 leading-relaxed font-latin">
                     <p className="font-bold text-saffron-600">
                       {lang === "ja" ? "章 ID" : lang === "hi" ? "अध्याय आईडी" : lang === "es" ? "ID de Capítulo" : "Chapter ID"}: {chapterId}
                     </p>
@@ -162,7 +162,7 @@ export default function ErrorReportButton({
 
                   {/* Micro-categories dropdown */}
                   <div>
-                    <label className="block text-xs font-bold text-charcoal/60 uppercase tracking-wider mb-2 font-latin">
+                    <label className="block text-xs font-bold text-charcoal/70 uppercase tracking-wider mb-2 font-latin">
                       {t.practice.reportCategory}
                     </label>
                     <select
@@ -180,7 +180,7 @@ export default function ErrorReportButton({
 
                   {/* Details custom text */}
                   <div>
-                    <label className="block text-xs font-bold text-charcoal/60 uppercase tracking-wider mb-2 font-latin">
+                    <label className="block text-xs font-bold text-charcoal/70 uppercase tracking-wider mb-2 font-latin">
                       {t.practice.reportDetails}
                     </label>
                     <textarea

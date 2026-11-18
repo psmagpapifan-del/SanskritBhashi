@@ -20,9 +20,9 @@ export default function FAQAccordion({ id, question, primaryAnswer, detailedAnsw
       onToggle={(e) => setIsOpen((e.target as HTMLDetailsElement).open)}
     >
       <summary className="flex items-center justify-between font-semibold text-charcoal cursor-pointer select-none py-1 focus:outline-hidden list-none">
-        <h3 className="text-base md:text-lg pr-4 font-latin font-bold group-open:text-saffron-600 transition-colors">
+        <h2 className="text-base md:text-lg pr-4 font-latin font-bold group-open:text-saffron-600 transition-colors">
           {question}
-        </h3>
+        </h2>
         <span className="flex-shrink-0 p-1.5 rounded-full bg-saffron-50 text-saffron-600 transition-transform duration-300 group-open:rotate-180">
           <ChevronDown className="w-4 h-4" />
         </span>

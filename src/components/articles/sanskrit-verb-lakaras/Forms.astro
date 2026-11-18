@@ -1,0 +1,26 @@
+---
+/** Conjugation table for one lakāra; Sanskrit forms are shared by all languages. */
+import Table from "../Table.astro";
+
+interface Props {
+  lakara: "lat" | "lrt" | "lan" | "lot" | "vidhilin" | "labh-lat";
+  /** [person column header, singular, dual, plural] */
+  headers: string[];
+  /** Labels for 3rd, 2nd, 1st person (prathama, madhyama, uttama). */
+  persons: [string, string, string];
+}
+
+const forms: Record<Props["lakara"], string[][]> = {
+  lat: [["पठति", "पठतः", "पठन्ति"], ["पठसि", "पठथः", "पठथ"], ["पठामि", "पठावः", "पठामः"]],
+  lrt: [["पठिष्यति", "पठिष्यतः", "पठिष्यन्ति"], ["पठिष्यसि", "पठिष्यथः", "पठिष्यथ"], ["पठिष्यामि", "पठिष्यावः", "पठिष्यामः"]],
+  lan: [["अपठत्", "अपठताम्", "अपठन्"], ["अपठः", "अपठतम्", "अपठत"], ["अपठम्", "अपठाव", "अपठाम"]],
+  lot: [["पठतु", "पठताम्", "पठन्तु"], ["पठ", "पठतम्", "पठत"], ["पठानि", "पठाव", "पठाम"]],
+  vidhilin: [["पठेत्", "पठेताम्", "पठेयुः"], ["पठेः", "पठेतम्", "पठेत"], ["पठेयम्", "पठेव", "पठेम"]],
+  "labh-lat": [["लभते", "लभेते", "लभन्ते"], ["लभसे", "लभेथे", "लभध्वे"], ["लभे", "लभावहे", "लभामहे"]],
+};
+
+const { lakara, headers, persons } = Astro.props;
+const rows = forms[lakara].map((r, i) => [persons[i], ...r]);
+---
+
+<Table headers={headers} rows={rows} sanskrit />

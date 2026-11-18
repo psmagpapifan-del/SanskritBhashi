@@ -177,7 +177,7 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
           <span class="text-xl font-bold bg-linear-to-r from-saffron-500 to-saffron-600 bg-clip-text text-transparent font-sanskrit">
             संस्कृतभाषी
           </span>
-          <span class="text-xs font-bold uppercase tracking-wider text-charcoal/40 font-latin hidden xs:inline">
+          <span class="text-xs font-bold uppercase tracking-wider text-charcoal/70 font-latin hidden xs:inline">
             bhashi
           </span>
         </a>
@@ -202,12 +202,13 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
       {/* DESKTOP SIDEBAR (Only visible on desktop) */}
       <aside
         id="tour-step-2"
+        aria-label="Sidebar"
         class="group/sidebar hidden md:flex flex-col w-64 fixed h-dvh bg-white/80 dark:bg-zinc-950/80 backdrop-blur-xl border-r border-border-hairline dark:border-white/5 p-6 z-40 transition-all duration-300"
       >
         {/* Floating Toggle Button */}
         <button
           id="sidebar-toggle"
-          class="absolute -right-3.5 top-8 w-7 h-7 rounded-full bg-white dark:bg-zinc-900 border border-border-hairline dark:border-white/10 flex items-center justify-center text-charcoal/50 hover:text-saffron-600 dark:hover:text-saffron-500 hover:bg-saffron-50 dark:hover:bg-zinc-800 shadow-sm transition-all duration-300 hover:scale-110 z-50 cursor-pointer"
+          class="absolute -right-3.5 top-8 w-7 h-7 rounded-full bg-white dark:bg-zinc-900 border border-border-hairline dark:border-white/10 flex items-center justify-center text-charcoal/70 hover:text-saffron-600 dark:hover:text-saffron-500 hover:bg-saffron-50 dark:hover:bg-zinc-800 shadow-sm transition-all duration-300 hover:scale-110 z-50 cursor-pointer"
           aria-label="Toggle Sidebar"
         >
           <ChevronLeft class="w-4 h-4 transition-transform duration-300" id="sidebar-toggle-icon" />
@@ -219,14 +220,14 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
             <span class="text-2xl font-black bg-linear-to-r from-saffron-500 to-saffron-600 bg-clip-text text-transparent font-sanskrit leading-none drop-shadow-sm">
               संस्कृतभाषी
             </span>
-            <span class="text-[10px] font-bold uppercase tracking-widest text-charcoal/40 font-latin pl-1 leading-none">
+            <span class="text-[10px] font-bold uppercase tracking-widest text-charcoal/70 font-latin pl-1 leading-none">
               Sanskritbhashi.com
             </span>
           </a>
         </div>
 
         {/* Sidebar Nav */}
-        <nav class="flex-1 space-y-1.5 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+        <nav aria-label="Main" class="flex-1 space-y-1.5 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           {navItems.map((item) => {
             const active = isActive(item.href);
             const Icon = item.icon;
@@ -234,6 +235,7 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
               <a
                 href={item.href}
                 id={item.id}
+                aria-current={active ? "page" : undefined}
                 class={`sidebar-link group relative flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-300 cursor-pointer overflow-hidden ${
                   active
                     ? "bg-linear-to-r from-saffron-500 to-saffron-600 text-white shadow-lg shadow-saffron-500/20 ring-1 ring-white/20 dark:ring-white/10 scale-[1.02]"
@@ -243,7 +245,7 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
                 {active && (
                   <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-1/2 bg-white rounded-r-full shadow-[0_0_8px_rgba(255,255,255,0.8)]"></div>
                 )}
-                <Icon class={`w-5 h-5 shrink-0 transition-colors ${active ? "text-white drop-shadow-md" : "text-charcoal/40 group-hover:text-saffron-500 dark:group-hover:text-saffron-400"}`} />
+                <Icon class={`w-5 h-5 shrink-0 transition-colors ${active ? "text-white drop-shadow-md" : "text-charcoal/70 group-hover:text-saffron-500 dark:group-hover:text-saffron-400"}`} />
                 <span class="sidebar-text transition-all duration-300 w-auto opacity-100 visible whitespace-nowrap">{item.name}</span>
                 
                 {/* Tooltip for collapsed state */}
@@ -257,7 +259,7 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
 
         {/* Sidebar Footer */}
         <div class="border-t border-border-hairline pt-4 text-center overflow-hidden shrink-0 h-10">
-          <p class="sidebar-text text-[10px] font-bold text-charcoal/30 font-latin uppercase tracking-widest transition-all duration-300 w-auto opacity-100 visible whitespace-nowrap">
+          <p class="sidebar-text text-[10px] font-bold text-charcoal/70 font-latin uppercase tracking-widest transition-all duration-300 w-auto opacity-100 visible whitespace-nowrap">
             © 2026 Sanskritbhashi
           </p>
         </div>
@@ -267,7 +269,7 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
       <div id="desktop-content-area" class="flex-1 flex flex-col md:pl-64 w-full transition-all duration-300">
         {/* DESKTOP TOP HEADER */}
         <header class="hidden lg:flex items-center justify-between h-16 px-8 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md border-b border-border-hairline sticky top-0 z-30 w-full">
-          <nav class="flex items-center gap-6 text-sm font-medium text-charcoal/70">
+          <nav aria-label="Site information" class="flex items-center gap-6 text-sm font-medium text-charcoal/70">
             <a href={`/${lang}/about`} class={`hover:text-saffron-600 transition-colors ${isActive(`/${lang}/about`) ? "text-saffron-600 font-bold" : ""}`}>{t.nav.about}</a>
             <a href={`/${lang}/contact`} class={`hover:text-saffron-600 transition-colors ${isActive(`/${lang}/contact`) ? "text-saffron-600 font-bold" : ""}`}>{t.nav.contact}</a>
             <a href={`/${lang}/privacy`} class={`hover:text-saffron-600 transition-colors ${isActive(`/${lang}/privacy`) ? "text-saffron-600 font-bold" : ""}`}>{t.nav.privacy}</a>
@@ -298,7 +300,7 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
           </div>
 
           {/* GLOBAL MAIN FOOTER */}
-          <footer class="mt-16 border-t border-border-hairline pt-8 pb-4 text-center text-xs text-charcoal/50 w-full">
+          <footer class="mt-16 border-t border-border-hairline pt-8 pb-4 text-center text-xs text-charcoal/70 w-full">
             <div class="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 mb-4 font-semibold">
               <a href={`/${lang}`} class="hover:text-saffron-600 transition-colors">{t.nav.home}</a>
               <a href={`/${lang}/about`} class="hover:text-saffron-600 transition-colors">{t.nav.about}</a>
@@ -306,7 +308,7 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
               <a href={`/${lang}/privacy`} class="hover:text-saffron-600 transition-colors">{t.nav.privacy}</a>
               <a href={`/${lang}/terms`} class="hover:text-saffron-600 transition-colors">{t.nav.terms}</a>
               <a href={`/${lang}/faqs`} class="hover:text-saffron-600 transition-colors">{t.nav.faqs}</a>
-              <button id="open-cookie-preferences" class="hover:text-saffron-600 transition-colors cursor-pointer bg-transparent border-0 p-0 font-semibold text-xs text-charcoal/50">Cookie Preferences</button>
+              <button id="open-cookie-preferences" class="hover:text-saffron-600 transition-colors cursor-pointer bg-transparent border-0 p-0 font-semibold text-xs text-charcoal/70">Cookie Preferences</button>
             </div>
             <p class="text-[10px] tracking-wider uppercase opacity-75 font-mono">
               © 2026 Sanskritbhashi. All rights reserved.
@@ -316,15 +318,16 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
       </div>
 
       {/* MOBILE BOTTOM NAVIGATION BAR (Duolingo style, only visible on mobile/tablet) */}
-      <nav class="lg:hidden fixed bottom-0 left-0 right-0 h-16 bg-white dark:bg-zinc-950 border-t border-border-hairline flex items-center justify-around px-2 z-30 shadow-lg w-full">
+      <nav aria-label="Mobile" class="lg:hidden fixed bottom-0 left-0 right-0 h-16 bg-white dark:bg-zinc-950 border-t border-border-hairline flex items-center justify-around px-2 z-30 shadow-lg w-full">
         {navItems.map((item) => {
           const active = isActive(item.href);
           const Icon = item.icon;
           return (
             <a
               href={item.href}
+              aria-current={active ? "page" : undefined}
               class={`flex flex-col items-center justify-center flex-1 h-full min-w-[44px] min-h-[44px] transition-colors relative ${
-                active ? "text-saffron-600" : "text-charcoal/50 hover:text-saffron-500"
+                active ? "text-saffron-600" : "text-charcoal/70 hover:text-saffron-500"
               }`}
             >
               <Icon class="w-5 h-5 mb-0.5" />
@@ -345,7 +348,7 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
       id="cookie-consent-banner"
       class="hidden fixed bottom-20 lg:bottom-6 left-4 right-4 lg:left-auto lg:right-6 lg:w-96 bg-white dark:bg-zinc-950 border border-border-hairline rounded-2xl p-5 shadow-xl z-50 animate-float font-latin"
     >
-      <h4 class="text-sm font-bold text-charcoal mb-2">Cookie Consent & Personalization.</h4>
+      <h2 class="text-sm font-bold text-charcoal mb-2">Cookie Consent & Personalization.</h2>
       <p class="text-xs text-charcoal/70 leading-relaxed mb-4">
         We and our advertising partners (including Google) use cookies to customize content and serve personalized ads based on your past visits. Read our <a href={`/${lang}/privacy`} class="text-saffron-600 underline font-semibold hover:text-saffron-500">Privacy Policy</a> to learn more.
       </p>
@@ -379,10 +382,10 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
     >
       <div class="flex flex-col h-full">
         <div class="flex items-center justify-between mb-4 border-b border-border-hairline pb-3">
-          <h3 class="text-base font-bold text-charcoal">Cookie Preferences</h3>
+          <h2 class="text-base font-bold text-charcoal">Cookie Preferences</h2>
           <button
             id="close-preferences-x"
-            class="text-charcoal/50 hover:text-charcoal p-1.5 rounded-lg border border-border-hairline hover:bg-saffron-50 dark:hover:bg-zinc-900 transition-colors cursor-pointer"
+            class="text-charcoal/70 hover:text-charcoal p-1.5 rounded-lg border border-border-hairline hover:bg-saffron-50 dark:hover:bg-zinc-900 transition-colors cursor-pointer"
             aria-label="Close dialog"
           >
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -400,11 +403,11 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
           <!-- Necessary -->
           <div class="flex items-start justify-between gap-4 p-3 rounded-xl border border-border-hairline bg-cream/30 dark:bg-zinc-900/30">
             <div class="flex-1">
-              <h4 class="text-xs font-bold text-charcoal flex items-center gap-1.5">
+              <h3 class="text-xs font-bold text-charcoal flex items-center gap-1.5">
                 Strictly Necessary Cookies
                 <span class="text-[9px] px-1.5 py-0.5 bg-saffron-500/10 dark:bg-saffron-500/20 text-saffron-600 dark:text-saffron-400 rounded-md font-extrabold uppercase">Required</span>
-              </h4>
-              <p class="text-[10px] text-charcoal/60 leading-normal mt-1">
+              </h3>
+              <p class="text-[10px] text-charcoal/70 leading-normal mt-1">
                 Essential for basic features like language preference preservation, dark/light mode toggles, and secure navigation.
               </p>
             </div>
@@ -418,8 +421,8 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
           <!-- Personalization & Ads -->
           <div class="flex items-start justify-between gap-4 p-3 rounded-xl border border-border-hairline">
             <div class="flex-1">
-              <h4 class="text-xs font-bold text-charcoal">Personalization & Ads</h4>
-              <p class="text-[10px] text-charcoal/60 leading-normal mt-1">
+              <h3 class="text-xs font-bold text-charcoal">Personalization & Ads</h3>
+              <p class="text-[10px] text-charcoal/70 leading-normal mt-1">
                 Allows Google and ad partners to serve personalized ads based on your past visits to this or other websites.
               </p>
             </div>
@@ -432,8 +435,8 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
           <!-- Analytics -->
           <div class="flex items-start justify-between gap-4 p-3 rounded-xl border border-border-hairline">
             <div class="flex-1">
-              <h4 class="text-xs font-bold text-charcoal">Analytics & Performance</h4>
-              <p class="text-[10px] text-charcoal/60 leading-normal mt-1">
+              <h3 class="text-xs font-bold text-charcoal">Analytics & Performance</h3>
+              <p class="text-[10px] text-charcoal/70 leading-normal mt-1">
                 Helps us understand how users interact with the site, allowing us to analyze page performance and improve courses.
               </p>
             </div>

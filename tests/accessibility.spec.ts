@@ -17,6 +17,9 @@ const PAGES = [
   { name: "Privacy", path: "/en/privacy" },
   { name: "Terms", path: "/en/terms" },
   { name: "FAQs", path: "/en/faqs" },
+  { name: "LearnHub", path: "/en/learn" },
+  { name: "ArticleLakaras", path: "/en/learn/sanskrit-verb-lakaras" },
+  { name: "ArticleChandasJA", path: "/ja/learn/sanskrit-chandas-meter" },
 ];
 
 test.describe("Accessibility Testing", () => {

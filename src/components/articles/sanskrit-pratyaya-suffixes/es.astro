@@ -1,0 +1,70 @@
+---
+import Table from "../Table.astro";
+---
+
+<h2>1. ¿Qué es un pratyaya?</h2>
+<p>
+  Un <strong>pratyaya (प्रत्यय)</strong> es un sufijo que se añade a una raíz o a una palabra para crear una forma nueva. La gramática sánscrita agrupa los sufijos más frecuentes para los estudiantes en tres familias:
+</p>
+<ul class="list-disc pl-6 space-y-1">
+  <li>Los <strong>sufijos kṛt (कृत्)</strong> se añaden a raíces verbales (<em>dhātus</em>) y forman participios, infinitivos, etc.</li>
+  <li>Los <strong>sufijos taddhita (तद्धित)</strong> se añaden a sustantivos y forman nuevos sustantivos y adjetivos.</li>
+  <li>Los <strong>sufijos strī (स्त्री)</strong> forman el femenino.</li>
+</ul>
+<p>
+  Los nombres de los sufijos de Pāṇini incluyen letras marcadoras (<em>it</em>) que no se pronuncian, pero indican cómo se comporta el sufijo. Por ejemplo, de <code>क्त्वा</code> solo se añade realmente <code>त्वा</code>.
+</p>
+
+<h2>2. Sufijos kṛt: palabras a partir de raíces</h2>
+<Table
+  headers={["Sufijo", "Significado", "Ejemplos"]}
+  rows={[
+    ["क्त्वा (-tvā)", "habiendo hecho (gerundio)", "पठित्वा, गत्वा, कृत्वा, दृष्ट्वा"],
+    ["ल्यप् (-ya)", "habiendo hecho, tras un prefijo", "आगत्य, प्रणम्य, विज्ञाय, उपविश्य"],
+    ["तुमुन् (-tum)", "para hacer (infinitivo)", "पठितुम्, गन्तुम्, कर्तुम्, द्रष्टुम्"],
+    ["क्त (-ta)", "hecho (participio pasado pasivo)", "पठितः, गतः, कृतः, दृष्टः"],
+    ["क्तवतु (-tavat)", "que hizo (participio pasado activo)", "पठितवान्, गतवान्, कृतवान्"],
+    ["शतृ (-at)", "que hace (participio presente, Parasmaipada)", "पठन्, गच्छन्, पश्यन्"],
+    ["शानच् (-māna/-āna)", "que hace (participio presente, Ātmanepada)", "सेवमानः, लभमानः"],
+    ["तव्यत् / अनीयर्", "que debe hacerse (gerundivo)", "कर्तव्यम्, पठितव्यम्, करणीयम्, पठनीयम्"],
+  ]}
+/>
+<p>
+  La trampa más habitual en los exámenes es <strong>क्त्वा frente a ल्यप्</strong>. Ambos significan «habiendo hecho», pero cuando la raíz lleva un prefijo (<em>upasarga</em>) como <code>आ</code>, <code>प्र</code>, <code>वि</code> o <code>उप</code>, <code>क्त्वा</code> se sustituye por <code>ल्यप्</code>: <code>गम् + क्त्वा = गत्वा</code>, pero <code>आ + गम् + ल्यप् = आगत्य</code>.
+</p>
+<p>
+  Los participios funcionan como adjetivos y concuerdan con el sustantivo al que describen. <code>क्तवतु</code> es muy útil porque sustituye a un verbo en pasado: <code>सः पाठं पठितवान्</code> (él leyó la lección), <code>सा पाठं पठितवती</code> (ella leyó la lección).
+</p>
+
+<h2>3. Sufijos taddhita: palabras a partir de sustantivos</h2>
+<Table
+  headers={["Sufijo", "Significado", "Ejemplos"]}
+  rows={[
+    ["मतुप् (-mat / -vat)", "que posee", "बुद्धिमान्, श्रीमान्, धनवान्, गुणवान्"],
+    ["ठक् (-ika)", "relativo a", "धार्मिकः, सामाजिकः, ऐतिहासिकः, वैदिकः"],
+    ["त्व / तल् (-tva / -tā)", "-idad, sustantivo abstracto", "गुरुत्वम्, मनुष्यत्वम्, लघुता"],
+  ]}
+/>
+<p>
+  <strong>मतुप्</strong> aparece como <code>-मत्</code> tras la mayoría de las palabras (<code>बुद्धि → बुद्धिमान्</code>), pero como <code>-वत्</code> tras palabras terminadas en <code>a</code> o <code>ā</code> (<code>धन → धनवान्</code>). Su nominativo masculino singular termina en <code>-मान्</code> / <code>-वान्</code>.
+</p>
+<p>
+  <strong>ठक्</strong> se convierte en <code>-इक</code> y además refuerza la primera vocal de la palabra (<em>vṛddhi</em>): <code>धर्म → धार्मिक</code>, <code>इतिहास → ऐतिहासिक</code>, <code>वेद → वैदिक</code>.
+</p>
+
+<h2>4. Sufijos strī: formar el femenino</h2>
+<ul class="list-disc pl-6 space-y-2">
+  <li><strong>टाप् (-ā):</strong> el femenino regular de muchas palabras en <code>a</code>: <code>अज → अजा</code>, <code>बाल → बाला</code>, <code>छात्र → छात्रा</code>, <code>प्रिय → प्रिया</code>.</li>
+  <li><strong>ङीप् (-ī):</strong> se usa en muchas otras palabras, incluidas las formadas con <code>मतुप्</code> y <code>शतृ</code>: <code>देव → देवी</code>, <code>कुमार → कुमारी</code>, <code>श्रीमत् → श्रीमती</code>, <code>भवत् → भवती</code>, <code>गच्छत् → गच्छन्ती</code>.</li>
+</ul>
+
+<h2>5. Cómo separar una palabra en raíz + sufijo</h2>
+<ol class="list-decimal pl-6 space-y-2">
+  <li>Observe la terminación: <code>-त्वा</code>, <code>-य</code>, <code>-तुम्</code>, <code>-तवान्</code>, <code>-मान्</code>, <code>-इक</code>, etc.</li>
+  <li>Quítela y restituya la raíz o el sustantivo, deshaciendo los cambios fonéticos (<code>दृष्ट्वा → दृश् + क्त्वा</code>).</li>
+  <li>Busque un prefijo: si lo hay, el gerundio usará <code>ल्यप्</code> y no <code>क्त्वा</code>.</li>
+  <li>En las palabras femeninas, compruebe si la base termina en <code>a</code> (normalmente <code>टाप्</code>) o es una palabra en <code>-मत्</code> / <code>-वत्</code> / <code>-अत्</code> (normalmente <code>ङीप्</code>).</li>
+</ol>
+<p>
+  Estos sufijos forman una gran parte de la sección de gramática aplicada de los exámenes de sánscrito del CBSE. Practíquelos capítulo a capítulo en el módulo de Preparación Escolar de Sanskritbhashi.
+</p>

@@ -6,6 +6,13 @@ This file tracks all bug fixes, improvements, and features implemented across ap
 
 ## [Unreleased] - 2026-11-18
 
+### Learning Hub expansion & test suite fixes (2026-11-18)
+- **Six New Articles [Feature]:** `src/components/articles/` and `src/pages/[lang]/learn/` — Samāsa (compounds), verb Lakāras, reading and writing Devanāgarī, Pratyaya suffixes, Chandas (metre, with a Gita 2.47 scansion) and numbers and time, each in English, Hindi, Japanese and Spanish (24 new pages; sitemap now 78 URLs).
+- **Shared Article Template [Feature]:** `src/components/ArticlePage.astro`, `src/lib/learnArticles.ts`, `src/components/articles/Table.astro` — new articles only need metadata and a body; the Learning Hub index lists them automatically.
+- **Accessibility [Bug Fix]:** labelled the nav/aside landmarks, fixed skipped heading levels (cookie banner, FAQs, About), raised faint grey text to 70% opacity, added `aria-current="page"` to active nav links (`Layout.astro`, `FAQAccordion.tsx`, `about.astro`, module pages and components).
+- **Test Suite [Bug Fix]:** `tests/*.spec.ts` — axe-core is loaded from the local package instead of a CDN; serious/critical axe violations (except colour contrast) and heading skips now fail the test; the tour, streak, active-nav and theme tests wait for the UI instead of using fixed timeouts; Linux screenshot baselines added. The full suite passes (186 tests).
+- **OTA App Update [Feature]:** `public/updates/` — rebuilt bundle v0.1.0+20261118065925 so installed apps receive the new articles.
+
 ### AdSense "Low value content" & Search Console indexing fixes
 - **Canonical URL Fix [Bug Fix]:** `src/layouts/Layout.astro` — canonical URLs were built from the prerender pathname and ended in `.html` (e.g. `/en/about.html`), which Cloudflare redirects, so every page declared a redirecting URL as canonical. Canonicals now use the clean URL (`/en/about`). Sidebar active-link detection uses the same clean path.
 - **hreflang Alternates [Feature]:** `src/layouts/Layout.astro` — every localized page now emits `hreflang` links for en/hi/ja/es plus `x-default`.

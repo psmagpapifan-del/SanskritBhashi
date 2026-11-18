@@ -1,0 +1,31 @@
+---
+/** Simple bordered table used inside Learning Hub article bodies. */
+interface Props {
+  headers: string[];
+  rows: string[][];
+  /** Render body cells (except the first column) in the Devanagari font. */
+  sanskrit?: boolean;
+}
+
+const { headers, rows, sanskrit = false } = Astro.props;
+const cell = "p-3 border border-saffron-100 dark:border-zinc-800";
+---
+
+<div class="overflow-x-auto my-6">
+  <table class="min-w-full bg-white dark:bg-zinc-900 border border-saffron-100 dark:border-zinc-800 text-xs md:text-sm">
+    <thead>
+      <tr class="bg-saffron-50 dark:bg-zinc-800 text-charcoal dark:text-zinc-200 font-bold">
+        {headers.map((h) => <th class={`${cell} text-left`}>{h}</th>)}
+      </tr>
+    </thead>
+    <tbody class="text-charcoal/80 dark:text-zinc-400">
+      {rows.map((row, i) => (
+        <tr class={`border-t border-cream dark:border-zinc-800 ${i % 2 ? "bg-cream/20 dark:bg-zinc-850/20" : ""}`}>
+          {row.map((value, j) => (
+            <td class={`${cell} ${j === 0 ? "font-bold" : sanskrit ? "font-semibold font-sanskrit" : ""}`}>{value}</td>
+          ))}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>

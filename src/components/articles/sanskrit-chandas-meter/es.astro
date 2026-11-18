@@ -1,0 +1,78 @@
+---
+import Table from "../Table.astro";
+import Scansion from "./Scansion.astro";
+---
+
+<h2>1. Chandas: la ciencia de la métrica</h2>
+<p>
+  Casi toda la literatura sánscrita clásica, desde los Vedas hasta las epopeyas y la Bhagavad Gītā, está compuesta en verso. La disciplina que describe cómo se miden los versos se llama <strong>Chandas (छन्दस्)</strong> y es una de las seis Vedāṅgas. Su texto fundamental es el <em>Chandaḥśāstra</em>, atribuido a <strong>Piṅgala</strong>.
+</p>
+<p>
+  La métrica sánscrita es <strong>cuantitativa</strong>: no se basa en el acento, como la poesía española, sino en la duración de las sílabas, igual que la métrica del latín y el griego clásicos. Conocer el metro ayuda a recitar correctamente, a memorizar versos e incluso a detectar errores de copia en los manuscritos, porque una palabra equivocada suele romper el metro.
+</p>
+
+<h2>2. Laghu y guru: sílabas ligeras y pesadas</h2>
+<p>
+  Cada sílaba es <strong>laghu (लघु, ligera)</strong>, con valor de una <em>mātrā</em>, o <strong>guru (गुरु, pesada)</strong>, con valor de dos. Tradicionalmente laghu se marca <code>।</code> y guru <code>ऽ</code>.
+</p>
+<ul class="list-disc pl-6 space-y-2">
+  <li>Una sílaba es <strong>guru</strong> si su vocal es larga (<code>ā ī ū ṝ e ai o au</code>).</li>
+  <li>También es <strong>guru</strong> si su vocal breve va seguida de una consonante conjunta, un anusvāra o un visarga: el <code>kar</code> de <code>karma</code>, el <code>saṃ</code> de <code>saṃskṛta</code>, el <code>maḥ</code> de <code>rāmaḥ</code>.</li>
+  <li>En los demás casos es <strong>laghu</strong>: vocal breve seguida como máximo de una consonante.</li>
+  <li>La última sílaba de un cuarto de verso (<em>pāda</em>) puede contar como cualquiera de las dos, según el metro.</li>
+</ul>
+
+<h2>3. El sistema de gaṇas</h2>
+<p>
+  Los metros de esquema fijo se describen con ocho grupos de tres sílabas llamados <strong>gaṇas</strong>. Se recuerdan con la fórmula mnemotécnica <strong>यमाताराजभानसलगा</strong>: tomando cualquier sílaba y las dos siguientes se obtiene el esquema de ese gaṇa.
+</p>
+<Table
+  headers={["Gaṇa", "Esquema", "Signos"]}
+  rows={[
+    ["य (ya)", "ligera-pesada-pesada", "। ऽ ऽ"],
+    ["म (ma)", "pesada-pesada-pesada", "ऽ ऽ ऽ"],
+    ["त (ta)", "pesada-pesada-ligera", "ऽ ऽ ।"],
+    ["र (ra)", "pesada-ligera-pesada", "ऽ । ऽ"],
+    ["ज (ja)", "ligera-pesada-ligera", "। ऽ ।"],
+    ["भ (bha)", "pesada-ligera-ligera", "ऽ । ।"],
+    ["न (na)", "ligera-ligera-ligera", "। । ।"],
+    ["स (sa)", "ligera-ligera-pesada", "। । ऽ"],
+  ]}
+/>
+<p>
+  Las dos últimas letras de la fórmula, <code>ल</code> y <code>गा</code>, representan una sola laghu y una sola guru.
+</p>
+
+<h2>4. Anuṣṭubh: el metro del śloka</h2>
+<p>
+  El metro más común del sánscrito es el <strong>Anuṣṭubh</strong>, también llamado simplemente <em>śloka</em>. Tiene cuatro pādas de ocho sílabas, 32 en total. La mayor parte de la Bhagavad Gītā, el Rāmāyaṇa y el Mahābhārata está escrita en él. Su regla principal se resume en un verso:
+</p>
+<blockquote class="bg-saffron-50/50 dark:bg-zinc-900 border-l-4 border-saffron-500 p-4 rounded-r-2xl font-bold font-sanskrit text-center py-6 my-6">
+  श्लोके षष्ठं गुरु ज्ञेयं सर्वत्र लघु पञ्चमम् ।<br />
+  द्विचतुष्पादयोर्ह्रस्वं सप्तमं दीर्घमन्ययोः ॥
+</blockquote>
+<ul class="list-disc pl-6 space-y-1">
+  <li>La <strong>6.ª</strong> sílaba de cada pāda es guru.</li>
+  <li>La <strong>5.ª</strong> sílaba de cada pāda es laghu.</li>
+  <li>La <strong>7.ª</strong> sílaba es laghu en los pādas 2 y 4, y guru en los pādas 1 y 3.</li>
+</ul>
+
+<h2>5. Análisis métrico de la Bhagavad Gītā 2.47</h2>
+<p>
+  Este es el célebre verso <em>karmaṇy evādhikāras te</em> dividido en sílabas. Las posiciones 5.ª, 6.ª y 7.ª, resaltadas, cumplen las reglas exactamente.
+</p>
+<Scansion padaLabel="Pāda" />
+<p>
+  Observe que <code>kar</code> y <code>tur</code> son pesadas aunque su vocal sea breve, porque las sigue una consonante conjunta (<code>rm</code>, <code>rbh</code>).
+</p>
+
+<h2>6. Otros metros conocidos</h2>
+<ul class="list-disc pl-6 space-y-1">
+  <li><strong>Indravajrā</strong>: 11 sílabas por pāda (त त ज + dos guru).</li>
+  <li><strong>Vasantatilakā</strong>: 14 sílabas por pāda, muy usado en la poesía clásica.</li>
+  <li><strong>Mandākrāntā</strong>: 17 sílabas por pāda, el metro lento y «de avance suave» del <em>Meghadūta</em> de Kālidāsa.</li>
+  <li><strong>Śārdūlavikrīḍita</strong>: 19 sílabas por pāda, empleado en versos descriptivos solemnes.</li>
+</ul>
+<p>
+  Pruebe a analizar un verso usted mismo: divídalo en sílabas, marque cada una como laghu o guru y compruebe las posiciones 5, 6 y 7. Es una de las mejores formas de educar el oído para recitar correctamente en sánscrito.
+</p>

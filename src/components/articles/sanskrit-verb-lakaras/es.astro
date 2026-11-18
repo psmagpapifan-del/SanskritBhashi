@@ -1,0 +1,77 @@
+---
+import Table from "../Table.astro";
+import Forms from "./Forms.astro";
+const headers = ["Persona", "Singular", "Dual", "Plural"];
+const persons: [string, string, string] = ["3.ª (Prathama)", "2.ª (Madhyama)", "1.ª (Uttama)"];
+---
+
+<h2>1. Dhātu: la raíz de todo verbo</h2>
+<p>
+  Todo verbo sánscrito se construye a partir de un <strong>dhātu (धातु)</strong>, una raíz verbal que lleva el significado básico: <code>पठ्</code> (leer), <code>गम्</code> (ir), <code>कृ</code> (hacer). La lista de raíces de Pāṇini, el <em>Dhātupāṭha</em>, contiene unas dos mil, agrupadas en diez clases (<em>gaṇas</em>) según cómo forman su tema de presente.
+</p>
+<p>
+  A la raíz se añaden desinencias llamadas <strong>tiṅ</strong>, que indican persona, número y voz. El conjunto de desinencias depende del tiempo o modo, que la gramática sánscrita llama <strong>lakāra (लकार)</strong>, porque Pāṇini dio a cada uno un nombre técnico que empieza por <code>ल्</code>.
+</p>
+
+<h2>2. Los diez lakāras</h2>
+<Table
+  headers={["Lakāra", "Significado", "Ejemplo (पठ्)"]}
+  rows={[
+    ["लट् (laṭ)", "Presente", "पठति – lee"],
+    ["लिट् (liṭ)", "Perfecto (pasado remoto)", "पपाठ – leyó (hace mucho)"],
+    ["लुट् (luṭ)", "Futuro perifrástico", "पठिता – leerá"],
+    ["लृट् (lṛṭ)", "Futuro simple", "पठिष्यति – leerá"],
+    ["लेट् (leṭ)", "Subjuntivo (solo védico)", "—"],
+    ["लोट् (loṭ)", "Imperativo", "पठतु – que lea"],
+    ["लङ् (laṅ)", "Imperfecto (pasado)", "अपठत् – leía / leyó"],
+    ["लिङ् (liṅ)", "Optativo / benedictivo", "पठेत् – debería leer"],
+    ["लुङ् (luṅ)", "Aoristo", "अपाठीत् – leyó"],
+    ["लृङ् (lṛṅ)", "Condicional", "अपठिष्यत् – habría leído"],
+  ]}
+/>
+<p>
+  Los programas escolares de la India (CBSE, clases 6 a 10) se centran en cinco: <strong>लट्, लृट्, लङ्, लोट्</strong> y <strong>विधिलिङ्</strong>. Dominándolos podrá leer la mayor parte de la prosa sencilla.
+</p>
+
+<h2>3. Persona, número y voz</h2>
+<p>
+  Cada lakāra tiene <strong>nueve formas</strong>: tres personas × tres números. Tenga en cuenta que la gramática sánscrita cuenta las personas en orden inverso al español:
+</p>
+<ul class="list-disc pl-6 space-y-1">
+  <li><strong>Prathama puruṣa</strong> (3.ª persona): él, ella, ello, ellos… y todo sujeto que sea un sustantivo.</li>
+  <li><strong>Madhyama puruṣa</strong> (2.ª persona): solo con <code>युष्मद्</code> (त्वम्, युवाम्, यूयम्).</li>
+  <li><strong>Uttama puruṣa</strong> (1.ª persona): solo con <code>अस्मद्</code> (अहम्, आवाम्, वयम्).</li>
+</ul>
+<p>
+  Las raíces toman uno de dos juegos de desinencias: <strong>Parasmaipada</strong> (p. ej., <code>पठति</code>) o <strong>Ātmanepada</strong> (p. ej., <code>लभते</code>). Algunas, llamadas <em>ubhayapada</em>, admiten ambos (<code>करोति</code> / <code>कुरुते</code>).
+</p>
+
+<h2>4. Tablas de conjugación de पठ् (Parasmaipada)</h2>
+<h3>लट् – Presente</h3>
+<Forms lakara="lat" headers={headers} persons={persons} />
+<h3>लृट् – Futuro</h3>
+<Forms lakara="lrt" headers={headers} persons={persons} />
+<h3>लङ् – Pasado</h3>
+<p>El pasado añade el aumento <code>अ-</code> delante de la raíz.</p>
+<Forms lakara="lan" headers={headers} persons={persons} />
+<h3>लोट् – Imperativo (órdenes y peticiones)</h3>
+<Forms lakara="lot" headers={headers} persons={persons} />
+<h3>विधिलिङ् – Optativo («debería»)</h3>
+<Forms lakara="vidhilin" headers={headers} persons={persons} />
+
+<h2>5. Un ejemplo Ātmanepada: लभ् (obtener), लट्</h2>
+<Forms lakara="labh-lat" headers={headers} persons={persons} />
+
+<h2>6. La concordancia del verbo</h2>
+<p>
+  El verbo concuerda con su sujeto en persona y número. El género no afecta a las formas verbales personales.
+</p>
+<ul class="list-disc pl-6 space-y-1">
+  <li><code>बालकः पठति।</code> – El niño lee. (3.ª, singular)</li>
+  <li><code>बालिकाः पठन्ति।</code> – Las niñas leen. (3.ª, plural)</li>
+  <li><code>त्वं श्वः पठिष्यसि।</code> – Tú leerás mañana. (2.ª, singular, लृट्)</li>
+  <li><code>वयं ह्यः अपठाम।</code> – Nosotros leímos ayer. (1.ª, plural, लङ्)</li>
+</ul>
+<p>
+  Para los ejercicios de traducción: busque primero el sujeto y determine su persona y número; después elija el lakāra a partir de la palabra temporal (<code>अद्य</code> hoy, <code>ह्यः</code> ayer, <code>श्वः</code> mañana) y tome la forma correspondiente de las tablas anteriores.
+</p>

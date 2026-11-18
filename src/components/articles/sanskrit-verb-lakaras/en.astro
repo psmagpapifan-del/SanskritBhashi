@@ -1,0 +1,77 @@
+---
+import Table from "../Table.astro";
+import Forms from "./Forms.astro";
+const headers = ["Person", "Singular", "Dual", "Plural"];
+const persons: [string, string, string] = ["3rd (Prathama)", "2nd (Madhyama)", "1st (Uttama)"];
+---
+
+<h2>1. Dhātu: The Root of Every Verb</h2>
+<p>
+  Every Sanskrit verb is built from a <strong>dhātu (धातु)</strong>, a verbal root that carries the basic meaning: <code>पठ्</code> (read), <code>गम्</code> (go), <code>कृ</code> (do). Pāṇini's list of roots, the <em>Dhātupāṭha</em>, contains around two thousand of them, arranged in ten classes (<em>gaṇas</em>) according to how they form their present stem.
+</p>
+<p>
+  To a root we add endings called <strong>tiṅ</strong> that show person, number and voice. The set of endings depends on the tense or mood, which Sanskrit grammar calls a <strong>lakāra (लकार)</strong>, because Pāṇini named each one with a technical term beginning with <code>ल्</code>.
+</p>
+
+<h2>2. The Ten Lakāras</h2>
+<Table
+  headers={["Lakāra", "Meaning", "Example (पठ्)"]}
+  rows={[
+    ["लट् (laṭ)", "Present", "पठति – reads"],
+    ["लिट् (liṭ)", "Perfect (remote past)", "पपाठ – read (long ago)"],
+    ["लुट् (luṭ)", "Periphrastic future", "पठिता – will read"],
+    ["लृट् (lṛṭ)", "Simple future", "पठिष्यति – will read"],
+    ["लेट् (leṭ)", "Subjunctive (Vedic only)", "—"],
+    ["लोट् (loṭ)", "Imperative", "पठतु – let him read"],
+    ["लङ् (laṅ)", "Imperfect (past)", "अपठत् – read"],
+    ["लिङ् (liṅ)", "Optative / benedictive", "पठेत् – should read"],
+    ["लुङ् (luṅ)", "Aorist", "अपाठीत् – read"],
+    ["लृङ् (lṛṅ)", "Conditional", "अपठिष्यत् – would have read"],
+  ]}
+/>
+<p>
+  School syllabuses (CBSE Classes 6–10) concentrate on five: <strong>लट्, लृट्, लङ्, लोट्</strong> and <strong>विधिलिङ्</strong>. Master these and you can read most simple prose.
+</p>
+
+<h2>3. Person, Number and Voice</h2>
+<p>
+  Each lakāra has <strong>nine forms</strong>: three persons × three numbers. Note that Sanskrit grammar counts persons in the opposite order to English:
+</p>
+<ul class="list-disc pl-6 space-y-1">
+  <li><strong>Prathama puruṣa</strong> (3rd person): he, she, it, they — and every noun subject.</li>
+  <li><strong>Madhyama puruṣa</strong> (2nd person): used only with <code>युष्मद्</code> (त्वम्, युवाम्, यूयम्).</li>
+  <li><strong>Uttama puruṣa</strong> (1st person): used only with <code>अस्मद्</code> (अहम्, आवाम्, वयम्).</li>
+</ul>
+<p>
+  Roots also take one of two sets of endings: <strong>Parasmaipada</strong> (e.g. <code>पठति</code>) or <strong>Ātmanepada</strong> (e.g. <code>लभते</code>). Some roots, called <em>ubhayapada</em>, can take either (<code>करोति</code> / <code>कुरुते</code>).
+</p>
+
+<h2>4. Conjugation Tables for पठ् (Parasmaipada)</h2>
+<h3>लट् – Present tense</h3>
+<Forms lakara="lat" headers={headers} persons={persons} />
+<h3>लृट् – Future tense</h3>
+<Forms lakara="lrt" headers={headers} persons={persons} />
+<h3>लङ् – Past tense</h3>
+<p>The past tense adds the augment <code>अ-</code> before the root.</p>
+<Forms lakara="lan" headers={headers} persons={persons} />
+<h3>लोट् – Imperative (commands and requests)</h3>
+<Forms lakara="lot" headers={headers} persons={persons} />
+<h3>विधिलिङ् – Optative ("should")</h3>
+<Forms lakara="vidhilin" headers={headers} persons={persons} />
+
+<h2>5. An Ātmanepada Example: लभ् (to obtain), लट्</h2>
+<Forms lakara="labh-lat" headers={headers} persons={persons} />
+
+<h2>6. Making the Verb Agree</h2>
+<p>
+  The verb must match its subject in person and number. Gender does not matter for finite verbs.
+</p>
+<ul class="list-disc pl-6 space-y-1">
+  <li><code>बालकः पठति।</code> – The boy reads. (3rd, singular)</li>
+  <li><code>बालिकाः पठन्ति।</code> – The girls read. (3rd, plural)</li>
+  <li><code>त्वं श्वः पठिष्यसि।</code> – You will read tomorrow. (2nd, singular, लृट्)</li>
+  <li><code>वयं ह्यः अपठाम।</code> – We read yesterday. (1st, plural, लङ्)</li>
+</ul>
+<p>
+  A quick check for translation exercises: first find the subject, decide its person and number, then pick the lakāra from the time word (<code>अद्य</code> today, <code>ह्यः</code> yesterday, <code>श्वः</code> tomorrow) and choose the matching ending from the tables above.
+</p>

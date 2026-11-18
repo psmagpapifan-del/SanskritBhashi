@@ -17,6 +17,7 @@ This file tracks all bug fixes, improvements, and features implemented across ap
 - **Article Byline & Schema [Feature]:** `src/components/ArticleByline.astro` — editorial byline, published/reviewed dates, practice-module link and `Article` JSON-LD on every article.
 - **Localized Meta [UI]:** localized home titles/descriptions; added descriptions to about, FAQs, contact, privacy, terms and modules. Non-English copies of the English-only privacy/terms pages are `noindex`.
 - **Misc [Bug Fix]:** `AdSenseWidget.tsx` placeholder `ca-pub-YOUR_ADSENSE_ID` replaced with the real publisher ID; `tests/content.spec.ts` sitemap/robots checks updated.
+- **OTA App Update [Feature]:** `public/updates/bundle-latest.zip`, `public/updates/latest.json` — rebuilt the Capacitor web bundle (v0.1.0+20261118060415) so installed Android apps receive the Learning Hub, full translations and content fixes over the air on next launch, without a Play Store release.
 
 ## [1.0.5] - 2026-07-24 (Version Code 6)
 

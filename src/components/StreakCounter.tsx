@@ -69,7 +69,7 @@ export default function StreakCounter() {
       className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-sm font-semibold select-none cursor-help transition-all duration-300 ${
         isActive
           ? "bg-linear-to-r from-saffron-50 to-marigold-50 dark:from-saffron-500/10 dark:to-marigold-500/10 border-saffron-500/30 text-saffron-600 dark:text-saffron-400 shadow-[0_2px_10px_rgba(245,158,11,0.15)] hover:shadow-[0_2px_15px_rgba(245,158,11,0.25)] hover:border-saffron-500/50"
-          : "bg-white dark:bg-zinc-900 border-charcoal/10 dark:border-zinc-800 text-charcoal/40 hover:bg-charcoal/5 dark:hover:bg-white/5"
+          : "bg-white dark:bg-zinc-900 border-charcoal/10 dark:border-zinc-800 text-charcoal/70 hover:bg-charcoal/5 dark:hover:bg-white/5"
       }`}
       title={isActive ? "Streak active! Great job." : "Complete a practice question to start your streak!"}
       id="tour-step-5"
@@ -102,8 +102,8 @@ export default function StreakCounter() {
         )}
       </div>
       <div className="flex items-baseline gap-1 relative z-10">
-        <span className="font-black tabular-nums tracking-tight text-[15px]">{streak}</span>
-        <span className="text-[10px] font-black uppercase tracking-widest opacity-80 hidden sm:inline pt-0.5">Days</span>
+        <span data-testid="streak-value" className="font-black tabular-nums tracking-tight text-[15px]">{streak}</span>
+        <span className="text-[10px] font-black uppercase tracking-widest hidden sm:inline pt-0.5">Days</span>
       </div>
     </div>
   );

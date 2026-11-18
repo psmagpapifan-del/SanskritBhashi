@@ -100,7 +100,7 @@ export default function LanguageSelector({ currentLang, currentPathname }: Langu
       {isOpen && (
         <div className="absolute right-0 mt-2 w-72 origin-top-right rounded-2xl bg-white dark:bg-zinc-900 p-4 shadow-xl border border-saffron-100 dark:border-zinc-800 z-50 animate-success-bounce">
           <div className="mb-4">
-            <h4 className="flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-charcoal/60 mb-2">
+            <h4 className="flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-charcoal/70 mb-2">
               <Globe className="w-3.5 h-3.5" /> Interface Language
             </h4>
             <div className="grid grid-cols-1 gap-1">
@@ -122,7 +122,7 @@ export default function LanguageSelector({ currentLang, currentPathname }: Langu
           </div>
 
           <div className="border-t border-saffron-100 dark:border-zinc-800 pt-3">
-            <h4 className="flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-charcoal/60 mb-2">
+            <h4 className="flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-charcoal/70 mb-2">
               <Languages className="w-3.5 h-3.5" /> Transliteration Script
             </h4>
             <div className="grid grid-cols-1 gap-1">

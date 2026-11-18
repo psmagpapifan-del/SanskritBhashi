@@ -77,7 +77,7 @@ export default function JourneyMap({ currentLang, onSelectChapter, onClose }: Jo
   if (!progress || curriculum.length === 0) {
     return (
       <div className="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-        <div className="bg-cream rounded-3xl p-8 max-w-md w-full border border-saffron-100 text-center font-latin text-charcoal/50">
+        <div className="bg-cream rounded-3xl p-8 max-w-md w-full border border-saffron-100 text-center font-latin text-charcoal/70">
           Loading Sanskrit Learning Map...
         </div>
       </div>
@@ -206,7 +206,7 @@ export default function JourneyMap({ currentLang, onSelectChapter, onClose }: Jo
             <h2 className="text-xl md:text-2xl font-black bg-linear-to-r from-saffron-500 to-saffron-600 bg-clip-text text-transparent font-latin">
               Sanskrit Progression Path
             </h2>
-            <p className="text-xs text-charcoal/60 font-latin mt-0.5">
+            <p className="text-xs text-charcoal/70 font-latin mt-0.5">
               Complete chapters sequentially. Pass timed gateway qualifying tests (&gt;=80%) to climb tiers.
             </p>
           </div>
@@ -220,7 +220,7 @@ export default function JourneyMap({ currentLang, onSelectChapter, onClose }: Jo
               viewBox="0 0 24 24"
               strokeWidth={2.5}
               stroke="currentColor"
-              className="w-5 h-5 text-charcoal/60"
+              className="w-5 h-5 text-charcoal/70"
             >
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
@@ -243,7 +243,7 @@ export default function JourneyMap({ currentLang, onSelectChapter, onClose }: Jo
                 className={`py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                   active
                     ? "bg-saffron-500 text-white shadow-md shadow-saffron-500/10"
-                    : "text-charcoal/60 hover:bg-saffron-50 hover:text-saffron-600"
+                    : "text-charcoal/70 hover:bg-saffron-50 hover:text-saffron-600"
                 }`}
               >
                 {isTierUnlocked ? <Unlock className="w-3.5 h-3.5" /> : <Lock className="w-3.5 h-3.5" />}
@@ -318,7 +318,7 @@ export default function JourneyMap({ currentLang, onSelectChapter, onClose }: Jo
                       >
                         {chapter.name}
                       </h4>
-                      <p className="text-[10px] text-charcoal/40 font-semibold tracking-wider uppercase font-latin mt-1">
+                      <p className="text-[10px] text-charcoal/70 font-semibold tracking-wider uppercase font-latin mt-1">
                         {chapter.questions.length} NCERT-Grammar Cards
                       </p>
                     </div>
@@ -365,7 +365,7 @@ export default function JourneyMap({ currentLang, onSelectChapter, onClose }: Jo
                         <span className="text-xs font-black text-emerald-600">Passed</span>
                       )}
                     </h4>
-                    <p className="text-[10px] text-charcoal/50 leading-relaxed font-latin mt-1 max-w-md">
+                    <p className="text-[10px] text-charcoal/70 leading-relaxed font-latin mt-1 max-w-md">
                       Timed comprehensive test covering all rules of the {activeTier} tier. You must achieve &gt;= 80% to unlock the next level tier.
                     </p>
                   </div>
@@ -384,7 +384,7 @@ export default function JourneyMap({ currentLang, onSelectChapter, onClose }: Jo
                       </span>
                     </div>
                   ) : (
-                    <span className="text-xs font-bold text-charcoal/40 flex items-center gap-1 bg-charcoal/5 px-2.5 py-1 rounded-lg select-none">
+                    <span className="text-xs font-bold text-charcoal/70 flex items-center gap-1 bg-charcoal/5 px-2.5 py-1 rounded-lg select-none">
                       <Lock className="w-3.5 h-3.5" /> Locked
                     </span>
                   )}
@@ -405,7 +405,7 @@ export default function JourneyMap({ currentLang, onSelectChapter, onClose }: Jo
                     <h3 className="text-lg font-black text-charcoal font-latin">
                       Gateway Diagnostic Exam: {testModal.tier.toUpperCase()}
                     </h3>
-                    <p className="text-[10px] text-charcoal/40 font-semibold uppercase tracking-wider font-latin">
+                    <p className="text-[10px] text-charcoal/70 font-semibold uppercase tracking-wider font-latin">
                       Question {testModal.currentQIndex + 1} of 10
                     </p>
                   </div>
@@ -454,7 +454,7 @@ export default function JourneyMap({ currentLang, onSelectChapter, onClose }: Jo
                       </span>
                     </div>
 
-                    <p className="text-xs font-bold text-charcoal/60 uppercase tracking-wider mb-3 font-latin">
+                    <p className="text-xs font-bold text-charcoal/70 uppercase tracking-wider mb-3 font-latin">
                       Choose the correct option:
                     </p>
 

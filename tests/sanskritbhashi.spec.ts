@@ -112,7 +112,7 @@ test.describe("Sanskritbhashi Comprehensive End-to-End Test Suite", () => {
 
     // Verify streak displays the loaded value
     const streakCounter = page.locator("#tour-step-5").first();
-    await expect(streakCounter.locator("span.font-bold")).toHaveText("24");
+    await expect(streakCounter.getByTestId("streak-value")).toHaveText("24");
 
     // Verify progress sidebar displays correct streak
     const progressStreak = page.locator("#progress-streak");

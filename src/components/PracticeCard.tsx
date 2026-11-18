@@ -591,7 +591,7 @@ export default function PracticeCard({
 
   if (!activeChapter || !currentQuestion) {
     return (
-      <div className="w-full text-center py-12 bg-white dark:bg-zinc-900 border border-saffron-100 dark:border-zinc-800 rounded-3xl font-latin text-charcoal/50">
+      <div className="w-full text-center py-12 bg-white dark:bg-zinc-900 border border-saffron-100 dark:border-zinc-800 rounded-3xl font-latin text-charcoal/70">
         Loading Sanskrit practice questions...
       </div>
     );
@@ -856,7 +856,7 @@ export default function PracticeCard({
         <span className="font-bold text-saffron-600 bg-saffron-50 px-2.5 py-1 rounded-full uppercase tracking-wider">
           {t.practice.concept}: {localizeText(conceptType, activeLang)}
         </span>
-        <span className="text-charcoal/50 font-medium">
+        <span className="text-charcoal/70 font-medium">
           {t.practice.paninianHeritage}: <strong className="text-charcoal">{localizeText(paninianHeritage, activeLang)}</strong>
         </span>
       </div>
@@ -873,7 +873,7 @@ export default function PracticeCard({
       >
         {/* Header Metadata */}
         <div className="flex justify-between items-center mb-6">
-          <span className="text-xs font-bold uppercase tracking-wider text-charcoal/40 font-latin">
+          <span className="text-xs font-bold uppercase tracking-wider text-charcoal/70 font-latin">
             {t.practice.interactivePractice}
           </span>
           <span 
@@ -931,7 +931,7 @@ export default function PracticeCard({
 
         {/* Shuffled Quad-Option Layout */}
         <div className="space-y-3 mb-6">
-          <p className="text-xs font-bold uppercase tracking-wider text-charcoal/60 mb-2 font-latin">
+          <p className="text-xs font-bold uppercase tracking-wider text-charcoal/70 mb-2 font-latin">
             {t.practice.identifyCorrect}
           </p>
           <div className="grid grid-cols-1 gap-3">
@@ -992,7 +992,7 @@ export default function PracticeCard({
 
         {/* Progressive Revelation Study */}
         <div className="border-t border-saffron-100 pt-6">
-          <p className="text-xs font-bold uppercase tracking-wider text-charcoal/60 mb-3 font-latin">
+          <p className="text-xs font-bold uppercase tracking-wider text-charcoal/70 mb-3 font-latin">
             {t.practice.progressiveRevelation}
           </p>
           
@@ -1011,7 +1011,7 @@ export default function PracticeCard({
                     <div key={idx} className="bg-white dark:bg-zinc-950 border border-charcoal/5 dark:border-zinc-800 rounded-xl p-2 flex flex-col items-center">
                       <span className="font-bold text-sm text-saffron-600 font-sanskrit">{w.sanskrit}</span>
                       <span className="text-xs text-charcoal/70 font-latin font-medium">{localizeText(w.english, activeLang)}</span>
-                      <span className="text-[9px] font-semibold text-charcoal/30 uppercase tracking-wider font-latin">{localizeText(w.role, activeLang)}</span>
+                      <span className="text-[9px] font-semibold text-charcoal/70 uppercase tracking-wider font-latin">{localizeText(w.role, activeLang)}</span>
                     </div>
                   ))}
                 </div>
@@ -1056,7 +1056,7 @@ export default function PracticeCard({
             {revealStep > 0 && (
               <button
                 onClick={() => setRevealStep(0)}
-                className="flex items-center gap-1 text-xs font-semibold text-charcoal/40 hover:text-charcoal transition-colors mx-auto mt-2 cursor-pointer"
+                className="flex items-center gap-1 text-xs font-semibold text-charcoal/70 hover:text-charcoal transition-colors mx-auto mt-2 cursor-pointer"
               >
                 <ChevronUp className="w-3.5 h-3.5" />
                 <span>{t.practice.hideDetails}</span>

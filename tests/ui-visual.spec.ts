@@ -166,12 +166,10 @@ test.describe("UI & Visual Testing", () => {
     if (await toggleBtn.isVisible()) {
       await toggleBtn.click();
 
-      const afterDark = await page.evaluate(() =>
-        document.documentElement.classList.contains("dark")
-      );
-
-      // Should have toggled
-      expect(afterDark).not.toBe(initialDark);
+      // The toggle runs inside a View Transition, so the class flips asynchronously.
+      await expect
+        .poll(() => page.evaluate(() => document.documentElement.classList.contains("dark")))
+        .toBe(!initialDark);
     }
   });
 

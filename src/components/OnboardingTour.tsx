@@ -259,7 +259,7 @@ export default function OnboardingTour() {
             </span>
             <button
               onClick={completeTour}
-              className="text-charcoal/40 hover:text-charcoal transition-colors cursor-pointer p-1"
+              className="text-charcoal/70 hover:text-charcoal transition-colors cursor-pointer p-1"
               aria-label="Skip Tour"
             >
               <X className="w-5 h-5" />
@@ -278,7 +278,7 @@ export default function OnboardingTour() {
           <div className="flex justify-between items-center">
             <button
               onClick={completeTour}
-              className="text-xs font-semibold text-charcoal/50 hover:text-charcoal transition-colors cursor-pointer"
+              className="text-xs font-semibold text-charcoal/70 hover:text-charcoal transition-colors cursor-pointer"
             >
               Skip Tour
             </button>

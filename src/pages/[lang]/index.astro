@@ -16,6 +16,26 @@ export function getStaticPaths() {
 const { lang } = Astro.params;
 const t = getTranslation(lang);
 
+const homeMeta: Record<string, { title: string; desc: string }> = {
+  en: {
+    title: "Learn Sanskrit Online | Sanskrit Grammar Lessons & NCERT Course",
+    desc: "Master Sanskrit with free lessons: Panini's Ashtadhyayi rules, NCERT Sanskrit course practice, Bhagavad Gita shloka grammar analysis, and pronunciation guides.",
+  },
+  hi: {
+    title: "ऑनलाइन संस्कृत सीखें | संस्कृत व्याकरण पाठ एवं एनसीईआरटी पाठ्यक्रम",
+    desc: "निःशुल्क पाठों से संस्कृत सीखें: पाणिनि की अष्टाध्यायी के नियम, एनसीईआरटी संस्कृत अभ्यास, भगवद्गीता श्लोकों का व्याकरण विश्लेषण और उच्चारण मार्गदर्शिका।",
+  },
+  ja: {
+    title: "オンラインでサンスクリット語を学ぶ | 文法レッスンとNCERTコース",
+    desc: "無料レッスンでサンスクリット語を習得：パーニニ『アシュターディヤーイー』の規則、NCERT教科書の演習、『バガヴァッド・ギーター』の文法解析、発音ガイド。",
+  },
+  es: {
+    title: "Aprende Sánscrito en Línea | Lecciones de Gramática y Curso NCERT",
+    desc: "Domina el sánscrito con lecciones gratuitas: reglas del Ashtadhyayi de Panini, práctica del curso NCERT, análisis gramatical de shlokas del Bhagavad Gita y guías de pronunciación.",
+  },
+};
+const meta = homeMeta[lang] ?? homeMeta.en;
+
 const orgSchema = {
   "@context": "https://schema.org",
   "@type": "EducationalOrganization",
@@ -58,7 +78,7 @@ const faqSchema = {
 };
 ---
 
-<Layout lang={lang} title="Learn Sanskrit Online | Sanskrit Grammar Lessons & NCERT Course" description="Master Sanskrit with the best online resource. Study Panini Ashtadhyayi rules, NCERT Sanskrit course lessons, Gita shloka grammar analysis, and pronunciation guides.">
+<Layout lang={lang} title={meta.title} description={meta.desc}>
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(orgSchema)} />
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(schoolCourseSchema)} />
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(faqSchema)} />

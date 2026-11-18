@@ -1,0 +1,138 @@
+---
+import { Clock } from "lucide-react";
+---
+
+<article class="space-y-8">
+  <header class="space-y-4">
+    <div class="flex items-center space-x-3 text-xs font-bold text-saffron-600 dark:text-saffron-400 uppercase tracking-widest font-latin">
+      <span>サンスクリット文法（ヴィヤーカラナ）</span>
+      <span>•</span>
+      <span class="flex items-center space-x-1"><Clock class="w-3.5 h-3.5" /> <span>読了時間 8分</span></span>
+    </div>
+    <h1 class="text-3xl md:text-5xl font-black text-charcoal dark:text-zinc-150 leading-tight">
+      サンスクリットのサンディ（連声）規則をマスターする：完全音韻ガイド
+    </h1>
+    <p class="text-base md:text-lg text-charcoal/70 dark:text-zinc-400 leading-relaxed font-semibold italic">
+      音の結合が、古典パーニニ言語学における文の流れ・構造・発音をどのように形づくるのか。
+    </p>
+  </header>
+
+  <hr class="border-saffron-100 dark:border-zinc-800" />
+
+  <div class="prose prose-saffron max-w-none dark:prose-invert text-charcoal/80 dark:text-zinc-350 space-y-6 leading-relaxed text-sm md:text-base">
+    <h2>1. サンディとは何か</h2>
+    <p>
+      サンスクリット語の<strong>サンディ（सन्धि）</strong>は、文字どおり「結合」「接合」「音の移行」を意味します。隣り合う単語をそれぞれ独立して発音する現代の多くの言語とは異なり、サンスクリット語では隣接する音どうしが互いに影響し合います。これは恣意的なものではなく、人間の自然な発音の仕組みを体系的に規則化したものです。日本語でも「手＋紙＝てがみ」のように音が変化する連濁がありますが、サンスクリット語ではこうした変化がはるかに広範かつ規則的に起こります。
+    </p>
+    <p>
+      古代の文法家<strong>パーニニ</strong>は、その代表作『アシュターディヤーイー』の中で、サンディの前提となる<strong>サンヒター（संहिता）</strong>を次のように定義しています。
+    </p>
+    <blockquote class="bg-saffron-50/50 dark:bg-zinc-900 border-l-4 border-saffron-500 p-4 rounded-r-2xl font-bold font-sanskrit text-center py-6 my-6">
+      परः सन्निकर्षः संहिता (Paraḥ sannikarṣaḥ saṃhitā - 1.4.109)
+    </blockquote>
+    <p>
+      この規則は、二つの音（音素）が間を置かずに隣接するとき、それらが音韻的に融合することを示しています。サンディは複合語（サマーサ）の内部、動詞の語根と接頭辞の間、名詞の語形変化においては必須であり、文中の独立した単語の間では任意とされています。
+    </p>
+
+    <h2>2. サンディの三本柱</h2>
+    <p>
+      サンスクリット語のサンディは、関わる音の性質によって三つの主要なカテゴリーに分けられます。
+    </p>
+    <ol class="list-decimal pl-6 space-y-2">
+      <li><strong>アチ・サンディ（अच्-सन्धि）／母音サンディ：</strong> 母音で終わる語が母音で始まる語と出会うときに起こります。</li>
+      <li><strong>ハル・サンディ（हल्-सन्धि）／子音サンディ：</strong> 子音で終わる語が、子音または母音と出会うときに起こります。</li>
+      <li><strong>ヴィサルガ・サンディ（विसर्ग-सन्धि）：</strong> ヴィサルガ（ḥ）で終わる語が、母音または子音と出会うときに起こります。</li>
+    </ol>
+
+    <h2>3. 母音サンディ（アチ・サンディ）</h2>
+    <p>
+      母音サンディは母音どうしの移行を扱います。すべての学習者が身につけるべき最も重要な規則は次のとおりです。
+    </p>
+
+    <h3>A. サヴァルナ・ディールガ・サンディ（同種母音の長母音化）</h3>
+    <p>
+      同じ種類の母音（短母音・長母音を問わず）が出会うと、対応する長母音にまとまります。
+      <br />
+      <strong>公式：</strong> <code>a/ā + a/ā = ā</code>、<code>i/ī + i/ī = ī</code>、<code>u/ū + u/ū = ū</code>
+    </p>
+    <ul class="list-disc pl-6 space-y-1">
+      <li><em>例1：</em> देव + आलय = देवालय（deva + ālaya = devālaya - 神の家、寺院）</li>
+      <li><em>例2：</em> गिरि + ईश = गिरीश（giri + īśa = girīśa - 山の主）</li>
+      <li><em>例3：</em> भानु + उदय = भानूदय（bhānu + udaya = bhānūdaya - 日の出）</li>
+    </ul>
+
+    <h3>B. グナ・サンディ（母音の融合）</h3>
+    <p>
+      <code>a</code> または <code>ā</code> の後に異なる種類の単母音が続くと、両者が融合してひとつの中間的な母音になります。
+      <br />
+      <strong>公式：</strong> <code>a/ā + i/ī = e</code>、<code>a/ā + u/ū = o</code>、<code>a/ā + ṛ/ṝ = ar</code>
+    </p>
+    <ul class="list-disc pl-6 space-y-1">
+      <li><em>例1：</em> उप + इन्द्र = उपेन्द्र（upa + indra = upendra）</li>
+      <li><em>例2：</em> महा + उत्सव = महोत्सव（mahā + utsava = mahotsava - 大祭）</li>
+      <li><em>例3：</em> देव + ऋषि = देवर्षि（deva + ṛṣi = devarṣi - 神仙）</li>
+    </ul>
+
+    <h3>C. ヤン・サンディ（半母音化）</h3>
+    <p>
+      <code>a/ā</code> 以外の単母音の後に異なる種類の母音が続くと、前の母音は対応する半母音（y, v, r, l）に変わります。
+      <br />
+      <strong>公式：</strong> <code>i/ī + 異なる母音 = y</code>、<code>u/ū + 異なる母音 = v</code>
+    </p>
+    <ul class="list-disc pl-6 space-y-1">
+      <li><em>例1：</em> इति + आदि = इत्यादि（iti + ādi = ityādi - など）</li>
+      <li><em>例2：</em> अनु + अय = अन्वय（anu + aya = anvaya - つながり、語順）</li>
+      <li><em>例3：</em> सु + आगतम् = स्वागतम्（su + āgatam = svāgatam - ようこそ）</li>
+    </ul>
+
+    <h2>4. 子音サンディ（ハル・サンディ）</h2>
+    <p>
+      子音サンディは、子音どうしがぶつかるときの変化を扱います。これらの規則は、隣接する音の有声・無声や鼻音化を調整し、発音のしやすさを保ちます。
+    </p>
+
+    <h3>A. シュチュトヴァ・サンディ（硬口蓋音化）</h3>
+    <p>
+      歯音の歯擦音 <code>s</code> や歯音（t行：t, th, d, dh, n）が、硬口蓋の歯擦音 <code>ś</code> や硬口蓋音（c行：c, ch, j, jh, ñ）と接すると、歯音は対応する硬口蓋音に置き換わります。
+    </p>
+    <ul class="list-disc pl-6 space-y-1">
+      <li><em>例：</em> सत् + चित् = सच्चित्（sat + cit = saccit - 純粋意識）</li>
+      <li><em>例：</em> रामस् + च = रामश्च（rāmas + ca = rāmaśca - そしてラーマ）</li>
+    </ul>
+
+    <h3>B. ジャシュトヴァ・サンディ（有声化）</h3>
+    <p>
+      語末の非鼻音の子音の後に母音や有声子音が続くと、その子音は同じグループの第3列（有声・無気）の子音に置き換わります。
+    </p>
+    <ul class="list-disc pl-6 space-y-1">
+      <li><em>例：</em> वाक् + ईश = वागीश（vāk + īśa = vāgīśa - 言葉の主）</li>
+      <li><em>例：</em> जगत् + ईश = जगदीश（jagat + īśa = jagadīśa - 宇宙の主）</li>
+    </ul>
+
+    <h2>5. ヴィサルガ・サンディ</h2>
+    <p>
+      ヴィサルガ（ḥ）は無声の息の音です。サンスクリットの文の中では、後に続く音に非常に敏感に反応します。
+    </p>
+    <h3>A. 歯擦音への変化</h3>
+    <p>
+      ヴィサルガの後に無声の硬口蓋音（c, ch）、歯音（t, th）、そり舌音（ṭ, ṭh）が続くと、ヴィサルガは対応する歯擦音（ś, s, ṣ）に変わります。
+    </p>
+    <ul class="list-disc pl-6 space-y-1">
+      <li><em>例1：</em> नमः + ते = नमस्ते（namaḥ + te = namaste - あなたに敬礼を）</li>
+      <li><em>例2：</em> कः + चित् = कश्चित्（kaḥ + cit = kaścit - 誰か）</li>
+    </ul>
+
+    <h3>B. o への変化（ウ・サンディ）</h3>
+    <p>
+      短い <code>a</code> の後のヴィサルガに、短い <code>a</code> または有声子音が続くと、ヴィサルガは前の <code>a</code> と融合して <code>o</code> になります。後ろが <code>a</code> の場合、その <code>a</code> は脱落し、アヴァグラハ（ऽ）で示されます。
+    </p>
+    <ul class="list-disc pl-6 space-y-1">
+      <li><em>例1：</em> कः + अपि = कोऽपि（kaḥ + api = ko'pi - 誰か）</li>
+      <li><em>例2：</em> शिवः + वन्द्यः = शिवो वन्द्यः（śivaḥ + vandyaḥ = śivo vandyaḥ - シヴァは礼拝されるべきである）</li>
+    </ul>
+
+    <h2>6. まとめ</h2>
+    <p>
+      サンディは暗記するための文法表の寄せ集めではありません。音の調和を表す数学的なモデルです。サンディを理解すれば、正しいリズムでシュローカを読み、長い複合語を楽に分解し、何千年も前の聖仙（リシ）たちと同じようにサンスクリットの言葉を発音できるようになります。
+    </p>
+  </div>
+</article>

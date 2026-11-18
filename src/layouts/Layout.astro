@@ -11,9 +11,25 @@ interface Props {
   lang: string;
   title?: string;
   description?: string;
+  /** Load Google AdSense on this page. Disable on screens without substantial publisher content (quiz tools, legal, errors). */
+  showAds?: boolean;
+  /** Emit <meta name="robots" content="noindex, follow">. */
+  noindex?: boolean;
+  /** Override the canonical path (e.g. point untranslated copies at the English original). */
+  canonicalPath?: string;
+  /** Emit hreflang alternates for the 4 locales. Disable for pages that are not translated. */
+  hreflang?: boolean;
 }
 
-const { lang, title = "Sanskritbhashi | Learn and Practice Sanskrit", description = "Learn and practice Sanskrit grammar and Shastras" } = Astro.props;
+const {
+  lang,
+  title = "Sanskritbhashi | Learn and Practice Sanskrit",
+  description = "Learn and practice Sanskrit grammar and Shastras",
+  showAds = true,
+  noindex = false,
+  canonicalPath,
+  hreflang = true,
+} = Astro.props;
 const t = getTranslation(lang);
 
 const navItems = [
@@ -27,12 +43,23 @@ const navItems = [
 ];
 
 const pathname = Astro.url.pathname;
-const cleanPath = pathname.replace(/\/$/, "");
-const canonicalURL = `https://sanskritbhashi.com${cleanPath}`;
+// With build.format "file", prerendered pages see "/en/about.html" at build time.
+// Strip ".html", "/index" and trailing slashes so canonical/hreflang URLs match the
+// clean URLs Cloudflare actually serves (otherwise every canonical points at a redirect).
+const cleanPath = pathname.replace(/\.html$/, "").replace(/\/index$/, "").replace(/\/$/, "");
+const SITE = "https://sanskritbhashi.com";
+const canonicalURL = `${SITE}${canonicalPath ?? cleanPath}`;
+// Path without the locale prefix, used to build hreflang alternates.
+const LOCALES = ["en", "hi", "ja", "es"];
+const localeMatch = cleanPath.match(/^\/(en|hi|ja|es)(\/.*)?$/);
+const pathWithoutLocale = localeMatch ? (localeMatch[2] ?? "") : null;
+const alternates = hreflang && !noindex && pathWithoutLocale !== null
+  ? LOCALES.map((l) => ({ hreflang: l, href: `${SITE}/${l}${pathWithoutLocale}` }))
+  : [];
 
 const isActive = (href: string) => {
   // Normalize pathnames by removing trailing shashes for comparison
-  const normPath = pathname.replace(/\/$/, "");
+  const normPath = cleanPath;
   const normHref = href.replace(/\/$/, "");
   if (normHref === `/${lang}`) {
     return normPath === normHref || normPath === "";
@@ -51,6 +78,9 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    {alternates.map((a) => <link rel="alternate" hreflang={a.hreflang} href={a.href} />)}
+    {alternates.length > 0 && <link rel="alternate" hreflang="x-default" href={`${SITE}/en${pathWithoutLocale}`} />}
     <link rel="icon" href="/favicon.ico?v=4" sizes="any" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=4" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=4" />
@@ -97,8 +127,8 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
       window.addEventListener('cookie-consent-updated', loadGoogleAnalytics);
       document.addEventListener('astro:after-swap', loadGoogleAnalytics);
     </script>
-    <!-- Google AdSense — Statically loaded for verification; GDPR-compliant via default NPA -->
-    <script is:inline>
+    <!-- Google AdSense — only on pages with substantial publisher content (see `showAds` prop); GDPR-compliant via default NPA -->
+    {showAds && !isCapacitorBuild && <script is:inline>
       (function() {
         // Skip execution entirely inside native app — AdMob handles native ads
         if (window.Capacitor && window.Capacitor.isNativePlatform()) return;
@@ -123,12 +153,15 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
           }
         });
       })();
-    </script>
-    <script
-      async
-      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3511250070838869"
-      crossorigin="anonymous"
-    />
+    </script>}
+    {showAds && !isCapacitorBuild && (
+      <script
+        is:inline
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3511250070838869"
+        crossorigin="anonymous"
+      />
+    )}
     <meta name="google-adsense-account" content="ca-pub-3511250070838869" />
     <slot name="head" />
   </head>

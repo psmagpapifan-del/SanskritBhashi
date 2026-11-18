@@ -122,7 +122,7 @@ const navTranslations = {
 const nt = navTranslations[lang] || navTranslations.en;
 ---
 
-<Layout lang={lang} title={`${t.shastraStudy.title} | Sanskritbhashi`}>
+<Layout lang={lang} title={`${t.shastraStudy.title} | Sanskritbhashi`} description={t.shastraStudy.desc} showAds={false}>
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(shastraSchema)} />
 
   <div class="flex flex-col xl:flex-row gap-6 items-stretch min-h-[75vh] w-full">

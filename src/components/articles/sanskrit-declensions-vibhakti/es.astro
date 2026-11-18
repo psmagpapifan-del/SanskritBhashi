@@ -1,0 +1,100 @@
+---
+import { Clock } from "lucide-react";
+import Tables from "./Tables.astro";
+---
+
+<article class="space-y-8">
+  <header class="space-y-4">
+    <div class="flex items-center space-x-3 text-xs font-bold text-saffron-600 dark:text-saffron-400 uppercase tracking-widest font-latin">
+      <span>Gramática Sánscrita (Vyākaraṇa)</span>
+      <span>•</span>
+      <span class="flex items-center space-x-1"><Clock class="w-3.5 h-3.5" /> <span>9 min de lectura</span></span>
+    </div>
+    <h1 class="text-3xl md:text-5xl font-black text-charcoal dark:text-zinc-150 leading-tight font-latin">
+      Los Casos Nominales Explicados: El Sistema Vibhakti del Sánscrito
+    </h1>
+    <p class="text-base md:text-lg text-charcoal/70 dark:text-zinc-400 leading-relaxed font-semibold italic font-latin">
+      Una guía detallada de los 8 casos, los kārakas y las tablas de declinación estándar.
+    </p>
+  </header>
+
+  <hr class="border-saffron-100 dark:border-zinc-800" />
+
+  <div class="prose prose-saffron max-w-none dark:prose-invert text-charcoal/80 dark:text-zinc-350 space-y-6 leading-relaxed text-sm md:text-base font-latin">
+    <h2>1. Introducción a la Vibhakti</h2>
+    <p>
+      El sánscrito es una lengua flexiva. En lugar de usar preposiciones independientes (como «a», «con» o «desde» en español) para indicar la relación entre palabras, el sánscrito modifica la terminación del propio sustantivo. Estas terminaciones se llaman <strong>Vibhakti (विभक्ति)</strong>.
+    </p>
+    <p>
+      Si ha estudiado latín, el sistema le resultará familiar: el sánscrito tiene incluso más casos. Cada sustantivo tiene 24 formas, porque se declina en <strong>ocho casos</strong> y <strong>tres números</strong> (vacana: singular, dual y plural). Como la terminación indica la función, el orden de las palabras puede variar sin cambiar el significado.
+    </p>
+
+    <h2>2. Casos y kārakas</h2>
+    <p>
+      Un <strong>kāraka (कारक)</strong> es la relación semántica entre un sustantivo y el verbo principal de la oración. Aunque hay ocho casos, solo seis se consideran kārakas, porque el genitivo (posesivo) y el vocativo no se relacionan directamente con la acción del verbo.
+    </p>
+
+    <Tables
+      kind="karaka"
+      headers={["Caso (Vibhakti)", "Función semántica (Kāraka)", "Equivalente", "Ejemplo"]}
+      rows={[
+        ["1.º (Prathamā)", "कर्ता (Kartā)", "Sujeto (nominativo)", "Quien realiza la acción (El niño...)"],
+        ["2.º (Dvitīyā)", "कर्म (Karma)", "Objeto directo (acusativo)", "Lo que recibe la acción (El libro)"],
+        ["3.º (Tṛtīyā)", "करण (Karaṇa)", "Instrumental", "Medio o herramienta (Con la mano)"],
+        ["4.º (Caturthī)", "सम्प्रदान (Sampradāna)", "Dativo / Beneficiario", "Para quién se hace (Para el maestro)"],
+        ["5.º (Pañcamī)", "अपादान (Apādāna)", "Ablativo / Separación", "Punto de partida (Desde el bosque)"],
+        ["6.º (Ṣaṣṭhī)", "Ninguno (relación)", "Genitivo / Posesivo", "Posesión (Del rey)"],
+        ["7.º (Saptamī)", "अधिकरण (Adhikaraṇa)", "Locativo", "Dónde o cuándo ocurre (En la casa / En el árbol)"],
+        ["8.º (Sambodhana)", "Ninguno (apelación)", "Vocativo", "Llamada (¡Oh, Krishna!)"],
+      ]}
+    />
+
+    <h2>3. Paradigma: declinación de sustantivos masculinos en -a (Rāma)</h2>
+    <p>
+      La clase de sustantivos más común es la de los masculinos terminados en <code>a</code> breve (अकारान्त पुल्लिङ्ग). A continuación se muestra la tabla de declinación estándar de <strong>राम (Rāma)</strong>. Palabras como <em>deva</em> (dios), <em>bālaka</em> (niño) o <em>vṛkṣa</em> (árbol) siguen el mismo modelo.
+    </p>
+
+    <Tables
+      kind="rama"
+      headers={["Caso", "Singular (Ekavacana)", "Dual (Dvivacana)", "Plural (Bahuvacana)"]}
+      rows={["1.º (Prathamā)", "2.º (Dvitīyā)", "3.º (Tṛtīyā)", "4.º (Caturthī)", "5.º (Pañcamī)", "6.º (Ṣaṣṭhī)", "7.º (Saptamī)", "8.º (Sambodhana)"]}
+    />
+
+    <p>
+      Observe que en <code>rāmeṇa</code> (instrumental singular) y <code>rāmāṇām</code> (genitivo plural) la <code>n</code> se convierte en la retrofleja <code>ṇ</code> por influencia de la <code>r</code> anterior (regla de ṇatva). En <em>deva</em>, que no tiene <code>r</code>, la forma es <code>devena</code>.
+    </p>
+
+    <h2>4. Oraciones prácticas (ejemplos de traducción)</h2>
+    <p>
+      Observe cómo cambian las terminaciones para expresar distintas relaciones sin necesidad de preposiciones:
+    </p>
+    <ul class="list-disc pl-6 space-y-3">
+      <li>
+        <strong>रामः वनं गच्छति (rāmaḥ vanaṃ gacchati):</strong>
+        <br />
+        <code>रामः</code> (1.er caso: sujeto) + <code>वनं</code> (2.º caso: destino) + <code>गच्छति</code> (verbo: va)
+        <br />
+        <em>Traducción:</em> «Rama va al bosque.»
+      </li>
+      <li>
+        <strong>रामस्य हस्तः (rāmasya hastaḥ):</strong>
+        <br />
+        <code>रामस्य</code> (6.º caso: genitivo) + <code>हस्तः</code> (mano)
+        <br />
+        <em>Traducción:</em> «La mano de Rama.»
+      </li>
+      <li>
+        <strong>रामः हस्तेन लिखति (rāmaḥ hastena likhati):</strong>
+        <br />
+        <code>रामः</code> (sujeto) + <code>हस्तेन</code> (3.er caso: instrumento, con la mano) + <code>लिखति</code> (verbo: escribe)
+        <br />
+        <em>Traducción:</em> «Rama escribe con la mano.»
+      </li>
+    </ul>
+
+    <h2>5. Conclusión</h2>
+    <p>
+      Comprender las vibhaktis es fundamental para traducir el sánscrito. Una vez que domine las terminaciones de las clases básicas de sustantivos (como los masculinos en <em>a</em> o los femeninos en <em>ā</em>), podrá construir oraciones correctamente y leer los textos clásicos con soltura.
+    </p>
+  </div>
+</article>

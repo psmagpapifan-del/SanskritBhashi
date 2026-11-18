@@ -33,7 +33,7 @@ export default function AdSenseWidget({ slot, format = "auto", variant }: AdSens
       <ins
         className="adsbygoogle w-full"
         style={{ display: "block" }}
-        data-ad-client="ca-pub-YOUR_ADSENSE_ID" // Replace with production ID
+        data-ad-client="ca-pub-3511250070838869"
         data-ad-slot={slot}
         data-ad-format={format}
         data-full-width-responsive="true"

@@ -1,8 +1,12 @@
 ---
 export const prerender = true;
 import Layout from "../../../layouts/Layout.astro";
-import { getTranslation } from "../../../lib/i18n";
-import { BookOpen, Clock, ChevronLeft } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
+import ArticleByline from "../../../components/ArticleByline.astro";
+import En from "../../../components/articles/scientific-relevance-of-sanskrit/en.astro";
+import Hi from "../../../components/articles/scientific-relevance-of-sanskrit/hi.astro";
+import Ja from "../../../components/articles/scientific-relevance-of-sanskrit/ja.astro";
+import Es from "../../../components/articles/scientific-relevance-of-sanskrit/es.astro";
 
 export function getStaticPaths() {
   return [
@@ -14,7 +18,6 @@ export function getStaticPaths() {
 }
 
 const { lang } = Astro.params;
-const t = getTranslation(lang);
 
 const title = lang === "en"
   ? "The Computational Structure of Sanskrit: Paninian Grammar and Computer Science"
@@ -31,10 +34,12 @@ const desc = lang === "en"
   : lang === "ja"
   ? "パーニニの文法体系アシュターディヤーイーの数学的構造と、現代プログラミング言語の構文定義（BNF）やコンパイラ設計との学術的類似性を解説。"
   : "Una exploración académica de la lingüística paniniana y sus paralelismos con la ciencia de la computación.";
+
+const Body = { en: En, hi: Hi, ja: Ja, es: Es }[lang as "en" | "hi" | "ja" | "es"] ?? En;
 ---
 
 <Layout lang={lang} title={title} description={desc}>
-  <main class="max-w-4xl mx-auto px-4 py-8 md:py-12">
+  <div class="max-w-4xl mx-auto px-4 py-8 md:py-12">
     {/* Navigation link back */}
     <div class="mb-8">
       <a 
@@ -46,145 +51,7 @@ const desc = lang === "en"
       </a>
     </div>
 
-    {/* Localized Article Content */}
-    {lang === "en" ? (
-      <article class="space-y-8">
-        <header class="space-y-4">
-          <div class="flex items-center space-x-3 text-xs font-bold text-saffron-600 dark:text-saffron-400 uppercase tracking-widest font-latin">
-            <span>Computational Linguistics</span>
-            <span>•</span>
-            <span class="flex items-center space-x-1"><Clock class="w-3.5 h-3.5" /> <span>10 min read</span></span>
-          </div>
-          <h1 class="text-3xl md:text-5xl font-black text-charcoal dark:text-zinc-150 leading-tight font-latin">
-            The Computational Structure of Sanskrit: Paninian Grammar & Computer Science
-          </h1>
-          <p class="text-base md:text-lg text-charcoal/70 dark:text-zinc-400 leading-relaxed font-semibold italic font-latin">
-            How a 2,500-year-old grammatical engine parallels modern programming languages and compiler design.
-          </p>
-        </header>
-
-        <hr class="border-saffron-100 dark:border-zinc-800" />
-
-        <div class="prose prose-saffron max-w-none dark:prose-invert text-charcoal/80 dark:text-zinc-350 space-y-6 leading-relaxed text-sm md:text-base font-latin">
-          <h2>1. Pāṇini and the Ashtadhyayi</h2>
-          <p>
-            In the 4th century BCE, the ancient Indian grammarian <strong>Pāṇini</strong> completed his masterwork, the <strong>Aṣṭādhyāyī (अष्टाध्यायी)</strong>. Consisting of approximately 4,000 highly condensed sutras (rules), the Ashtadhyayi is not just a descriptive grammar of the Sanskrit language; it is a **formal rule-based generative engine**.
-          </p>
-          <p>
-            Pāṇini designed his grammar like a computer program. By feeding raw verbal roots (Dhatus) and nominal bases (Pratipadikas) into the rules, the Ashtadhyayi systematically compiles and outputs grammatically correct Sanskrit words and sentences. It is the oldest known formal language processor in human history.
-          </p>
-
-          <h2>2. Equivalence to Backus-Naur Form (BNF)</h2>
-          <p>
-            In the mid-20th century, computer scientists John Backus and Peter Naur introduced **Backus-Naur Form (BNF)**, a formal notation used to define the syntax of programming languages (like Algol, C, Java, and Python).
-          </p>
-          <p>
-            Linguists and computer scientists soon noticed an extraordinary fact: **Pāṇini's sutras are functionally equivalent to BNF rules**. In recognition of this historical parallel, prominent computer scientists like Donald Knuth suggested renaming BNF to **Backus-Naur-Pāṇini Form**.
-          </p>
-          <p>
-            Pāṇini achieved this by utilizing:
-          </p>
-          <ul class="list-disc pl-6 space-y-2">
-            <li><strong>Metalanguage:</strong> Rules that govern how other rules are applied (precedence, scope, and recursion).</li>
-            <li><strong>Shivasutras:</strong> A table of sounds arranged as a matrix of phonological values, allowing the rules to reference classes of sounds using condensed shorthand expressions (*Pratyāhāras*). This is identical to character class mapping in regular expressions.</li>
-          </ul>
-
-          <h2>3. Sanskrit and Knowledge Representation in AI</h2>
-          <p>
-            In 1985, NASA researcher **Rick Briggs** published a groundbreaking paper titled <em>"Knowledge Representation in Sanskrit and Artificial Intelligence"</em> in the AI Magazine. Briggs argued that natural natural languages (like English or French) are highly ambiguous and difficult for computers to parse without complex contextual AI models.
-          </p>
-          <p>
-            However, Sanskrit stands out as a natural language that is structured like a formal mathematical language. Its semantic analysis system—specifically the **Śābdabodha (शाब्दबोध)** method used by Indian logicians (Nyāya school)—allows representing the meaning of a sentence as a precise, unambiguous graph structure.
-          </p>
-          <p>
-            Because of its highly structured syntax and semantic clarity, Sanskrit is uniquely suited for:
-          </p>
-          <ul class="list-disc pl-6 space-y-2">
-            <li><strong>Natural Language Processing (NLP):</strong> Parsing algorithms can map Sanskrit sentences to syntactic trees with absolute mathematical precision.</li>
-            <li><strong>Semantic Web and Ontologies:</strong> Representing logical facts in a machine-readable format.</li>
-          </ul>
-
-          <h2>4. Sanskrit and Modern Compiler Theory</h2>
-          <p>
-            A compiler is a program that translates human-readable source code (like C++) into machine code. To do this, it passes the source code through a **Lexical Analyzer** and a **Parser** to build an Abstract Syntax Tree (AST).
-          </p>
-          <p>
-            Pāṇini's grammatical engine runs in almost the exact same way. It defines:
-          </p>
-          <ol class="list-decimal pl-6 space-y-2">
-            <li><strong>Lexicon (Dhātupāṭha & Gaṇapāṭha):</strong> The library of raw inputs and categories.</li>
-            <li><strong>Rules (Aṣṭādhyāyī):</strong> The parsing and compilation algorithms.</li>
-            <li><strong>Evaluation Precedence:</strong> Solving rule conflicts using meta-rules like <code>विप्रतिषेधे परं कार्यम्</code> (vipratiṣedhe paraṃ kāryam - in case of conflict, the later rule wins). This is equivalent to operator precedence in programming languages.</li>
-          </ol>
-
-          <h2>5. Conclusion</h2>
-          <p>
-            The structural beauty of Sanskrit is a testament to the scientific genius of ancient India. Rather than being a dead relic of the past, Sanskrit represents a pinnacle of logical linguistics. By studying Sanskrit, we gain deeper insights not only into classical human literature but also into the fundamental mathematical patterns that shape modern computer science.
-          </p>
-        </div>
-      </article>
-    ) : lang === "hi" ? (
-      <article class="space-y-8">
-        <header class="space-y-4">
-          <div class="flex items-center space-x-3 text-xs font-bold text-saffron-600 dark:text-saffron-400 uppercase tracking-widest font-latin">
-            <span>संगणकीय भाषा विज्ञान</span>
-            <span>•</span>
-            <span class="flex items-center space-x-1"><Clock class="w-3.5 h-3.5" /> <span>10 मिनट पठन</span></span>
-          </div>
-          <h1 class="text-3xl md:text-5xl font-black text-charcoal dark:text-zinc-150 leading-tight">
-            संस्कृत की संगणकीय संरचना: पाणिनीय व्याकरण और कंप्यूटर विज्ञान
-          </h1>
-          <p class="text-base md:text-lg text-charcoal/70 dark:text-zinc-400 leading-relaxed font-semibold italic">
-            २,५०० वर्ष पुराना व्याकरण इंजन किस प्रकार आधुनिक प्रोग्रामिंग भाषाओं और कंपाइलर डिजाइन के समानांतर है।
-          </p>
-        </header>
-
-        <hr class="border-saffron-100 dark:border-zinc-800" />
-
-        <div class="prose prose-saffron max-w-none dark:prose-invert text-charcoal/80 dark:text-zinc-350 space-y-6 leading-relaxed text-sm md:text-base">
-          <h2>1. पाणिनी और अष्टाध्यायी का महत्व</h2>
-          <p>
-            ईसा पूर्व चौथी शताब्दी में, महान संस्कृत विद्वान <strong>महर्षि पाणिनी</strong> ने अपना महान ग्रंथ <strong>अष्टाध्यायी (अष्टाध्यायी)</strong> पूरा किया। लगभग ४,००० अत्यधिक संक्षिप्त सूत्रों वाले इस ग्रंथ में केवल व्याकरण के नियम ही नहीं हैं; बल्कि यह एक **नियम-आधारित जनरेटिव व्याकरण इंजन** है।
-          </p>
-          <p>
-            पाणिनी ने अपने व्याकरण को किसी कंप्यूटर प्रोग्राम की तरह डिजाइन किया था। धातु और प्रत्यय को इन सूत्रों में इनपुट करने पर अष्टाध्यायी व्यवस्थित रूप से संकलित होकर शुद्ध शब्द रूप आउटपुट प्रदान करता है।
-          </p>
-
-          <h2>2. बैकस-नौर फॉर्म (BNF) के साथ समानता</h2>
-          <p>
-            २०वीं सदी के मध्य में, कंप्यूटर वैज्ञानिकों (जॉन बैकस और पीटर नौर) ने प्रोग्रामिंग भाषाओं (जैसे Algol, C, Java) के सिंटैक्स को परिभाषित करने के लिए **बैकस-नौर फॉर्म (BNF)** का आविष्कार किया।
-          </p>
-          <p>
-            जल्द ही वैज्ञानिकों को पता चला कि पाणिनी के सूत्र बिल्कुल BNF नियमों की तरह ही कार्य करते हैं। प्रसिद्ध कंप्यूटर वैज्ञानिक डोनाल्ड नुथ (Donald Knuth) ने सुझाव दिया कि इसे **बैकस-नौर-पाणिनी फॉर्म** कहा जाना चाहिए।
-          </p>
-
-          <h2>3. कृत्रिम बुद्धिमत्ता (AI) में संस्कृत</h2>
-          <p>
-            १९८५ में नासा (NASA) के वैज्ञानिक **रिक ब्रिग्स** ने एआई मैगज़ीन में एक लेख लिखा जिसका नाम था <em>"Knowledge Representation in Sanskrit and Artificial Intelligence"</em>। उन्होंने स्पष्ट किया कि सामान्य भाषाएँ (जैसे अंग्रेजी) कंप्यूटर प्रोग्रामिंग के लिए बहुत अस्पष्ट होती हैं, लेकिन संस्कृत का शाब्दबोध (Nyāya दर्शन) बिना किसी संशय के अर्थ को व्यक्त करने वाला एक सटीक ग्राफ मॉडल प्रस्तुत करता है।
-          </p>
-        </div>
-      </article>
-    ) : (
-      <article class="space-y-8">
-        <header class="space-y-4">
-          <div class="flex items-center space-x-3 text-xs font-bold text-saffron-600 dark:text-saffron-400 uppercase tracking-widest font-latin">
-            <span>Linguística Computacional</span>
-            <span>•</span>
-            <span class="flex items-center space-x-1"><Clock class="w-3.5 h-3.5" /> <span>10 min de lectura</span></span>
-          </div>
-          <h1 class="text-3xl md:text-5xl font-black text-charcoal dark:text-zinc-150 leading-tight font-latin">
-            La Estructura Computacional del Sánscrito: Gramática Paniniana y Ciencia de la Computación
-          </h1>
-        </header>
-
-        <hr class="border-saffron-100 dark:border-zinc-800" />
-
-        <div class="prose prose-saffron max-w-none dark:prose-invert text-charcoal/80 dark:text-zinc-350 space-y-6 leading-relaxed text-sm md:text-base font-latin">
-          <p>
-            El Ashtadhyayi de Pāṇini es el procesador de lenguaje formal más antiguo conocido en la historia humana. Este artículo analiza su equivalencia funcional con la notación Backus-Naur (BNF) utilizada en el diseño de compiladores modernos.
-          </p>
-        </div>
-      </article>
-    )}
-  </main>
+    <Body />
+    <ArticleByline lang={lang} slug="scientific-relevance-of-sanskrit" title={title} description={desc} published="2026-07-24" updated="2026-11-18" />
+  </div>
 </Layout>

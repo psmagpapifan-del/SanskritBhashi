@@ -1,0 +1,118 @@
+---
+import { Clock } from "lucide-react";
+---
+
+<article class="space-y-8">
+  <header class="space-y-4">
+    <div class="flex items-center space-x-3 text-xs font-bold text-saffron-600 dark:text-saffron-400 uppercase tracking-widest font-latin">
+      <span>聖典学習（シャーストラ）</span>
+      <span>•</span>
+      <span class="flex items-center space-x-1"><Clock class="w-3.5 h-3.5" /> <span>読了時間 10分</span></span>
+    </div>
+    <h1 class="text-3xl md:text-5xl font-black text-charcoal dark:text-zinc-150 leading-tight">
+      アンヴァヤの技術：ギーターの詩節を散文に再構築する
+    </h1>
+    <p class="text-base md:text-lg text-charcoal/70 dark:text-zinc-400 leading-relaxed font-semibold italic">
+      古典サンスクリットの詩節の語順を解読し、意味を論理的に理解するためのステップ・バイ・ステップ・ガイド。
+    </p>
+  </header>
+
+  <hr class="border-saffron-100 dark:border-zinc-800" />
+
+  <div class="prose prose-saffron max-w-none dark:prose-invert text-charcoal/80 dark:text-zinc-350 space-y-6 leading-relaxed text-sm md:text-base">
+    <h2>1. アンヴァヤ（Anvaya）とは</h2>
+    <p>
+      『バガヴァッド・ギーター』や『シュリーマド・バーガヴァタム』などの古典を読むとき、初心者の多くはその語順に戸惑います。サンスクリット語は名詞の語尾（格）が文中の役割を決める屈折語なので、詩人は韻律（チャンダス）の規則を満たすために、言葉をほぼ自由な順番に並べることができます。
+    </p>
+    <p>
+      詩節（シュローカ）の文字どおりの意味を理解するには、<strong>アンヴァヤ（अन्वय）</strong>を行う必要があります。アンヴァヤとは「つながり」や「論理的な構文」を意味し、詩節の言葉を標準的な散文の語順（一般的には主語－目的語－動詞と、それぞれの修飾語）に並べ直す作業のことです。
+    </p>
+
+    <h2>2. 伝統的な二つのアンヴァヤ法</h2>
+    <p>
+      伝統的な注釈者たちは、主に二つの教授法を用いてアンヴァヤを組み立てます。
+    </p>
+
+    <h3>A. ダンダーンヴァヤ（दण्डान्वय - 棒の方法）</h3>
+    <p>
+      この方法では、詩節を一本の棒のようなまっすぐな文に組み直します。まず主動詞を見つけ、次に誰が動作を行ったのか（主語）、何に対して行われたのか（目的語）を確認し、関係節・形容詞・副詞を論理的な順序で挿入していきます。
+    </p>
+
+    <h3>B. カンダーンヴァヤ（खण्डान्वय - 問答の方法）</h3>
+    <p>
+      こちらは対話的な方法で、文法的な質問を重ねながら詩節を分解していきます。例：
+    </p>
+    <ul class="list-disc pl-6 space-y-1">
+      <li>動詞を特定する：<em>動作は何か？</em>（例：「話す」）</li>
+      <li>主語を特定する：<em>誰が話すのか？</em>（例：「クリシュナが話す」）</li>
+      <li>目的語を特定する：<em>誰に話すのか？</em>（例：「アルジュナに話す」）</li>
+      <li>修飾語を特定する：<em>どのように話すのか？</em>（例：「ほほえみながら話す」）</li>
+    </ul>
+    <p>
+      この問答を繰り返すことで、文の構文木が自然に組み上がります。
+    </p>
+
+    <h2>3. アンヴァヤの4つのステップ</h2>
+    <p>
+      どのシュローカでも、次の4つの論理的な手順でアンヴァヤを行うことができます。
+    </p>
+    <ol class="list-decimal pl-6 space-y-2">
+      <li><strong>パダッチェーダ（पदच्छेद）：</strong> 連声（サンディ）で結合した語を分解し、一語ずつに切り離します。</li>
+      <li><strong>格（ヴィバクティ）の判別：</strong> 各語の格語尾を見極めます（主語は主格、目的語は対格、場所は処格など）。</li>
+      <li><strong>中心の動詞（クリヤーパダ）の特定：</strong> 文の主たる動詞を見つけます。</li>
+      <li><strong>構文的な質問（カンダーンヴァヤ）の適用：</strong> 主語・目的語・手段・場所などを動詞に結びつけます。</li>
+    </ol>
+
+    <h2>4. 実践：『バガヴァッド・ギーター』第2章47節</h2>
+    <p>
+      ギーターで最も有名な詩節のひとつに、この方法を当てはめてみましょう。
+    </p>
+
+    <blockquote class="bg-saffron-50/50 dark:bg-zinc-900 border-l-4 border-saffron-500 p-4 rounded-r-2xl font-bold font-sanskrit text-center py-6 my-6">
+      कर्मण्येवाधिकारस्ते मा फलेषु कदाचन ।<br />
+      मा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि ॥
+    </blockquote>
+
+    <h3>ステップ1：パダッチェーダ（連声の分解）</h3>
+    <p>
+      まず連声を元に戻し、一つひとつの語を確認します。
+      <br />
+      <code>karmaṇi</code> + <code>eva</code> + <code>adhikāraḥ</code> + <code>te</code> | <code>mā</code> + <code>phaleṣu</code> + <code>kadācana</code> |
+      <br />
+      <code>mā</code> + <code>karma-phala-hetuḥ</code> + <code>bhūḥ</code> | <code>mā</code> + <code>te</code> + <code>saṅgaḥ</code> + <code>astu</code> + <code>akarmaṇi</code>
+    </p>
+
+    <h3>ステップ2：文法と格の判別</h3>
+    <ul class="list-disc pl-6 space-y-1">
+      <li><code>te</code>：属格（あなたの）</li>
+      <li><code>adhikāraḥ</code>：男性・主格（権利、資格）</li>
+      <li><code>karmaṇi</code>：中性・処格（行為において）</li>
+      <li><code>eva</code>：不変化詞（〜のみ）</li>
+      <li><code>phaleṣu</code>：処格・複数（結果において）</li>
+      <li><code>bhūḥ</code>：動詞 bhū（なる）の2人称単数アオリスト。否定辞 <code>mā</code> と共に禁止「〜となるな」を表します。</li>
+      <li><code>astu</code>：動詞、命令法3人称（〜であれ）</li>
+    </ul>
+
+    <h3>ステップ3：アンヴァヤ（散文の語順）を作る</h3>
+    <p>
+      これらの語を論理的に並べると、次のようになります。
+    </p>
+    <blockquote class="bg-cream dark:bg-zinc-900 border border-saffron-100 dark:border-zinc-800 p-4 rounded-2xl font-latin my-4">
+      <strong>アンヴァヤ：</strong> ते (te) अधिकारः (adhikāraḥ) कर्मणि (karmaṇi) एव (eva) [अस्तु] ; फलेषु (phaleṣu) कदाचन (kadācana) मा (mā) [अस्तु] ।<br />
+      [त्वम्] (tvam) कर्मफलहेतुः (karma-phala-hetuḥ) मा (mā) भूः (bhūḥ) ; ते (te) सङ्गः (saṅgaḥ) अकर्मणि (akarmaṇi) मा (mā) अस्तु (astu) ॥
+    </blockquote>
+
+    <h3>ステップ4：日本語訳</h3>
+    <p>
+      アンヴァヤで組み立てた散文の語順に基づくと、次のように訳せます。
+    </p>
+    <p class="font-semibold text-saffron-700 dark:text-saffron-400">
+      「あなたの権利は行為そのものにのみあり、決してその結果にはない。行為の結果を動機としてはならない。また、無行為に執着してもならない。」
+    </p>
+
+    <h2>5. まとめ</h2>
+    <p>
+      アンヴァヤは、サンスクリットの聖典の意味を開く鍵です。連声を体系的に分解し、構文的な質問を重ねることで、どんな学習者でも複雑な詩節を明快で論理的な散文に訳すことができます。この構造的なアプローチは、サンスクリットバーシーの学習法の柱となっています。
+    </p>
+  </div>
+</article>

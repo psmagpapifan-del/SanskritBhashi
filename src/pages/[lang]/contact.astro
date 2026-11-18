@@ -17,7 +17,7 @@ const { lang } = Astro.params;
 const t = getTranslation(lang);
 ---
 
-<Layout lang={lang} title={`Contact Us | Sanskritbhashi`}>
+<Layout lang={lang} title={`${t.nav.contact} | Sanskritbhashi`} description="Contact the Sanskritbhashi team for questions, content corrections, partnership enquiries, or feedback about our Sanskrit learning resources." showAds={false}>
   {/* Header Banner */}
   <section class="bg-linear-to-r from-saffron-500 to-saffron-600 rounded-3xl p-6 md:p-8 text-white mb-8 shadow-md">
     <div class="flex items-center gap-3 mb-2">

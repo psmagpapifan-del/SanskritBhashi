@@ -1,0 +1,138 @@
+---
+import { Clock } from "lucide-react";
+---
+
+<article class="space-y-8">
+  <header class="space-y-4">
+    <div class="flex items-center space-x-3 text-xs font-bold text-saffron-600 dark:text-saffron-400 uppercase tracking-widest font-latin">
+      <span>Sanskrit Grammar (Vyakaran)</span>
+      <span>•</span>
+      <span class="flex items-center space-x-1"><Clock class="w-3.5 h-3.5" /> <span>8 min read</span></span>
+    </div>
+    <h1 class="text-3xl md:text-5xl font-black text-charcoal dark:text-zinc-150 leading-tight">
+      Mastering Sanskrit Sandhi Rules: A Complete Phonetic Guide
+    </h1>
+    <p class="text-base md:text-lg text-charcoal/70 dark:text-zinc-400 leading-relaxed font-semibold italic">
+      How phonetic integration shapes flow, structure, and pronunciation in classical Paninian linguistics.
+    </p>
+  </header>
+
+  <hr class="border-saffron-100 dark:border-zinc-800" />
+
+  <div class="prose prose-saffron max-w-none dark:prose-invert text-charcoal/80 dark:text-zinc-350 space-y-6 leading-relaxed text-sm md:text-base">
+    <h2>1. What is Sandhi?</h2>
+    <p>
+      In Sanskrit, the word <strong>Sandhi (सन्धि)</strong> literally translates to "joining," "junction," or "phonetic transition." Unlike modern languages where adjacent words are pronounced distinctly, Sanskrit requires that adjacent sounds influence one another. This is not arbitrary; it is a systematic codification of natural human phonology.
+    </p>
+    <p>
+      According to the ancient grammarian <strong>Pāṇini</strong> in his seminal work the <em>Aṣṭādhyāyī</em>, Sandhi is governed by the rule <strong>संहिता (Saṃhitā)</strong>, defined as:
+    </p>
+    <blockquote class="bg-saffron-50/50 dark:bg-zinc-900 border-l-4 border-saffron-500 p-4 rounded-r-2xl font-bold font-sanskrit text-center py-6 my-6">
+      परः सन्निकर्षः संहिता (Paraḥ sannikarṣaḥ saṃhitā - 1.4.109)
+    </blockquote>
+    <p>
+      This rule dictates that when two speech sounds (phonemes) occur in immediate proximity without any pause, they undergo phonetic fusion. Sandhi is mandatory inside compounds (Samāsa), within verbal roots and prefixes, and during nominal declensions, while being optional between independent words in a sentence.
+    </p>
+
+    <h2>2. The Three Pillars of Sandhi</h2>
+    <p>
+      Sanskrit Sandhi is divided into three primary categories based on the nature of the phonemes involved:
+    </p>
+    <ol class="list-decimal pl-6 space-y-2">
+      <li><strong>Ac-Sandhi (अच्-सन्धि) / Vowel Sandhi:</strong> Occurs when a word ending in a vowel meets a word starting with a vowel.</li>
+      <li><strong>Hal-Sandhi (हल्-सन्धि) / Consonant Sandhi:</strong> Occurs when a word ending in a consonant meets another consonant or a vowel.</li>
+      <li><strong>Visarga-Sandhi (विसर्ग-सन्धि):</strong> Occurs when a word ending in a visarga (ḥ) meets a vowel or a consonant.</li>
+    </ol>
+
+    <h2>3. Vowel Sandhi (Ac-Sandhi)</h2>
+    <p>
+      Vowel Sandhi deals with transitions between vowels. Below are the most critical rules that every student must master:
+    </p>
+
+    <h3>A. Savarṇa-Dīrgha Sandhi (Homogeneous Vowel Prolongation)</h3>
+    <p>
+      When two similar vowels (short or long) meet, they merge into their corresponding long vowel.
+      <br />
+      <strong>Formula:</strong> <code>a/ā + a/ā = ā</code>, <code>i/ī + i/ī = ī</code>, <code>u/ū + u/ū = ū</code>.
+    </p>
+    <ul class="list-disc pl-6 space-y-1">
+      <li><em>Example 1:</em> देव + आलय = देवालय (deva + ālaya = devālaya - House of God)</li>
+      <li><em>Example 2:</em> गिरि + ईश = गिरीश (giri + īśa = girīśa - Lord of Mountains)</li>
+      <li><em>Example 3:</em> भानु + उदय = भानूदय (bhānu + udaya = bhānūdaya - Sunrise)</li>
+    </ul>
+
+    <h3>B. Guṇa Sandhi (Simple Vowel Blending)</h3>
+    <p>
+      When <code>a</code> or <code>ā</code> is followed by a dissimilar simple vowel, they blend into a single intermediate vowel.
+      <br />
+      <strong>Formula:</strong> <code>a/ā + i/ī = e</code>, <code>a/ā + u/ū = o</code>, <code>a/ā + ṛ/ṝ = ar</code>.
+    </p>
+    <ul class="list-disc pl-6 space-y-1">
+      <li><em>Example 1:</em> उप + इन्द्र = उपेन्द्र (upa + indra = upendra)</li>
+      <li><em>Example 2:</em> महा + उत्सव = महोत्सव (mahā + utsava = mahotsava - Great Festival)</li>
+      <li><em>Example 3:</em> देव + ऋषि = देवर्षि (deva + ṛṣi = devarṣi - Divine Sage)</li>
+    </ul>
+
+    <h3>C. Yaṇ Sandhi (Semivowel Substitution)</h3>
+    <p>
+      When simple vowels other than <code>a/ā</code> are followed by any dissimilar vowel, they transform into their corresponding semivowel (y, v, r, l).
+      <br />
+      <strong>Formula:</strong> <code>i/ī + dissimilar vowel = y</code>, <code>u/ū + dissimilar vowel = v</code>.
+    </p>
+    <ul class="list-disc pl-6 space-y-1">
+      <li><em>Example 1:</em> इति + आदि = इत्यादि (iti + ādi = ityādi - Etcetera)</li>
+      <li><em>Example 2:</em> अनु + अय = अन्वय (anu + aya = anvaya - Connection/Order)</li>
+      <li><em>Example 3:</em> सु + आगतम् = स्वागतम् (su + āgatam = svāgatam - Welcome)</li>
+    </ul>
+
+    <h2>4. Consonant Sandhi (Hal-Sandhi)</h2>
+    <p>
+      Consonant Sandhi involves modifications when consonants collide. These rules maintain the ease of pronunciation by adjusting the voicing and nasalization of adjacent sounds.
+    </p>
+
+    <h3>A. Ścutva Sandhi (Palatalization)</h3>
+    <p>
+      When the dental sibilant <code>s</code> or dental consonants (t-varga: t, th, d, dh, n) come in contact with the palatal sibilant <code>ś</code> or palatal consonants (c-varga: c, ch, j, jh, ñ), the dentals are replaced by their corresponding palatals.
+    </p>
+    <ul class="list-disc pl-6 space-y-1">
+      <li><em>Example:</em> सत् + चित् = सच्चित् (sat + cit = saccit - Pure Consciousness)</li>
+      <li><em>Example:</em> रामस् + च = रामश्च (rāmas + ca = rāmaśca - And Rama)</li>
+    </ul>
+
+    <h3>B. Jaśtva Sandhi (Voicing Substitution)</h3>
+    <p>
+      When a non-nasal consonant at the end of a word is followed by a vowel or a voiced consonant, it is replaced by the third (voiced unaspirated) consonant of its own class.
+    </p>
+    <ul class="list-disc pl-6 space-y-1">
+      <li><em>Example:</em> वाक् + ईश = वागीश (vāk + īśa = vāgīśa - Lord of Speech)</li>
+      <li><em>Example:</em> जगत् + ईश = जगदीश (jagat + īśa = jagadīśa - Lord of the Universe)</li>
+    </ul>
+
+    <h2>5. Visarga Sandhi</h2>
+    <p>
+      The visarga (ḥ) is a voiceless breathing sound. In Sanskrit sentences, it is highly sensitive to the sound that follows it.
+    </p>
+    <h3>A. Transformation to Sibilants</h3>
+    <p>
+      When a visarga is followed by voiceless palatals (c, ch), dentals (t, th), or retroflexes (ṭ, ṭh), it converts into the corresponding sibilant (ś, s, ṣ).
+    </p>
+    <ul class="list-disc pl-6 space-y-1">
+      <li><em>Example 1:</em> नमः + ते = नमस्ते (namaḥ + te = namaste - Salutations to you)</li>
+      <li><em>Example 2:</em> कः + चित् = कश्चित् (kaḥ + cit = kaścit - Someone)</li>
+    </ul>
+
+    <h3>B. The O-Modification (U-Sandhi)</h3>
+    <p>
+      When a visarga preceded by short <code>a</code> is followed by short <code>a</code> or a voiced consonant, the visarga blends with the preceding <code>a</code> to form <code>o</code>. If followed by <code>a</code>, the second <code>a</code> is elided and represented by an avagraha (ऽ).
+    </p>
+    <ul class="list-disc pl-6 space-y-1">
+      <li><em>Example 1:</em> कः + अपि = कोऽपि (kaḥ + api = ko'pi - Someone)</li>
+      <li><em>Example 2:</em> शिवः + वन्द्यः = शिवो वन्द्यः (śivaḥ + vandyaḥ = śivo vandyaḥ - Shiva to be worshipped)</li>
+    </ul>
+
+    <h2>6. Summary</h2>
+    <p>
+      Sandhi is not just a collection of grammar tables to memorize. It is a mathematical model of phonological harmony. By understanding Sandhi, you will read shlokas with correct rhythm, parse long compound words with ease, and pronounce Sanskrit terms as the Rishis did thousands of years ago.
+    </p>
+  </div>
+</article>

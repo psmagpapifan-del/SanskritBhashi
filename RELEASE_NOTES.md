@@ -4,6 +4,20 @@ This file tracks all bug fixes, improvements, and features implemented across ap
 
 ---
 
+## [Unreleased] - 2026-11-18
+
+### AdSense "Low value content" & Search Console indexing fixes
+- **Canonical URL Fix [Bug Fix]:** `src/layouts/Layout.astro` — canonical URLs were built from the prerender pathname and ended in `.html` (e.g. `/en/about.html`), which Cloudflare redirects, so every page declared a redirecting URL as canonical. Canonicals now use the clean URL (`/en/about`). Sidebar active-link detection uses the same clean path.
+- **hreflang Alternates [Feature]:** `src/layouts/Layout.astro` — every localized page now emits `hreflang` links for en/hi/ja/es plus `x-default`.
+- **Per-page Ad Control [Feature]:** `src/layouts/Layout.astro` — new `showAds`, `noindex`, `canonicalPath` and `hreflang` props. AdSense no longer loads on 404/500, the interactive quiz modules (`school-prep`, `shastra-study`), contact, privacy and terms pages, or inside Capacitor builds.
+- **Generated Sitemap [Bug Fix]:** replaced the hand-written `public/sitemap.xml` (20 URLs, no Learning Hub) with `src/pages/sitemap.xml.ts`, generated at build time from `src/pages/[lang]/` (54 URLs). `public/robots.txt` pointed at a non-existent `sitemap-index.xml`; it now points at `/sitemap.xml` and disallows `/api/`.
+- **Redirects [Bug Fix]:** `public/_redirects` and root `about/contact/privacy/terms.astro` — single 301 hop to the extensionless URL (previously 302 to a trailing-slash URL that redirected again). Root stubs are `noindex`.
+- **Full Article Translations [Feature]:** split the 6 Learning Hub articles into `src/components/articles/<slug>/{en,hi,ja,es}.astro`. Wrote complete Japanese and Spanish versions of all 6 (previously stubs; 4 of them served Spanish text on `/ja/` URLs) and expanded 4 thin Hindi versions.
+- **Content Corrections [Bug Fix]:** fixed the accusative plural रामान् (was रामन्), the Gita 2.47 verse (भूर्मा, was भूमा), BNF attribution (Ingerman 1967, not Knuth), literal `**markdown**` asterisks, a broken Hindi Kāraka table, and lists nested inside `<p>`.
+- **Article Byline & Schema [Feature]:** `src/components/ArticleByline.astro` — editorial byline, published/reviewed dates, practice-module link and `Article` JSON-LD on every article.
+- **Localized Meta [UI]:** localized home titles/descriptions; added descriptions to about, FAQs, contact, privacy, terms and modules. Non-English copies of the English-only privacy/terms pages are `noindex`.
+- **Misc [Bug Fix]:** `AdSenseWidget.tsx` placeholder `ca-pub-YOUR_ADSENSE_ID` replaced with the real publisher ID; `tests/content.spec.ts` sitemap/robots checks updated.
+
 ## [1.0.5] - 2026-07-24 (Version Code 6)
 
 ### Sanskrit Learning Hub (AdSense Approval)

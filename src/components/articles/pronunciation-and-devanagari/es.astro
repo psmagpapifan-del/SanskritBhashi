@@ -1,0 +1,105 @@
+---
+import { Clock } from "lucide-react";
+---
+
+<article class="space-y-8">
+  <header class="space-y-4">
+    <div class="flex items-center space-x-3 text-xs font-bold text-saffron-600 dark:text-saffron-400 uppercase tracking-widest font-latin">
+      <span>Fonología del Sánscrito (Shiksha)</span>
+      <span>•</span>
+      <span class="flex items-center space-x-1"><Clock class="w-3.5 h-3.5" /> <span>7 min de lectura</span></span>
+    </div>
+    <h1 class="text-3xl md:text-5xl font-black text-charcoal dark:text-zinc-150 leading-tight font-latin">
+      Fonología del Sánscrito: Puntos de Articulación y Pronunciación
+    </h1>
+    <p class="text-base md:text-lg text-charcoal/70 dark:text-zinc-400 leading-relaxed font-semibold italic font-latin">
+      Cómo el alfabeto Devanāgarī está organizado según la fisiología del aparato vocal.
+    </p>
+  </header>
+
+  <hr class="border-saffron-100 dark:border-zinc-800" />
+
+  <div class="prose prose-saffron max-w-none dark:prose-invert text-charcoal/80 dark:text-zinc-350 space-y-6 leading-relaxed text-sm md:text-base font-latin">
+    <h2>1. Introducción a la fonética sánscrita (Śikṣā)</h2>
+    <p>
+      A diferencia de muchos idiomas en los que la ortografía y la pronunciación se relacionan de forma irregular, el sánscrito es perfectamente fonético: cada letra representa un único sonido invariable. La ciencia de la pronunciación sánscrita se llama <strong>Śikṣā (शिक्षा)</strong> y es una de las seis Vedāṅgas, las disciplinas auxiliares del estudio de los Vedas.
+    </p>
+    <p>
+      Las letras del alfabeto <strong>Devanāgarī (देवनागरी)</strong> están ordenadas científicamente según el lugar del tracto vocal donde se produce el sonido (punto de articulación) y la forma en que se libera el aire (modo de articulación). El propio alfabeto funciona como un mapa de la boca.
+    </p>
+
+    <h2>2. Los cinco puntos de articulación (Sthānas)</h2>
+    <p>
+      El alfabeto sánscrito tiene cinco puntos principales de articulación, desde el fondo de la garganta hasta los labios:
+    </p>
+
+    <ol class="list-decimal pl-6 space-y-3">
+      <li>
+        <strong>Kaṇṭhya (कण्ठ्य - Gutural / Garganta):</strong> sonidos producidos en la garganta.
+        <br />
+        <em>Letras:</em> <code>a</code>, <code>ā</code>, la serie k (<code>k</code>, <code>kh</code>, <code>g</code>, <code>gh</code>, <code>ṅ</code>) y <code>h</code>.
+      </li>
+      <li>
+        <strong>Tālavya (तालव्य - Palatal / Paladar duro):</strong> sonidos producidos presionando la lengua contra el paladar duro.
+        <br />
+        <em>Letras:</em> <code>i</code>, <code>ī</code>, la serie c (<code>c</code>, <code>ch</code>, <code>j</code>, <code>jh</code>, <code>ñ</code>), <code>y</code> y <code>ś</code>.
+      </li>
+      <li>
+        <strong>Mūrdhanya (मूर्धन्य - Retrofleja / Bóveda del paladar):</strong> sonidos producidos curvando la punta de la lengua hacia atrás, contra la parte más alta del paladar.
+        <br />
+        <em>Letras:</em> <code>ṛ</code>, <code>ṝ</code>, la serie ṭ (<code>ṭ</code>, <code>ṭh</code>, <code>ḍ</code>, <code>ḍh</code>, <code>ṇ</code>), <code>r</code> y <code>ṣ</code>.
+      </li>
+      <li>
+        <strong>Dantya (दन्त्य - Dental / Dientes):</strong> sonidos producidos tocando con la punta de la lengua la parte posterior de los dientes superiores.
+        <br />
+        <em>Letras:</em> <code>ḷ</code>, la serie t (<code>t</code>, <code>th</code>, <code>d</code>, <code>dh</code>, <code>n</code>), <code>l</code> y <code>s</code>.
+      </li>
+      <li>
+        <strong>Oṣṭhya (ओष्ठ्य - Labial / Labios):</strong> sonidos producidos con los labios.
+        <br />
+        <em>Letras:</em> <code>u</code>, <code>ū</code> y la serie p (<code>p</code>, <code>ph</code>, <code>b</code>, <code>bh</code>, <code>m</code>).
+      </li>
+    </ol>
+    <p>
+      Algunos sonidos usan dos puntos a la vez: <code>e</code> y <code>ai</code> son <em>Kaṇṭha-tālavya</em> (garganta + paladar), <code>o</code> y <code>au</code> son <em>Kaṇṭhoṣṭhya</em> (garganta + labios), y <code>v</code> es <em>Dantoṣṭhya</em> (dientes + labios).
+    </p>
+
+    <h2>3. Modo de articulación: sordas y sonoras, aspiradas y no aspiradas</h2>
+    <p>
+      Dentro de cada serie de consonantes (varga), las consonantes se organizan en una cuadrícula de 5×5 según el manejo de la respiración:
+    </p>
+    <ul class="list-disc pl-6 space-y-2">
+      <li><strong>Columna 1 (sorda, no aspirada):</strong> ligera, sin soplo de aire (p. ej., <code>k</code>, <code>c</code>, <code>t</code>).</li>
+      <li><strong>Columna 2 (sorda, aspirada):</strong> se pronuncia con un soplo de aire marcado (p. ej., <code>kh</code>, <code>ch</code>, <code>th</code>).</li>
+      <li><strong>Columna 3 (sonora, no aspirada):</strong> con vibración de las cuerdas vocales, sin soplo (p. ej., <code>g</code>, <code>j</code>, <code>d</code>).</li>
+      <li><strong>Columna 4 (sonora, aspirada):</strong> con vibración y un soplo de aire intenso (p. ej., <code>gh</code>, <code>jh</code>, <code>dh</code>).</li>
+      <li><strong>Columna 5 (nasal):</strong> resuena a través de la nariz (p. ej., <code>ṅ</code>, <code>ñ</code>, <code>n</code>, <code>m</code>).</li>
+    </ul>
+    <p>
+      El español no distingue entre consonantes aspiradas y no aspiradas, por lo que conviene practicar pares como <code>k</code>/<code>kh</code> o <code>d</code>/<code>dh</code>. Un ejercicio sencillo: sostenga una hoja de papel delante de la boca; solo con las aspiradas debería moverse claramente. Tenga en cuenta también que la <code>th</code> sánscrita no es la «th» inglesa, sino una <code>t</code> seguida de un soplo de aire.
+    </p>
+
+    <h2>4. El Visarga (ḥ) y el Anusvāra (ṃ)</h2>
+    <p>
+      Dos modificadores especiales cambian la pronunciación de la vocal anterior:
+    </p>
+    <ul class="list-disc pl-6 space-y-2">
+      <li>
+        <strong>Anusvāra (अं - ṃ):</strong> un sonido nasal puro que adopta el punto de articulación de la consonante siguiente. Por ejemplo, en <em>saṃskṛta</em> se pronuncia como una transición nasal hacia la <code>s</code>.
+      </li>
+      <li>
+        <strong>Visarga (अः - ḥ):</strong> un eco sordo de la vocal anterior. Por ejemplo:
+        <ul class="list-circle pl-6 mt-1">
+          <li><code>rāmaḥ</code> se pronuncia aproximadamente «rāma-ha».</li>
+          <li><code>hariḥ</code> se pronuncia aproximadamente «hari-hi».</li>
+          <li><code>guruḥ</code> se pronuncia aproximadamente «guru-hu».</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h2>5. Conclusión</h2>
+    <p>
+      Aprender los puntos de articulación correctos es el primer paso para recitar con maestría los mantras védicos y los Shastras. Al colocar la lengua en la posición adecuada, producirá de forma natural la vibración y la resonancia exactas del sánscrito. Practique cada serie de letras en voz alta con los módulos de Sanskritbhashi hasta que la diferencia entre ellas le resulte natural.
+    </p>
+  </div>
+</article>

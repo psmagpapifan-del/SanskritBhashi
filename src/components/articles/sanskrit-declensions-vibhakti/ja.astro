@@ -1,0 +1,100 @@
+---
+import { Clock } from "lucide-react";
+import Tables from "./Tables.astro";
+---
+
+<article class="space-y-8">
+  <header class="space-y-4">
+    <div class="flex items-center space-x-3 text-xs font-bold text-saffron-600 dark:text-saffron-400 uppercase tracking-widest font-latin">
+      <span>サンスクリット文法（ヴィヤーカラナ）</span>
+      <span>•</span>
+      <span class="flex items-center space-x-1"><Clock class="w-3.5 h-3.5" /> <span>読了時間 9分</span></span>
+    </div>
+    <h1 class="text-3xl md:text-5xl font-black text-charcoal dark:text-zinc-150 leading-tight">
+      名詞の格をやさしく解説：サンスクリット語のヴィバクティ体系
+    </h1>
+    <p class="text-base md:text-lg text-charcoal/70 dark:text-zinc-400 leading-relaxed font-semibold italic">
+      8つの格、カーラカ（意味役割）、そして標準的な名詞の変化表を詳しく学ぶ。
+    </p>
+  </header>
+
+  <hr class="border-saffron-100 dark:border-zinc-800" />
+
+  <div class="prose prose-saffron max-w-none dark:prose-invert text-charcoal/80 dark:text-zinc-350 space-y-6 leading-relaxed text-sm md:text-base">
+    <h2>1. ヴィバクティとは</h2>
+    <p>
+      サンスクリット語は「屈折語」です。日本語では「が」「を」「で」「から」などの助詞を名詞の後ろに付けて語と語の関係を示しますが、サンスクリット語では名詞の語尾そのものが変化して関係を表します。この語尾変化を<strong>ヴィバクティ（विभक्ति, Vibhakti）</strong>と呼びます。
+    </p>
+    <p>
+      日本語の助詞と考え方は似ていますが、サンスクリット語では語尾が名詞と一体化している点が異なります。すべての名詞は<strong>8つの格</strong>と<strong>3つの数</strong>（単数・両数・複数）にわたって変化するため、ひとつの名詞につき24の形があります。語尾が役割を決めるので、語順を入れ替えても文の意味は変わりません。
+    </p>
+
+    <h2>2. 格とカーラカ</h2>
+    <p>
+      <strong>カーラカ（कारक, Kāraka）</strong>とは、名詞と文の主動詞との意味上の関係のことです。格は8つありますが、カーラカとみなされるのは6つだけです。属格（所有）と呼格（呼びかけ）は、動詞の動作に直接関わらないためです。
+    </p>
+
+    <Tables
+      kind="karaka"
+      headers={["格（ヴィバクティ）", "意味役割（カーラカ）", "日本語の対応", "例"]}
+      rows={[
+        ["第1格（主格）", "कर्ता（カルター）", "〜が（主語）", "動作を行う者（少年が…）"],
+        ["第2格（対格）", "कर्म（カルマ）", "〜を（目的語）", "動作を受けるもの（本を）"],
+        ["第3格（具格）", "करण（カラナ）", "〜で（手段）", "手段・道具（手で）"],
+        ["第4格（与格）", "सम्प्रदान（サンプラダーナ）", "〜に・〜のために", "動作の受益者（先生のために）"],
+        ["第5格（奪格）", "अपादान（アパーダーナ）", "〜から（分離）", "出発点（森から）"],
+        ["第6格（属格）", "なし（関係）", "〜の（所有）", "所有（王の）"],
+        ["第7格（処格）", "अधिकरण（アディカラナ）", "〜で・〜に（場所）", "場所・時（家で／木の上に）"],
+        ["呼格", "なし（呼びかけ）", "〜よ", "呼びかけ（おおクリシュナよ！）"],
+      ]}
+    />
+
+    <h2>3. 変化の例：男性a語幹名詞「ラーマ」</h2>
+    <p>
+      最も一般的な名詞のグループは、短い <code>a</code> で終わる男性名詞（अकारान्त पुल्लिङ्ग）です。以下は <strong>राम（Rāma）</strong> の標準的な変化表です。देव（神）、बालक（少年）、वृक्ष（木）なども同じように変化します。
+    </p>
+
+    <Tables
+      kind="rama"
+      headers={["格", "単数", "両数", "複数"]}
+      rows={["第1格（主格）", "第2格（対格）", "第3格（具格）", "第4格（与格）", "第5格（奪格）", "第6格（属格）", "第7格（処格）", "呼格"]}
+    />
+
+    <p>
+      注意：具格単数 <code>rāmeṇa</code> や属格複数 <code>rāmāṇām</code> では、語の中に先行する <code>r</code> の影響で <code>n</code> がそり舌音の <code>ṇ</code> に変わっています（ṇatva規則）。<code>r</code> を含まない <code>deva</code> では <code>devena</code> となり、<code>n</code> のままです。
+    </p>
+
+    <h2>4. 実践的な例文（翻訳例）</h2>
+    <p>
+      前置詞や助詞を使わずに、名詞の語尾だけで意味がどう変わるかを見てみましょう。
+    </p>
+    <ul class="list-disc pl-6 space-y-3">
+      <li>
+        <strong>रामः वनं गच्छति（rāmaḥ vanaṃ gacchati）:</strong>
+        <br />
+        <code>रामः</code>（第1格：主語）＋ <code>वनं</code>（第2格：行き先）＋ <code>गच्छति</code>（動詞：行く）
+        <br />
+        <em>訳：</em>「ラーマは森へ行く。」
+      </li>
+      <li>
+        <strong>रामस्य हस्तः（rāmasya hastaḥ）:</strong>
+        <br />
+        <code>रामस्य</code>（第6格：所有）＋ <code>हस्तः</code>（手）
+        <br />
+        <em>訳：</em>「ラーマの手」
+      </li>
+      <li>
+        <strong>रामः हस्तेन लिखति（rāmaḥ hastena likhati）:</strong>
+        <br />
+        <code>रामः</code>（主語）＋ <code>हस्तेन</code>（第3格：手段 - 手で）＋ <code>लिखति</code>（動詞：書く）
+        <br />
+        <em>訳：</em>「ラーマは手で書く。」
+      </li>
+    </ul>
+
+    <h2>5. まとめ</h2>
+    <p>
+      ヴィバクティの理解は、サンスクリット語を読み解くための土台です。男性a語幹名詞や女性ā語幹名詞といった基本的な名詞の語尾変化を身につければ、正しく文を組み立て、古典の聖典を楽に読めるようになります。
+    </p>
+  </div>
+</article>

@@ -1,0 +1,79 @@
+---
+import { Clock } from "lucide-react";
+---
+
+<article class="space-y-8">
+  <header class="space-y-4">
+    <div class="flex items-center space-x-3 text-xs font-bold text-saffron-600 dark:text-saffron-400 uppercase tracking-widest font-latin">
+      <span>計算言語学</span>
+      <span>•</span>
+      <span class="flex items-center space-x-1"><Clock class="w-3.5 h-3.5" /> <span>読了時間 10分</span></span>
+    </div>
+    <h1 class="text-3xl md:text-5xl font-black text-charcoal dark:text-zinc-150 leading-tight">
+      サンスクリット語の計算論的構造：パーニニ文法とコンピュータ科学
+    </h1>
+    <p class="text-base md:text-lg text-charcoal/70 dark:text-zinc-400 leading-relaxed font-semibold italic">
+      2,500年前の文法体系が、現代のプログラミング言語やコンパイラ設計とどのように対応しているのか。
+    </p>
+  </header>
+
+  <hr class="border-saffron-100 dark:border-zinc-800" />
+
+  <div class="prose prose-saffron max-w-none dark:prose-invert text-charcoal/80 dark:text-zinc-350 space-y-6 leading-relaxed text-sm md:text-base">
+    <h2>1. パーニニと『アシュターディヤーイー』</h2>
+    <p>
+      紀元前4世紀ごろ、古代インドの文法家<strong>パーニニ</strong>は大著<strong>『アシュターディヤーイー（अष्टाध्यायी）』</strong>を完成させました。約4,000の極めて簡潔な規則（スートラ）から成るこの書は、単にサンスクリット語を記述した文法書ではなく、<strong>規則に基づいて正しい語形を生成する形式的なシステム</strong>です。
+    </p>
+    <p>
+      パーニニの文法はコンピュータプログラムのように設計されています。動詞の語根（ダートゥ）や名詞の語基（プラーティパディカ）を入力し、規則を順に適用すると、文法的に正しいサンスクリットの単語や文が体系的に出力されます。これは人類史上最古の形式言語処理系といえるでしょう。
+    </p>
+
+    <h2>2. バッカス・ナウア記法（BNF）との対応</h2>
+    <p>
+      20世紀半ば、計算機科学者ジョン・バッカスとピーター・ナウアは、プログラミング言語（ALGOL、C、Java、Pythonなど）の構文を定義するための形式記法<strong>バッカス・ナウア記法（BNF）</strong>を考案しました。
+    </p>
+    <p>
+      やがて言語学者や計算機科学者は、<strong>パーニニのスートラが機能的にBNFの生成規則と同等である</strong>ことに気づきます。この歴史的な類似を踏まえ、1967年には計算機科学者ピーター・ジラヒー・インガーマンが、この記法を<strong>「パーニニ・バッカス記法」</strong>と呼ぶことを提案しました。
+    </p>
+    <p>
+      パーニニはこれを次のような仕組みで実現しています。
+    </p>
+    <ul class="list-disc pl-6 space-y-2">
+      <li><strong>メタ言語：</strong> 他の規則がどのように適用されるか（優先順位、適用範囲、再帰）を定める規則。</li>
+      <li><strong>シヴァ・スートラ：</strong> 音素を行列状に並べた表。<em>プラティヤーハーラ</em>と呼ばれる短縮記号によって音のグループをまとめて参照できます。これは正規表現の文字クラスとまったく同じ考え方です。たとえば「अच्（ac）」はすべての母音を、「हल्（hal）」はすべての子音を表します。</li>
+    </ul>
+
+    <h2>3. サンスクリット語とAIにおける知識表現</h2>
+    <p>
+      1985年、NASAエイムズ研究センターの研究者<strong>リック・ブリッグズ</strong>は、学術誌『AI Magazine』に論文「サンスクリットにおける知識表現と人工知能（Knowledge Representation in Sanskrit and Artificial Intelligence）」を発表しました。ブリッグズは、英語やフランス語などの自然言語は曖昧さが大きく、文脈を考慮した複雑なモデルなしにはコンピュータが解析しにくいと指摘しました。
+    </p>
+    <p>
+      一方でサンスクリット語は、自然言語でありながら形式言語に近い構造を持っています。特にインドの論理学派（ニヤーヤ学派）が用いた意味解析の方法<strong>シャーブダボーダ（शाब्दबोध）</strong>は、文の意味を曖昧さのないグラフ構造として表現することを可能にします。
+    </p>
+    <p>
+      高度に構造化された構文と意味の明確さから、サンスクリット語は次の分野と特に相性がよいと考えられています。
+    </p>
+    <ul class="list-disc pl-6 space-y-2">
+      <li><strong>自然言語処理（NLP）：</strong> 構文解析アルゴリズムによって、文を高い精度で構文木に対応づけることができます。</li>
+      <li><strong>セマンティックウェブとオントロジー：</strong> 論理的な事実を機械可読な形式で表現できます。</li>
+    </ul>
+
+    <h2>4. サンスクリット語と現代のコンパイラ理論</h2>
+    <p>
+      コンパイラとは、人間が読めるソースコード（C++など）を機械語に翻訳するプログラムです。その過程で、ソースコードは<strong>字句解析器</strong>と<strong>構文解析器</strong>を通り、抽象構文木（AST）が構築されます。
+    </p>
+    <p>
+      パーニニの文法体系も、ほぼ同じ構造で動作します。
+    </p>
+    <ol class="list-decimal pl-6 space-y-2">
+      <li><strong>語彙（ダートゥパータとガナパータ）：</strong> 入力となる語根と語のカテゴリーのライブラリ。</li>
+      <li><strong>規則（アシュターディヤーイー）：</strong> 解析と生成のアルゴリズム。</li>
+      <li><strong>評価の優先順位：</strong> <code>विप्रतिषेधे परं कार्यम्</code>（vipratiṣedhe paraṃ kāryam：規則が衝突する場合は後の規則が優先する）といったメタ規則によって規則間の衝突を解決します。これはプログラミング言語における演算子の優先順位に相当します。</li>
+    </ol>
+
+    <h2>5. まとめ</h2>
+    <p>
+      サンスクリット語の構造的な美しさは、古代インドの科学的な知性を物語っています。サンスクリット語は過去の遺物ではなく、論理的な言語学の到達点のひとつです。サンスクリット語を学ぶことで、古典文学への理解が深まるだけでなく、現代のコンピュータ科学を形づくる数学的なパターンへの洞察も得られるでしょう。
+    </p>
+  </div>
+</article>

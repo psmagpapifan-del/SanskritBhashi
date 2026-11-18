@@ -1,0 +1,138 @@
+---
+import { Clock } from "lucide-react";
+---
+
+<article class="space-y-8">
+  <header class="space-y-4">
+    <div class="flex items-center space-x-3 text-xs font-bold text-saffron-600 dark:text-saffron-400 uppercase tracking-widest font-latin">
+      <span>Gramática Sánscrita (Vyākaraṇa)</span>
+      <span>•</span>
+      <span class="flex items-center space-x-1"><Clock class="w-3.5 h-3.5" /> <span>8 min de lectura</span></span>
+    </div>
+    <h1 class="text-3xl md:text-5xl font-black text-charcoal dark:text-zinc-150 leading-tight font-latin">
+      Dominando las Reglas de Sandhi en Sánscrito: Una Guía Fonética Completa
+    </h1>
+    <p class="text-base md:text-lg text-charcoal/70 dark:text-zinc-400 leading-relaxed font-semibold italic font-latin">
+      Cómo la unión fonética determina el ritmo, la estructura y la pronunciación en la lingüística paniniana clásica.
+    </p>
+  </header>
+
+  <hr class="border-saffron-100 dark:border-zinc-800" />
+
+  <div class="prose prose-saffron max-w-none dark:prose-invert text-charcoal/80 dark:text-zinc-350 space-y-6 leading-relaxed text-sm md:text-base font-latin">
+    <h2>1. ¿Qué es el Sandhi?</h2>
+    <p>
+      En sánscrito, la palabra <strong>Sandhi (सन्धि)</strong> significa literalmente «unión», «juntura» o «transición fonética». A diferencia de los idiomas modernos, en los que las palabras contiguas se pronuncian por separado, el sánscrito exige que los sonidos adyacentes se influyan mutuamente. No es algo arbitrario: es una codificación sistemática de la fonología natural humana. En español ocurre algo parecido cuando «de + el» se convierte en «del», pero en sánscrito estos cambios son mucho más amplios y regulares.
+    </p>
+    <p>
+      Según el antiguo gramático <strong>Pāṇini</strong> en su obra fundamental, el <em>Aṣṭādhyāyī</em>, el Sandhi se basa en el concepto de <strong>संहिता (Saṃhitā)</strong>, definido así:
+    </p>
+    <blockquote class="bg-saffron-50/50 dark:bg-zinc-900 border-l-4 border-saffron-500 p-4 rounded-r-2xl font-bold font-sanskrit text-center py-6 my-6">
+      परः सन्निकर्षः संहिता (Paraḥ sannikarṣaḥ saṃhitā - 1.4.109)
+    </blockquote>
+    <p>
+      Esta regla establece que, cuando dos sonidos (fonemas) aparecen en proximidad inmediata y sin pausa, se fusionan fonéticamente. El Sandhi es obligatorio dentro de los compuestos (samāsa), entre raíces verbales y prefijos y en las declinaciones nominales, y opcional entre palabras independientes de una oración.
+    </p>
+
+    <h2>2. Los tres pilares del Sandhi</h2>
+    <p>
+      El Sandhi sánscrito se divide en tres categorías principales según la naturaleza de los fonemas implicados:
+    </p>
+    <ol class="list-decimal pl-6 space-y-2">
+      <li><strong>Ac-Sandhi (अच्-सन्धि) / Sandhi vocálico:</strong> cuando una palabra que termina en vocal se encuentra con otra que empieza por vocal.</li>
+      <li><strong>Hal-Sandhi (हल्-सन्धि) / Sandhi consonántico:</strong> cuando una palabra que termina en consonante se encuentra con una consonante o una vocal.</li>
+      <li><strong>Visarga-Sandhi (विसर्ग-सन्धि):</strong> cuando una palabra que termina en visarga (ḥ) se encuentra con una vocal o una consonante.</li>
+    </ol>
+
+    <h2>3. Sandhi vocálico (Ac-Sandhi)</h2>
+    <p>
+      El Sandhi vocálico regula las transiciones entre vocales. Estas son las reglas más importantes que todo estudiante debe dominar:
+    </p>
+
+    <h3>A. Savarṇa-Dīrgha Sandhi (alargamiento de vocales homogéneas)</h3>
+    <p>
+      Cuando se encuentran dos vocales del mismo tipo (breves o largas), se funden en la vocal larga correspondiente.
+      <br />
+      <strong>Fórmula:</strong> <code>a/ā + a/ā = ā</code>, <code>i/ī + i/ī = ī</code>, <code>u/ū + u/ū = ū</code>.
+    </p>
+    <ul class="list-disc pl-6 space-y-1">
+      <li><em>Ejemplo 1:</em> देव + आलय = देवालय (deva + ālaya = devālaya - casa de Dios, templo)</li>
+      <li><em>Ejemplo 2:</em> गिरि + ईश = गिरीश (giri + īśa = girīśa - señor de las montañas)</li>
+      <li><em>Ejemplo 3:</em> भानु + उदय = भानूदय (bhānu + udaya = bhānūdaya - amanecer)</li>
+    </ul>
+
+    <h3>B. Guṇa Sandhi (fusión vocálica simple)</h3>
+    <p>
+      Cuando a <code>a</code> o <code>ā</code> le sigue una vocal simple distinta, ambas se funden en una vocal intermedia.
+      <br />
+      <strong>Fórmula:</strong> <code>a/ā + i/ī = e</code>, <code>a/ā + u/ū = o</code>, <code>a/ā + ṛ/ṝ = ar</code>.
+    </p>
+    <ul class="list-disc pl-6 space-y-1">
+      <li><em>Ejemplo 1:</em> उप + इन्द्र = उपेन्द्र (upa + indra = upendra)</li>
+      <li><em>Ejemplo 2:</em> महा + उत्सव = महोत्सव (mahā + utsava = mahotsava - gran festival)</li>
+      <li><em>Ejemplo 3:</em> देव + ऋषि = देवर्षि (deva + ṛṣi = devarṣi - sabio divino)</li>
+    </ul>
+
+    <h3>C. Yaṇ Sandhi (sustitución por semivocal)</h3>
+    <p>
+      Cuando a una vocal simple distinta de <code>a/ā</code> le sigue una vocal diferente, se transforma en su semivocal correspondiente (y, v, r, l).
+      <br />
+      <strong>Fórmula:</strong> <code>i/ī + vocal distinta = y</code>, <code>u/ū + vocal distinta = v</code>.
+    </p>
+    <ul class="list-disc pl-6 space-y-1">
+      <li><em>Ejemplo 1:</em> इति + आदि = इत्यादि (iti + ādi = ityādi - etcétera)</li>
+      <li><em>Ejemplo 2:</em> अनु + अय = अन्वय (anu + aya = anvaya - conexión, orden)</li>
+      <li><em>Ejemplo 3:</em> सु + आगतम् = स्वागतम् (su + āgatam = svāgatam - bienvenido)</li>
+    </ul>
+
+    <h2>4. Sandhi consonántico (Hal-Sandhi)</h2>
+    <p>
+      El Sandhi consonántico describe los cambios que se producen cuando chocan consonantes. Estas reglas facilitan la pronunciación ajustando la sonoridad y la nasalización de los sonidos contiguos.
+    </p>
+
+    <h3>A. Ścutva Sandhi (palatalización)</h3>
+    <p>
+      Cuando la sibilante dental <code>s</code> o las consonantes dentales (serie t: t, th, d, dh, n) entran en contacto con la sibilante palatal <code>ś</code> o con las palatales (serie c: c, ch, j, jh, ñ), las dentales se sustituyen por las palatales correspondientes.
+    </p>
+    <ul class="list-disc pl-6 space-y-1">
+      <li><em>Ejemplo:</em> सत् + चित् = सच्चित् (sat + cit = saccit - conciencia pura)</li>
+      <li><em>Ejemplo:</em> रामस् + च = रामश्च (rāmas + ca = rāmaśca - y Rama)</li>
+    </ul>
+
+    <h3>B. Jaśtva Sandhi (sonorización)</h3>
+    <p>
+      Cuando a una consonante no nasal final de palabra le sigue una vocal o una consonante sonora, se sustituye por la tercera consonante (sonora no aspirada) de su propia serie.
+    </p>
+    <ul class="list-disc pl-6 space-y-1">
+      <li><em>Ejemplo:</em> वाक् + ईश = वागीश (vāk + īśa = vāgīśa - señor de la palabra)</li>
+      <li><em>Ejemplo:</em> जगत् + ईश = जगदीश (jagat + īśa = jagadīśa - señor del universo)</li>
+    </ul>
+
+    <h2>5. Visarga Sandhi</h2>
+    <p>
+      El visarga (ḥ) es un sonido aspirado sordo. En las oraciones sánscritas es muy sensible al sonido que le sigue.
+    </p>
+    <h3>A. Transformación en sibilantes</h3>
+    <p>
+      Cuando al visarga le siguen palatales sordas (c, ch), dentales sordas (t, th) o retroflejas sordas (ṭ, ṭh), se convierte en la sibilante correspondiente (ś, s, ṣ).
+    </p>
+    <ul class="list-disc pl-6 space-y-1">
+      <li><em>Ejemplo 1:</em> नमः + ते = नमस्ते (namaḥ + te = namaste - saludos a ti)</li>
+      <li><em>Ejemplo 2:</em> कः + चित् = कश्चित् (kaḥ + cit = kaścit - alguien)</li>
+    </ul>
+
+    <h3>B. La modificación en «o» (U-Sandhi)</h3>
+    <p>
+      Cuando un visarga precedido de <code>a</code> breve va seguido de <code>a</code> breve o de una consonante sonora, se funde con la <code>a</code> anterior para formar <code>o</code>. Si lo sigue una <code>a</code>, esta se elide y se representa con un avagraha (ऽ).
+    </p>
+    <ul class="list-disc pl-6 space-y-1">
+      <li><em>Ejemplo 1:</em> कः + अपि = कोऽपि (kaḥ + api = ko'pi - alguien)</li>
+      <li><em>Ejemplo 2:</em> शिवः + वन्द्यः = शिवो वन्द्यः (śivaḥ + vandyaḥ = śivo vandyaḥ - Shiva es digno de veneración)</li>
+    </ul>
+
+    <h2>6. Resumen</h2>
+    <p>
+      El Sandhi no es solo una colección de tablas gramaticales para memorizar: es un modelo matemático de armonía fonológica. Al comprenderlo, leerá los shlokas con el ritmo correcto, descompondrá con facilidad las palabras compuestas largas y pronunciará los términos sánscritos como lo hacían los rishis hace miles de años.
+    </p>
+  </div>
+</article>

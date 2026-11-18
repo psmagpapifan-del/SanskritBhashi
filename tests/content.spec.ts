@@ -170,13 +170,16 @@ test.describe("Content & Copy Testing", () => {
 
   // ── Static Files ──────────────────────────────────────────────────────
 
-  test("CON-07: Sitemap.xml exists and is well-formed", async ({ page }) => {
-    const sitemapPath = path.join(process.cwd(), "public/sitemap.xml");
-    expect(fs.existsSync(sitemapPath)).toBe(true);
+  test("CON-07: Sitemap.xml is generated and lists every localized article", async ({ page }) => {
+    // Generated at build time by src/pages/sitemap.xml.ts
+    const res = await page.request.get("/sitemap.xml");
+    expect(res.ok()).toBe(true);
 
-    const content = fs.readFileSync(sitemapPath, "utf8");
+    const content = await res.text();
     expect(content).toContain("<urlset");
-    expect(content).toContain("sanskritbhashi.com");
+    expect(content).toContain("https://sanskritbhashi.com/en/learn/panini-sandhi-rules</loc>");
+    expect(content).toContain("https://sanskritbhashi.com/ja/learn/panini-sandhi-rules</loc>");
+    expect(content).not.toContain(".html</loc>");
   });
 
   test("CON-08: robots.txt exists and references sitemap", async ({ page }) => {
@@ -184,8 +187,7 @@ test.describe("Content & Copy Testing", () => {
     expect(fs.existsSync(robotsPath)).toBe(true);
 
     const content = fs.readFileSync(robotsPath, "utf8");
-    expect(content).toContain("Sitemap:");
-    expect(content).toContain("sanskritbhashi.com");
+    expect(content).toContain("Sitemap: https://sanskritbhashi.com/sitemap.xml");
   });
 
   test("CON-09: manifest.json is valid JSON with required fields", async ({ page }) => {

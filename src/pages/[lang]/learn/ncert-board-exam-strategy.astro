@@ -1,8 +1,12 @@
 ---
 export const prerender = true;
 import Layout from "../../../layouts/Layout.astro";
-import { getTranslation } from "../../../lib/i18n";
-import { BookOpen, Clock, ChevronLeft } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
+import ArticleByline from "../../../components/ArticleByline.astro";
+import En from "../../../components/articles/ncert-board-exam-strategy/en.astro";
+import Hi from "../../../components/articles/ncert-board-exam-strategy/hi.astro";
+import Ja from "../../../components/articles/ncert-board-exam-strategy/ja.astro";
+import Es from "../../../components/articles/ncert-board-exam-strategy/es.astro";
 
 export function getStaticPaths() {
   return [
@@ -14,7 +18,6 @@ export function getStaticPaths() {
 }
 
 const { lang } = Astro.params;
-const t = getTranslation(lang);
 
 const title = lang === "en"
   ? "NCERT Sanskrit Board Exams: Proven Study and Writing Strategies"
@@ -31,10 +34,12 @@ const desc = lang === "en"
   : lang === "ja"
   ? "CBSEクラス10およびNCERTサンスクリット試験に向けた対策ガイド。読解問題、作文、応用文法の攻略法を伝授します。"
   : "Una guía de preparación completa para el examen de sánscrito de la Clase 10 de CBSE y NCERT.";
+
+const Body = { en: En, hi: Hi, ja: Ja, es: Es }[lang as "en" | "hi" | "ja" | "es"] ?? En;
 ---
 
 <Layout lang={lang} title={title} description={desc}>
-  <main class="max-w-4xl mx-auto px-4 py-8 md:py-12">
+  <div class="max-w-4xl mx-auto px-4 py-8 md:py-12">
     {/* Navigation link back */}
     <div class="mb-8">
       <a 
@@ -46,152 +51,7 @@ const desc = lang === "en"
       </a>
     </div>
 
-    {/* Localized Article Content */}
-    {lang === "en" ? (
-      <article class="space-y-8">
-        <header class="space-y-4">
-          <div class="flex items-center space-x-3 text-xs font-bold text-saffron-600 dark:text-saffron-400 uppercase tracking-widest font-latin">
-            <span>Academic Prep (School)</span>
-            <span>•</span>
-            <span class="flex items-center space-x-1"><Clock class="w-3.5 h-3.5" /> <span>8 min read</span></span>
-          </div>
-          <h1 class="text-3xl md:text-5xl font-black text-charcoal dark:text-zinc-150 leading-tight font-latin">
-            NCERT Sanskrit Board Exams: Proven Study & Writing Strategies
-          </h1>
-          <p class="text-base md:text-lg text-charcoal/70 dark:text-zinc-400 leading-relaxed font-semibold italic font-latin">
-            A comprehensive roadmap to scoring a perfect 100/100 in CBSE Class 10 Sanskrit.
-          </p>
-        </header>
-
-        <hr class="border-saffron-100 dark:border-zinc-800" />
-
-        <div class="prose prose-saffron max-w-none dark:prose-invert text-charcoal/80 dark:text-zinc-350 space-y-6 leading-relaxed text-sm md:text-base font-latin">
-          <h2>1. Understanding the Exam Pattern</h2>
-          <p>
-            Many students view Sanskrit as a challenging subject, but it is actually one of the most high-scoring subjects in the CBSE Board curriculum. Because Sanskrit is logically structured and mathematically precise, answers are either correct or incorrect—leaving no room for subjective marks deduction.
-          </p>
-          <p>
-            The CBSE Class 10 Sanskrit paper is divided into four distinct sections:
-          </p>
-          <ul class="list-disc pl-6 space-y-2">
-            <li><strong>Section A: Reading Comprehension (Apahita Avabodhanam - 10 Marks):</strong> Unseen passage analysis.</li>
-            <li><strong>Section B: Writing Skills (Rachanatmakam Karyam - 15 Marks):</strong> Letter writing, picture description, and translation.</li>
-            <li><strong>Section C: Applied Grammar (Anupryukta Vyakaran - 25 Marks):</strong> Sandhi, Samasa, Pratyaya, time-telling, and sentence correction.</li>
-            <li><strong>Section D: Textbook Comprehension (Pathita Avabodhanam - 30 Marks):</strong> Shloka interpretation, question formulation, and word-meanings from the Shemushi textbook.</li>
-          </ul>
-
-          <h2>2. How to Tackle Applied Grammar (Section C)</h2>
-          <p>
-            This section represents 25 marks of pure mathematical scoring. One mistake leads to zero, but a correct answer guarantees full marks.
-          </p>
-          <ul class="list-disc pl-6 space-y-2">
-            <li>
-              <strong>Sandhi:</strong> Focus heavily on the prescribed syllabus. For Class 10, master <em>Vyañjana Sandhi</em> (specifically Jaśtva) and <em>Visarga Sandhi</em> (specifically U-Sandhi and Lopa).
-            </li>
-            <li>
-              <strong>Samasa:</strong> Memorize the identifiers for the four major compounds: Tatpuruṣa (case-based), Dvandva (coordinating), Avyayībhāva (prefixed), and Bahuvrīhi (referential).
-            </li>
-            <li>
-              <strong>Pratyaya (Suffixes):</strong> Practice the suffixes <code>matup</code>, <code>thak</code>, <code>ktavatu</code>, and feminine suffixes <code>ṭāp</code> and <code>ṅīp</code>. Know how they modify base nouns.
-            </li>
-          </ul>
-
-          <h2>3. Master Writing Skills (Section B)</h2>
-          <p>
-            Section B tests your active translation and composition skills. Follow these tips to prevent silly grammatical errors:
-          </p>
-          <ul class="list-disc pl-6 space-y-2">
-            <li>
-              <strong>Formal Letter Writing (Patralekhanam):</strong> The letter is presented as a fill-in-the-blanks grid with a help-box (Mañjūṣā). Before writing, read the entire letter to grasp the context. Pay close attention to verb tenses (Lakāra) and singular/plural matchings of subjects.
-            </li>
-            <li>
-              <strong>Picture Description (Citralekhanam):</strong> You must write 5 simple, grammatically correct sentences about a picture. Do not write complex sentences. Use standard templates like:
-              <br />
-              <code>अस्मिन् चित्रे [Noun in Locative/Subject] अस्ति/सन्ति।</code> (In this picture, there is/are...)
-            </li>
-          </ul>
-
-          <h2>4. Study Plan & Resource Optimization</h2>
-          <p>
-            To achieve a perfect score, integrate these study habits into your schedule:
-          </p>
-          <ol class="list-decimal pl-6 space-y-2">
-            <li><strong>Solve Sample Papers:</strong> Practice at least 5 previous years' CBSE papers. This trains you to manage time efficiently.</li>
-            <li><strong>Use Interactive Study Labs:</strong> Utilize Sanskritbhashi's **School Prep Module** to practice chapter-by-chapter vocabulary and grammar. The diagnostic feedback loop helps isolate your weak points instantly.</li>
-          </ol>
-
-          <h2>5. Conclusion</h2>
-          <p>
-            A score of 100/100 in Sanskrit is entirely achievable. By breaking the exam down into distinct sections, mastering basic grammar formulas, and utilizing Sanskritbhashi's school-prep practice cards, you can walk into your board exam with total confidence.
-          </p>
-        </div>
-      </article>
-    ) : lang === "hi" ? (
-      <article class="space-y-8">
-        <header class="space-y-4">
-          <div class="flex items-center space-x-3 text-xs font-bold text-saffron-600 dark:text-saffron-400 uppercase tracking-widest font-latin">
-            <span>स्कूल तैयारी (शैक्षणिक)</span>
-            <span>•</span>
-            <span class="flex items-center space-x-1"><Clock class="w-3.5 h-3.5" /> <span>8 मिनट पठन</span></span>
-          </div>
-          <h1 class="text-3xl md:text-5xl font-black text-charcoal dark:text-zinc-150 leading-tight">
-            एनसीईआरटी संस्कृत बोर्ड परीक्षा: शत-प्रतिशत अंक प्राप्त करने की रणनीतियाँ
-          </h1>
-          <p class="text-base md:text-lg text-charcoal/70 dark:text-zinc-400 leading-relaxed font-semibold italic">
-            सीबीएसई कक्षा 10 संस्कृत बोर्ड परीक्षा में १००/१०० अंक प्राप्त करने का एक विस्तृत खाका।
-          </p>
-        </header>
-
-        <hr class="border-saffron-100 dark:border-zinc-800" />
-
-        <div class="prose prose-saffron max-w-none dark:prose-invert text-charcoal/80 dark:text-zinc-350 space-y-6 leading-relaxed text-sm md:text-base">
-          <h2>1. परीक्षा पैटर्न को समझना</h2>
-          <p>
-            कई छात्र संस्कृत को एक कठिन विषय मानते हैं, लेकिन वास्तव में यह सीबीएसई बोर्ड पाठ्यक्रम में सबसे अधिक अंक दिलाने वाले विषयों में से एक है। चूंकि संस्कृत की संरचना गणितीय है, इसलिए उत्तर या तो पूरी तरह से सही होते हैं या गलत—अंकों की कटौती की कोई गुंजाइश नहीं होती।
-          </p>
-          <p>
-            कक्षा 10 संस्कृत के प्रश्नपत्र को चार खंडों में विभाजित किया गया है:
-          </p>
-          <ul class="list-disc pl-6 space-y-2">
-            <li><strong>खंड क: अपठित-अवबोधनम् (१० अंक):</strong> अपठित गद्यांश पर आधारित प्रश्न।</li>
-            <li><strong>खंड ख: रचनात्मक-कार्यम् (१५ अंक):</strong> पत्र लेखन, चित्र वर्णन और अनुवाद।</li>
-            <li><strong>खंड ग: अनुप्रयुक्त-व्याकरणम् (२५ अंक):</strong> संधि, समास, प्रत्यय, समय-लेखन और वाक्य संशोधन।</li>
-            <li><strong>खंड घ: पठित-अवबोधनम् (३० अंक):</strong> पाठ्यपुस्तक (शेमुषी) पर आधारित गद्यांश, पद्यांश और नाट्यांश के प्रश्नोत्तर।</li>
-          </ul>
-
-          <h2>2. रचनात्मक कार्य (खंड ख) में महारत हासिल करें</h2>
-          <ul class="list-disc pl-6 space-y-2">
-            <li><strong>चित्र वर्णन:</strong> चित्र को देखकर ५ सरल वाक्य बनाने होते हैं। जटिल वाक्यों के स्थान पर छोटे और सटीक वाक्य लिखें। मंजूषा (सहायक शब्दों) का बुद्धिमानी से उपयोग करें।</li>
-            <li><strong>पत्र लेखन:</strong> पूरा पत्र मंजूषा की सहायता से रिक्त स्थानों को भरकर पूरा करना होता है। पत्र को भरने से पहले पूरे पत्र को एक बार अवश्य पढ़ें ताकि विषयवस्तु समझ आ जाए।</li>
-          </ul>
-
-          <h2>3. निष्कर्ष</h2>
-          <p>
-            संस्कृत परीक्षा में १००/१०० अंक प्राप्त करना पूरी तरह संभव है। संस्कृतभाषी के **स्कूल तैयारी मॉड्यूल** का उपयोग करके आप प्रत्येक अध्याय के व्याकरण और पाठ्यपुस्तक के श्लोकों का गहन अभ्यास कर सकते हैं।
-          </p>
-        </div>
-      </article>
-    ) : (
-      <article class="space-y-8">
-        <header class="space-y-4">
-          <div class="flex items-center space-x-3 text-xs font-bold text-saffron-600 dark:text-saffron-400 uppercase tracking-widest font-latin">
-            <span>Preparación Académica</span>
-            <span>•</span>
-            <span class="flex items-center space-x-1"><Clock class="w-3.5 h-3.5" /> <span>8 min de lectura</span></span>
-          </div>
-          <h1 class="text-3xl md:text-5xl font-black text-charcoal dark:text-zinc-150 leading-tight font-latin">
-            Exámenes de Sánscrito de NCERT: Estrategias de Estudio y Escritura
-          </h1>
-        </header>
-
-        <hr class="border-saffron-100 dark:border-zinc-800" />
-
-        <div class="prose prose-saffron max-w-none dark:prose-invert text-charcoal/80 dark:text-zinc-350 space-y-6 leading-relaxed text-sm md:text-base font-latin">
-          <p>
-            El sánscrito es una de las asignaturas con mayor puntuación en el currículo de CBSE. Esta guía detalla cómo abordar cada sección del examen: comprensión lectora, redacción y gramática aplicada.
-          </p>
-        </div>
-      </article>
-    )}
-  </main>
+    <Body />
+    <ArticleByline lang={lang} slug="ncert-board-exam-strategy" title={title} description={desc} published="2026-07-24" updated="2026-11-18" />
+  </div>
 </Layout>

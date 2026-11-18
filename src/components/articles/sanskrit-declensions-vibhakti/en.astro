@@ -1,0 +1,200 @@
+---
+import { Clock } from "lucide-react";
+---
+
+<article class="space-y-8">
+  <header class="space-y-4">
+    <div class="flex items-center space-x-3 text-xs font-bold text-saffron-600 dark:text-saffron-400 uppercase tracking-widest font-latin">
+      <span>Sanskrit Grammar (Vyakaran)</span>
+      <span>•</span>
+      <span class="flex items-center space-x-1"><Clock class="w-3.5 h-3.5" /> <span>9 min read</span></span>
+    </div>
+    <h1 class="text-3xl md:text-5xl font-black text-charcoal dark:text-zinc-150 leading-tight">
+      Demystifying Noun Cases: The Sanskrit Vibhakti System
+    </h1>
+    <p class="text-base md:text-lg text-charcoal/70 dark:text-zinc-400 leading-relaxed font-semibold italic">
+      An in-depth guide to the 8 nominal cases, Kārakas, and standard declension tables.
+    </p>
+  </header>
+
+  <hr class="border-saffron-100 dark:border-zinc-800" />
+
+  <div class="prose prose-saffron max-w-none dark:prose-invert text-charcoal/80 dark:text-zinc-350 space-y-6 leading-relaxed text-sm md:text-base">
+    <h2>1. Introduction to Vibhakti</h2>
+    <p>
+      Sanskrit is a synthetic language. This means that instead of using separate prepositions (like "to," "by," or "from" in English) to show relationships between words, Sanskrit alters the ending of the noun itself. These nominal endings are called <strong>Vibhakti (विभक्ति)</strong>.
+    </p>
+    <p>
+      Every Sanskrit noun has 24 different forms, because it declines across <strong>eight cases</strong> (Vibhaktis) and <strong>three numbers</strong> (Vachana: Singular, Dual, and Plural).
+    </p>
+
+    <h2>2. Noun Cases and Kārakas</h2>
+    <p>
+      A <strong>Kāraka (कारक)</strong> is the semantic relationship between a noun and the main verb of a sentence. While there are eight cases, only six are considered Kārakas because the Genitive (possessive) and Vocative cases do not relate directly to the action of the verb.
+    </p>
+
+    <div class="overflow-x-auto my-6">
+      <table class="min-w-full bg-white dark:bg-zinc-900 border border-saffron-100 dark:border-zinc-800 text-xs md:text-sm">
+        <thead>
+          <tr class="bg-saffron-50 dark:bg-zinc-800 text-charcoal dark:text-zinc-200 font-bold">
+            <th class="p-3 text-left border border-saffron-100 dark:border-zinc-800">Case (Vibhakti)</th>
+            <th class="p-3 text-left border border-saffron-100 dark:border-zinc-800">Semantic Role (Kāraka)</th>
+            <th class="p-3 text-left border border-saffron-100 dark:border-zinc-800">English Equivalent</th>
+            <th class="p-3 text-left border border-saffron-100 dark:border-zinc-800">Example Meaning</th>
+          </tr>
+        </thead>
+        <tbody class="text-charcoal/80 dark:text-zinc-400">
+          <tr class="border-t border-cream dark:border-zinc-800">
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-bold">1st (Prathamā)</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-sanskrit font-semibold">कर्ता (Kartā)</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800">Subject</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800">The agent who acts (The boy...)</td>
+          </tr>
+          <tr class="border-t border-cream dark:border-zinc-800 bg-cream/20 dark:bg-zinc-850/20">
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-bold">2nd (Dvitīyā)</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-sanskrit font-semibold">कर्म (Karma)</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800">Direct Object</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800">Recipient of action (To the book)</td>
+          </tr>
+          <tr class="border-t border-cream dark:border-zinc-800">
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-bold">3rd (Tṛtīyā)</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-sanskrit font-semibold">करण (Karaṇa)</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800">Instrument</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800">Means or tool (By/with the hand)</td>
+          </tr>
+          <tr class="border-t border-cream dark:border-zinc-800 bg-cream/20 dark:bg-zinc-850/20">
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-bold">4th (Caturthī)</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-sanskrit font-semibold">सम्प्रदान (Sampradāna)</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800">Dative / Beneficiary</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800">For whom is the action done (For the teacher)</td>
+          </tr>
+          <tr class="border-t border-cream dark:border-zinc-800">
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-bold">5th (Pañcamī)</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-sanskrit font-semibold">अपादान (Apādāna)</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800">Ablative / Separation</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800">Point of departure (From the forest)</td>
+          </tr>
+          <tr class="border-t border-cream dark:border-zinc-800 bg-cream/20 dark:bg-zinc-850/20">
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-bold">6th (Ṣaṣṭhī)</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800">None (Relation)</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800">Genitive / Possessive</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800">Possession (Of the king / King's)</td>
+          </tr>
+          <tr class="border-t border-cream dark:border-zinc-800">
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-bold">7th (Saptamī)</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-sanskrit font-semibold">अधिकरण (Adhikaraṇa)</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800">Locative / Location</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800">Where/when it occurs (In the house / On the tree)</td>
+          </tr>
+          <tr class="border-t border-cream dark:border-zinc-800 bg-cream/20 dark:bg-zinc-850/20">
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-bold">8th (Sambodhana)</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800">None (Address)</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800">Vocative</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800">Calling or addressing (O Krishna!)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>3. Paradigms: Declining Masculine a-stem Nouns (Rāma)</h2>
+    <p>
+      The most common noun class is the masculine ending in short <code>a</code> (अकारान्त पुल्लिङ्ग). Below is the standard declension table for the word <strong>राम (Rāma)</strong>:
+    </p>
+
+    <div class="overflow-x-auto my-6">
+      <table class="min-w-full bg-white dark:bg-zinc-900 border border-saffron-100 dark:border-zinc-800 text-xs md:text-sm font-sanskrit">
+        <thead>
+          <tr class="bg-saffron-50 dark:bg-zinc-800 text-charcoal dark:text-zinc-200 font-bold">
+            <th class="p-3 text-left border border-saffron-100 dark:border-zinc-800">Case (Vibhakti)</th>
+            <th class="p-3 text-left border border-saffron-100 dark:border-zinc-800">Singular (Ekavacana)</th>
+            <th class="p-3 text-left border border-saffron-100 dark:border-zinc-800">Dual (Dvivacana)</th>
+            <th class="p-3 text-left border border-saffron-100 dark:border-zinc-800">Plural (Bahuvacana)</th>
+          </tr>
+        </thead>
+        <tbody class="text-charcoal/90 dark:text-zinc-350">
+          <tr class="border-t border-cream dark:border-zinc-800">
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-bold font-latin">1st (Prathamā)</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-semibold">रामः (rāmaḥ)</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-semibold">रामौ (rāmau)</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-semibold">रामाः (rāmāḥ)</td>
+          </tr>
+          <tr class="border-t border-cream dark:border-zinc-800 bg-cream/20 dark:bg-zinc-850/20">
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-bold font-latin">2nd (Dvitīyā)</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-semibold">रामम् (rāmam)</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-semibold">रामौ (rāmau)</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-semibold">रामान् (rāmān)</td>
+          </tr>
+          <tr class="border-t border-cream dark:border-zinc-800">
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-bold font-latin">3rd (Tṛtīyā)</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-semibold">रामेण (rāmeṇa)</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-semibold">रामाभ्याम् (rāmābhyām)</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-semibold">रामैः (rāmaiḥ)</td>
+          </tr>
+          <tr class="border-t border-cream dark:border-zinc-800 bg-cream/20 dark:bg-zinc-850/20">
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-bold font-latin">4th (Caturthī)</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-semibold">रामाय (rāmāya)</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-semibold">रामाभ्याम् (rāmābhyām)</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-semibold">रामेभ्यः (rāmebhyaḥ)</td>
+          </tr>
+          <tr class="border-t border-cream dark:border-zinc-800">
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-bold font-latin">5th (Pañcamī)</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-semibold">रामात् (rāmāt)</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-semibold">रामाभ्याम् (rāmābhyām)</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-semibold">रामेभ्यः (rāmebhyaḥ)</td>
+          </tr>
+          <tr class="border-t border-cream dark:border-zinc-800 bg-cream/20 dark:bg-zinc-850/20">
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-bold font-latin">6th (Ṣaṣṭhī)</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-semibold">रामस्य (rāmasya)</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-semibold">रामयोः (rāmayoḥ)</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-semibold">रामाणाम् (rāmāṇām)</td>
+          </tr>
+          <tr class="border-t border-cream dark:border-zinc-800">
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-bold font-latin">7th (Saptamī)</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-semibold">रामे (rāme)</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-semibold">रामयोः (rāmayoḥ)</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-semibold">रामेषु (rāmeṣu)</td>
+          </tr>
+          <tr class="border-t border-cream dark:border-zinc-800 bg-cream/20 dark:bg-zinc-850/20">
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-bold font-latin">8th (Sambodhana)</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-semibold">हे राम (he rāma)</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-semibold">हे रामौ (he rāmau)</td>
+            <td class="p-3 border border-saffron-100 dark:border-zinc-800 font-semibold">हे रामाः (he rāmāḥ)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>4. Practical Sentences (Translation Examples)</h2>
+    <p>
+      Observe how the noun case endings change to express different actions without needing prepositions:
+    </p>
+    <ul class="list-disc pl-6 space-y-3">
+      <li>
+        <strong>रामः वनं गच्छति (rāmaḥ vanaṃ gacchati):</strong>
+        <br />
+        <code>रामः</code> (1st Case: Subject) + <code>वनं</code> (2nd Case: Destination) + <code>गच्छति</code> (Verb: goes)
+        <br />
+        <em>Translation:</em> "Rama goes to the forest."
+      </li>
+      <li>
+        <strong>रामस्य हस्तः (rāmasya hastaḥ):</strong>
+        <br />
+        <code>रामस्य</code> (6th Case: Genitive/Possessive) + <code>हस्तः</code> (Subject: hand)
+        <br />
+        <em>Translation:</em> "Rama's hand" or "The hand of Rama."
+      </li>
+      <li>
+        <strong>रामः हस्तेन लिखति (rāmaḥ hastena likhati):</strong>
+        <br />
+        <code>रामः</code> (Subject) + <code>हस्तेन</code> (3rd Case: Instrument - with the hand) + <code>लिखति</code> (Verb: writes)
+        <br />
+        <em>Translation:</em> "Rama writes with his hand."
+      </li>
+    </ul>
+
+    <h2>5. Conclusion</h2>
+    <p>
+      Understanding Vibhaktis is fundamental to translating Sanskrit. Once you master the case endings for basic noun classes (like masculine <em>a</em>-stems or feminine <em>ā</em>-stems), you will be able to construct sentences correctly and read classical scriptures with ease.
+    </p>
+  </div>
+</article>

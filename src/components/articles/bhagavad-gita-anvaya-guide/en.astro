@@ -1,0 +1,118 @@
+---
+import { Clock } from "lucide-react";
+---
+
+<article class="space-y-8">
+  <header class="space-y-4">
+    <div class="flex items-center space-x-3 text-xs font-bold text-saffron-600 dark:text-saffron-400 uppercase tracking-widest font-latin">
+      <span>Shastra Study (Scripture)</span>
+      <span>•</span>
+      <span class="flex items-center space-x-1"><Clock class="w-3.5 h-3.5" /> <span>10 min read</span></span>
+    </div>
+    <h1 class="text-3xl md:text-5xl font-black text-charcoal dark:text-zinc-150 leading-tight">
+      The Art of Anvaya: Reconstructing Gita Shlokas into Prose
+    </h1>
+    <p class="text-base md:text-lg text-charcoal/70 dark:text-zinc-400 leading-relaxed font-semibold italic">
+      A step-by-step guide to decoding poetic word order in classical Sanskrit scriptures.
+    </p>
+  </header>
+
+  <hr class="border-saffron-100 dark:border-zinc-800" />
+
+  <div class="prose prose-saffron max-w-none dark:prose-invert text-charcoal/80 dark:text-zinc-350 space-y-6 leading-relaxed text-sm md:text-base">
+    <h2>1. Introduction to Anvaya</h2>
+    <p>
+      When reading classical Sanskrit texts like the <em>Bhagavad Gītā</em> or <em>Śrīmad Bhāgavatam</em>, beginners are often confused by the word order. Because Sanskrit is a highly inflected language (where noun endings determine roles rather than word position), poets can arrange words in almost any order to satisfy metrical requirements (Chhandas).
+    </p>
+    <p>
+      To understand the literal meaning of a poetic shloka, we must perform <strong>Anvaya (अन्वय)</strong>. Anvaya literally means "connection" or "logical syntax." It is the process of rearranging the words of a verse into a standard prose order (typically Subject-Object-Verb, along with their respective modifiers).
+    </p>
+
+    <h2>2. The Two Traditional Methods of Anvaya</h2>
+    <p>
+      Traditional commentators use two primary pedagogical methods to construct the Anvaya:
+    </p>
+    
+    <h3>A. Daṇḍānvaya (दण्डान्वय - The Stick Method)</h3>
+    <p>
+      In this method, the verse is restructured as a single straight line (like a stick). The analyst identifies the main verb first, then asks who performed the action (Subject), what was acted upon (Object), and inserts relative clauses, adjectives, and adverbs in their logical sequence.
+    </p>
+
+    <h3>B. Khaṇḍānvaya (खण्डान्वय - The Question-Answer Method)</h3>
+    <p>
+      In this highly interactive method, the analyst breaks down the verse by asking grammatical questions.
+      For example:
+    </p>
+    <ul class="list-disc pl-6 space-y-1">
+        <li>Identify the verb: <em>What is the action?</em> (e.g., "He speaks").</li>
+        <li>Identify the subject: <em>Who speaks?</em> (e.g., "Krishna speaks").</li>
+        <li>Identify the object: <em>To whom does he speak?</em> (e.g., "He speaks to Arjuna").</li>
+        <li>Identify modifiers: <em>How does he speak?</em> (e.g., "He speaks smilingly").</li>
+    </ul>
+    <p>
+      This Q&A process naturally builds the syntactic tree of the sentence.
+    </p>
+
+    <h2>3. Step-by-Step Guide to Performing Anvaya</h2>
+    <p>
+      To perform Anvaya on any shloka, follow these four logical steps:
+    </p>
+    <ol class="list-decimal pl-6 space-y-2">
+      <li><strong>Padachheda (पदच्छेद):</strong> Split the combined sandhi words of the verse into individual separate words.</li>
+      <li><strong>Identify Noun Cases (Vibhakti):</strong> Determine the case ending of each word (Nominative for subject, Accusative for object, Locative for place, etc.).</li>
+      <li><strong>Locate the Core Verb (Kriyāpada):</strong> Find the main action verb of the sentence.</li>
+      <li><strong>Apply Syntactic Questions (Khaṇḍānvaya):</strong> Connect subjects, objects, instruments, and locations to the verb.</li>
+    </ol>
+
+    <h2>4. Practical Walkthrough: Bhagavad Gita Chapter 2, Shloka 47</h2>
+    <p>
+      Let us apply this methodology to one of the most famous shlokas of the Gita:
+    </p>
+
+    <blockquote class="bg-saffron-50/50 dark:bg-zinc-900 border-l-4 border-saffron-500 p-4 rounded-r-2xl font-bold font-sanskrit text-center py-6 my-6">
+      कर्मण्येवाधिकारस्ते मा फलेषु कदाचन ।<br />
+      मा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि ॥
+    </blockquote>
+
+    <h3>Step 1: Padachheda (Splitting Sandhis)</h3>
+    <p>
+      First, we undo the Sandhi combinations to see the individual words:
+      <br />
+      <code>karmaṇi</code> + <code>eva</code> + <code>adhikāraḥ</code> + <code>te</code> | <code>mā</code> + <code>phaleṣu</code> + <code>kadācana</code> |
+      <br />
+      <code>mā</code> + <code>karma-phala-hetuḥ</code> + <code>bhūḥ</code> | <code>mā</code> + <code>te</code> + <code>saṅgaḥ</code> + <code>astu</code> + <code>akarmaṇi</code>
+    </p>
+
+    <h3>Step 2: Grammar & Case Identification</h3>
+    <ul class="list-disc pl-6 space-y-1">
+      <li><code>te</code>: Genitive (your)</li>
+      <li><code>adhikāraḥ</code>: Nominative masculine (right/entitlement)</li>
+      <li><code>karmaṇi</code>: Locative neuter (in action)</li>
+      <li><code>eva</code>: Indeclinable (only/alone)</li>
+      <li><code>phaleṣu</code>: Locative plural (in fruits/results)</li>
+      <li><code>astu</code>: Verb, Imperative 3rd person (let there be)</li>
+    </ul>
+
+    <h3>Step 3: Creating the Anvaya (Prose Order)</h3>
+    <p>
+      By arranging these terms logically, we get:
+    </p>
+    <blockquote class="bg-cream dark:bg-zinc-900 border border-saffron-100 dark:border-zinc-800 p-4 rounded-2xl font-latin my-4">
+      <strong>Anvaya:</strong> ते (te) अधिकारः (adhikāraḥ) कर्मणि (karmaṇi) एव (eva) [अस्तु] ; फलेषु (phaleṣu) कदाचन (kadācana) मा (mā) [अस्तु] ।<br />
+      [त्वम्] (tvam) कर्मफलहेतुः (karma-phala-hetuḥ) मा (mā) भूः (bhūḥ) ; ते (te) सङ्गः (saṅgaḥ) अकर्मणि (akarmaṇi) मा (mā) अस्तु (astu) ॥
+    </blockquote>
+
+    <h3>Step 4: English Prose Translation</h3>
+    <p>
+      Based on the prose order constructed in the Anvaya:
+    </p>
+    <p class="font-semibold text-saffron-700 dark:text-saffron-400">
+      "Your right is to action alone, never to its fruits. Let not the fruit of action be your motive, nor let your attachment be to inaction."
+    </p>
+
+    <h2>5. Conclusion</h2>
+    <p>
+      Anvaya is the key that unlocks the meaning of Sanskrit scripture. By systematically separating Sandhis and asking structural questions, any student can translate complex poetic shlokas into clear, logical prose. This structural approach is a cornerstone of the Sanskritbhashi learning method.
+    </p>
+  </div>
+</article>

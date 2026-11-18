@@ -1,0 +1,79 @@
+---
+import { Clock } from "lucide-react";
+---
+
+<article class="space-y-8">
+  <header class="space-y-4">
+    <div class="flex items-center space-x-3 text-xs font-bold text-saffron-600 dark:text-saffron-400 uppercase tracking-widest font-latin">
+      <span>Lingüística Computacional</span>
+      <span>•</span>
+      <span class="flex items-center space-x-1"><Clock class="w-3.5 h-3.5" /> <span>10 min de lectura</span></span>
+    </div>
+    <h1 class="text-3xl md:text-5xl font-black text-charcoal dark:text-zinc-150 leading-tight font-latin">
+      La Estructura Computacional del Sánscrito: Gramática Paniniana e Informática
+    </h1>
+    <p class="text-base md:text-lg text-charcoal/70 dark:text-zinc-400 leading-relaxed font-semibold italic font-latin">
+      Cómo un sistema gramatical de 2.500 años se asemeja a los lenguajes de programación y al diseño de compiladores modernos.
+    </p>
+  </header>
+
+  <hr class="border-saffron-100 dark:border-zinc-800" />
+
+  <div class="prose prose-saffron max-w-none dark:prose-invert text-charcoal/80 dark:text-zinc-350 space-y-6 leading-relaxed text-sm md:text-base font-latin">
+    <h2>1. Pāṇini y el Aṣṭādhyāyī</h2>
+    <p>
+      Hacia el siglo IV a. C., el gramático indio <strong>Pāṇini</strong> completó su obra maestra, el <strong>Aṣṭādhyāyī (अष्टाध्यायी)</strong>. Compuesto por unas 4.000 reglas extremadamente concisas (sūtras), no es solo una gramática descriptiva del sánscrito: es un <strong>sistema generativo formal basado en reglas</strong>.
+    </p>
+    <p>
+      Pāṇini diseñó su gramática como un programa informático. Al introducir raíces verbales (dhātus) y bases nominales (prātipadikas) y aplicar las reglas paso a paso, el sistema produce de forma sistemática palabras y oraciones sánscritas gramaticalmente correctas. Es el procesador de lenguaje formal más antiguo que se conoce.
+    </p>
+
+    <h2>2. Equivalencia con la Forma de Backus-Naur (BNF)</h2>
+    <p>
+      A mediados del siglo XX, los informáticos John Backus y Peter Naur introdujeron la <strong>Forma de Backus-Naur (BNF)</strong>, una notación formal para definir la sintaxis de los lenguajes de programación (como ALGOL, C, Java o Python).
+    </p>
+    <p>
+      Lingüistas e informáticos pronto advirtieron un hecho extraordinario: <strong>los sūtras de Pāṇini son funcionalmente equivalentes a las reglas BNF</strong>. En reconocimiento de este paralelo histórico, el informático Peter Zilahy Ingerman propuso en 1967 llamar a la notación <strong>Forma de Pāṇini-Backus</strong>.
+    </p>
+    <p>
+      Pāṇini lo consiguió mediante:
+    </p>
+    <ul class="list-disc pl-6 space-y-2">
+      <li><strong>Metalenguaje:</strong> reglas que determinan cómo se aplican otras reglas (precedencia, alcance y recursión).</li>
+      <li><strong>Śivasūtras:</strong> una tabla de sonidos dispuesta como una matriz de valores fonológicos que permite a las reglas referirse a clases de sonidos mediante abreviaturas llamadas <em>pratyāhāras</em>. Es la misma idea que las clases de caracteres de las expresiones regulares: <code>ac</code> designa todas las vocales y <code>hal</code> todas las consonantes.</li>
+    </ul>
+
+    <h2>3. El sánscrito y la representación del conocimiento en la IA</h2>
+    <p>
+      En 1985, <strong>Rick Briggs</strong>, investigador del Centro de Investigación Ames de la NASA, publicó en la revista <em>AI Magazine</em> el artículo <em>«Knowledge Representation in Sanskrit and Artificial Intelligence»</em>. Briggs sostenía que los idiomas naturales como el inglés o el francés son muy ambiguos y difíciles de analizar para un ordenador sin modelos contextuales complejos.
+    </p>
+    <p>
+      El sánscrito, en cambio, destaca como un idioma natural estructurado casi como un lenguaje formal. Su sistema de análisis semántico —en particular el método <strong>Śābdabodha (शाब्दबोध)</strong> de los lógicos de la escuela Nyāya— permite representar el significado de una oración como una estructura de grafo precisa y sin ambigüedades.
+    </p>
+    <p>
+      Por su sintaxis altamente estructurada y su claridad semántica, el sánscrito resulta especialmente adecuado para:
+    </p>
+    <ul class="list-disc pl-6 space-y-2">
+      <li><strong>Procesamiento del Lenguaje Natural (PLN):</strong> los algoritmos de análisis pueden asignar oraciones sánscritas a árboles sintácticos con gran precisión.</li>
+      <li><strong>Web semántica y ontologías:</strong> representar hechos lógicos en un formato legible por máquinas.</li>
+    </ul>
+
+    <h2>4. El sánscrito y la teoría moderna de compiladores</h2>
+    <p>
+      Un compilador es un programa que traduce código fuente legible por humanos (como C++) a código máquina. Para ello, el código pasa por un <strong>analizador léxico</strong> y un <strong>analizador sintáctico</strong> que construyen un árbol de sintaxis abstracta (AST).
+    </p>
+    <p>
+      El sistema gramatical de Pāṇini funciona de manera casi idéntica. Define:
+    </p>
+    <ol class="list-decimal pl-6 space-y-2">
+      <li><strong>Léxico (Dhātupāṭha y Gaṇapāṭha):</strong> la biblioteca de entradas y categorías.</li>
+      <li><strong>Reglas (Aṣṭādhyāyī):</strong> los algoritmos de análisis y generación.</li>
+      <li><strong>Precedencia de evaluación:</strong> los conflictos entre reglas se resuelven con metarreglas como <code>विप्रतिषेधे परं कार्यम्</code> (vipratiṣedhe paraṃ kāryam: en caso de conflicto, prevalece la regla posterior), equivalente a la precedencia de operadores en programación.</li>
+    </ol>
+
+    <h2>5. Conclusión</h2>
+    <p>
+      La belleza estructural del sánscrito es testimonio del genio científico de la antigua India. Lejos de ser una reliquia del pasado, representa una cumbre de la lingüística lógica. Al estudiarlo obtenemos una comprensión más profunda no solo de la literatura clásica, sino también de los patrones matemáticos que dan forma a la informática moderna.
+    </p>
+  </div>
+</article>

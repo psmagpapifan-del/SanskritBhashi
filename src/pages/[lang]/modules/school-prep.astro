@@ -176,7 +176,7 @@ const navTranslations = {
 const nt = navTranslations[lang] || navTranslations.en;
 ---
 
-<Layout lang={lang} title={`${t.schoolPrep.title} | Sanskritbhashi`}>
+<Layout lang={lang} title={`${t.schoolPrep.title} | Sanskritbhashi`} description={t.schoolPrep.desc} showAds={false}>
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(courseSchema)} />
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(faqSchema)} />
 

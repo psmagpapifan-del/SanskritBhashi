@@ -1,0 +1,118 @@
+---
+import { Clock } from "lucide-react";
+---
+
+<article class="space-y-8">
+  <header class="space-y-4">
+    <div class="flex items-center space-x-3 text-xs font-bold text-saffron-600 dark:text-saffron-400 uppercase tracking-widest font-latin">
+      <span>Estudio de los Shastras</span>
+      <span>•</span>
+      <span class="flex items-center space-x-1"><Clock class="w-3.5 h-3.5" /> <span>10 min de lectura</span></span>
+    </div>
+    <h1 class="text-3xl md:text-5xl font-black text-charcoal dark:text-zinc-150 leading-tight font-latin">
+      El Arte de Anvaya: Reconstrucción de Shlokas del Gita en Prosa
+    </h1>
+    <p class="text-base md:text-lg text-charcoal/70 dark:text-zinc-400 leading-relaxed font-semibold italic font-latin">
+      Una guía paso a paso para descifrar el orden poético de las palabras en las escrituras sánscritas clásicas.
+    </p>
+  </header>
+
+  <hr class="border-saffron-100 dark:border-zinc-800" />
+
+  <div class="prose prose-saffron max-w-none dark:prose-invert text-charcoal/80 dark:text-zinc-350 space-y-6 leading-relaxed text-sm md:text-base font-latin">
+    <h2>1. Introducción al Anvaya</h2>
+    <p>
+      Al leer textos clásicos como la <em>Bhagavad Gītā</em> o el <em>Śrīmad Bhāgavatam</em>, los principiantes suelen desconcertarse por el orden de las palabras. Como el sánscrito es una lengua muy flexiva (las terminaciones, y no la posición, determinan la función de cada palabra), los poetas pueden ordenar las palabras casi libremente para cumplir las exigencias de la métrica (chandas).
+    </p>
+    <p>
+      Para comprender el sentido literal de un shloka debemos realizar el <strong>Anvaya (अन्वय)</strong>, que significa «conexión» o «sintaxis lógica». Es el proceso de reordenar las palabras de un verso en un orden de prosa estándar (normalmente sujeto-objeto-verbo, con sus respectivos modificadores).
+    </p>
+
+    <h2>2. Los dos métodos tradicionales de Anvaya</h2>
+    <p>
+      Los comentaristas tradicionales utilizan dos métodos pedagógicos principales:
+    </p>
+
+    <h3>A. Daṇḍānvaya (दण्डान्वय - el método del bastón)</h3>
+    <p>
+      El verso se reestructura como una única línea recta, como un bastón. Primero se identifica el verbo principal; después se pregunta quién realizó la acción (sujeto) y sobre qué recayó (objeto), y se insertan las oraciones relativas, los adjetivos y los adverbios en su secuencia lógica.
+    </p>
+
+    <h3>B. Khaṇḍānvaya (खण्डान्वय - el método de preguntas y respuestas)</h3>
+    <p>
+      En este método interactivo, el verso se descompone formulando preguntas gramaticales. Por ejemplo:
+    </p>
+    <ul class="list-disc pl-6 space-y-1">
+      <li>Identificar el verbo: <em>¿Cuál es la acción?</em> (p. ej., «habla»).</li>
+      <li>Identificar el sujeto: <em>¿Quién habla?</em> (p. ej., «Krishna habla»).</li>
+      <li>Identificar el objeto: <em>¿A quién habla?</em> (p. ej., «habla a Arjuna»).</li>
+      <li>Identificar los modificadores: <em>¿Cómo habla?</em> (p. ej., «habla sonriendo»).</li>
+    </ul>
+    <p>
+      Este proceso de preguntas y respuestas construye de forma natural el árbol sintáctico de la oración.
+    </p>
+
+    <h2>3. Guía paso a paso para realizar el Anvaya</h2>
+    <p>
+      Para hacer el Anvaya de cualquier shloka, siga estos cuatro pasos lógicos:
+    </p>
+    <ol class="list-decimal pl-6 space-y-2">
+      <li><strong>Padacheda (पदच्छेद):</strong> deshaga los sandhis del verso y separe cada palabra.</li>
+      <li><strong>Identificar los casos (vibhakti):</strong> determine la terminación de cada palabra (nominativo para el sujeto, acusativo para el objeto, locativo para el lugar, etc.).</li>
+      <li><strong>Localizar el verbo principal (kriyāpada):</strong> encuentre la acción central de la oración.</li>
+      <li><strong>Aplicar las preguntas sintácticas (khaṇḍānvaya):</strong> conecte sujetos, objetos, instrumentos y lugares con el verbo.</li>
+    </ol>
+
+    <h2>4. Ejemplo práctico: Bhagavad Gita, capítulo 2, verso 47</h2>
+    <p>
+      Apliquemos este método a uno de los shlokas más célebres del Gita:
+    </p>
+
+    <blockquote class="bg-saffron-50/50 dark:bg-zinc-900 border-l-4 border-saffron-500 p-4 rounded-r-2xl font-bold font-sanskrit text-center py-6 my-6">
+      कर्मण्येवाधिकारस्ते मा फलेषु कदाचन ।<br />
+      मा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि ॥
+    </blockquote>
+
+    <h3>Paso 1: Padacheda (separar los sandhis)</h3>
+    <p>
+      Primero deshacemos las combinaciones de sandhi para ver cada palabra:
+      <br />
+      <code>karmaṇi</code> + <code>eva</code> + <code>adhikāraḥ</code> + <code>te</code> | <code>mā</code> + <code>phaleṣu</code> + <code>kadācana</code> |
+      <br />
+      <code>mā</code> + <code>karma-phala-hetuḥ</code> + <code>bhūḥ</code> | <code>mā</code> + <code>te</code> + <code>saṅgaḥ</code> + <code>astu</code> + <code>akarmaṇi</code>
+    </p>
+
+    <h3>Paso 2: Gramática e identificación de casos</h3>
+    <ul class="list-disc pl-6 space-y-1">
+      <li><code>te</code>: genitivo (tu, de ti)</li>
+      <li><code>adhikāraḥ</code>: nominativo masculino (derecho, competencia)</li>
+      <li><code>karmaṇi</code>: locativo neutro (en la acción)</li>
+      <li><code>eva</code>: indeclinable (solo, únicamente)</li>
+      <li><code>phaleṣu</code>: locativo plural (en los frutos o resultados)</li>
+      <li><code>bhūḥ</code>: aoristo de 2.ª persona singular de <em>bhū</em> (ser, llegar a ser); con <code>mā</code> expresa una prohibición: «no seas».</li>
+      <li><code>astu</code>: verbo en imperativo, 3.ª persona (que sea)</li>
+    </ul>
+
+    <h3>Paso 3: Construir el Anvaya (orden de prosa)</h3>
+    <p>
+      Al ordenar estos términos de forma lógica obtenemos:
+    </p>
+    <blockquote class="bg-cream dark:bg-zinc-900 border border-saffron-100 dark:border-zinc-800 p-4 rounded-2xl font-latin my-4">
+      <strong>Anvaya:</strong> ते (te) अधिकारः (adhikāraḥ) कर्मणि (karmaṇi) एव (eva) [अस्तु] ; फलेषु (phaleṣu) कदाचन (kadācana) मा (mā) [अस्तु] ।<br />
+      [त्वम्] (tvam) कर्मफलहेतुः (karma-phala-hetuḥ) मा (mā) भूः (bhūḥ) ; ते (te) सङ्गः (saṅgaḥ) अकर्मणि (akarmaṇi) मा (mā) अस्तु (astu) ॥
+    </blockquote>
+
+    <h3>Paso 4: Traducción en prosa</h3>
+    <p>
+      A partir del orden de prosa construido en el Anvaya:
+    </p>
+    <p class="font-semibold text-saffron-700 dark:text-saffron-400">
+      «Tu derecho es solo a la acción, nunca a sus frutos. Que el fruto de la acción no sea tu motivo, ni tengas apego a la inacción.»
+    </p>
+
+    <h2>5. Conclusión</h2>
+    <p>
+      El Anvaya es la llave que abre el significado de las escrituras sánscritas. Separando sistemáticamente los sandhis y formulando preguntas estructurales, cualquier estudiante puede traducir shlokas poéticos complejos a una prosa clara y lógica. Este enfoque estructural es uno de los pilares del método de aprendizaje de Sanskritbhashi.
+    </p>
+  </div>
+</article>

@@ -15,7 +15,7 @@ export function getStaticPaths() {
 const { lang } = Astro.params;
 ---
 
-<Layout lang={lang} title="Privacy Policy | Sanskritbhashi">
+<Layout lang={lang} title="Privacy Policy | Sanskritbhashi" description="How Sanskritbhashi collects, uses and protects your data, including cookies and Google AdSense advertising." showAds={false} noindex={lang !== "en"} hreflang={false}>
   <div class="bg-white dark:bg-zinc-900 border border-saffron-100 dark:border-zinc-800 rounded-3xl p-6 md:p-8 max-w-3xl mx-auto space-y-6 font-latin">
     <div class="flex items-center gap-3 border-b border-saffron-100 pb-4">
       <ShieldCheck class="w-8 h-8 text-saffron-500" />

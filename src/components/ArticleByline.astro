@@ -1,0 +1,56 @@
+---
+/**
+ * Byline + Article structured data for Learning Hub articles.
+ * Shows readers (and Google) who wrote the piece and when it was reviewed.
+ */
+interface Props {
+  lang: string;
+  slug: string;
+  title: string;
+  description: string;
+  published: string; // YYYY-MM-DD
+  updated: string; // YYYY-MM-DD
+  /** Practice module to link to. */
+  module?: "school-prep" | "shastra-study";
+}
+
+const { lang, slug, title, description, published, updated, module = "school-prep" } = Astro.props;
+
+const labels: Record<string, { by: string; team: string; published: string; updated: string; about: string; practice: string }> = {
+  en: { by: "Written and reviewed by", team: "the Sanskritbhashi Editorial Team", published: "Published", updated: "Last reviewed", about: "About our team", practice: "Practise these concepts in our interactive modules" },
+  hi: { by: "लेखन एवं समीक्षा:", team: "संस्कृतभाषी संपादकीय दल", published: "प्रकाशित", updated: "अंतिम समीक्षा", about: "हमारे बारे में", practice: "इन विषयों का अभ्यास हमारे इंटरैक्टिव मॉड्यूल में करें" },
+  ja: { by: "執筆・監修：", team: "サンスクリットバーシー編集部", published: "公開日", updated: "最終確認日", about: "私たちについて", practice: "インタラクティブ・モジュールでこの内容を練習しましょう" },
+  es: { by: "Escrito y revisado por", team: "el equipo editorial de Sanskritbhashi", published: "Publicado", updated: "Última revisión", about: "Sobre nosotros", practice: "Practique estos conceptos en nuestros módulos interactivos" },
+};
+const l = labels[lang] ?? labels.en;
+
+const fmt = (d: string) =>
+  new Date(`${d}T00:00:00Z`).toLocaleDateString(lang === "en" ? "en-GB" : lang, { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
+
+const url = `https://sanskritbhashi.com/${lang}/learn/${slug}`;
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: title,
+  description,
+  inLanguage: lang,
+  datePublished: published,
+  dateModified: updated,
+  mainEntityOfPage: url,
+  author: { "@type": "Organization", name: "Sanskritbhashi Editorial Team", url: `https://sanskritbhashi.com/${lang}/about` },
+  publisher: { "@type": "Organization", name: "Sanskritbhashi", url: "https://sanskritbhashi.com", logo: { "@type": "ImageObject", url: "https://sanskritbhashi.com/favicon-512x512.png" } },
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />
+<div class="mt-12 pt-6 border-t border-saffron-100 dark:border-zinc-800 text-xs md:text-sm text-charcoal/60 dark:text-zinc-400 space-y-2 font-latin">
+  <p>
+    {l.by} <a href={`/${lang}/about`} class="font-semibold text-saffron-600 dark:text-saffron-400 hover:underline">{l.team}</a>
+  </p>
+  <p>
+    {l.published}: <time datetime={published}>{fmt(published)}</time> · {l.updated}: <time datetime={updated}>{fmt(updated)}</time>
+  </p>
+  <p>
+    <a href={`/${lang}/modules/${module}`} class="font-semibold text-saffron-600 dark:text-saffron-400 hover:underline">{l.practice} →</a>
+  </p>
+</div>

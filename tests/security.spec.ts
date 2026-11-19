@@ -150,7 +150,7 @@ test.describe("Security Testing", () => {
     const xssPayload = encodeURIComponent('<img src=x onerror="alert(1)">');
     
     // Navigate with potential XSS in query params
-    await page.goto(`/en/modules/school-prep?source=${xssPayload}&chapter=1`);
+    await page.goto(`/en/modules/school-prep?source=${xssPayload}&chapter=1&topic=${xssPayload}`);
     
     // Check no script execution occurred
     const alertTriggered = await page.evaluate(() => {

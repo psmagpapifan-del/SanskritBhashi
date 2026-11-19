@@ -31,6 +31,7 @@ export function chapter(
     id,
     group: `Class ${cls}`,
     text: `Class ${cls} · ${book} · Lesson ${lesson}`,
+    short: `Lesson ${lesson}`,
     title,
     summary,
     questions: questions.map(

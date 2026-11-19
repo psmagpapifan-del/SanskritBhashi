@@ -49,8 +49,8 @@ const tourSteps: TourStep[] = [
     position: "relative"
   },
   {
-    title: "Interactive Practice Cards",
-    description: "Try hands-on exercises! Practice pronunciation, test your knowledge, and click to progressively reveal detailed grammatical breakdowns.",
+    title: "Practice & Exam Quizzes",
+    description: "Answer chapter questions from your NCERT textbook. Practice mode gives hints and brings back what you missed; Exam mode is one try per question, pass at 80%.",
     targetId: "tour-step-7",
     position: "relative"
   },
@@ -161,7 +161,7 @@ export default function OnboardingTour() {
       const nextStep = currentStep + 1;
       const targetStepInfo = tourSteps[nextStep];
       
-      // Auto-navigate if step 7 (Practice Cards) isn't on the current page
+      // Auto-navigate if step 7 (quiz options) isn't on the current page
       if (targetStepInfo.targetId === "tour-step-7") {
         const els = document.querySelectorAll(`[id="tour-step-7"]`);
         const hasVisible = Array.from(els).some(el => el.getBoundingClientRect().width > 0);
@@ -295,6 +295,7 @@ export default function OnboardingTour() {
               
               <button
                 onClick={handleNext}
+                data-testid="tour-next"
                 className="flex items-center gap-1 px-4 py-2 rounded-full bg-saffron-500 text-white font-bold text-sm hover:bg-saffron-600 transition-colors shadow-md shadow-saffron-500/20 cursor-pointer"
               >
                 <span>{currentStep === tourSteps.length - 1 ? "Get Started" : "Next"}</span>

@@ -30,6 +30,8 @@ export interface QuizTopic {
   text: string;
   title: string;
   summary: string;
+  /** Shorter label for the topic list when groups are shown as tabs (e.g. "Lesson 3"). */
+  short?: string;
   /** Optional group shown as tabs in the topic list (e.g. "Class 6"). */
   group?: string;
   questions: QuizQuestion[];

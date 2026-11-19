@@ -50,73 +50,53 @@ test.describe("Sanskritbhashi Comprehensive End-to-End Test Suite", () => {
     await expect(page.locator("h1").first()).toBeVisible();
   });
 
-  test("TC-03: Practice Panel Core Loop (shake on incorrect, success bounce on correct)", async ({ page }) => {
+  test("TC-03: NCERT quiz core loop (hint on a wrong answer, Next unlocks on the right one)", async ({ page }) => {
     await page.goto("/en/modules/school-prep");
     await page.locator('button:has-text("Skip Tour")').click();
 
-    const card = page.locator("#tour-step-7").first();
+    const card = page.locator("#ncert-quiz-card");
     await expect(card).toBeVisible();
+    await expect(page.getByTestId("quiz-position")).toHaveText("Question 1 of 9");
 
-    // Select an incorrect option ("Deva + Layaḥ")
-    const incorrectOpt = page.locator('button:has-text("Deva + Layaḥ")').first();
-    await incorrectOpt.click();
-    
-    // Assert shake animation class is applied
-    await expect(card).toHaveClass(/animate-shake/);
+    // A wrong answer shows the hint and keeps Next disabled.
+    await card.locator('[data-option-correct="false"]').first().click();
+    await expect(page.getByText("Not quite. Try again.")).toBeVisible();
+    await expect(page.getByTestId("quiz-next")).toBeDisabled();
 
-    // Select the correct option ("Deva + Ālayaḥ")
-    const correctOpt = page.locator('button:has-text("Deva + Ālayaḥ")').first();
-    await correctOpt.click();
-
-    // Assert success bounce animation class is applied
-    await expect(card).toHaveClass(/animate-success-bounce/);
+    // The right answer shows the explanation and unlocks Next.
+    await card.locator('[data-option-correct="true"]').click();
+    await expect(page.getByText("Correct!")).toBeVisible();
+    await expect(page.getByTestId("quiz-next")).toBeEnabled();
   });
 
-  test("TC-04: Audio Playback State (pulse animation on play)", async ({ page }) => {
+  test("TC-04: Class tabs and chapter links (Class 8 lesson opens and updates the URL)", async ({ page }) => {
     await page.goto("/en/modules/school-prep");
     await page.locator('button:has-text("Skip Tour")').click();
 
-    // Locate the audio playback button
-    const playBtn = page.locator('button[aria-label="Listen to pronunciation"]').first();
-    await expect(playBtn).toBeVisible();
+    await expect(page.locator("[data-group]")).toHaveCount(3);
+    await expect(page.locator("[data-topic]")).toHaveCount(16); // Class 6 lessons
+    await page.locator('[data-group="Class 8"]').click();
+    await expect(page.locator("[data-topic]")).toHaveCount(13);
 
-    // Click to start audio playback
-    await playBtn.click();
-
-    // Assert that the button immediately gets the animate-pulse class during playback
-    await expect(playBtn).toHaveClass(/animate-pulse/);
+    await page.locator('[data-topic="c8-05"]').click();
+    await expect(page).toHaveURL(/topic=c8-05/);
+    await expect(page.locator("#ncert-quiz-card h2")).toContainText("गीता सुगीता कर्तव्या");
   });
 
   test("TC-05: State Persistence (localStorage streak count persistence on page reload)", async ({ page }) => {
-    // Pre-populate streak count in localStorage
     await page.goto("/");
     await page.evaluate(() => {
-      const today = new Date().toISOString().split("T")[0];
-      localStorage.setItem(
-        "sanskrit_user_progress",
-        JSON.stringify({
-          currentTier: "beginner",
-          completedChapters: [1],
-          streakCount: 24,
-          lastPracticeDate: today,
-          gatewayScores: {}
-        })
-      );
+      const d = new Date();
+      const today = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
       localStorage.setItem("streak_count", "24");
       localStorage.setItem("last_practice_date", today);
     });
 
-    // Navigate to School Prep to load progress from localStorage
     await page.goto("/en/modules/school-prep");
     await page.locator('button:has-text("Skip Tour")').click();
 
-    // Verify streak displays the loaded value
     const streakCounter = page.locator("#tour-step-5").first();
     await expect(streakCounter.getByTestId("streak-value")).toHaveText("24");
-
-    // Verify progress sidebar displays correct streak
-    const progressStreak = page.locator("#progress-streak");
-    await expect(progressStreak).toHaveText("24 Days");
   });
 
   test("TC-06: Multilingual Routing (switch languages and verify dictionary translations)", async ({ page }) => {
@@ -144,48 +124,28 @@ test.describe("Sanskritbhashi Comprehensive End-to-End Test Suite", () => {
     await expect(page.locator("h1")).toContainText("Domine el Idioma de los");
   });
 
-  test("TC-07: Diagnostic Gateway Restrictions (Verify chapter 31 is locked without gateway pass)", async ({ page }) => {
-    // 1. Navigate directly to chapter 31 (Professional) with no progress
-    await page.goto("/en/modules/school-prep?source=core&chapter=31");
+  test("TC-07: No chapter locks; exam results persist under sb_ncert_v1", async ({ page }) => {
+    // A new visitor can open any lesson directly.
+    await page.goto("/en/modules/school-prep?topic=c8-12");
     await page.locator('button:has-text("Skip Tour")').click();
+    await expect(page.locator("text=Chapter Locked")).toHaveCount(0);
+    await expect(page.locator("#ncert-quiz-card h2")).toContainText("सम्यग्वर्णप्रयोगेण");
 
-    // Expect the card to show Locked screen
-    const lockedTitle = page.locator("text=Chapter Locked");
-    await expect(lockedTitle).toBeVisible();
-    await expect(page.locator("text=Open Journey Map")).toBeVisible();
+    // Take the exam with every answer right.
+    await page.locator('[data-mode="exam"]').click();
+    const total = 8; // lesson 12 has 8 questions
+    for (let i = 0; i < total; i++) {
+      await page.locator('#ncert-quiz-card [data-option-correct="true"]').click();
+      await page.getByTestId("quiz-next").click();
+    }
+    await expect(page.getByTestId("quiz-score")).toHaveText("100%");
 
-    // Sidebar link for chapter 31 should show lock icon and be dimmed (opacity-60)
-    const ch31Link = page.locator('a[data-chapter-id="31"]').first();
-    await expect(ch31Link.locator('[data-lock-icon="31"]')).toBeVisible();
-    await expect(ch31Link).toHaveClass(/opacity-60/);
+    const saved = await page.evaluate(() => JSON.parse(localStorage.getItem("sb_ncert_v1") || "{}"));
+    expect(saved.topics["c8-12"].examPassed).toBe(true);
+    expect(Object.keys(saved.cards)).toHaveLength(8);
 
-    // 2. Set passing gateway score in localStorage
-    await page.evaluate(() => {
-      const today = new Date().toISOString().split("T")[0];
-      localStorage.setItem(
-        "sanskrit_user_progress",
-        JSON.stringify({
-          currentTier: "professional",
-          completedChapters: [1],
-          streakCount: 5,
-          lastPracticeDate: today,
-          gatewayScores: { beginner: 85 }
-        })
-      );
-      localStorage.setItem("streak_count", "5");
-      localStorage.setItem("last_practice_date", today);
-    });
-
-    // Reload the page
     await page.reload();
-
-    // Practice card should now be unlocked and display the active unit header
-    await expect(lockedTitle).not.toBeVisible();
-    await expect(page.locator("#active-chapter-name")).toContainText("Advanced Kāraka Relations");
-
-    // Sidebar link lock icon should be hidden and no longer dimmed
-    await expect(ch31Link.locator('[data-lock-icon="31"]')).not.toBeVisible();
-    await expect(ch31Link).not.toHaveClass(/opacity-60/);
+    await expect(page.locator('[data-topic="c8-12"] [aria-label="Passed"]')).toBeVisible();
   });
 
   test("TC-08: AdSense Non-Blocking Render (Verify ad wrappers are removed)", async ({ page }) => {
@@ -208,7 +168,7 @@ test.describe("Sanskritbhashi Comprehensive End-to-End Test Suite", () => {
       const payload = JSON.parse(request.postData() || "{}");
       
       // Validate telemetry payload contents
-      expect(payload.chapterId).toBe("1");
+      expect(payload.chapterId).toBe("c6-01-1");
       expect(payload.errorCategory).toBe("Typo in Transliteration");
       expect(payload.userDetails).toBe("Expected typo in devanagari spelling");
       expect(payload.lang).toBe("en");

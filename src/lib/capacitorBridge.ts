@@ -124,7 +124,7 @@ export async function hapticImpact(style: HapticStyle = 'light'): Promise<void> 
 
 // ─── Storage: Async Write-Through Memory Cache ────────────────────────────────
 //
-// Problem: @capacitor/preferences is async; levelsEngine.ts uses synchronous
+// Problem: @capacitor/preferences is async; the quiz stores use synchronous
 // localStorage calls. We solve this with a write-through cache:
 //
 //   READ  → returns immediately from in-memory cache (fast, synchronous feel)
@@ -140,7 +140,7 @@ export async function hapticImpact(style: HapticStyle = 'light'): Promise<void> 
 const _prefCache = new Map<string, string>();
 let _cacheHydrated = false;
 
-const KNOWN_PREF_KEYS = ['sb_progress', 'sb_shastra_v1'];
+const KNOWN_PREF_KEYS = ['sb_progress', 'sb_shastra_v1', 'sb_ncert_v1'];
 
 /**
  * Hydrates the in-memory cache from native storage on first load.
@@ -208,7 +208,7 @@ export function prefGet(key: string): string | null {
  *  3. Also writes to localStorage as a universal fallback.
  */
 export function prefSet(key: string, value: string): void {
-  // 1. Synchronous in-memory write (keeps PracticeCard reads instant)
+  // 1. Synchronous in-memory write (keeps quiz reads instant)
   _prefCache.set(key, value);
 
   // 2. Synchronous localStorage write (web fallback + WebView persistence layer)

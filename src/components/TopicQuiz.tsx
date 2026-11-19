@@ -17,8 +17,9 @@ import {
   type QuizSession,
 } from "../lib/quizEngine";
 import { prefGet, prefSet, hapticImpact } from "../lib/capacitorBridge";
-import { renderSanskrit, sanskritLang } from "../lib/transliterate";
+import { hasDevanagari, renderSanskrit, sanskritLang } from "../lib/transliterate";
 import { useScript } from "../lib/useScript";
+import ErrorReportButton from "./ErrorReportButton";
 
 /* ─── Persistence ─────────────────────────────────────────────────────────── */
 
@@ -341,9 +342,20 @@ export default function TopicQuiz({ topics, storeKey, cardId = "topic-quiz-card"
                       : "border-transparent hover:bg-saffron-50/60 dark:hover:bg-zinc-800/60"
                   }`}
                 >
-                  <span className="block text-[10px] font-bold uppercase tracking-wider text-charcoal/70 font-latin">{t.text}</span>
+                  <span className="block text-[10px] font-bold uppercase tracking-wider text-charcoal/70 font-latin">{(groups.length > 1 && t.short) || t.text}</span>
                   <span className="flex items-center justify-between gap-2">
-                    <span className="text-sm font-bold text-charcoal font-latin">{renderSanskrit(t.title, script)}</span>
+                    <span className="min-w-0">
+                      {hasDevanagari(t.title) ? (
+                        <>
+                          <span lang="sa" className="block text-sm font-bold text-charcoal font-sanskrit">{t.title}</span>
+                          {script !== "devanagari" && (
+                            <span lang={sanskritLang(script)} className="block text-[11px] italic text-charcoal/70 font-latin">{renderSanskrit(t.title, script)}</span>
+                          )}
+                        </>
+                      ) : (
+                        <span className="block text-sm font-bold text-charcoal font-latin">{t.title}</span>
+                      )}
+                    </span>
                     {stats?.examPassed && <Trophy className="w-4 h-4 text-saffron-600 shrink-0" aria-label={s.passed} />}
                   </span>
                   <span className="mt-1.5 flex items-center gap-2 text-[11px] text-charcoal/70 font-latin">
@@ -364,7 +376,16 @@ export default function TopicQuiz({ topics, storeKey, cardId = "topic-quiz-card"
       <section id={cardId} className="order-1 xl:order-2 w-full xl:w-2/3 bg-white dark:bg-zinc-900 border border-saffron-100 dark:border-zinc-800 rounded-3xl p-5 md:p-7 space-y-5 scroll-mt-24">
         <header className="space-y-3">
           <p className="text-[11px] font-bold uppercase tracking-widest text-saffron-700 dark:text-saffron-300 font-latin">{topic.text}</p>
-          <h2 className="text-xl md:text-2xl font-black text-charcoal font-latin">{tx(topic.title)}</h2>
+          {hasDevanagari(topic.title) ? (
+            <div>
+              <h2 lang="sa" className="text-xl md:text-2xl font-black text-charcoal font-sanskrit">{topic.title}</h2>
+              {script !== "devanagari" && (
+                <p lang={sanskritLang(script)} className="text-sm italic font-semibold text-charcoal/70 font-latin">{tx(topic.title)}</p>
+              )}
+            </div>
+          ) : (
+            <h2 className="text-xl md:text-2xl font-black text-charcoal font-latin">{topic.title}</h2>
+          )}
           <p className="text-sm text-charcoal/70 font-latin">{topic.summary}</p>
 
           <div role="group" aria-label={`${s.practice} / ${s.exam}`} className="inline-flex rounded-xl border border-saffron-100 dark:border-zinc-700 p-1 bg-cream/40 dark:bg-zinc-800">
@@ -426,7 +447,7 @@ export default function TopicQuiz({ topics, storeKey, cardId = "topic-quiz-card"
 
             <h3 className="text-base md:text-lg font-bold text-charcoal font-latin" data-testid="quiz-prompt">{tx(question.prompt)}</h3>
 
-            <div className="grid gap-2.5" role="list">
+            <div className="grid gap-2.5" role="list" id="tour-step-7">
               {order.map((orig, i) => {
                 const isRight = orig === question.correctIndex;
                 const picked = selected === orig;
@@ -472,7 +493,8 @@ export default function TopicQuiz({ topics, storeKey, cardId = "topic-quiz-card"
               )}
             </div>
 
-            <div className="flex justify-end">
+            <div className="flex items-center justify-between gap-3">
+              <ErrorReportButton chapterId={question.id} questionText={question.prompt} lang={activeLang} transliterationSettings={script} />
               <button
                 type="button"
                 data-testid="quiz-next"

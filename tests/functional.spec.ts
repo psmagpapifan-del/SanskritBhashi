@@ -196,7 +196,8 @@ test.describe("Functional Testing", () => {
       // re-appears after a short delay, so wait for each step counter explicitly.
       for (let step = 1; step < 8; step++) {
         await expect(page.getByText(`(${step} of 8)`)).toBeVisible({ timeout: 10000 });
-        await page.getByRole("button", { name: "Next" }).click();
+        // The tour has its own Next button; School Prep's quiz has another.
+        await page.getByTestId("tour-next").click();
       }
       await expect(page.getByText("(8 of 8)")).toBeVisible({ timeout: 10000 });
 

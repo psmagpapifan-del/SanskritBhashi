@@ -6,8 +6,9 @@
  *  2. Push notification tap payloads (delegated from capacitorBridge)
  *
  * Supported URL schemes:
- *  - Custom:  sanskritbhashi://app/{lang}[/modules/{module}][?chapter=N&source=core]
- *  - HTTPS:   https://sanskritbhashi.com/{lang}[/modules/{module}][?chapter=N&source=core]
+ *  - Custom:  sanskritbhashi://app/{lang}[/modules/{module}][?topic=c6-01]
+ *  - HTTPS:   https://sanskritbhashi.com/{lang}[/modules/{module}][?topic=c6-01]
+ *  (legacy ?chapter=N&source=core links are still parsed and passed through)
  *
  * Supported lang params: en, hi, ja, es
  * Supported module paths: school-prep, shastra-study
@@ -21,6 +22,8 @@ export interface ParsedDeepLink {
   module?: string;
   chapterId?: number;
   source?: string;
+  /** Quiz topic / NCERT chapter id, e.g. "c6-01" or "gita-karma-yoga". */
+  topic?: string;
 }
 
 // ─── URL parser ────────────────────────────────────────────────────────────────
@@ -60,6 +63,9 @@ export function parseDeepLink(url: string): ParsedDeepLink | null {
     const sourceParam = parsed.searchParams.get('source');
     if (sourceParam) result.source = sourceParam;
 
+    const topicParam = parsed.searchParams.get('topic');
+    if (topicParam && /^[a-z0-9-]{1,40}$/.test(topicParam)) result.topic = topicParam;
+
     return result;
   } catch {
     return null;
@@ -85,6 +91,7 @@ export function buildWebPath(link: ParsedDeepLink): string {
   const params = new URLSearchParams();
   if (link.chapterId !== undefined) params.set('chapter', String(link.chapterId));
   if (link.source) params.set('source', link.source);
+  if (link.topic) params.set('topic', link.topic);
 
   const qs = params.toString();
   return qs ? `${path}?${qs}` : path;

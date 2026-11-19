@@ -6,6 +6,11 @@ This file tracks all bug fixes, improvements, and features implemented across ap
 
 ## [Unreleased] - 2026-11-18
 
+### NCERT School Prep: Class 11 भास्वती and शाश्वती quizzes (2026-11-19)
+- **NCERT Content [Feature]:** `src/lib/ncert/class11.ts`, `src/lib/ncertContent.ts` — all 22 lessons of the two Class 11 readers (181 questions): भास्वती प्रथमो भागः (core; Rāmāyaṇa on governance, Cāṇakya, Caraka's ऋतुचर्या, Śākuntalam, Kādambarī, सत्याग्रहगीता, Subbaṇṇa, भारतविजयनाटकम्, Keśavacandra Dāśa, Gītā 12, Pāṇinīya Śikṣā) and शाश्वती प्रथमो भागः (elective; Vedic mantras, Jātakamālā, Vidurā, मृच्छकटिकम्, Caraka on diet, Aurobindo's भवानी भारती, विज्ञाननौका, कन्थामाणिक्यम्, Tagore's Gītāñjali, Gītā 17, तर्कसंग्रहः). School Prep now has a Class 11 tab; ids are `c11-bhaswati-NN` and `c11-shashvati-NN`.
+- **Source Text [Bug Fix]:** `scripts/krutidev_to_unicode.py`, `content/ncert_text/` — fixed more legacy-font glyphs (क्र, ह्व, ह्र, द्भ and reph over क), so the Class 10–12 text now reads e.g. उत्क्रान्त, जिह्वा, ह्रस्व, अद्भुत, तर्क. Covered by `tests/unit/krutidev.test.ts`.
+- **School Prep Page [UI]:** `src/pages/[lang]/modules/school-prep.astro` — text and structured data updated for Class 11.
+
 ### NCERT School Prep: Class 10 शेमुषी quizzes (2026-11-19)
 - **NCERT Content [Feature]:** `src/lib/ncert/class10.ts`, `src/lib/ncertContent.ts` — all 10 lessons of शेमुषी द्वितीयो भागः for Class 10 (87 questions): शुचिपर्यावरणम्, बुद्धिर्बलवती सदा, शिशुलालनम्, जननी तुल्यवत्सला, सुभाषितानि, सौहार्दं प्रकृतेः शोभा, विचित्रः साक्षी, सूक्तयः (Tirukkuṟaḷ), भूकम्पविभीषिका and अन्योक्तयः. School Prep now has a Class 10 tab; ids are `c10-shemushi-NN`.
 - **Source Text [Bug Fix]:** `scripts/krutidev_to_unicode.py`, `content/ncert_text/` — fixed four more legacy-font glyphs (क्कु, क्, रु and the colon), so the Class 10–12 text now reads e.g. ठक्कुर, पृथक्, तिरुक्कुरल्, जगाद:.

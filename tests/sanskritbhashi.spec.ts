@@ -73,7 +73,7 @@ test.describe("Sanskritbhashi Comprehensive End-to-End Test Suite", () => {
     await page.goto("/en/modules/school-prep");
     await page.locator('button:has-text("Skip Tour")').click();
 
-    await expect(page.locator("[data-group]")).toHaveCount(5);
+    await expect(page.locator("[data-group]")).toHaveCount(6);
     await expect(page.locator("[data-topic]")).toHaveCount(16); // Class 6 lessons
     await page.locator('[data-group="Class 8"]').click();
     await expect(page.locator("[data-topic]")).toHaveCount(13);

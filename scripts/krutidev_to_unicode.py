@@ -14,6 +14,7 @@ import sys
 
 # NCERT-specific glyphs first (they override the standard table).
 NCERT = [
+    ("=kQ", "क्र"), ("Þ", "ह्व"), ("ß", "ह्र"), ("‰", "द्भ"),  # उत्क्रान्त, जिह्वा, ह्रस्व, अद्भुत
     ("¬", "ॐ"), ("¿", "ऽ"), ("¼", "द्ध"), ("Í", "ऋ"), ("½", "ऋ"), ("Ük", "श"), ("Ü", "श्"), ("mQ", "ऊ"), ("Aa", "aA"), ("±", "Zं"),
     ("×", "ञ्"), ("μ", "ष्ट"),
     ("¶", "‘"), ("¸", "’"), ("éï°", "क्कु"), ("jQ", "रु"),  # quote marks around titles in NCERT's font
@@ -67,7 +68,7 @@ def convert(text: str) -> str:
     # A literal question mark ends a sentence; elsewhere ? is the glyph घ्.
     s = re.sub(r"\?(?=[\s\)\]]|$)", "\u0001", s)
     # क is drawn as o + Q with any vowel signs typed in between: osQ = के, oqQ = कु.
-    s = re.sub(r"o([sSaq`w¡z~]*)Q", lambda m: "d" + m.group(1), s)
+    s = re.sub(r"o([sSaq`w¡z~Z]*)Q", lambda m: "d" + m.group(1), s)
     # क्त likewise: Ù + Q (सू fÙkQ = सूक्ति).
     s = re.sub(r"Ù([sSaq`w¡k]*)Q", lambda m: "ä" + m.group(1).replace("k", "", 1), s)
     # फ is drawn the same way from प: iQ = फ, iwQ = फू.

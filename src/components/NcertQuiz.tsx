@@ -9,7 +9,7 @@ const LIST_TITLE: Record<string, string> = {
   es: "Capítulos NCERT",
 };
 
-/** NCERT school track: chapter-wise quizzes for the NCERT Sanskrit textbooks (दीपकम् 6–8, शारदा 9, शेमुषी 10). */
+/** NCERT school track: chapter-wise quizzes for the NCERT Sanskrit textbooks (दीपकम् 6–8, शारदा 9, शेमुषी 10, भास्वती/शाश्वती 11). */
 export default function NcertQuiz({ activeLang = "en" }: { activeLang?: string }) {
   return (
     <TopicQuiz

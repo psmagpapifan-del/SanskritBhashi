@@ -7,7 +7,8 @@ import { getTranslation } from "@/lib/i18n";
 import { getCapacitorMeta } from "@/lib/capacitorBridge";
 
 interface ErrorReportButtonProps {
-  chapterId: number;
+  /** Chapter or question id the report is about (e.g. "c6-01-3"). */
+  chapterId: number | string;
   questionText: string;
   lang: string;
   transliterationSettings: string;

@@ -6,6 +6,13 @@ This file tracks all bug fixes, improvements, and features implemented across ap
 
 ## [Unreleased] - 2026-11-18
 
+### NCERT School Prep rebuilt: Class 6–8 दीपकम् quizzes (2026-11-19)
+- **NCERT Content [Feature]:** `src/lib/ncertContent.ts`, `src/lib/ncert/class6.ts`, `class7.ts`, `class8.ts`, `src/lib/ncert/build.ts` — every lesson of the 2025 NCERT दीपकम् textbooks for Classes 6–8: 41 lessons, 338 questions (7–9 per lesson) written from the chapter text, covering meaning, grammar, sandhi, numbers, vocabulary and comprehension, each with a hint and an explanation. Structural checks in `tests/unit/ncertContent.test.ts`.
+- **Source Text [Feature]:** `scripts/extract_ncert_text.py`, `content/ncert_text/` — chapter text extracted from the NCERT PDFs (the PDFs stay on the `feat/adsense-learning-hub` branch to keep `main` small).
+- **Shared Quiz UI [Feature]:** `src/components/TopicQuiz.tsx` (from `ShastraQuiz.tsx`), `src/lib/quizContent.ts` — one quiz component for Shastra Study and NCERT, with class tabs, Devanagari titles with a transliteration line, and the "Report Error" button on every question. `src/components/NcertQuiz.tsx` saves progress under `sb_ncert_v1`.
+- **School Prep Page [Bug Fix / UI]:** `src/pages/[lang]/modules/school-prep.astro` — replaced the 60 template-generated Core Journey levels, the gateway locks and the old NCERT list with the open chapter-wise quiz (practice and exam modes, review round, spaced repetition) and a crawlable chapter list. Page size dropped from about 2 MB to about 100 KB.
+- **Cleanup [Performance]:** removed `PracticeCard.tsx`, `JourneyMap.tsx`, `levelsEngine.ts`, `curriculumData.ts`, `vocabTranslations.ts` and `scripts/ingestCurriculum.ts`, which are no longer used. Deep links accept `?topic=` (`src/lib/deepLinkRouter.ts`); the onboarding tour's step 7 points at the new quiz.
+
 ### Quiz options follow the Transliteration Script setting (2026-11-19)
 - **Transliteration [Bug Fix]:** `src/lib/transliterate.ts` (new), `src/lib/useScript.ts` (new) — rule-based converter from Devanagari/IAST to IAST, Devanagari, Japanese Katakana and French phonetic spelling, plus a hook that updates live when the script is changed in the language menu. Covered by 6 unit tests.
 - **Shastra Study [Bug Fix]:** `src/components/ShastraQuiz.tsx`, `src/lib/shastraContent.ts` — Sanskrit in options, prompts, hints and explanations now switches script instead of staying fixed; verses keep the Devanagari and show a transliteration line underneath. Sanskrit-word options (yamas, limbs of yoga, śoka/śloka) moved to Devanagari so they convert too.

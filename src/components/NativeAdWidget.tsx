@@ -10,7 +10,7 @@
  *
  * ┌──────────────────────────────────────────────────────────┐
  * │  type='banner'       → Adaptive Anchor Banner            │
- * │                         Renders below PracticeCard       │
+ * │                         Renders below the quiz card      │
  * │  type='interstitial' → Full-Screen Interstitial          │
  * │                         Fires after gateway exam pass    │
  * │  type='rewarded'     → Rewarded Video                    │
@@ -117,7 +117,7 @@ function getPlatformAdId(type: keyof typeof AD_UNITS): string {
 // ─── Component props ──────────────────────────────────────────────────────────
 
 export interface NativeAdWidgetProps {
-  /** 'banner' renders inline below PracticeCard.
+  /** 'banner' renders inline below the quiz card.
    *  'interstitial' and 'rewarded' are triggered imperatively — no DOM output. */
   type: 'banner' | 'interstitial' | 'rewarded';
 

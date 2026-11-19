@@ -13,31 +13,11 @@
  * Verse references follow the standard (Gita Press / critical edition) numbering.
  */
 
-export type ShastraKind = "meaning" | "grammar" | "sandhi" | "fill" | "source" | "concept";
+import type { QuestionKind, QuizQuestion, QuizTopic } from "./quizContent";
 
-export interface ShastraQuestion {
-  id: string;
-  kind: ShastraKind;
-  prompt: string;
-  /** Devanagari passage the question is about (optional). */
-  verse?: string;
-  /** Reference for the passage, e.g. "Bhagavad Gītā 2.47". */
-  ref?: string;
-  options: string[];
-  correctIndex: number;
-  /** Nudge shown in practice mode after a wrong first attempt. */
-  hint: string;
-  /** Shown after the question is answered. */
-  explanation: string;
-}
-
-export interface ShastraTopic {
-  id: string;
-  text: string;
-  title: string;
-  summary: string;
-  questions: ShastraQuestion[];
-}
+export type ShastraKind = Extract<QuestionKind, "meaning" | "grammar" | "sandhi" | "fill" | "source" | "concept">;
+export type ShastraQuestion = QuizQuestion;
+export type ShastraTopic = QuizTopic;
 
 const q = (topic: string, n: number, data: Omit<ShastraQuestion, "id">): ShastraQuestion => ({ id: `${topic}-${n}`, ...data });
 

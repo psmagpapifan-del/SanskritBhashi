@@ -74,7 +74,7 @@ export default function LanguageSelector({ currentLang, currentPathname }: Langu
     setTransliteration(newTarget);
     localStorage.setItem("transliteration_target", newTarget);
     
-    // Trigger custom event so other components (like PracticeCard) update immediately
+    // Trigger custom event so quiz components (useScript) update immediately
     window.dispatchEvent(new Event("transliterationChange"));
     setIsOpen(false);
   };

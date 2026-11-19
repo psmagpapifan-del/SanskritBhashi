@@ -18,13 +18,17 @@ legacy Kruti Dev font are converted with `scripts/krutidev_to_unicode.py`.
 | `class8/` | दीपकम् (Class 8) | 13 + 3 appendices | Sanskrit | ✅ 13 lessons, 110 questions |
 | `class9/sharada/` | शारदा (Class 9) | 11 + 5 appendices | Sanskrit | ⏳ next |
 | `class10/shemushi/` | शेमुषी द्वितीयो भागः | 10 | Sanskrit (Kruti Dev) | ⏳ |
-| `class10/abhyasavan-bhava/` | अभ्यासवान् भव (writing & grammar practice) | 14 | Sanskrit | ⏳ |
-| `class9-10/vyakaranavithi/` | व्याकरणवीथिः (grammar, Classes 9–10) | 12 | Hindi | ⏳ |
+| `class10/abhyasavan-bhava/` | अभ्यासवान् भव (writing & grammar practice) | 14 | Sanskrit | — not planned |
+| `class9-10/vyakaranavithi/` | व्याकरणवीथिः (grammar, Classes 9–10) | 12 | Hindi | — not planned |
 | `class11/bhaswati/` | भास्वती प्रथमो भागः (core) | 11 | Sanskrit (Kruti Dev) | ⏳ |
 | `class11/shashvati/` | शाश्वती प्रथमो भागः (elective) | 11 | Sanskrit (Kruti Dev) | ⏳ |
-| `class11/sahitya-parichay/` | संस्कृत साहित्य — परिचय | 12 | Hindi | ⏳ |
+| `class11/sahitya-parichay/` | संस्कृत साहित्य — परिचय | 12 | Hindi | — not planned |
 | `class12/bhaswati/` | भास्वती द्वितीयो भागः (core) | 10 | Sanskrit (Kruti Dev) | ⏳ |
 | `class12/shashvati/` | शाश्वती द्वितीयो भागः (elective) | 11 | Sanskrit (Kruti Dev) | ⏳ |
+
+Plan (agreed): quizzes for the main readers only — शारदा, शेमुषी, भास्वती and
+शाश्वती (64 lessons) — released one class per PR: Class 9, then 10, 11, 12.
+The grammar and Hindi books stay as source text only.
 
 Quiz ids: single-book classes use `c<class>-<NN>` (e.g. `c6-01`); classes with
 several books pass a book key to `chapter(..., { key, short })` in

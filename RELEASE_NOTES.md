@@ -6,6 +6,11 @@ This file tracks all bug fixes, improvements, and features implemented across ap
 
 ## [Unreleased] - 2026-11-18
 
+### NCERT School Prep: Class 10 शेमुषी quizzes (2026-11-19)
+- **NCERT Content [Feature]:** `src/lib/ncert/class10.ts`, `src/lib/ncertContent.ts` — all 10 lessons of शेमुषी द्वितीयो भागः for Class 10 (87 questions): शुचिपर्यावरणम्, बुद्धिर्बलवती सदा, शिशुलालनम्, जननी तुल्यवत्सला, सुभाषितानि, सौहार्दं प्रकृतेः शोभा, विचित्रः साक्षी, सूक्तयः (Tirukkuṟaḷ), भूकम्पविभीषिका and अन्योक्तयः. School Prep now has a Class 10 tab; ids are `c10-shemushi-NN`.
+- **Source Text [Bug Fix]:** `scripts/krutidev_to_unicode.py`, `content/ncert_text/` — fixed four more legacy-font glyphs (क्कु, क्, रु and the colon), so the Class 10–12 text now reads e.g. ठक्कुर, पृथक्, तिरुक्कुरल्, जगाद:.
+- **School Prep Page [UI]:** `src/pages/[lang]/modules/school-prep.astro` — text and structured data updated for Class 10.
+
 ### NCERT School Prep: Class 9 शारदा quizzes and Classes 9–12 source text (2026-11-19)
 - **NCERT Content [Feature]:** `src/lib/ncert/class9.ts`, `src/lib/ncertContent.ts` — all 11 lessons of the NCERT शारदा textbook for Class 9 (92 questions, 8–9 per lesson): the Sanskrit song, Kauṭilya on wealth and financial literacy, Nāmadeva, Khudirām Bose, artificial intelligence, subhāṣitas, Dharmabuddhi and Pāpabuddhi, Bhṛgu–Varuṇa (five kośas), एकचक्रम्, Ṛṣabhadeva, and वर्णोच्चारण-शिक्षा. School Prep now has a Class 9 tab.
 - **Source Text [Feature]:** `scripts/krutidev_to_unicode.py` (new), `scripts/extract_ncert_text.py`, `content/ncert_text/` — the Class 10–12 readers (शेमुषी, भास्वती, शाश्वती) use the legacy Kruti Dev font; a converter (unit-tested in `tests/unit/krutidev.test.ts`) turns them into Unicode. All Class 9–12 books are extracted, and Classes 6–8 are re-extracted with `pdftotext -raw`, which keeps conjuncts in order.

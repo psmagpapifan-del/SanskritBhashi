@@ -16,10 +16,10 @@ import sys
 NCERT = [
     ("¬", "ॐ"), ("¿", "ऽ"), ("¼", "द्ध"), ("Í", "ऋ"), ("½", "ऋ"), ("Ük", "श"), ("Ü", "श्"), ("mQ", "ऊ"), ("Aa", "aA"), ("±", "Zं"),
     ("×", "ञ्"), ("μ", "ष्ट"),
-    ("¶", "‘"), ("¸", "’"),  # quote marks around titles in NCERT's font
+    ("¶", "‘"), ("¸", "’"), ("éï°", "क्कु"), ("jQ", "रु"),  # quote marks around titles in NCERT's font
     ("Ñ", "कृ"), ("Ô", "्य"), ("Ï", "स्र"), ("Õ", "य्"), ("Ó", "च"), ("Ò", "व"), ("Ê", "ह्ण"),
     ("Â", "न्न"), ("É", "ह्न"), ("Û", "ञ्"), ("îõ", "ङ्ग"), ("õ", "ग"), ("\u0300", "ृ"),
-    ("ð", ""), ("$", "+"), ("\\", "\u0001"), ("ú", "॰"), ("µ", ":"), ("\x0c", "\n"), ("\x8f", ""),
+    ("ð", ""), ("$", "+"), ("\\", "\u0001"), ("ú", "॰"), ("µ", "\u0002"), ("\x0c", "\n"), ("\x8f", ""),
 ]
 
 # Standard Kruti Dev 010 → Unicode, longest keys first (order matters).
@@ -67,7 +67,7 @@ def convert(text: str) -> str:
     # A literal question mark ends a sentence; elsewhere ? is the glyph घ्.
     s = re.sub(r"\?(?=[\s\)\]]|$)", "\u0001", s)
     # क is drawn as o + Q with any vowel signs typed in between: osQ = के, oqQ = कु.
-    s = re.sub(r"o([sSaq`w¡z]*)Q", lambda m: "d" + m.group(1), s)
+    s = re.sub(r"o([sSaq`w¡z~]*)Q", lambda m: "d" + m.group(1), s)
     # क्त likewise: Ù + Q (सू fÙkQ = सूक्ति).
     s = re.sub(r"Ù([sSaq`w¡k]*)Q", lambda m: "ä" + m.group(1).replace("k", "", 1), s)
     # फ is drawn the same way from प: iQ = फ, iwQ = फू.
@@ -88,7 +88,7 @@ def convert(text: str) -> str:
     s = re.sub(f"({cluster})([{MATRA_AFTER}]*)Z", r"र्\1\2", s)
     s = s.replace("Z", "र्")
     # Tidy: dot-under nukta duplicates, stray spaces inside words from the PDF layout.
-    s = s.replace("\u0001", "?")
+    s = s.replace("\u0001", "?").replace("\u0002", ":")
     s = s.replace("्ा", "")
     s = re.sub("ं(्र)", r"\1ं", s)  # राष्टंª → राष्ट्रं
     return s

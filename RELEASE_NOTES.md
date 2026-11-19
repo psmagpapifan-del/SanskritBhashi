@@ -6,6 +6,11 @@ This file tracks all bug fixes, improvements, and features implemented across ap
 
 ## [Unreleased] - 2026-11-18
 
+### Quiz options follow the Transliteration Script setting (2026-11-19)
+- **Transliteration [Bug Fix]:** `src/lib/transliterate.ts` (new), `src/lib/useScript.ts` (new) — rule-based converter from Devanagari/IAST to IAST, Devanagari, Japanese Katakana and French phonetic spelling, plus a hook that updates live when the script is changed in the language menu. Covered by 6 unit tests.
+- **Shastra Study [Bug Fix]:** `src/components/ShastraQuiz.tsx`, `src/lib/shastraContent.ts` — Sanskrit in options, prompts, hints and explanations now switches script instead of staying fixed; verses keep the Devanagari and show a transliteration line underneath. Sanskrit-word options (yamas, limbs of yoga, śoka/śloka) moved to Devanagari so they convert too.
+- **School Prep [Bug Fix]:** `src/components/PracticeCard.tsx` — IAST sandhi splits and vigraha analyses in options now switch script; the Japanese and French phrase lines are generated from the Devanagari instead of placeholder text.
+
 ### Shastra Study rebuilt: new quiz engine and topic-based content (2026-11-19)
 - **Quiz Engine [Feature]:** `src/lib/quizEngine.ts` — framework-free engine with Practice mode (instant feedback, hints, retries; only the first attempt is scored; missed questions return in a review round) and Exam mode (one attempt, no hints, shuffled questions and options, pass at 80%). Leitner spaced repetition (boxes 1–5, 1/3/7/16/35-day intervals) puts due questions first. Covered by 10 unit tests (`npm run test:unit`).
 - **Shastra Content [Feature]:** `src/lib/shastraContent.ts` — 9 topics, 72 questions across the Bhagavad Gītā (Karma Yoga, Ātman, Avatāra and Devotion), Upaniṣads (Mahāvākyas, famous verses), Yoga Sūtras, Vālmīki Rāmāyaṇa, Subhāṣitas and Vedic mantras; question types cover meaning, grammar, sandhi, fill-in-the-verse, source and concept, each with a hint and an explanation.

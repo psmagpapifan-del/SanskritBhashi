@@ -7,6 +7,7 @@ import { fireConfetti } from "./ConfettiCelebration";
 import ErrorReportButton from "./ErrorReportButton";
 import { getTranslation } from "../lib/i18n";
 import { hapticImpact } from "../lib/capacitorBridge";
+import { fromDevanagari, fromIast, hasDevanagari, isScript, renderSanskrit, type Script } from "../lib/transliterate";
 import {
   getProgress,
   saveProgress,
@@ -615,18 +616,14 @@ export default function PracticeCard({
 
   const isCompleted = progress?.completedChapters.includes(chapterId) || false;
 
+  const script: Script = isScript(activeScript) ? activeScript : "iast";
+
+  // Derive the transliteration from the Devanagari source; the stored
+  // japanese/french fields are placeholders in much of the generated data.
   const getActiveText = () => {
-    switch (activeScript) {
-      case "devanagari":
-        return transliterations.devanagari;
-      case "japanese":
-        return transliterations.japanese;
-      case "french":
-        return transliterations.french;
-      case "iast":
-      default:
-        return transliterations.iast;
-    }
+    const dev = hasDevanagari(transliterations.devanagari) ? transliterations.devanagari : phrase;
+    if (hasDevanagari(dev)) return fromDevanagari(dev, script);
+    return fromIast(transliterations.iast, script);
   };
 
   const handlePlayAudio = () => {
@@ -963,7 +960,7 @@ export default function PracticeCard({
                     <span className="flex-shrink-0 w-6 h-6 rounded-full bg-charcoal/5 border border-charcoal/10 text-[10px] font-bold text-charcoal/55 flex items-center justify-center">
                       {opt.label}
                     </span>
-                    <span>{localizeText(opt.text, activeLang)}</span>
+                    <span>{renderSanskrit(localizeText(opt.text, activeLang), script, { latinSanskrit: true })}</span>
                   </div>
                   {Icon && <Icon className="w-5 h-5 flex-shrink-0 ml-2 text-emerald-600" />}
                 </button>

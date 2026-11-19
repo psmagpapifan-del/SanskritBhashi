@@ -618,7 +618,7 @@ export const shastraTopics: ShastraTopic[] = [
         verse: "अहिंसासत्यास्तेयब्रह्मचर्यापरिग्रहा यमाः ।",
         ref: "Yoga Sūtra 2.30",
         prompt: "Which of these is NOT one of the five yamas?",
-        options: ["Santoṣa (contentment)", "Ahiṃsā (non-violence)", "Satya (truthfulness)", "Aparigraha (non-possessiveness)"],
+        options: ["सन्तोष (contentment)", "अहिंसा (non-violence)", "सत्य (truthfulness)", "अपरिग्रह (non-possessiveness)"],
         correctIndex: 0,
         hint: "Compare the list in the sūtra.",
         explanation: "The yamas are ahiṃsā, satya, asteya, brahmacarya and aparigraha. Santoṣa belongs to the niyamas (2.32).",
@@ -636,7 +636,7 @@ export const shastraTopics: ShastraTopic[] = [
       q("yoga-sutra", 8, {
         kind: "concept",
         prompt: "In the eight limbs, which limb comes directly after prāṇāyāma (breath control)?",
-        options: ["Pratyāhāra (withdrawal of the senses)", "Dhyāna (meditation)", "Āsana (posture)", "Samādhi (absorption)"],
+        options: ["प्रत्याहार (withdrawal of the senses)", "ध्यान (meditation)", "आसन (posture)", "समाधि (absorption)"],
         correctIndex: 0,
         hint: "It turns attention inward before concentration (dhāraṇā).",
         explanation: "The order is yama, niyama, āsana, prāṇāyāma, pratyāhāra, dhāraṇā, dhyāna, samādhi.",
@@ -667,7 +667,7 @@ export const shastraTopics: ShastraTopic[] = [
       q("ramayana", 2, {
         kind: "concept",
         prompt: "According to the Rāmāyaṇa, the word śloka (verse) arose from…",
-        options: ["śoka (grief)", "loka (the world)", "śruti (hearing)", "śubha (auspiciousness)"],
+        options: ["शोक (grief)", "लोक (the world)", "श्रुति (hearing)", "शुभ (auspiciousness)"],
         correctIndex: 0,
         hint: "Vālmīki was moved by sorrow.",
         explanation: "The text plays on the words: Vālmīki's śoka (grief) became śloka (verse), the first in the anuṣṭubh metre.",

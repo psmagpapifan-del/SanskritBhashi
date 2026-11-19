@@ -17,6 +17,8 @@ import {
   type QuizSession,
 } from "../lib/quizEngine";
 import { prefGet, prefSet, hapticImpact } from "../lib/capacitorBridge";
+import { renderSanskrit, sanskritLang } from "../lib/transliterate";
+import { useScript } from "../lib/useScript";
 
 /* ─── Persistence ─────────────────────────────────────────────────────────── */
 
@@ -152,6 +154,9 @@ export default function ShastraQuiz({ activeLang = "en" }: Props) {
   const [feedback, setFeedback] = useState<"correct" | "incorrect" | null>(null);
   const [wrongChoices, setWrongChoices] = useState<number[]>([]);
   const [hydrated, setHydrated] = useState(false);
+  // Sanskrit in verses and options follows the Transliteration Script setting.
+  const script = useScript();
+  const tx = (text: string) => renderSanskrit(text, script);
 
   const topic: ShastraTopic = shastraTopics.find((t) => t.id === topicId) ?? shastraTopics[0];
 
@@ -351,6 +356,7 @@ export default function ShastraQuiz({ activeLang = "en" }: Props) {
         {result ? (
           <Results
             s={s}
+            tx={tx}
             mode={mode}
             session={session}
             result={result}
@@ -373,12 +379,17 @@ export default function ShastraQuiz({ activeLang = "en" }: Props) {
 
             {question.verse && (
               <blockquote className="bg-saffron-50/60 dark:bg-zinc-800 border-l-4 border-saffron-500 rounded-r-2xl px-4 py-4 text-center">
-                <p lang="sa" className="font-sanskrit text-lg md:text-xl font-bold text-charcoal leading-relaxed">{question.verse}</p>
+                <p lang="sa" data-testid="quiz-verse" className="font-sanskrit text-lg md:text-xl font-bold text-charcoal leading-relaxed">{question.verse}</p>
+                {script !== "devanagari" && (
+                  <p lang={sanskritLang(script)} data-testid="quiz-verse-translit" className="mt-1.5 text-sm md:text-base italic font-semibold text-charcoal/75 font-latin leading-relaxed">
+                    {tx(question.verse)}
+                  </p>
+                )}
                 {question.ref && <p className="mt-2 text-[11px] font-semibold text-charcoal/70 font-latin">— {question.ref}</p>}
               </blockquote>
             )}
 
-            <h3 className="text-base md:text-lg font-bold text-charcoal font-latin" data-testid="quiz-prompt">{question.prompt}</h3>
+            <h3 className="text-base md:text-lg font-bold text-charcoal font-latin" data-testid="quiz-prompt">{tx(question.prompt)}</h3>
 
             <div className="grid gap-2.5" role="list">
               {order.map((orig, i) => {
@@ -400,7 +411,7 @@ export default function ShastraQuiz({ activeLang = "en" }: Props) {
                       className={`w-full text-left flex gap-3 items-start rounded-2xl border-2 px-4 py-3 transition-colors cursor-pointer disabled:cursor-default ${tone}`}
                     >
                       <span className="w-6 h-6 shrink-0 rounded-full bg-cream dark:bg-zinc-700 text-xs font-black flex items-center justify-center text-charcoal">{LABELS[i]}</span>
-                      <span className="text-sm md:text-base text-charcoal font-latin">{question.options[orig]}</span>
+                      <span className="text-sm md:text-base text-charcoal font-latin" data-testid="quiz-option">{tx(question.options[orig])}</span>
                     </button>
                   </div>
                 );
@@ -412,7 +423,7 @@ export default function ShastraQuiz({ activeLang = "en" }: Props) {
                 <div className="flex gap-2 items-start rounded-2xl bg-amber-50 dark:bg-amber-950/30 border border-amber-300 px-4 py-3 text-sm text-charcoal font-latin">
                   <Lightbulb className="w-4 h-4 mt-0.5 text-amber-700 shrink-0" />
                   <span>
-                    <strong>{s.tryAgain}</strong> {s.hint}: {question.hint}
+                    <strong>{s.tryAgain}</strong> {s.hint}: {tx(question.hint)}
                   </span>
                 </div>
               )}
@@ -420,7 +431,7 @@ export default function ShastraQuiz({ activeLang = "en" }: Props) {
                 <div className="flex gap-2 items-start rounded-2xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-300 px-4 py-3 text-sm text-charcoal font-latin">
                   <CheckCircle2 className="w-4 h-4 mt-0.5 text-emerald-700 shrink-0" />
                   <span>
-                    <strong>{s.correct}</strong> {question.explanation}
+                    <strong>{s.correct}</strong> {tx(question.explanation)}
                   </span>
                 </div>
               )}
@@ -452,9 +463,10 @@ function currentIsLast(session: QuizSession): boolean {
 /* ─── Results screen ──────────────────────────────────────────────────────── */
 
 function Results({
-  s, mode, session, result, onAgain, onExam, onPractice,
+  s, tx, mode, session, result, onAgain, onExam, onPractice,
 }: {
   s: Strings;
+  tx: (text: string) => string;
   mode: QuizMode;
   session: QuizSession;
   result: ReturnType<typeof score>;
@@ -491,19 +503,19 @@ function Results({
               const a = session.answers[id];
               return (
                 <li key={id} className="rounded-2xl border border-saffron-100 dark:border-zinc-700 px-4 py-3 space-y-1 text-sm font-latin">
-                  <p className="font-bold text-charcoal">{q.prompt}</p>
+                  <p className="font-bold text-charcoal">{tx(q.prompt)}</p>
                   {q.ref && <p className="text-xs text-charcoal/70">{q.ref}</p>}
                   {isExam && a && (
                     <p className="flex gap-1.5 items-start text-charcoal/80">
                       <XCircle className="w-4 h-4 mt-0.5 text-red-600 shrink-0" />
-                      {s.yourAnswer}: {q.options[a.firstChoice]}
+                      {s.yourAnswer}: {tx(q.options[a.firstChoice])}
                     </p>
                   )}
                   <p className="flex gap-1.5 items-start text-charcoal">
                     <CheckCircle2 className="w-4 h-4 mt-0.5 text-emerald-700 shrink-0" />
-                    {s.rightAnswer}: {q.options[q.correctIndex]}
+                    {s.rightAnswer}: {tx(q.options[q.correctIndex])}
                   </p>
-                  <p className="text-charcoal/70">{q.explanation}</p>
+                  <p className="text-charcoal/70">{tx(q.explanation)}</p>
                 </li>
               );
             })}

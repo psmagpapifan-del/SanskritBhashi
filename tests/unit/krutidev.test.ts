@@ -17,4 +17,8 @@ test("handles NCERT's extra glyphs", () => {
   assert.equal(convert("lwfÙkQlq/k"), "सूक्तिसुधा");
   assert.equal(convert("fo|;k¿e`re'uqrs"), "विद्ययाऽमृतमश्नुते");
   assert.equal(convert("dh gS\\ D;k"), "की है? क्या");
+  assert.equal(convert("ftÞk"), "जिह्वा");
+  assert.equal(convert("ßLo"), "ह्रस्व");
+  assert.equal(convert("rdZ"), "तर्क");
+  assert.equal(convert("=kQes.k"), "क्रमेण");
 });

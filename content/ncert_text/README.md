@@ -23,12 +23,12 @@ legacy Kruti Dev font are converted with `scripts/krutidev_to_unicode.py`.
 | `class11/bhaswati/` | भास्वती प्रथमो भागः (core) | 11 | Sanskrit (Kruti Dev) | ✅ 11 lessons, 91 questions |
 | `class11/shashvati/` | शाश्वती प्रथमो भागः (elective) | 11 | Sanskrit (Kruti Dev) | ✅ 11 lessons, 90 questions |
 | `class11/sahitya-parichay/` | संस्कृत साहित्य — परिचय | 12 | Hindi | — not planned |
-| `class12/bhaswati/` | भास्वती द्वितीयो भागः (core) | 10 | Sanskrit (Kruti Dev) | ⏳ next |
-| `class12/shashvati/` | शाश्वती द्वितीयो भागः (elective) | 11 | Sanskrit (Kruti Dev) | ⏳ next |
+| `class12/bhaswati/` | भास्वती द्वितीयो भागः (core) | 10 | Sanskrit (Kruti Dev) | ✅ 10 lessons, 82 questions |
+| `class12/shashvati/` | शाश्वती द्वितीयो भागः (elective) | 11 | Sanskrit (Kruti Dev) | ✅ 11 lessons, 87 questions |
 
-Plan (agreed): quizzes for the main readers only — शारदा, शेमुषी, भास्वती and
-शाश्वती (64 lessons) — released one class per PR: Class 9, then 10, 11, 12.
-The grammar and Hindi books stay as source text only.
+Status: done. Every main reader from Class 6 to 12 has chapter quizzes —
+105 lessons, 867 questions — released one class per PR. The grammar and
+Hindi books stay as source text only.
 
 Quiz ids: single-book classes use `c<class>-<NN>` (e.g. `c6-01`); classes with
 several books pass a book key to `chapter(..., { key, short })` in

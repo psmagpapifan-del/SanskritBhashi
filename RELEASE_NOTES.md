@@ -6,6 +6,11 @@ This file tracks all bug fixes, improvements, and features implemented across ap
 
 ## [Unreleased] - 2026-11-18
 
+### NCERT School Prep: Class 12 भास्वती and शाश्वती quizzes — Classes 6–12 complete (2026-11-19)
+- **NCERT Content [Feature]:** `src/lib/ncert/class12.ts`, `src/lib/ncertContent.ts` — all 21 lessons of the two Class 12 readers (169 questions): भास्वती द्वितीयो भागः (core; Taittirīya अनुशासनम्, Bhāsa's प्रतिमा, Raghuvaṃśa canto 1, शिवराजविजयः, सूक्ति-सौरभम्, भोजप्रबन्धः, हल्दीघाटी, मदालसा, Gītā 16, काव्यमीमांसा) and शाश्वती द्वितीयो भागः (elective; Īśāvāsya Upaniṣad, Raghu and Kautsa, उत्तररामचरितम्, Gītā 2–3, शुकनासोपदेशः, सूक्तिसुधा, सिंहासनद्वात्रिंशिका, शिवराजविजयः, दीनबन्धुः श्रीनायारः, Yoga Sūtras, Mahābhāṣya). School Prep now has a Class 12 tab; ids are `c12-bhaswati-NN` and `c12-shashvati-NN`.
+- **Coverage:** every main NCERT Sanskrit reader from Class 6 to 12 now has chapter quizzes — 105 lessons, 867 questions.
+- **School Prep Page [UI]:** `src/pages/[lang]/modules/school-prep.astro` — text and structured data updated for Classes 6–12; the "coming next" notes are removed.
+
 ### NCERT School Prep: Class 11 भास्वती and शाश्वती quizzes (2026-11-19)
 - **NCERT Content [Feature]:** `src/lib/ncert/class11.ts`, `src/lib/ncertContent.ts` — all 22 lessons of the two Class 11 readers (181 questions): भास्वती प्रथमो भागः (core; Rāmāyaṇa on governance, Cāṇakya, Caraka's ऋतुचर्या, Śākuntalam, Kādambarī, सत्याग्रहगीता, Subbaṇṇa, भारतविजयनाटकम्, Keśavacandra Dāśa, Gītā 12, Pāṇinīya Śikṣā) and शाश्वती प्रथमो भागः (elective; Vedic mantras, Jātakamālā, Vidurā, मृच्छकटिकम्, Caraka on diet, Aurobindo's भवानी भारती, विज्ञाननौका, कन्थामाणिक्यम्, Tagore's Gītāñjali, Gītā 17, तर्कसंग्रहः). School Prep now has a Class 11 tab; ids are `c11-bhaswati-NN` and `c11-shashvati-NN`.
 - **Source Text [Bug Fix]:** `scripts/krutidev_to_unicode.py`, `content/ncert_text/` — fixed more legacy-font glyphs (क्र, ह्व, ह्र, द्भ and reph over क), so the Class 10–12 text now reads e.g. उत्क्रान्त, जिह्वा, ह्रस्व, अद्भुत, तर्क. Covered by `tests/unit/krutidev.test.ts`.

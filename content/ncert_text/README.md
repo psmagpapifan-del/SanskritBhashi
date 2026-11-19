@@ -16,8 +16,8 @@ legacy Kruti Dev font are converted with `scripts/krutidev_to_unicode.py`.
 | `class6/` | दीपकम् (Class 6) | 16 | Sanskrit | ✅ 16 lessons, 130 questions |
 | `class7/` | दीपकम् (Class 7) | 12 + 3 appendices | Sanskrit | ✅ 12 lessons, 98 questions |
 | `class8/` | दीपकम् (Class 8) | 13 + 3 appendices | Sanskrit | ✅ 13 lessons, 110 questions |
-| `class9/sharada/` | शारदा (Class 9) | 11 + 5 appendices | Sanskrit | ⏳ next |
-| `class10/shemushi/` | शेमुषी द्वितीयो भागः | 10 | Sanskrit (Kruti Dev) | ⏳ |
+| `class9/sharada/` | शारदा (Class 9) | 11 + 5 appendices | Sanskrit | ✅ 11 lessons, 92 questions |
+| `class10/shemushi/` | शेमुषी द्वितीयो भागः | 10 | Sanskrit (Kruti Dev) | ⏳ next |
 | `class10/abhyasavan-bhava/` | अभ्यासवान् भव (writing & grammar practice) | 14 | Sanskrit | — not planned |
 | `class9-10/vyakaranavithi/` | व्याकरणवीथिः (grammar, Classes 9–10) | 12 | Hindi | — not planned |
 | `class11/bhaswati/` | भास्वती प्रथमो भागः (core) | 11 | Sanskrit (Kruti Dev) | ⏳ |

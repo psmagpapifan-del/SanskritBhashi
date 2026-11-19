@@ -6,6 +6,11 @@ This file tracks all bug fixes, improvements, and features implemented across ap
 
 ## [Unreleased] - 2026-11-18
 
+### NCERT School Prep: Class 9 शारदा quizzes and Classes 9–12 source text (2026-11-19)
+- **NCERT Content [Feature]:** `src/lib/ncert/class9.ts`, `src/lib/ncertContent.ts` — all 11 lessons of the NCERT शारदा textbook for Class 9 (92 questions, 8–9 per lesson): the Sanskrit song, Kauṭilya on wealth and financial literacy, Nāmadeva, Khudirām Bose, artificial intelligence, subhāṣitas, Dharmabuddhi and Pāpabuddhi, Bhṛgu–Varuṇa (five kośas), एकचक्रम्, Ṛṣabhadeva, and वर्णोच्चारण-शिक्षा. School Prep now has a Class 9 tab.
+- **Source Text [Feature]:** `scripts/krutidev_to_unicode.py` (new), `scripts/extract_ncert_text.py`, `content/ncert_text/` — the Class 10–12 readers (शेमुषी, भास्वती, शाश्वती) use the legacy Kruti Dev font; a converter (unit-tested in `tests/unit/krutidev.test.ts`) turns them into Unicode. All Class 9–12 books are extracted, and Classes 6–8 are re-extracted with `pdftotext -raw`, which keeps conjuncts in order.
+- **School Prep Page [UI]:** `src/pages/[lang]/modules/school-prep.astro` — text and structured data updated for Class 9; the chapter list shows each class's book name. `src/lib/ncert/build.ts` supports several books per class (ids like `c10-shemushi-01`).
+
 ### NCERT School Prep rebuilt: Class 6–8 दीपकम् quizzes (2026-11-19)
 - **NCERT Content [Feature]:** `src/lib/ncertContent.ts`, `src/lib/ncert/class6.ts`, `class7.ts`, `class8.ts`, `src/lib/ncert/build.ts` — every lesson of the 2025 NCERT दीपकम् textbooks for Classes 6–8: 41 lessons, 338 questions (7–9 per lesson) written from the chapter text, covering meaning, grammar, sandhi, numbers, vocabulary and comprehension, each with a hint and an explanation. Structural checks in `tests/unit/ncertContent.test.ts`.
 - **Source Text [Feature]:** `scripts/extract_ncert_text.py`, `content/ncert_text/` — chapter text extracted from the NCERT PDFs (the PDFs stay on the `feat/adsense-learning-hub` branch to keep `main` small).

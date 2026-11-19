@@ -17,6 +17,9 @@ export interface Q {
  * @param book     textbook name, e.g. "दीपकम्"
  * @param title    lesson title in Devanagari, as printed
  * @param summary  one-line English summary of the lesson
+ * @param opts.key   short book key for classes with several books, e.g. "shemushi";
+ *                   the id becomes c10-shemushi-01 instead of c10-01
+ * @param opts.short label for the topic list, e.g. "शेमुषी" → "शेमुषी · Lesson 1"
  */
 export function chapter(
   cls: number,
@@ -24,14 +27,16 @@ export function chapter(
   book: string,
   title: string,
   summary: string,
-  questions: Q[]
+  questions: Q[],
+  opts: { key?: string; short?: string } = {}
 ): QuizTopic {
-  const id = `c${cls}-${String(lesson).padStart(2, "0")}`;
+  const nn = String(lesson).padStart(2, "0");
+  const id = opts.key ? `c${cls}-${opts.key}-${nn}` : `c${cls}-${nn}`;
   return {
     id,
     group: `Class ${cls}`,
     text: `Class ${cls} · ${book} · Lesson ${lesson}`,
-    short: `Lesson ${lesson}`,
+    short: opts.key ? `${opts.short ?? book} · Lesson ${lesson}` : `Lesson ${lesson}`,
     title,
     summary,
     questions: questions.map(

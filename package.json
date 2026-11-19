@@ -24,7 +24,8 @@
     "deploy:all": "node scripts/deploy.js all",
     "deploy:native": "node scripts/deploy.js native",
     "deploy": "node scripts/deploy.js all",
-    "postinstall": "node scripts/postinstall.js"
+    "postinstall": "node scripts/postinstall.js",
+    "test:unit": "node --experimental-strip-types --test tests/unit/*.test.ts"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^13.6.1",

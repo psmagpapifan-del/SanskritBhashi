@@ -108,3 +108,44 @@ test.describe("Shastra Study quiz", () => {
     await expect(page.locator('[data-topic="yoga-sutra"] [aria-label="Passed"]')).toBeVisible();
   });
 });
+
+test.describe("Shastra Study transliteration", () => {
+  const setScript = async (page: Page, script: string) => {
+    await page.evaluate((v) => {
+      localStorage.setItem("transliteration_target", v);
+      window.dispatchEvent(new Event("transliterationChange"));
+    }, script);
+  };
+
+  test("SQ-06: options and verse follow the Transliteration Script setting live", async ({ page }) => {
+    await page.goto("/");
+    await page.evaluate(() => {
+      localStorage.clear();
+      localStorage.setItem("tour_completed", "true");
+      localStorage.setItem("cookie-consent", "declined");
+    });
+    await page.goto("/en/modules/shastra-study?topic=gita-karma-yoga");
+    const options = page.getByTestId("quiz-option");
+    const verse = page.getByTestId("quiz-verse");
+    await expect(verse).toContainText("कर्मण्येवाधिकारस्ते");
+
+    // Find a question with Sanskrit options: Q3 asks for the missing word (योगः).
+    for (let i = 0; i < 2; i++) {
+      await right(page).click();
+      await next(page).click();
+    }
+    await expect(options.filter({ hasText: "yogaḥ" })).toHaveCount(1);
+
+    await setScript(page, "devanagari");
+    await expect(options.filter({ hasText: "योगः" })).toHaveCount(1);
+    await expect(options.filter({ hasText: "yogaḥ" })).toHaveCount(0);
+    await expect(page.getByTestId("quiz-verse-translit")).toHaveCount(0);
+
+    await setScript(page, "japanese");
+    await expect(options.filter({ hasText: "ヨーガハ" })).toHaveCount(1);
+    await expect(page.getByTestId("quiz-verse-translit")).toContainText("ー");
+
+    await setScript(page, "french");
+    await expect(options.filter({ hasText: "yogah" })).toHaveCount(1);
+  });
+});

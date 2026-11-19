@@ -6,6 +6,13 @@ This file tracks all bug fixes, improvements, and features implemented across ap
 
 ## [Unreleased] - 2026-11-18
 
+### Shastra Study rebuilt: new quiz engine and topic-based content (2026-11-19)
+- **Quiz Engine [Feature]:** `src/lib/quizEngine.ts` — framework-free engine with Practice mode (instant feedback, hints, retries; only the first attempt is scored; missed questions return in a review round) and Exam mode (one attempt, no hints, shuffled questions and options, pass at 80%). Leitner spaced repetition (boxes 1–5, 1/3/7/16/35-day intervals) puts due questions first. Covered by 10 unit tests (`npm run test:unit`).
+- **Shastra Content [Feature]:** `src/lib/shastraContent.ts` — 9 topics, 72 questions across the Bhagavad Gītā (Karma Yoga, Ātman, Avatāra and Devotion), Upaniṣads (Mahāvākyas, famous verses), Yoga Sūtras, Vālmīki Rāmāyaṇa, Subhāṣitas and Vedic mantras; question types cover meaning, grammar, sandhi, fill-in-the-verse, source and concept, each with a hint and an explanation.
+- **Shastra Study Page [Bug Fix / UI]:** `src/pages/[lang]/modules/shastra-study.astro`, `src/components/ShastraQuiz.tsx` — replaced the 30 "expert" chapters (which repeated the same template questions and were locked behind two gateway tests, so new visitors could not use the module) with an open, topic-based quiz showing mastery, due reviews and exam trophies. Progress is saved under `sb_shastra_v1` (native-hydrated via `capacitorBridge.ts`). Page size dropped from 1.26 MB to 72 KB.
+- **Tests [Feature]:** `tests/shastra-quiz.spec.ts` — practice, review round, exam pass/fail and persistence flows; full suite 191/191.
+- **OTA App Update [Feature]:** `public/updates/` — rebuilt bundle so installed apps receive the new Shastra Study.
+
 ### Learning Hub expansion & test suite fixes (2026-11-18)
 - **Six New Articles [Feature]:** `src/components/articles/` and `src/pages/[lang]/learn/` — Samāsa (compounds), verb Lakāras, reading and writing Devanāgarī, Pratyaya suffixes, Chandas (metre, with a Gita 2.47 scansion) and numbers and time, each in English, Hindi, Japanese and Spanish (24 new pages; sitemap now 78 URLs).
 - **Shared Article Template [Feature]:** `src/components/ArticlePage.astro`, `src/lib/learnArticles.ts`, `src/components/articles/Table.astro` — new articles only need metadata and a body; the Learning Hub index lists them automatically.

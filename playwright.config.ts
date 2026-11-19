@@ -2,6 +2,8 @@ import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
   testDir: "./tests",
+  // Unit tests in tests/unit run under node:test (npm run test:unit), not Playwright.
+  testIgnore: ["unit/**"],
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: 0,

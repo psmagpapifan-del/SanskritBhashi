@@ -140,7 +140,7 @@ export async function hapticImpact(style: HapticStyle = 'light'): Promise<void> 
 const _prefCache = new Map<string, string>();
 let _cacheHydrated = false;
 
-const KNOWN_PREF_KEYS = ['sb_progress'];
+const KNOWN_PREF_KEYS = ['sb_progress', 'sb_shastra_v1'];
 
 /**
  * Hydrates the in-memory cache from native storage on first load.

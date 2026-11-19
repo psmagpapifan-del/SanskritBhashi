@@ -5,5 +5,6 @@
  */
 import type { QuizTopic } from "./quizContent.ts";
 import { class6 } from "./ncert/class6.ts";
+import { class7 } from "./ncert/class7.ts";
 
-export const ncertChapters: QuizTopic[] = [...class6];
+export const ncertChapters: QuizTopic[] = [...class6, ...class7];

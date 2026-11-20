@@ -192,17 +192,28 @@ test.describe("Functional Testing", () => {
         timeout: 5000,
       });
 
-      // Step through all 8 steps. Step 6 -> 7 navigates to School Prep and the tour
+      // Step through all 9 steps. Step 7 -> 8 navigates to School Prep and the tour
       // re-appears after a short delay, so wait for each step counter explicitly.
-      for (let step = 1; step < 8; step++) {
-        await expect(page.getByText(`(${step} of 8)`)).toBeVisible({ timeout: 10000 });
+      for (let step = 1; step < 9; step++) {
+        await expect(page.getByText(`(${step} of 9)`)).toBeVisible({ timeout: 10000 });
         // The tour has its own Next button; School Prep's quiz has another.
         await page.getByTestId("tour-next").click();
       }
-      await expect(page.getByText("(8 of 8)")).toBeVisible({ timeout: 10000 });
+      await expect(page.getByText("(9 of 9)")).toBeVisible({ timeout: 10000 });
 
       // Last step should show "Get Started"
       await expect(page.locator('button:has-text("Get Started")')).toBeVisible();
+    });
+
+    test("FN-12b: Tour speaks the page language and includes Gita for Students", async ({ page }) => {
+      await page.evaluate(() => localStorage.removeItem("tour_completed"));
+      await page.goto("/hi");
+      await expect(page.getByText("संस्कृतभाषी में आपका स्वागत है")).toBeVisible({ timeout: 5000 });
+      await expect(page.getByText("(9 में से 1)")).toBeVisible();
+      for (let i = 0; i < 4; i++) await page.getByTestId("tour-next").click();
+      await expect(page.locator("h3", { hasText: "विद्यार्थियों के लिए गीता" })).toBeVisible();
+      await page.locator('button:has-text("भ्रमण छोड़ें")').click();
+      expect(await page.evaluate(() => localStorage.getItem("tour_completed"))).toBe("true");
     });
 
     test("FN-13: FAQ accordion toggles open and closed", async ({ page }) => {

@@ -1,68 +1,14 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { HelpCircle, ChevronRight, ChevronLeft, X, Award } from "lucide-react";
 
-interface TourStep {
-  title: string;
-  description: string;
-  targetId: string;
-  position: "center" | "bottom-right" | "top-right" | "bottom-left" | "top-left" | "relative";
-}
-
-const tourSteps: TourStep[] = [
-  {
-    title: "Welcome to Sanskritbhashi! 🕉️",
-    description: "Welcome to the world's most advanced, Generative Engine Optimized (GEO) Sanskrit learning platform. Let's take a quick 8-step tour of your learning tools.",
-    targetId: "",
-    position: "center"
-  },
-  {
-    title: "Dual-Track Navigation",
-    description: "Access all core sections of the platform. On mobile, this shifts to a clean, thumbs-reach bottom bar. On desktop, it is a sleek sticky sidebar.",
-    targetId: "tour-step-2",
-    position: "relative"
-  },
-  {
-    title: "School Prep Module (Class 6-12)",
-    description: "Access NCERT-aligned study guides, grammar cheat sheets (Sandhi, Karak, Vibhakti), and test cards with strict source attributions.",
-    targetId: "tour-step-3",
-    position: "relative"
-  },
-  {
-    title: "Shastra Study Module",
-    description: "Explore the depths of Bhagavad Gita and Srimad Bhagavatam. Learn word-by-word grammar, Devanagari pronunciation, and spiritual contexts.",
-    targetId: "tour-step-4",
-    position: "relative"
-  },
-  {
-    title: "Keep the Streak Flame Burning! 🔥",
-    description: "Track your daily learning progress. Solve at least one practice card every 24 hours to grow your streak and build a solid study habit.",
-    targetId: "tour-step-5",
-    position: "relative"
-  },
-  {
-    title: "Global Languages & Transliterations",
-    description: "Toggle the platform's UI language (English, Hindi, Japanese, Spanish) and translate the Sanskrit transliterations into your local script.",
-    targetId: "tour-step-6",
-    position: "relative"
-  },
-  {
-    title: "Practice & Exam Quizzes",
-    description: "Answer chapter questions from your NCERT textbook. Practice mode gives hints and brings back what you missed; Exam mode is one try per question, pass at 80%.",
-    targetId: "tour-step-7",
-    position: "relative"
-  },
-  {
-    title: "AI & LLM-Optimized FAQs",
-    description: "Read our comprehensive FAQ. Structured with high semantic density, this section is engineered for crawlers to cite and quote directly.",
-    targetId: "tour-step-8",
-    position: "relative"
-  }
-];
+import { langFromPath, tourText, type TourText } from "../lib/tourText";
 
 export default function OnboardingTour() {
+  // Tour text follows the page language (read once on the client; this island is client:only).
+  const [text] = useState<TourText>(() => tourText(typeof window === "undefined" ? "en" : langFromPath(window.location.pathname)));
+  const tourSteps = text.steps;
   const [isVisible, setIsVisible] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [targetRect, setTargetRect] = useState<DOMRect | null>(null);
@@ -209,10 +155,10 @@ export default function OnboardingTour() {
       <button
         onClick={restartTour}
         className="fixed bottom-20 right-4 md:bottom-6 md:right-6 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-charcoal dark:bg-zinc-800 text-white hover:bg-brand-600 transition-colors shadow-lg z-40 text-xs font-semibold cursor-pointer border border-white/20"
-        title="Restart Guided Tour"
+        title={text.reopenTitle}
       >
         <HelpCircle className="w-4 h-4 text-accent-500" />
-        <span>Tour Guide</span>
+        <span>{text.reopen}</span>
       </button>
     );
   }
@@ -243,24 +189,19 @@ export default function OnboardingTour() {
 
       {/* Modal Container */}
       <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 pointer-events-none">
-        <AnimatePresence mode="wait">
-          <motion.div
+          <div
             key={currentStep}
-            initial={{ opacity: 0, scale: 0.95, y: 15 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: -15 }}
-            transition={{ duration: 0.25 }}
-            className="pointer-events-auto bg-white dark:bg-zinc-900 border-2 border-brand-500 rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl relative"
+            className="pointer-events-auto bg-white dark:bg-zinc-900 border-2 border-brand-500 rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl relative animate-pop-in"
           >
           {/* Header */}
           <div className="flex justify-between items-start mb-4">
             <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-brand-50 text-brand-600 text-xs font-bold uppercase tracking-wider">
-              <Award className="w-3.5 h-3.5" /> Onboarding ({currentStep + 1} of 8)
+              <Award className="w-3.5 h-3.5" /> {text.counter(currentStep + 1, tourSteps.length)}
             </span>
             <button
               onClick={completeTour}
               className="text-charcoal/70 hover:text-charcoal transition-colors cursor-pointer p-1"
-              aria-label="Skip Tour"
+              aria-label={text.skip}
             >
               <X className="w-5 h-5" />
             </button>
@@ -280,13 +221,14 @@ export default function OnboardingTour() {
               onClick={completeTour}
               className="text-xs font-semibold text-charcoal/70 hover:text-charcoal transition-colors cursor-pointer"
             >
-              Skip Tour
+              {text.skip}
             </button>
 
             <div className="flex items-center gap-2">
               {currentStep > 0 && (
                 <button
                   onClick={handlePrev}
+                  aria-label={text.back}
                   className="flex items-center justify-center w-8 h-8 rounded-full border border-charcoal/10 hover:bg-brand-50 text-charcoal transition-colors cursor-pointer"
                 >
                   <ChevronLeft className="w-4 h-4" />
@@ -298,7 +240,7 @@ export default function OnboardingTour() {
                 data-testid="tour-next"
                 className="flex items-center gap-1 px-4 py-2 rounded-full bg-brand-500 text-on-brand font-bold text-sm hover:brightness-110 transition-colors shadow-md shadow-brand-500/20 cursor-pointer"
               >
-                <span>{currentStep === tourSteps.length - 1 ? "Get Started" : "Next"}</span>
+                <span>{currentStep === tourSteps.length - 1 ? text.finish : text.next}</span>
                 <ChevronRight className="w-4 h-4" />
               </button>
             </div>
@@ -315,8 +257,7 @@ export default function OnboardingTour() {
               />
             ))}
           </div>
-        </motion.div>
-      </AnimatePresence>
+        </div>
     </div>
     </>
   );

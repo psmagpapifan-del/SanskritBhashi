@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 import { Flame } from "lucide-react";
 
 export default function StreakCounter() {
@@ -76,27 +75,12 @@ export default function StreakCounter() {
     >
       <div className="relative flex items-center justify-center">
         {isActive && (
-          <motion.div
-            animate={{ scale: [0.8, 1.3, 0.8], opacity: [0.2, 0.5, 0.2] }}
-            transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute inset-0 w-4 h-4 m-auto bg-brand-500 rounded-full blur-[6px] z-0"
-          />
+          <div className="absolute inset-0 w-4 h-4 m-auto bg-brand-500 rounded-full blur-[6px] z-0 animate-flame-glow" />
         )}
         {isActive ? (
-          <motion.div
-            animate={{
-              scale: [1, 1.08, 0.95, 1.05, 1],
-              rotate: [0, -4, 3, -2, 0],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-            className="relative z-10"
-          >
+          <div className="relative z-10 animate-flame-flicker">
             <Flame className="w-5 h-5 fill-brand-500 stroke-brand-600 drop-shadow-[0_1px_2px_rgba(230,81,0,0.5)]" />
-          </motion.div>
+          </div>
         ) : (
           <Flame className="w-5 h-5 opacity-40 relative z-10" />
         )}

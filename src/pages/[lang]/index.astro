@@ -52,6 +52,16 @@ const orgSchema = {
   ]
 };
 
+// WebSite schema: lets Google show the site name ("Sanskritbhashi") instead of the domain in results.
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Sanskritbhashi",
+  "alternateName": ["संस्कृतभाषी", "Sanskrit Bhashi"],
+  "url": `https://sanskritbhashi.com/${lang}`,
+  "inLanguage": lang,
+};
+
 const schoolCourseSchema = {
   "@context": "https://schema.org",
   "@type": "Course",
@@ -80,6 +90,7 @@ const faqSchema = {
 
 <Layout lang={lang} title={meta.title} description={meta.desc}>
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(orgSchema)} />
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(websiteSchema)} />
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(schoolCourseSchema)} />
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(faqSchema)} />
 

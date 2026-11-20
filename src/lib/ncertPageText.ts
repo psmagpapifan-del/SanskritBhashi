@@ -24,8 +24,8 @@ const TEXT: Record<Lang, PageText> = {
     allClasses: "All classes",
     classNav: "NCERT classes",
     chaptersHeading: (n) => `Class ${n} lessons`,
-    title: (n, b) => `NCERT Sanskrit Class ${n} (${b}) — chapter-wise quiz and practice`,
-    desc: (n, b, l, q) => `Practise every lesson of the NCERT Sanskrit textbook ${b} for Class ${n}: ${l} lessons, ${q} questions with hints, explanations, exam mode and spaced review.`,
+    title: (n, b) => `NCERT Sanskrit Class ${n} Quiz (${b})`,
+    desc: (n, b, l, q) => `Practise every lesson of NCERT Sanskrit ${b}, Class ${n}: ${l} lessons, ${q} questions with hints, explanations, exam mode and review.`,
   },
   hi: {
     classLabel: (n) => `कक्षा ${n}`,
@@ -36,8 +36,8 @@ const TEXT: Record<Lang, PageText> = {
     allClasses: "सभी कक्षाएँ",
     classNav: "एनसीईआरटी कक्षाएँ",
     chaptersHeading: (n) => `कक्षा ${n} के पाठ`,
-    title: (n, b) => `एनसीईआरटी संस्कृत कक्षा ${n} (${b}) — पाठ-अनुसार प्रश्नोत्तरी और अभ्यास`,
-    desc: (n, b, l, q) => `कक्षा ${n} की एनसीईआरटी संस्कृत पाठ्यपुस्तक ${b} के हर पाठ का अभ्यास करें: ${l} पाठ, ${q} प्रश्न — संकेत, व्याख्या, परीक्षा मोड और अंतराल-पुनरावृत्ति के साथ।`,
+    title: (n, b) => `एनसीईआरटी संस्कृत कक्षा ${n} प्रश्नोत्तरी (${b})`,
+    desc: (n, b, l, q) => `कक्षा ${n} की एनसीईआरटी संस्कृत ${b} के हर पाठ का अभ्यास: ${l} पाठ, ${q} प्रश्न — संकेत, व्याख्या, परीक्षा मोड और पुनरावृत्ति।`,
   },
   ja: {
     classLabel: (n) => `${n}年生`,
@@ -48,7 +48,7 @@ const TEXT: Record<Lang, PageText> = {
     allClasses: "すべての学年",
     classNav: "NCERT の学年",
     chaptersHeading: (n) => `${n}年生の課`,
-    title: (n, b) => `NCERT サンスクリット ${n}年生（${b}）— 章ごとのクイズと練習`,
+    title: (n, b) => `NCERT サンスクリット ${n}年生クイズ（${b}）`,
     desc: (n, b, l, q) => `${n}年生の NCERT サンスクリット教科書『${b}』の全課を練習：${l}課・${q}問。ヒント、解説、試験モード、間隔反復による復習付き。`,
   },
   es: {
@@ -60,8 +60,8 @@ const TEXT: Record<Lang, PageText> = {
     allClasses: "Todas las clases",
     classNav: "Clases NCERT",
     chaptersHeading: (n) => `Lecciones de la Clase ${n}`,
-    title: (n, b) => `Sánscrito NCERT Clase ${n} (${b}): cuestionarios y práctica por capítulos`,
-    desc: (n, b, l, q) => `Practique cada lección del libro de sánscrito NCERT ${b} para la Clase ${n}: ${l} lecciones y ${q} preguntas con pistas, explicaciones, modo examen y repaso espaciado.`,
+    title: (n, b) => `Sánscrito NCERT Clase ${n}: cuestionarios (${b})`,
+    desc: (n, b, l, q) => `Practique cada lección de sánscrito NCERT ${b}, Clase ${n}: ${l} lecciones y ${q} preguntas con pistas, explicaciones, modo examen y repaso.`,
   },
 };
 

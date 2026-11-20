@@ -6,6 +6,14 @@ This file tracks all bug fixes, improvements, and features implemented across ap
 
 ## [Unreleased] - 2026-11-18
 
+### SEO: social previews, breadcrumbs, AI-search files, IndexNow (2026-11-20)
+- **Feature [SEO]:** `src/layouts/Layout.astro` — every page now has Open Graph and Twitter card tags (title, description, canonical URL, locale and alternates, `og:type` article for Learn Hub articles) with a 1200×630 share image per section (`public/og/*.png`, made by `npm run og:images` from the theme tokens). Shared links on WhatsApp, X, Facebook and LinkedIn now show a card.
+- **Feature [SEO]:** `Layout.astro` emits a BreadcrumbList for every inner page, derived from the URL (Home › Learn Hub › Article, Home › School Prep › Class). Home gets WebSite schema, so Google shows the site name.
+- **SEO:** shorter NCERT class page titles and descriptions (`src/lib/ncertPageText.ts`); Contact has a description in each language; the FAQs page has a descriptive title.
+- **Feature [AI search]:** `public/robots.txt` allows AI search/answer bots (OAI-SearchBot, ChatGPT-User, Claude-SearchBot, Claude-User, PerplexityBot) and blocks model-training crawlers (GPTBot, ClaudeBot, Google-Extended, Applebot-Extended, CCBot, Bytespider, meta-externalagent). New build-time `/llms.txt` (`src/pages/llms.txt.ts`) maps every class and article for AI assistants.
+- **Tooling:** IndexNow key file and `npm run seo:indexnow` (`scripts/indexnow.mjs`) notify Bing and its partners after a deploy.
+- **Tests:** new `tests/seo.spec.ts` (preview tags and image size, breadcrumbs, WebSite schema, title lengths, robots rules, llms.txt coverage, IndexNow key).
+
 ### Design tokens: re-theme the whole app from one file (2026-11-20)
 - **UI [Design system]:** `src/styles/globals.css` and all components — colour tokens renamed from `saffron-*` / `marigold-*` to semantic `brand-*` / `accent-*`. New `on-brand` token for text on brand fills. Fixed three classes that pointed at non-existent shades (`saffron-55/105/755`). Confetti, the streak glow and the ad frame now read the tokens instead of hard-coded hex values. No visual change (all visual baselines unchanged).
 - **Tooling:** `scripts/theme-check.mjs` (`npm run theme:check`, also run by `tests/unit/theme.test.ts`) checks every colour pair the UI uses against WCAG AA, and checks that the browser theme colour matches the brand.

@@ -46,7 +46,7 @@ npx playwright test -c playwright.tmp.config.ts --project=chromium --trace off <
 | Quiz data / engine / transliteration | `test:unit` + `sanskritbhashi.spec.ts shastra-quiz.spec.ts` |
 | Colours, layout, any visual change | `accessibility.spec.ts ui-visual.spec.ts` (update baselines with `--update-snapshots -g "<name>"` **after** checking the diff image) |
 | Routes, links, deep links | `sanskritbhashi.spec.ts functional.spec.ts content.spec.ts` + `test:unit` |
-| Head / SEO / headers | `security.spec.ts content.spec.ts sanskritbhashi.spec.ts` |
+| Head / SEO / headers / robots / llms.txt | `seo.spec.ts security.spec.ts content.spec.ts sanskritbhashi.spec.ts` |
 | Big refactor or release candidate | everything |
 
 `accessibility.spec.ts` enforces WCAG AA (including colour contrast) on 9 pages × 4 locales, dark mode, quiz

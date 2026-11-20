@@ -15,9 +15,16 @@ export function getStaticPaths() {
 
 const { lang } = Astro.params;
 const t = getTranslation(lang);
+const CONTACT_DESC: Record<string, string> = {
+  en: "Contact the Sanskritbhashi team for questions, content corrections, partnership enquiries, or feedback about our Sanskrit learning resources.",
+  hi: "प्रश्न, सामग्री सुधार, साझेदारी या हमारे संस्कृत अध्ययन संसाधनों पर सुझाव के लिए संस्कृतभाषी टीम से संपर्क करें।",
+  ja: "ご質問、内容の訂正、提携のご相談、サンスクリット学習教材へのご意見は、サンスクリットバーシー・チームまでお寄せください。",
+  es: "Contacte con el equipo de Sanskritbhashi para preguntas, correcciones de contenido, colaboraciones o comentarios sobre nuestros recursos para aprender sánscrito.",
+};
+const contactDesc = CONTACT_DESC[lang] ?? CONTACT_DESC.en;
 ---
 
-<Layout lang={lang} title={`${t.nav.contact} | Sanskritbhashi`} description="Contact the Sanskritbhashi team for questions, content corrections, partnership enquiries, or feedback about our Sanskrit learning resources." showAds={false}>
+<Layout lang={lang} title={`${t.nav.contact} | Sanskritbhashi`} description={contactDesc} showAds={false}>
   {/* Header Banner */}
   <section class="bg-linear-to-r from-brand-500 to-accent-500 rounded-3xl p-6 md:p-8 text-on-brand mb-8 shadow-md">
     <div class="flex items-center gap-3 mb-2">

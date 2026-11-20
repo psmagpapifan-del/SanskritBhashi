@@ -29,9 +29,16 @@ const faqPageSchema = {
     }
   }))
 };
+const FAQ_TITLE: Record<string, string> = {
+  en: "Sanskrit FAQs: Grammar, Gita and NCERT",
+  hi: "संस्कृत: अक्सर पूछे जाने वाले प्रश्न",
+  ja: "サンスクリットのよくある質問",
+  es: "Preguntas frecuentes sobre el sánscrito",
+};
+const faqTitle = FAQ_TITLE[lang] ?? FAQ_TITLE.en;
 ---
 
-<Layout lang={lang} title={`${t.nav.faqs} | Sanskritbhashi`} description={t.faqs.desc}>
+<Layout lang={lang} title={`${faqTitle} | Sanskritbhashi`} description={t.faqs.desc}>
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(faqPageSchema)} />
 
   {/* Header Banner */}

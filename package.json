@@ -27,7 +27,8 @@
     "postinstall": "node scripts/postinstall.js",
     "test:unit": "node --experimental-strip-types --test tests/unit/*.test.ts",
     "theme:check": "node scripts/theme-check.mjs",
-    "og:images": "node scripts/generate-og-images.cjs"
+    "og:images": "node scripts/generate-og-images.cjs",
+    "seo:indexnow": "node scripts/indexnow.mjs"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^13.6.1",

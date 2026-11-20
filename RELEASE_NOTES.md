@@ -6,6 +6,14 @@ This file tracks all bug fixes, improvements, and features implemented across ap
 
 ## [Unreleased] - 2026-11-18
 
+### Feature: Gita for Students, adhyayas 7–9 (2026-11-20)
+- **Content:** `src/lib/gita/adhyaya7.ts`, `adhyaya8.ts`, `adhyaya9.ts` — 20 more shlokas in English and Hindi, each with word meanings, a school-life situation, a reflection question and 2 quiz questions:
+  - Adhyaya 7: 7.7, 7.8 (Classes 6–8); 7.3, 7.16 (9–10); 7.4, 7.11, 7.19 (11–12).
+  - Adhyaya 8: 8.7 (6–8); 8.6, 8.13 (9–10); 8.3, 8.5, 8.15 (11–12). The chapter's verses on death go to the older levels only.
+  - Adhyaya 9: 9.26, 9.27 (6–8); 9.22, 9.29 (9–10); 9.30, 9.31, 9.34 (11–12).
+- **Feature:** `src/components/gita/Adhyaya7–9Study.tsx` — study pages for Adhyayas 7–9, linked from the hub, sitemap and `llms.txt`.
+- **Tests:** Gita e2e and content tests cover all nine adhyayas.
+
 ### Feature: Gita for Students, adhyayas 4–6 (2026-11-20)
 - **Content:** `src/lib/gita/adhyaya4.ts`, `adhyaya5.ts`, `adhyaya6.ts` — 21 more shlokas in English and Hindi, each with word meanings, a school-life situation, a reflection question and 2 quiz questions:
   - Adhyaya 4: 4.7, 4.8 (Classes 6–8); 4.24, 4.34, 4.39 (9–10); 4.18, 4.38, 4.40 (11–12).

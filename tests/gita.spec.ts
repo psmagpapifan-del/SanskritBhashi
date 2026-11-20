@@ -10,10 +10,10 @@ test.describe("Gita for Students", () => {
     });
   });
 
-  test("GITA-01: hub lists 18 adhyayas with 1–6 linked and levels", async ({ page }) => {
+  test("GITA-01: hub lists 18 adhyayas with 1–9 linked and levels", async ({ page }) => {
     await page.goto("/en/modules/gita");
     await expect(page.locator("h1")).toHaveText("Gita for Students");
-    await expect(page.locator("[data-adhyaya-link]")).toHaveCount(6);
+    await expect(page.locator("[data-adhyaya-link]")).toHaveCount(9);
     await expect(page.locator("#gita-adhyayas + ol > li")).toHaveCount(18);
     await expect(page.locator("[data-level-link]")).toHaveCount(3);
     await page.locator('[data-adhyaya-link="2"]').click();
@@ -82,9 +82,9 @@ test.describe("Gita for Students", () => {
   });
 });
 
-test.describe("Gita for Students: Adhyayas 4–6", () => {
-  for (const [n, l1] of [[4, ["4.7", "4.8"]], [5, ["5.10", "5.29"]], [6, ["6.5", "6.17"]]] as const) {
-    test(`GITA-1${n}: Adhyaya ${n} loads with its Classes 6–8 shlokas and a working quiz`, async ({ page }) => {
+test.describe("Gita for Students: Adhyayas 4–9", () => {
+  for (const [n, l1] of [[4, ["4.7", "4.8"]], [5, ["5.10", "5.29"]], [6, ["6.5", "6.17"]], [7, ["7.7", "7.8"]], [8, ["8.7"]], [9, ["9.26", "9.27"]]] as const) {
+    test(`GITA-A${n}: Adhyaya ${n} loads with its Classes 6–8 shlokas and a working quiz`, async ({ page }) => {
       await page.goto("/en");
       await page.evaluate(() => { localStorage.setItem("tour_completed", "true"); localStorage.setItem("cookie-consent", "declined"); localStorage.removeItem("sb_gita_level"); });
       await page.goto(`/en/modules/gita/adhyaya-${n}`);
@@ -95,9 +95,9 @@ test.describe("Gita for Students: Adhyayas 4–6", () => {
     });
   }
 
-  test("GITA-17: Adhyaya 6 links back to 5 and has no next link", async ({ page }) => {
-    await page.goto("/hi/modules/gita/adhyaya-6");
-    await expect(page.getByRole("link", { name: /पिछला अध्याय/ })).toHaveAttribute("href", "/hi/modules/gita/adhyaya-5");
+  test("GITA-17: Adhyaya 9 links back to 8 and has no next link", async ({ page }) => {
+    await page.goto("/hi/modules/gita/adhyaya-9");
+    await expect(page.getByRole("link", { name: /पिछला अध्याय/ })).toHaveAttribute("href", "/hi/modules/gita/adhyaya-8");
     await expect(page.getByRole("link", { name: /अगला अध्याय/ })).toHaveCount(0);
   });
 });

@@ -1,5 +1,5 @@
 ---
-import { Home, GraduationCap, BookMarked, BookOpen, Info, HelpCircle, ChevronLeft, Menu, Mail, Sun, Moon } from "lucide-react";
+import { Home, GraduationCap, BookMarked, BookOpen, Info, HelpCircle, ChevronLeft, Menu, Mail, Sun, Moon, Flower2 } from "lucide-react";
 import LanguageSelector from "../components/LanguageSelector";
 import StreakCounter from "../components/StreakCounter";
 import OnboardingTour from "../components/OnboardingTour";
@@ -19,6 +19,8 @@ interface Props {
   canonicalPath?: string;
   /** Emit hreflang alternates for the 4 locales. Disable for pages that are not translated. */
   hreflang?: boolean;
+  /** Locales this page is translated into (hreflang alternates). Defaults to all four. */
+  locales?: string[];
   /** Social share image (path under /public). Defaults to a section image chosen from the URL. */
   ogImage?: string;
 }
@@ -32,6 +34,7 @@ const {
   canonicalPath,
   hreflang = true,
   ogImage,
+  locales,
 } = Astro.props;
 const t = getTranslation(lang);
 
@@ -39,6 +42,7 @@ const navItems = [
   { name: t.nav.home, href: `/${lang}`, icon: Home, id: "tour-step-1" },
   { name: t.nav.schoolPrep, href: `/${lang}/modules/school-prep`, icon: GraduationCap, id: "tour-step-3" },
   { name: t.nav.shastraStudy, href: `/${lang}/modules/shastra-study`, icon: BookMarked, id: "tour-step-4" },
+  { name: t.nav.gita, href: `/${lang}/modules/gita`, icon: Flower2 },
   { name: t.nav.learn, href: `/${lang}/learn`, icon: BookOpen },
   { name: t.nav.about, href: `/${lang}/about`, icon: Info },
   { name: t.nav.contact, href: `/${lang}/contact`, icon: Mail },
@@ -57,7 +61,7 @@ const LOCALES = ["en", "hi", "ja", "es"];
 const localeMatch = cleanPath.match(/^\/(en|hi|ja|es)(\/.*)?$/);
 const pathWithoutLocale = localeMatch ? (localeMatch[2] ?? "") : null;
 const alternates = hreflang && !noindex && pathWithoutLocale !== null
-  ? LOCALES.map((l) => ({ hreflang: l, href: `${SITE}/${l}${pathWithoutLocale}` }))
+  ? (locales ?? LOCALES).map((l) => ({ hreflang: l, href: `${SITE}/${l}${pathWithoutLocale}` }))
   : [];
 
 // ── Social previews (Open Graph / Twitter) ──────────────────────────────────
@@ -65,6 +69,7 @@ const alternates = hreflang && !noindex && pathWithoutLocale !== null
 const sub = pathWithoutLocale ?? "";
 const sectionImage = sub.startsWith("/modules/school-prep") ? "/og/school-prep.png"
   : sub.startsWith("/modules/shastra-study") ? "/og/shastra-study.png"
+  : sub.startsWith("/modules/gita") ? "/og/gita.png"
   : sub.startsWith("/learn") ? "/og/learn.png"
   : "/og/default.png";
 const shareImage = `${SITE}${ogImage ?? sectionImage}`;
@@ -78,6 +83,7 @@ if (!noindex && pathWithoutLocale !== null && sub !== "") {
   crumbs.push({ name: t.nav.home, item: `${SITE}/${lang}` });
   if (sub.startsWith("/learn/")) crumbs.push({ name: t.nav.learn, item: `${SITE}/${lang}/learn` });
   if (sub.startsWith("/modules/school-prep/")) crumbs.push({ name: t.nav.schoolPrep, item: `${SITE}/${lang}/modules/school-prep` });
+  if (sub.startsWith("/modules/gita/")) crumbs.push({ name: t.nav.gita, item: `${SITE}/${lang}/modules/gita` });
   crumbs.push({ name: pageName, item: canonicalURL });
 }
 const breadcrumbSchema = crumbs.length > 1 && {

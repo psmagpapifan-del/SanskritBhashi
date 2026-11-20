@@ -1,5 +1,6 @@
 import type { APIRoute } from "astro";
 import { NCERT_CLASSES, classSlug } from "../lib/ncertClasses";
+import { GITA_AVAILABLE, adhyayaSlug } from "../lib/gita/index";
 
 export const prerender = true;
 
@@ -13,6 +14,10 @@ export const prerender = true;
 const SITE = "https://sanskritbhashi.com";
 const LOCALES = ["en", "hi", "ja", "es"] as const;
 const ENGLISH_ONLY = new Set(["/privacy", "/terms"]);
+/** Sections translated into only some locales (the other copies are noindex). */
+const PARTIAL: { prefix: string; locales: readonly string[] }[] = [{ prefix: "/modules/gita", locales: ["en", "hi"] }];
+const localesFor = (route: string): readonly string[] =>
+  ENGLISH_ONLY.has(route) ? ["en"] : PARTIAL.find((p) => route.startsWith(p.prefix))?.locales ?? LOCALES;
 
 const pageFiles = Object.keys(import.meta.glob("./\\[lang\\]/**/*.astro"));
 
@@ -26,6 +31,7 @@ const routes = pageFiles
   .filter((r) => !r.includes("["))
   // Dynamic routes are listed explicitly.
   .concat(NCERT_CLASSES.map((n) => `/modules/school-prep/${classSlug(n)}`))
+  .concat(GITA_AVAILABLE.map((n) => `/modules/gita/${adhyayaSlug(n)}`))
   .sort();
 
 const priorityFor = (route: string) => {
@@ -40,11 +46,10 @@ const priorityFor = (route: string) => {
 export const GET: APIRoute = () => {
   const urls: string[] = [];
   for (const route of routes) {
-    const englishOnly = ENGLISH_ONLY.has(route);
-    const locales = englishOnly ? (["en"] as const) : LOCALES;
-    const alternates = englishOnly
+    const locales = localesFor(route);
+    const alternates = locales.length < 2
       ? ""
-      : LOCALES.map(
+      : locales.map(
           (l) => `    <xhtml:link rel="alternate" hreflang="${l}" href="${SITE}/${l}${route}"/>`
         ).join("\n") +
         `\n    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE}/en${route}"/>`;

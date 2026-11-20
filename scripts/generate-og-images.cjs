@@ -30,6 +30,7 @@ const IMAGES = [
   { file: "default.png", kicker: "Learn Sanskrit online", title: "Sanskrit grammar, NCERT practice and Shastra study", sub: "Free lessons and quizzes · English · हिन्दी · 日本語 · Español" },
   { file: "school-prep.png", kicker: "NCERT School Prep · Classes 6–12", title: "Chapter-wise Sanskrit quizzes for every NCERT lesson", sub: "दीपकम् · शारदा · शेमुषी · भास्वती · शाश्वती" },
   { file: "shastra-study.png", kicker: "Shastra Study", title: "Bhagavad Gita and Upanishads, verse by verse", sub: "Word-by-word meaning, grammar and quizzes" },
+  { file: "gita.png", kicker: "Gita for Students · Classes 6–12", title: "One shloka at a time, through your own school life", sub: "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन" },
   { file: "learn.png", kicker: "Learn Hub", title: "Clear guides to Sanskrit grammar and script", sub: "Sandhi · Vibhakti · Lakāras · Samāsa · Chandas" },
 ];
 

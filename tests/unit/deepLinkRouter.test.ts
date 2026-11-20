@@ -31,3 +31,10 @@ test("every NCERT chapter id maps to a known class", () => {
     assert.equal(c.group, `Class ${n}`);
   }
 });
+
+test("Gita adhyaya links keep the adhyaya and level", () => {
+  const link = parseDeepLink("https://sanskritbhashi.com/hi/modules/gita/adhyaya-2?level=3")!;
+  assert.equal(link.subpage, "adhyaya-2");
+  assert.equal(buildWebPath(link), "/hi/modules/gita/adhyaya-2?level=3");
+  assert.equal(parseDeepLink("https://sanskritbhashi.com/en/modules/gita/adhyaya-19")!.subpage, undefined);
+});

@@ -16,6 +16,7 @@ export interface Translation {
     terms: string;
     contact: string;
     learn: string;
+    gita: string;
   };
   home: {
     heroSub: string;
@@ -169,7 +170,8 @@ export const translations: Record<string, Translation> = {
       privacy: "Privacy Policy",
       terms: "Terms of Service",
       contact: "Contact Us",
-      learn: "Learn Hub"
+      learn: "Learn Hub",
+      gita: "Gita for Students"
     },
     home: {
       heroSub: "🔥 Experience Sanskritbhashi Onboarding",
@@ -390,7 +392,8 @@ export const translations: Record<string, Translation> = {
       privacy: "गोपनीयता नीति",
       terms: "सेवा की शर्तें",
       contact: "सम्पर्क करें",
-      learn: "अध्ययन केंद्र"
+      learn: "अध्ययन केंद्र",
+      gita: "विद्यार्थियों के लिए गीता"
     },
     home: {
       heroSub: "🔥 संस्कृतभाषी परिचय गाइड का अनुभव करें",
@@ -611,7 +614,8 @@ export const translations: Record<string, Translation> = {
       privacy: "プライバシーポリシー",
       terms: "利用規約",
       contact: "お問い合わせ",
-      learn: "学習ハブ"
+      learn: "学習ハブ",
+      gita: "学生のためのギーター"
     },
     home: {
       heroSub: "🔥 オンボーディングツアーを開始する",
@@ -820,7 +824,8 @@ export const translations: Record<string, Translation> = {
       privacy: "Política de Privacidad",
       terms: "Términos de Servicio",
       contact: "Contacto",
-      learn: "Centro de Aprendizaje"
+      learn: "Centro de Aprendizaje",
+      gita: "Gita para estudiantes"
     },
     home: {
       heroSub: "🔥 Experimente el Onboarding de Sanskritbhashi",

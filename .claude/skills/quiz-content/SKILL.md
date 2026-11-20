@@ -30,6 +30,20 @@ A `QuizQuestion` has `{ id, kind, prompt, verse?, ref?, options[4], correctIndex
   `{n === N && <ClassNQuiz client:load …/>}` line in `src/pages/[lang]/modules/school-prep/[cls].astro`.
   The deep-link regexes in `deepLinkRouter.ts` and the hub redirect script list class numbers, so extend them too.
 
+## Gita for Students (`src/lib/gita/`)
+- One file per adhyaya (`adhyayaN.ts`) exporting a `GitaAdhyaya`: name, en/hi title, story context, 3-line crux, and
+  shlokas. Each shloka: `ref` (Gita Press numbering; `altRef` if other editions differ, e.g. Chapter 1 has 46 verses in
+  Vaishnava editions), `levels` (1 = Classes 6–8, 2 = 9–10, 3 = 11–12), speaker, two-line text ending ` ।` / ` ॥`,
+  ≥4 word meanings, meaning, a school-life `situation`, a `reflect` question, and exactly 2 questions (understanding, then
+  applying it to a situation). All prose in **en and hi**.
+- Situations: everyday Indian school life, gender-balanced names, age-appropriate for the level; never trivialise the
+  verse. Avoid verses whose numbering differs between editions unless you add `altRef`.
+- A new adhyaya needs: the file, its number in `GITA_AVAILABLE`, `src/components/gita/AdhyayaNStudy.tsx`, a static
+  `{n === N && <AdhyayaNStudy client:load …/>}` line plus the `CHAPTERS` map entry in `modules/gita/[adhyaya].astro`,
+  and the import in `modules/gita/index.astro`. `tests/unit/gitaContent.test.ts` checks the shape.
+- Hindi prompts must not be transliterated: `GitaStudy` passes `transliterateText={false}` to `TopicQuiz` for hi.
+- An English translation EPUB with verse numbers (Vaishnava numbering) can be used to cross-check meanings; it has no Devanagari.
+
 ## New quiz module (e.g. Gita study mode)
 - Put content in `src/lib/<module>/…` with the same `QuizTopic` shape. Use one island wrapper per page-sized chunk
   (graded level or adhyaya), so no page ships the whole bank.

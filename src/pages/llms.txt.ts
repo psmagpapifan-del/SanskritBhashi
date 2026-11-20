@@ -1,6 +1,7 @@
 import type { APIRoute } from "astro";
 import { NCERT_CLASSES, booksFor, chaptersFor, classSlug, BOOK_LATIN } from "../lib/ncertClasses";
 import { learnArticles } from "../lib/learnArticles";
+import { ADHYAYAS, GITA_AVAILABLE, adhyayaSlug } from "../lib/gita/index";
 
 export const prerender = true;
 
@@ -40,6 +41,11 @@ export const GET: APIRoute = () => {
     return `- [NCERT Sanskrit Class ${n}: ${books}](${SITE}/en/modules/school-prep/${classSlug(n)}): ${ch.length} lessons, ${q} practice questions with hints and explanations`;
   });
 
+  const gita = GITA_AVAILABLE.map((n) => {
+    const a = ADHYAYAS[n - 1];
+    return `- [Bhagavad Gita Chapter ${n}: ${a.title.en} (${a.name})](${SITE}/en/modules/gita/${adhyayaSlug(n)}) · Hindi: ${SITE}/hi/modules/gita/${adhyayaSlug(n)}`;
+  });
+
   const body = `# Sanskritbhashi
 
 > Free website and Android app for learning Sanskrit: chapter-wise practice for every lesson of the NCERT Sanskrit textbooks (CBSE Classes 6–12), verse-by-verse study of the Bhagavad Gita and Upanishads, and clear guides to Sanskrit grammar and the Devanagari script. Available in English, Hindi, Japanese and Spanish; Sanskrit can be shown in Devanagari, IAST, Katakana or French phonetic script.
@@ -50,11 +56,15 @@ Every page exists in four languages: replace \`/en/\` in a URL with \`/hi/\`, \`
 - [Home](${SITE}/en): overview of the courses
 - [NCERT School Prep](${SITE}/en/modules/school-prep): pick a class (6–12) and practise every textbook lesson
 - [Shastra Study](${SITE}/en/modules/shastra-study): Bhagavad Gita and Upanishad verses with word-by-word meaning and quizzes
+- [Gita for Students](${SITE}/en/modules/gita): Bhagavad Gita shlokas graded for Classes 6–8, 9–10 and 11–12, each explained through a situation from a student's daily life (English and Hindi)
 - [Learn Hub](${SITE}/en/learn): articles on Sanskrit grammar, script, metre and exam preparation
 - [FAQs](${SITE}/en/faqs): common questions about Sanskrit grammar and the courses
 
 ## NCERT School Prep by class
 ${classes.join("\n")}
+
+## Gita for Students by adhyaya
+${gita.join("\n")}
 
 ## Learn Hub articles
 ${articles.join("\n")}

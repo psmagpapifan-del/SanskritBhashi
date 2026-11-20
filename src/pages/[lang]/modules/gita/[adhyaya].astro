@@ -1,0 +1,107 @@
+---
+export const prerender = true;
+import Layout from "../../../../layouts/Layout.astro";
+import Adhyaya1Study from "../../../../components/gita/Adhyaya1Study";
+import Adhyaya2Study from "../../../../components/gita/Adhyaya2Study";
+import Adhyaya3Study from "../../../../components/gita/Adhyaya3Study";
+import { getTranslation } from "../../../../lib/i18n";
+import { GITA_AVAILABLE, adhyayaSlug, gitaLang, type GitaAdhyaya } from "../../../../lib/gita/index";
+import { adhyaya1 } from "../../../../lib/gita/adhyaya1";
+import { adhyaya2 } from "../../../../lib/gita/adhyaya2";
+import { adhyaya3 } from "../../../../lib/gita/adhyaya3";
+import { gitaPageText } from "../../../../lib/gitaPageText";
+
+const CHAPTERS: Record<number, GitaAdhyaya> = { 1: adhyaya1, 2: adhyaya2, 3: adhyaya3 };
+
+export function getStaticPaths() {
+  return ["en", "hi", "ja", "es"].flatMap((lang) =>
+    GITA_AVAILABLE.map((n) => ({ params: { lang, adhyaya: adhyayaSlug(n) }, props: { n } }))
+  );
+}
+
+const { lang } = Astro.params;
+const { n } = Astro.props as { n: number };
+const a = CHAPTERS[n];
+const nav = getTranslation(lang);
+const cl = gitaLang(lang);
+const t = gitaPageText(lang);
+const translated = lang === "en" || lang === "hi";
+const available = GITA_AVAILABLE as readonly number[];
+const prev = available.includes(n - 1) ? n - 1 : null;
+const next = available.includes(n + 1) ? n + 1 : null;
+
+const title = cl === "hi"
+  ? `गीता अध्याय ${n}: ${a.title.hi}, विद्यार्थियों के लिए | Sanskritbhashi`
+  : `Bhagavad Gita Chapter ${n}: ${a.title.en} for Students | Sanskritbhashi`;
+const refs = a.shlokas.map((s) => s.ref).join(", ");
+const description = cl === "hi"
+  ? `गीता अध्याय ${n} (${a.name}) के श्लोक ${refs}: अर्थ, शब्दार्थ, स्कूली जीवन की परिस्थितियाँ और प्रश्नोत्तरी, कक्षा 6–12 के लिए।`
+  : `Bhagavad Gita Chapter ${n} (${a.name}), shlokas ${refs}: meaning, word meanings, school-life situations and a quiz, for Classes 6–12.`;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": title.replace(/ \| Sanskritbhashi$/, ""),
+  "description": description,
+  "inLanguage": ["sa", cl],
+  "educationalLevel": "Classes 6–12",
+  "learningResourceType": "Lesson",
+  "isPartOf": { "@type": "Course", "name": cl === "hi" ? "विद्यार्थियों के लिए भगवद्गीता" : "Bhagavad Gita for Students", "url": `https://sanskritbhashi.com/${cl}/modules/gita` },
+  "about": a.shlokas.map((s) => ({ "@type": "CreativeWork", "name": `Bhagavad Gītā ${s.ref}` })),
+};
+---
+
+<Layout
+  lang={lang}
+  title={title}
+  description={description}
+  showAds={false}
+  locales={["en", "hi"]}
+  noindex={!translated}
+  canonicalPath={translated ? undefined : `/en/modules/gita/${adhyayaSlug(n)}`}
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(schema)} />
+  <div class="w-full space-y-6">
+    <nav aria-label="Breadcrumb" class="text-xs font-semibold text-charcoal/70 font-latin">
+      <ol class="flex flex-wrap items-center gap-1.5">
+        <li><a href={`/${lang}/modules/gita`} class="hover:text-brand-700 dark:hover:text-brand-300">{nav.nav.gita}</a></li>
+        <li aria-hidden="true">/</li>
+        <li aria-current="page" class="text-charcoal">{t.adhyaya(n)}</li>
+      </ol>
+    </nav>
+
+    <header class="bg-linear-to-r from-brand-500 to-accent-500 rounded-3xl p-6 md:p-8 text-on-brand shadow-md">
+      <p class="text-xs font-black uppercase tracking-widest font-latin">{t.adhyaya(n)}</p>
+      <h1 class="mt-1 text-2xl md:text-3xl font-bold font-latin">
+        <span lang="sa" class="font-sanskrit">{a.name}</span> · {a.title[cl]}
+      </h1>
+    </header>
+
+    {!translated && <p class="text-sm text-charcoal/80 font-latin bg-brand-50 dark:bg-zinc-900 border border-brand-100 dark:border-zinc-800 rounded-2xl px-4 py-3">{t.languageNote}</p>}
+
+    <section class="grid md:grid-cols-5 gap-4">
+      <div class="md:col-span-3 bg-white dark:bg-zinc-900 border border-brand-100 dark:border-zinc-800 rounded-3xl p-6">
+        <h2 class="text-sm font-black uppercase tracking-widest text-charcoal/70 font-latin">{t.story}</h2>
+        <p lang={cl} class="mt-2 text-sm md:text-base text-charcoal leading-relaxed font-latin">{a.context[cl]}</p>
+      </div>
+      <div class="md:col-span-2 bg-white dark:bg-zinc-900 border border-brand-100 dark:border-zinc-800 rounded-3xl p-6">
+        <h2 class="text-sm font-black uppercase tracking-widest text-charcoal/70 font-latin">{t.crux}</h2>
+        <ol class="mt-2 space-y-2 list-decimal pl-5 text-sm md:text-base text-charcoal font-latin" lang={cl}>
+          {a.crux.map((c) => <li>{c[cl]}</li>)}
+        </ol>
+      </div>
+    </section>
+
+    {/* One island per adhyaya (Astro needs a static tag to hydrate). */}
+    {n === 1 && <Adhyaya1Study client:load activeLang={lang} />}
+    {n === 2 && <Adhyaya2Study client:load activeLang={lang} />}
+    {n === 3 && <Adhyaya3Study client:load activeLang={lang} />}
+
+    <nav aria-label={t.chooseAdhyaya} class="flex flex-wrap items-center justify-between gap-3 text-sm font-bold font-latin">
+      {prev ? <a href={`/${lang}/modules/gita/${adhyayaSlug(prev)}`} class="text-brand-600 hover:text-brand-700 dark:hover:text-brand-300">← {t.previous}</a> : <span />}
+      <a href={`/${lang}/modules/gita`} class="text-charcoal/80 hover:text-brand-700">{t.allAdhyayas}</a>
+      {next ? <a href={`/${lang}/modules/gita/${adhyayaSlug(next)}`} class="text-brand-600 hover:text-brand-700 dark:hover:text-brand-300">{t.next} →</a> : <span />}
+    </nav>
+    <p class="text-xs text-charcoal/70 font-latin">{t.reviewNote}</p>
+  </div>
+</Layout>

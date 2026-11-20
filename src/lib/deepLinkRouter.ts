@@ -11,7 +11,7 @@
  *  (legacy ?chapter=N&source=core links are still parsed and passed through)
  *
  * Supported lang params: en, hi, ja, es
- * Supported module paths: school-prep, shastra-study
+ * Supported module paths: school-prep, shastra-study, gita
  */
 
 const SUPPORTED_LANGS = ['en', 'hi', 'ja', 'es'] as const;
@@ -22,8 +22,10 @@ export interface ParsedDeepLink {
   module?: string;
   chapterId?: number;
   source?: string;
-  /** School Prep class page, e.g. "class-9". */
+  /** Sub-page, e.g. "class-9" (School Prep) or "adhyaya-2" (Gita). */
   subpage?: string;
+  /** Gita level 1–3 (Classes 6–8, 9–10, 11–12). */
+  level?: string;
   /** Quiz topic / NCERT chapter id, e.g. "c6-01" or "gita-karma-yoga". */
   topic?: string;
 }
@@ -56,6 +58,8 @@ export function parseDeepLink(url: string): ParsedDeepLink | null {
       // /en/modules/school-prep/class-9 → keep the class sub-page.
       const sub = segments[3]?.replace(/\.html$/, '');
       if (result.module === 'school-prep' && sub && /^class-(6|7|8|9|10|11|12)$/.test(sub)) result.subpage = sub;
+      // /en/modules/gita/adhyaya-2
+      if (result.module === 'gita' && sub && /^adhyaya-([1-9]|1[0-8])$/.test(sub)) result.subpage = sub;
     }
 
     // Query params: ?chapter=12&source=core
@@ -67,6 +71,9 @@ export function parseDeepLink(url: string): ParsedDeepLink | null {
 
     const sourceParam = parsed.searchParams.get('source');
     if (sourceParam) result.source = sourceParam;
+
+    const levelParam = parsed.searchParams.get('level');
+    if (levelParam && /^[123]$/.test(levelParam)) result.level = levelParam;
 
     const topicParam = parsed.searchParams.get('topic');
     if (topicParam && /^[a-z0-9-]{1,40}$/.test(topicParam)) result.topic = topicParam;
@@ -100,6 +107,7 @@ export function buildWebPath(link: ParsedDeepLink): string {
   const params = new URLSearchParams();
   if (link.chapterId !== undefined) params.set('chapter', String(link.chapterId));
   if (link.source) params.set('source', link.source);
+  if (link.level) params.set('level', link.level);
   if (link.topic) params.set('topic', link.topic);
 
   const qs = params.toString();

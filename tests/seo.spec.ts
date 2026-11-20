@@ -11,6 +11,7 @@ const PAGES = [
   { path: "/en/modules/school-prep/class-11", image: "/og/school-prep.png" },
   { path: "/ja/modules/shastra-study", image: "/og/shastra-study.png" },
   { path: "/es/learn/panini-sandhi-rules", image: "/og/learn.png" },
+  { path: "/hi/modules/gita/adhyaya-2", image: "/og/gita.png" },
 ];
 
 test.describe("SEO and social previews", () => {

@@ -142,9 +142,15 @@ export interface TopicQuizProps {
   /** Override the "Topics" heading of the list. */
   listTitle?: string;
   activeLang?: string;
+  /**
+   * Convert Devanagari in prompts, options, hints and explanations to the learner's script
+   * (default). Set false when that text is Hindi, so Hindi sentences stay in Devanagari;
+   * verses still get their transliteration line.
+   */
+  transliterateText?: boolean;
 }
 
-export default function TopicQuiz({ topics, storeKey, cardId = "topic-quiz-card", listTitle, activeLang = "en" }: TopicQuizProps) {
+export default function TopicQuiz({ topics, storeKey, cardId = "topic-quiz-card", listTitle, activeLang = "en", transliterateText = true }: TopicQuizProps) {
   const s: Strings = (STRINGS as Record<string, Strings>)[activeLang] ?? STRINGS.en;
   const byId = useMemo(
     () => new Map<string, QuizQuestion>(topics.flatMap((t) => t.questions.map((q) => [q.id, q] as const))),
@@ -166,7 +172,7 @@ export default function TopicQuiz({ topics, storeKey, cardId = "topic-quiz-card"
   const [hydrated, setHydrated] = useState(false);
   // Sanskrit in verses and options follows the Transliteration Script setting.
   const script = useScript();
-  const tx = (text: string) => renderSanskrit(text, script);
+  const tx = (text: string) => (transliterateText ? renderSanskrit(text, script) : text);
 
   const topic: QuizTopic = topics.find((t) => t.id === topicId) ?? topics[0];
   const [group, setGroup] = useState<string | undefined>(topics[0].group);
@@ -456,7 +462,7 @@ export default function TopicQuiz({ topics, storeKey, cardId = "topic-quiz-card"
                 <p lang="sa" data-testid="quiz-verse" className="font-sanskrit text-lg md:text-xl font-bold text-charcoal leading-relaxed">{question.verse}</p>
                 {script !== "devanagari" && (
                   <p lang={sanskritLang(script)} data-testid="quiz-verse-translit" className="mt-1.5 text-sm md:text-base italic font-semibold text-charcoal/75 font-latin leading-relaxed">
-                    {tx(question.verse)}
+                    {renderSanskrit(question.verse, script)}
                   </p>
                 )}
                 {question.ref && <p className="mt-2 text-[11px] font-semibold text-charcoal/70 font-latin">— {question.ref}</p>}

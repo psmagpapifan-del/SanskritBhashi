@@ -1,0 +1,107 @@
+---
+export const prerender = true;
+import Layout from "../../../../layouts/Layout.astro";
+import { getTranslation } from "../../../../lib/i18n";
+import { ADHYAYAS, GITA_AVAILABLE, GITA_LEVELS, adhyayaSlug, gitaLang } from "../../../../lib/gita/index";
+import { adhyaya1 } from "../../../../lib/gita/adhyaya1";
+import { adhyaya2 } from "../../../../lib/gita/adhyaya2";
+import { adhyaya3 } from "../../../../lib/gita/adhyaya3";
+import { gitaPageText } from "../../../../lib/gitaPageText";
+import { Flower2 } from "lucide-react";
+
+export function getStaticPaths() {
+  return ["en", "hi", "ja", "es"].map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params;
+const nav = getTranslation(lang);
+const cl = gitaLang(lang);
+const t = gitaPageText(lang);
+// Content exists in English and Hindi; ja/es show English and point search engines at /en.
+const translated = lang === "en" || lang === "hi";
+const loaded = { 1: adhyaya1, 2: adhyaya2, 3: adhyaya3 } as Record<number, typeof adhyaya1>;
+const count = (n: number) => loaded[n]?.shlokas.length ?? 0;
+
+const title = cl === "hi" ? "विद्यार्थियों के लिए भगवद्गीता: कक्षा 6–12 | Sanskritbhashi" : "Bhagavad Gita for Students, Classes 6–12 | Sanskritbhashi";
+const description = cl === "hi"
+  ? "कक्षा 6–12 के विद्यार्थियों के लिए भगवद्गीता: हर श्लोक का अर्थ, शब्दार्थ, स्कूली जीवन की एक परिस्थिति, चिंतन-प्रश्न और प्रश्नोत्तरी।"
+  : "The Bhagavad Gita for Classes 6–12: each shloka with word meanings, a situation from school life, a reflection question and a quiz.";
+
+const courseSchema = {
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "name": cl === "hi" ? "विद्यार्थियों के लिए भगवद्गीता" : "Bhagavad Gita for Students",
+  "description": description,
+  "inLanguage": ["sa", cl],
+  "educationalLevel": "Classes 6–12",
+  "provider": { "@type": "Organization", "name": "Sanskritbhashi", "url": "https://sanskritbhashi.com" },
+  "hasPart": GITA_AVAILABLE.map((n) => ({
+    "@type": "LearningResource",
+    "name": `${t.adhyaya(n)}: ${ADHYAYAS[n - 1].name}`,
+    "url": `https://sanskritbhashi.com/${cl}/modules/gita/${adhyayaSlug(n)}`,
+  })),
+};
+---
+
+<Layout
+  lang={lang}
+  title={title}
+  description={description}
+  showAds={false}
+  locales={["en", "hi"]}
+  noindex={!translated}
+  canonicalPath={translated ? undefined : "/en/modules/gita"}
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(courseSchema)} />
+  <div class="w-full space-y-8">
+    <header class="bg-linear-to-r from-brand-500 to-accent-500 rounded-3xl p-6 md:p-8 text-on-brand shadow-md">
+      <div class="flex items-center gap-3 mb-2">
+        <Flower2 class="w-8 h-8" aria-hidden="true" />
+        <h1 class="text-2xl md:text-3xl font-bold font-latin">{nav.nav.gita}</h1>
+      </div>
+      <p class="text-sm md:text-base max-w-3xl leading-relaxed font-latin">{t.tagline}</p>
+    </header>
+
+    {!translated && <p class="text-sm text-charcoal/80 font-latin bg-brand-50 dark:bg-zinc-900 border border-brand-100 dark:border-zinc-800 rounded-2xl px-4 py-3">{t.languageNote}</p>}
+
+    <section aria-labelledby="gita-levels" class="space-y-3">
+      <h2 id="gita-levels" class="text-xl font-bold text-charcoal font-latin">{t.chooseLevel}</h2>
+      <ul class="grid sm:grid-cols-3 gap-4">
+        {GITA_LEVELS.map((l) => (
+          <li class="bg-white dark:bg-zinc-900 border border-brand-100 dark:border-zinc-800 rounded-3xl p-5">
+            <span class="block text-lg font-black text-charcoal font-latin">{t.levelNames[l]}</span>
+            <span class="block mt-1 text-sm text-charcoal/80 font-latin">{t.levelHint[l]}</span>
+            <a href={`/${lang}/modules/gita/adhyaya-1?level=${l}`} data-level-link={l} class="inline-block mt-3 text-sm font-bold text-brand-600 hover:text-brand-700 dark:hover:text-brand-300 font-latin">{t.adhyaya(1)} →</a>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section aria-labelledby="gita-adhyayas" class="space-y-3">
+      <h2 id="gita-adhyayas" class="text-xl font-bold text-charcoal font-latin">{t.chooseAdhyaya}</h2>
+      <ol class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        {ADHYAYAS.map((a) => {
+          const available = (GITA_AVAILABLE as readonly number[]).includes(a.n);
+          const inner = (
+            <>
+              <span class="block text-xs font-black uppercase tracking-widest text-charcoal/70 font-latin">{t.adhyaya(a.n)}</span>
+              <span lang="sa" class="block mt-1 font-sanskrit text-lg font-semibold text-charcoal">{a.name}</span>
+              <span class="block text-sm text-charcoal/80 font-latin">{a.title[cl]}</span>
+              <span class={`block mt-2 text-xs font-bold font-latin ${available ? "text-brand-600" : "text-charcoal/70"}`}>{available ? t.shlokaCount(count(a.n)) : t.comingSoon}</span>
+            </>
+          );
+          return (
+            <li>
+              {available ? (
+                <a href={`/${lang}/modules/gita/${adhyayaSlug(a.n)}`} data-adhyaya-link={a.n} class="block h-full bg-white dark:bg-zinc-900 border border-brand-100 dark:border-zinc-800 rounded-2xl p-4 hover:border-brand-500 hover:shadow-md transition-all">{inner}</a>
+              ) : (
+                <div class="h-full bg-cream dark:bg-zinc-900/50 border border-dashed border-border-hairline rounded-2xl p-4" aria-disabled="true">{inner}</div>
+              )}
+            </li>
+          );
+        })}
+      </ol>
+      <p class="text-xs text-charcoal/70 font-latin">{t.reviewNote}</p>
+    </section>
+  </div>
+</Layout>

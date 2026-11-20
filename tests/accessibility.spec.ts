@@ -312,7 +312,7 @@ async function seriousViolations(page: import("@playwright/test").Page, label: s
   return violations;
 }
 
-const LOCALE_PAGES = ["", "/modules/school-prep", "/modules/school-prep/class-9", "/modules/shastra-study", "/learn", "/faqs", "/about", "/contact", "/learn/bhagavad-gita-anvaya-guide"];
+const LOCALE_PAGES = ["", "/modules/school-prep", "/modules/school-prep/class-9", "/modules/gita", "/modules/gita/adhyaya-2", "/modules/shastra-study", "/learn", "/faqs", "/about", "/contact", "/learn/bhagavad-gita-anvaya-guide"];
 const LOCALES = ["en", "hi", "ja", "es"];
 
 test.describe("Accessibility – all locales and themes", () => {

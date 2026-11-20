@@ -70,15 +70,38 @@ test.describe("Gita for Students", () => {
     await expect(page.getByTestId("quiz-verse-translit")).toContainText(/[āīūṛṃḥ]/);
   });
 
-  test("GITA-06: ja/es pages show English, are noindex and point to /en", async ({ page }) => {
-    await page.goto("/es/modules/gita/adhyaya-2");
+  // Adhyaya 18 is translated last; update this when the final ja/es batch lands.
+  test("GITA-06: untranslated ja/es chapters show English, are noindex and point to /en", async ({ page }) => {
+    await page.goto("/es/modules/gita/adhyaya-18");
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
-    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://sanskritbhashi.com/en/modules/gita/adhyaya-2");
-    await expect(page.getByText("available in English and Hindi")).toBeVisible();
-    // en pages offer only en/hi alternates.
-    await page.goto("/en/modules/gita/adhyaya-2");
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://sanskritbhashi.com/en/modules/gita/adhyaya-18");
+    await expect(page.getByText("aún no está disponible en español")).toBeVisible();
+    // An English-only chapter offers only en/hi alternates.
+    await page.goto("/en/modules/gita/adhyaya-18");
     const langs = await page.locator('link[rel="alternate"][hreflang]').evaluateAll((els) => els.map((e) => e.getAttribute("hreflang")));
     expect(langs.sort()).toEqual(["en", "hi", "x-default"]);
+  });
+
+  test("GITA-06b: translated Japanese chapter is indexable, in Japanese, with all four alternates", async ({ page }) => {
+    await page.goto("/ja/modules/gita/adhyaya-2");
+    await expect(page.locator('meta[name="robots"]')).toHaveCount(0);
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://sanskritbhashi.com/ja/modules/gita/adhyaya-2");
+    await expect(page).toHaveTitle(/^バガヴァッド・ギーター第2章/);
+    await expect(page.locator('[data-shloka="2.47"]')).toContainText("あなたの権利は行為そのものにのみあり");
+    await expect(page.getByTestId("quiz-prompt")).toHaveText(/[\u3040-\u30ff]/);
+    const langs = await page.locator('link[rel="alternate"][hreflang]').evaluateAll((els) => els.map((e) => e.getAttribute("hreflang")));
+    expect(langs.sort()).toEqual(["en", "es", "hi", "ja", "x-default"]);
+  });
+
+  test("GITA-06c: translated Spanish chapter and hub; hub marks English-only chapters", async ({ page }) => {
+    await page.goto("/es/modules/gita/adhyaya-3?level=2");
+    await expect(page.locator('meta[name="robots"]')).toHaveCount(0);
+    await expect(page.locator("h1")).toContainText("El yoga de la acción");
+    await expect(page.getByTestId("situation").first()).toContainText(/[áéíóúñ]/);
+    await page.goto("/es/modules/gita");
+    await expect(page.locator('meta[name="robots"]')).toHaveCount(0);
+    await expect(page.locator('[data-adhyaya-link="1"]')).not.toContainText("Por ahora en inglés");
+    await expect(page.locator('[data-adhyaya-link="18"]')).toContainText("Por ahora en inglés");
   });
 });
 

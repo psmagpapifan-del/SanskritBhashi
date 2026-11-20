@@ -23,7 +23,7 @@ you don't need to re-explore the repo. Task-specific workflows live in `.claude/
 | `src/lib/ncertClasses.ts`, `ncertPageText.ts` | Class index + localized labels for School Prep pages |
 | `src/components/ncert/ClassNQuiz.tsx` | One island per class, so each page ships one class of data |
 | `src/lib/shastraContent.ts` | Shastra Study (Gita, Upanishads) topics |
-| `src/lib/gita/` + `src/components/gita/` | Gita for Students: graded shlokas (levels 1–3 = Classes 6–8/9–10/11–12), en+hi content, one island per adhyaya; pages `modules/gita/[adhyaya].astro` |
+| `src/lib/gita/` + `src/components/gita/GitaStudy.tsx` | Gita for Students: graded shlokas (levels 1–3 = Classes 6–8/9–10/11–12). en+hi in `adhyayaN.ts`; ja/es in `i18n/<lang>/adhyayaN.ts`, registered in `i18n/index.ts` (registered = indexable). Pages load one chapter in one language via `gita/content.ts` and pass it to `GitaStudy` as a prop |
 | `src/lib/learnArticles.ts` + `src/components/articles/<slug>/{en,hi,ja,es}.astro` | Learn Hub articles |
 | `src/lib/transliterate.ts`, `useScript.ts` | Devanagari → IAST / Katakana / French script setting |
 | `src/lib/deepLinkRouter.ts`, `capacitorBridge.ts` | App deep links, native prefs/haptics |

@@ -38,9 +38,16 @@ A `QuizQuestion` has `{ id, kind, prompt, verse?, ref?, options[4], correctIndex
   applying it to a situation). All prose in **en and hi**.
 - Situations: everyday Indian school life, gender-balanced names, age-appropriate for the level; never trivialise the
   verse. Avoid verses whose numbering differs between editions unless you add `altRef`.
-- A new adhyaya needs: the file, its number in `GITA_AVAILABLE`, `src/components/gita/AdhyayaNStudy.tsx`, a static
-  `{n === N && <AdhyayaNStudy client:load …/>}` line plus the `CHAPTERS` map entry in `modules/gita/[adhyaya].astro`,
-  and the import in `modules/gita/index.astro`. `tests/unit/gitaContent.test.ts` checks the shape.
+- A new adhyaya needs: the file, its number in `GITA_AVAILABLE`, and the import in `src/lib/gita/content.ts` (`CHAPTERS`).
+  Pages render `<GitaStudy client:load adhyaya={getLocalAdhyaya(n, lang)} />`, so no per-chapter island is needed.
+  `tests/unit/gitaContent.test.ts` checks the shape.
+- **Japanese/Spanish:** one `GitaOverlay` per chapter in `src/lib/gita/i18n/{ja,es}/adhyayaN.ts`, keyed by shloka ref,
+  translated from the English. `words` holds glosses in the same order as the chapter's `words`; questions keep option 0
+  correct. Keep the Indian names and stories, and add a short gloss in brackets for school terms readers outside India
+  won't know (board exams, streams after Class 10, houses, colony, Rakhi). Register the file in `i18n/index.ts`: that
+  makes the chapter indexable in that language (sitemap, hreflang, no noindex). The unit test checks every ref, word
+  count, 2 questions, 4 distinct options and that each string is in the right script; Sanskrit-only hints fail it, so
+  add the meaning after the Devanagari.
 - Hindi prompts must not be transliterated: `GitaStudy` passes `transliterateText={false}` to `TopicQuiz` for hi.
 - An English translation EPUB with verse numbers (Vaishnava numbering) can be used to cross-check meanings; it has no Devanagari.
 

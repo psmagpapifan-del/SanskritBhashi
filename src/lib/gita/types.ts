@@ -57,3 +57,52 @@ export interface GitaAdhyaya {
   crux: [Bi, Bi, Bi];
   shlokas: GitaShloka[];
 }
+
+/** Content languages. en/hi live in the adhyaya files; ja/es live in src/lib/gita/i18n/<lang>/. */
+export type GitaLang = "en" | "hi" | "ja" | "es";
+export type GitaOverlayLang = "ja" | "es";
+
+/**
+ * A Japanese or Spanish translation of one adhyaya. Shlokas are keyed by ref; each
+ * entry mirrors the English fields, with word glosses in the same order as `words`.
+ */
+export interface GitaOverlay {
+  title: string;
+  context: string;
+  crux: [string, string, string];
+  shlokas: Record<
+    string,
+    {
+      words: string[];
+      meaning: string;
+      situation: { title: string; story: string };
+      reflect: string;
+      questions: { prompt: string; options: [string, string, string, string]; hint: string; explanation: string }[];
+    }
+  >;
+}
+
+/** One shloka in a single language: what a page sends to the browser. */
+export interface LocalShloka {
+  ref: string;
+  altRef?: string;
+  levels: GitaLevel[];
+  speaker: string;
+  text: string;
+  words: { sa: string; gloss: string }[];
+  meaning: string;
+  situation: { title: string; story: string };
+  reflect: string;
+  questions: { prompt: string; options: string[]; hint: string; explanation: string }[];
+}
+
+/** One adhyaya in a single language. */
+export interface LocalAdhyaya {
+  n: number;
+  name: string;
+  lang: GitaLang;
+  title: string;
+  context: string;
+  crux: string[];
+  shlokas: LocalShloka[];
+}

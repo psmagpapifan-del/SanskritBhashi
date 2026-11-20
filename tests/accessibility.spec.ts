@@ -11,6 +11,7 @@ import { test, expect } from "@playwright/test";
 const PAGES = [
   { name: "Home", path: "/en" },
   { name: "SchoolPrep", path: "/en/modules/school-prep" },
+  { name: "SchoolPrepClass11", path: "/en/modules/school-prep/class-11" },
   { name: "ShastraStudy", path: "/en/modules/shastra-study" },
   { name: "About", path: "/en/about" },
   { name: "Contact", path: "/en/contact" },
@@ -311,7 +312,7 @@ async function seriousViolations(page: import("@playwright/test").Page, label: s
   return violations;
 }
 
-const LOCALE_PAGES = ["", "/modules/school-prep", "/modules/shastra-study", "/learn", "/faqs", "/about", "/contact", "/learn/bhagavad-gita-anvaya-guide"];
+const LOCALE_PAGES = ["", "/modules/school-prep", "/modules/school-prep/class-9", "/modules/shastra-study", "/learn", "/faqs", "/about", "/contact", "/learn/bhagavad-gita-anvaya-guide"];
 const LOCALES = ["en", "hi", "ja", "es"];
 
 test.describe("Accessibility – all locales and themes", () => {
@@ -348,7 +349,7 @@ test.describe("Accessibility – quiz states", () => {
         localStorage.setItem("cookie-consent", "declined");
         localStorage.setItem("theme", t);
       }, theme);
-      await page.goto("/en/modules/school-prep", { waitUntil: "networkidle" });
+      await page.goto("/en/modules/school-prep/class-6", { waitUntil: "networkidle" });
       const card = page.locator("#ncert-quiz-card");
       await card.locator('[data-option-correct="false"]').first().click();
       expect(await seriousViolations(page, `quiz wrong (${theme})`)).toEqual([]);
@@ -378,7 +379,7 @@ test.describe("Accessibility – keyboard quiz flow", () => {
       localStorage.setItem("tour_completed", "true");
       localStorage.setItem("cookie-consent", "declined");
     });
-    await page.goto("/en/modules/school-prep", { waitUntil: "networkidle" });
+    await page.goto("/en/modules/school-prep/class-6", { waitUntil: "networkidle" });
     const card = page.locator("#ncert-quiz-card");
 
     // Wrong answer via keyboard: focus stays on the (now struck) option, which is announced as incorrect.

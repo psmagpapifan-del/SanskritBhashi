@@ -171,7 +171,7 @@ export default function OnboardingTour() {
           const isNative = typeof window !== 'undefined' && (window as any).Capacitor?.isNativePlatform?.();
           const lang = window.location.pathname.split("/")[1] || "en";
           const cleanLang = lang.replace('.html', '');
-          let redirectUrl = `/${cleanLang}/modules/school-prep`;
+          let redirectUrl = `/${cleanLang}/modules/school-prep/class-6`;
           if (isNative) {
             redirectUrl += '.html';
           }

@@ -10,6 +10,7 @@ import { test, expect } from "@playwright/test";
 const KEY_PAGES = [
   { name: "Home", path: "/en" },
   { name: "SchoolPrep", path: "/en/modules/school-prep" },
+  { name: "SchoolPrepClass11", path: "/en/modules/school-prep/class-11" },
   { name: "About", path: "/en/about" },
   { name: "FAQs", path: "/en/faqs" },
 ];

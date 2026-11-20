@@ -86,6 +86,11 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
     <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=4" />
 
     <link rel="manifest" href="/manifest.json" />
+    <!-- Fonts: Geist (variable 400–900) and Geist Mono for UI, Tiro Sanskrit for Devanagari.
+         Japanese uses the system font (Hiragino / Noto Sans JP / Yu Gothic) instead of a 200 KB+ web font. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400..900&family=Geist+Mono:wght@400..600&family=Tiro+Sanskrit&display=swap" />
     <meta name="theme-color" content="#FF6F00" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />

@@ -319,7 +319,7 @@ test.describe("Functional Testing", () => {
 
   test.describe("Data & APIs", () => {
     test("FN-19: Error report modal opens and closes", async ({ page }) => {
-      await page.goto("/en/modules/school-prep");
+      await page.goto("/en/modules/school-prep/class-6");
 
       const reportBtn = page.locator('button:has-text("Report Error")').first();
       if (await reportBtn.isVisible({ timeout: 5000 })) {
@@ -337,7 +337,7 @@ test.describe("Functional Testing", () => {
     });
 
     test("FN-20: Error report submits with mock API", async ({ page }) => {
-      await page.goto("/en/modules/school-prep");
+      await page.goto("/en/modules/school-prep/class-6");
 
       // Intercept API call
       let requestPayload: Record<string, unknown> | null = null;

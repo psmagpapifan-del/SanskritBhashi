@@ -1,0 +1,131 @@
+---
+export const prerender = true;
+import Layout from "../../../../layouts/Layout.astro";
+import Class6Quiz from "../../../../components/ncert/Class6Quiz";
+import Class7Quiz from "../../../../components/ncert/Class7Quiz";
+import Class8Quiz from "../../../../components/ncert/Class8Quiz";
+import Class9Quiz from "../../../../components/ncert/Class9Quiz";
+import Class10Quiz from "../../../../components/ncert/Class10Quiz";
+import Class11Quiz from "../../../../components/ncert/Class11Quiz";
+import Class12Quiz from "../../../../components/ncert/Class12Quiz";
+import { getTranslation } from "../../../../lib/i18n";
+import { NCERT_CLASSES, booksFor, chaptersFor, classSlug, BOOK_LATIN } from "../../../../lib/ncertClasses";
+import { ncertPageText } from "../../../../lib/ncertPageText";
+import { GraduationCap } from "lucide-react";
+
+export function getStaticPaths() {
+  return ["en", "hi", "ja", "es"].flatMap((lang) =>
+    NCERT_CLASSES.map((n) => ({ params: { lang, cls: classSlug(n) }, props: { n } }))
+  );
+}
+
+const { lang } = Astro.params;
+const { n } = Astro.props as { n: number };
+const t = getTranslation(lang);
+const pt = ncertPageText(lang);
+
+const chapters = chaptersFor(n);
+const books = booksFor(n);
+const booksLabel = books.map((b) => `${b} (${BOOK_LATIN[b] ?? b})`).join(", ");
+const questionCount = chapters.reduce((q, c) => q + c.questions.length, 0);
+const title = pt.title(n, books.join(", "));
+const description = pt.desc(n, booksLabel, chapters.length, questionCount);
+const SITE = "https://sanskritbhashi.com";
+const url = `${SITE}/${lang}/modules/school-prep/${classSlug(n)}`;
+
+const courseSchema = {
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "name": `NCERT Sanskrit Class ${n} (${booksLabel}): chapter-wise practice and exam quizzes`,
+  "description": description,
+  "url": url,
+  "inLanguage": ["sa", lang],
+  "educationalLevel": `CBSE Class ${n}`,
+  "provider": { "@type": "Organization", "name": "Sanskritbhashi", "url": SITE },
+  "hasPart": chapters.map((c) => ({
+    "@type": "LearningResource",
+    "name": `${c.text}: ${c.title}`,
+    "description": c.summary,
+    "url": `${url}?topic=${c.id}`,
+  })),
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Sanskritbhashi", "item": `${SITE}/${lang}` },
+    { "@type": "ListItem", "position": 2, "name": t.schoolPrep.title, "item": `${SITE}/${lang}/modules/school-prep` },
+    { "@type": "ListItem", "position": 3, "name": pt.classLabel(n), "item": url },
+  ],
+};
+---
+
+<Layout lang={lang} title={`${title} | Sanskritbhashi`} description={description} showAds={false}>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(courseSchema)} />
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <div class="w-full space-y-6">
+    <nav aria-label="Breadcrumb" class="text-xs font-semibold text-charcoal/70 font-latin">
+      <ol class="flex flex-wrap items-center gap-1.5">
+        <li><a href={`/${lang}/modules/school-prep`} class="hover:text-saffron-700 dark:hover:text-saffron-300">{t.schoolPrep.title}</a></li>
+        <li aria-hidden="true">/</li>
+        <li aria-current="page" class="text-charcoal">{pt.classLabel(n)}</li>
+      </ol>
+    </nav>
+
+    <header class="bg-linear-to-r from-saffron-500 to-marigold-500 rounded-3xl p-6 md:p-8 text-zinc-900 shadow-md">
+      <div class="flex items-center gap-3 mb-2">
+        <GraduationCap class="w-8 h-8" aria-hidden="true" />
+        <h1 class="text-2xl md:text-3xl font-bold font-latin">
+          {pt.classLabel(n)} · <span lang="sa" class="font-sanskrit">{books.join(" · ")}</span>
+        </h1>
+      </div>
+      <p class="text-sm md:text-base text-zinc-900 max-w-3xl leading-relaxed font-latin">{description}</p>
+    </header>
+
+    <nav aria-label={pt.classNav} class="flex flex-wrap gap-2">
+      {NCERT_CLASSES.map((c) => (
+        <a
+          href={`/${lang}/modules/school-prep/${classSlug(c)}`}
+          data-group={`Class ${c}`}
+          aria-current={c === n ? "page" : undefined}
+          class={`px-3.5 py-2 rounded-xl text-xs font-bold font-latin border transition-colors ${
+            c === n
+              ? "bg-saffron-500 text-zinc-900 border-saffron-500"
+              : "bg-white dark:bg-zinc-900 text-charcoal border-saffron-100 dark:border-zinc-700 hover:border-saffron-500"
+          }`}
+        >
+          {pt.classLabel(c)}
+        </a>
+      ))}
+    </nav>
+
+    {/* One island per class (Astro needs a static tag to hydrate), so each page bundles only its own questions. */}
+    {n === 6 && <Class6Quiz client:load activeLang={lang} />}
+    {n === 7 && <Class7Quiz client:load activeLang={lang} />}
+    {n === 8 && <Class8Quiz client:load activeLang={lang} />}
+    {n === 9 && <Class9Quiz client:load activeLang={lang} />}
+    {n === 10 && <Class10Quiz client:load activeLang={lang} />}
+    {n === 11 && <Class11Quiz client:load activeLang={lang} />}
+    {n === 12 && <Class12Quiz client:load activeLang={lang} />}
+
+    <section class="bg-white dark:bg-zinc-900 border border-saffron-100 dark:border-zinc-800 rounded-3xl p-6 space-y-4">
+      <h2 class="text-xl font-bold text-charcoal font-latin">{pt.chaptersHeading(n)}</h2>
+      <ol class="grid md:grid-cols-2 gap-x-6 gap-y-1.5 text-xs md:text-sm text-charcoal/80 font-latin">
+        {chapters.map((c) => (
+          <li>
+            <a href={`?topic=${c.id}`} class="hover:text-saffron-700 dark:hover:text-saffron-300">
+              <span class="text-charcoal/70">{c.short}: </span>
+              <span lang="sa" class="font-sanskrit font-semibold text-charcoal">{c.title}</span>
+              <span class="text-charcoal/70"> — {c.summary}</span>
+            </a>
+          </li>
+        ))}
+      </ol>
+      <p class="text-xs text-charcoal/70 font-latin">
+        <a href={`/${lang}/modules/school-prep`} class="font-semibold text-saffron-600 hover:text-saffron-700 dark:hover:text-saffron-300">← {pt.allClasses}</a>
+      </p>
+    </section>
+  </div>
+</Layout>

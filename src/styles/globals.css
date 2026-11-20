@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@300;400;500;600&family=Noto+Sans+JP:wght@400;700&family=Noto+Serif+Devanagari:wght@400;700&family=Rozha+One&family=Tiro+Sanskrit&display=swap");
+/* Web fonts are loaded with <link> tags in src/layouts/Layout.astro (not @import, which blocks rendering). */
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
@@ -27,11 +27,11 @@
 
 @theme {
   /* Default sans and mono fonts updated to Geist/Inter and Geist Mono */
-  --font-sans: "Geist", "Inter", sans-serif;
+  --font-sans: "Geist", "Inter", system-ui, "Hiragino Sans", "Noto Sans JP", "Yu Gothic", sans-serif;
   --font-mono: "Geist Mono", "JetBrains Mono", monospace;
   --font-sanskrit: "Tiro Sanskrit", "Rozha One", "Noto Serif Devanagari", serif;
   --font-cjk: "Noto Sans JP", sans-serif;
-  --font-latin: "Geist", "Inter", sans-serif;
+  --font-latin: "Geist", "Inter", system-ui, "Hiragino Sans", "Noto Sans JP", "Yu Gothic", sans-serif;
 
   /* Custom Color System */
   --color-saffron-50: #FFF9F2;

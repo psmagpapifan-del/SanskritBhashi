@@ -22,6 +22,8 @@ export interface ParsedDeepLink {
   module?: string;
   chapterId?: number;
   source?: string;
+  /** School Prep class page, e.g. "class-9". */
+  subpage?: string;
   /** Quiz topic / NCERT chapter id, e.g. "c6-01" or "gita-karma-yoga". */
   topic?: string;
 }
@@ -51,6 +53,9 @@ export function parseDeepLink(url: string): ParsedDeepLink | null {
     // /en/modules/school-prep  or  /en/modules/shastra-study
     if (segments[1] === 'modules' && segments[2]) {
       result.module = segments[2];
+      // /en/modules/school-prep/class-9 → keep the class sub-page.
+      const sub = segments[3]?.replace(/\.html$/, '');
+      if (result.module === 'school-prep' && sub && /^class-(6|7|8|9|10|11|12)$/.test(sub)) result.subpage = sub;
     }
 
     // Query params: ?chapter=12&source=core
@@ -82,6 +87,10 @@ export function buildWebPath(link: ParsedDeepLink): string {
 
   if (link.module) {
     path += `/modules/${link.module}`;
+    // NCERT topics live on their class page: c8-05 → /modules/school-prep/class-8
+    const topicClass = link.module === 'school-prep' && link.topic ? /^c(6|7|8|9|10|11|12)-/.exec(link.topic)?.[1] : undefined;
+    const cls = link.subpage ?? (topicClass ? `class-${topicClass}` : undefined);
+    if (cls) path += `/${cls}`;
   }
 
   if (isNative && !path.endsWith('.html')) {

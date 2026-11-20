@@ -51,7 +51,7 @@ test.describe("Sanskritbhashi Comprehensive End-to-End Test Suite", () => {
   });
 
   test("TC-03: NCERT quiz core loop (hint on a wrong answer, Next unlocks on the right one)", async ({ page }) => {
-    await page.goto("/en/modules/school-prep");
+    await page.goto("/en/modules/school-prep/class-6");
     await page.locator('button:has-text("Skip Tour")').click();
 
     const card = page.locator("#ncert-quiz-card");
@@ -69,18 +69,36 @@ test.describe("Sanskritbhashi Comprehensive End-to-End Test Suite", () => {
     await expect(page.getByTestId("quiz-next")).toBeEnabled();
   });
 
-  test("TC-04: Class tabs and chapter links (Class 8 lesson opens and updates the URL)", async ({ page }) => {
+  test("TC-04: Hub links to class pages; class nav and chapter links work", async ({ page }) => {
     await page.goto("/en/modules/school-prep");
     await page.locator('button:has-text("Skip Tour")').click();
+    await expect(page.locator("[data-class-link]")).toHaveCount(7);
+    await expect(page.locator("#ncert-quiz-card")).toHaveCount(0); // the hub ships no quiz data
+    await page.locator('[data-class-link="6"]').click();
+    await expect(page).toHaveURL(/\/en\/modules\/school-prep\/class-6$/);
 
     await expect(page.locator("[data-group]")).toHaveCount(7);
+    await expect(page.locator('[data-group="Class 6"]')).toHaveAttribute("aria-current", "page");
     await expect(page.locator("[data-topic]")).toHaveCount(16); // Class 6 lessons
     await page.locator('[data-group="Class 8"]').click();
+    await expect(page).toHaveURL(/\/class-8$/);
     await expect(page.locator("[data-topic]")).toHaveCount(13);
 
     await page.locator('[data-topic="c8-05"]').click();
     await expect(page).toHaveURL(/topic=c8-05/);
     await expect(page.locator("#ncert-quiz-card h2")).toContainText("गीता सुगीता कर्तव्या");
+  });
+
+  test("TC-04b: Class page has Course and BreadcrumbList schema for that class", async ({ page }) => {
+    await page.goto("/en/modules/school-prep/class-9");
+    const schemas = await Promise.all(
+      (await page.locator('script[type="application/ld+json"]').all()).map(async (s) => JSON.parse(await s.innerHTML()))
+    );
+    const course = schemas.find((s) => s["@type"] === "Course");
+    expect(course.name).toContain("Class 9");
+    expect(course.hasPart.every((p: any) => p.name.startsWith("Class 9"))).toBe(true);
+    const crumbs = schemas.find((s) => s["@type"] === "BreadcrumbList");
+    expect(crumbs.itemListElement).toHaveLength(3);
   });
 
   test("TC-05: State Persistence (localStorage streak count persistence on page reload)", async ({ page }) => {
@@ -126,7 +144,9 @@ test.describe("Sanskritbhashi Comprehensive End-to-End Test Suite", () => {
 
   test("TC-07: No chapter locks; exam results persist under sb_ncert_v1", async ({ page }) => {
     // A new visitor can open any lesson directly.
+    // Old hub links redirect to the class page.
     await page.goto("/en/modules/school-prep?topic=c8-12");
+    await expect(page).toHaveURL(/\/school-prep\/class-8\?topic=c8-12$/);
     await page.locator('button:has-text("Skip Tour")').click();
     await expect(page.locator("text=Chapter Locked")).toHaveCount(0);
     await expect(page.locator("#ncert-quiz-card h2")).toContainText("सम्यग्वर्णप्रयोगेण");
@@ -158,7 +178,7 @@ test.describe("Sanskritbhashi Comprehensive End-to-End Test Suite", () => {
   });
 
   test("TC-09: Telemetry Submission (mock POST API response and verify correct payloads)", async ({ page }) => {
-    await page.goto("/en/modules/school-prep");
+    await page.goto("/en/modules/school-prep/class-6");
     await page.locator('button:has-text("Skip Tour")').click();
 
     // Intercept POST request to /api/report-error

@@ -110,7 +110,7 @@ export default function LanguageSelector({ currentLang, currentPathname }: Langu
                   onClick={() => handleInterfaceChange(lang.code)}
                   className={`flex items-center justify-between px-3 py-1.5 rounded-lg text-sm transition-colors cursor-pointer ${
                     currentLang === lang.code
-                      ? "bg-saffron-500 text-white font-semibold"
+                      ? "bg-saffron-500 text-zinc-900 font-semibold"
                       : "hover:bg-saffron-50 text-charcoal"
                   }`}
                 >

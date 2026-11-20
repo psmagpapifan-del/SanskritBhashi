@@ -74,11 +74,7 @@ test.describe("Accessibility Testing", () => {
         (v: any) => v.impact === "critical" || v.impact === "serious"
       );
 
-      // Colour contrast is logged but not enforced yet: the remaining failures come
-      // from the saffron brand palette and need a design decision.
-      // Every other critical/serious violation fails the test.
-      const enforced = criticalViolations.filter((v: any) => v.id !== "color-contrast");
-      expect(enforced, `${pageInfo.name}: critical/serious a11y violations`).toEqual([]);
+      expect(criticalViolations, `${pageInfo.name}: critical/serious a11y violations`).toEqual([]);
     });
   }
 
@@ -290,5 +286,117 @@ test.describe("Accessibility Testing", () => {
     // Charcoal (#212121) on cream (#FAF9F6) should pass AA contrast
     expect(contrast.color).toBeTruthy();
     expect(contrast.bg).toBeTruthy();
+  });
+});
+
+// ── Wider axe coverage: every locale, dark mode, and quiz states ────────────
+
+async function seriousViolations(page: import("@playwright/test").Page, label: string) {
+  await page.addScriptTag({ path: require.resolve("axe-core/axe.min.js") });
+  const violations = await page.evaluate(async () => {
+    const results = await (window as any).axe.run(document, {
+      runOnly: { type: "tag", values: ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "best-practice"] },
+    });
+    return results.violations
+      .filter((v: any) => v.impact === "critical" || v.impact === "serious")
+      .map((v: any) => ({
+        id: v.id,
+        targets: v.nodes.slice(0, 5).map((n: any) => `${n.target.join(" ")} :: ${n.failureSummary?.split("\n")[1] ?? ""}`),
+      }));
+  });
+  if (violations.length) {
+    console.log(`\n=== ${label} ===`);
+    for (const v of violations) for (const t of v.targets) console.log(`  [${v.id}] ${t}`);
+  }
+  return violations;
+}
+
+const LOCALE_PAGES = ["", "/modules/school-prep", "/modules/shastra-study", "/learn", "/faqs", "/about", "/contact", "/learn/bhagavad-gita-anvaya-guide"];
+const LOCALES = ["en", "hi", "ja", "es"];
+
+test.describe("Accessibility – all locales and themes", () => {
+  for (const theme of ["light", "dark"] as const) {
+    for (const locale of LOCALES) {
+      // Dark mode is checked on every page in English and Hindi; light mode in all four locales.
+      if (theme === "dark" && (locale === "ja" || locale === "es")) continue;
+      test(`A11Y-20-${locale}-${theme}: no serious axe violations on main pages`, async ({ page }) => {
+        test.setTimeout(120_000);
+        await page.goto(`/${locale}`);
+        await page.evaluate((t) => {
+          localStorage.setItem("tour_completed", "true");
+          localStorage.setItem("cookie-consent", "declined");
+          localStorage.setItem("theme", t);
+        }, theme);
+        const failures: string[] = [];
+        for (const p of LOCALE_PAGES) {
+          await page.goto(`/${locale}${p}`, { waitUntil: "networkidle" });
+          const v = await seriousViolations(page, `${locale}${p} (${theme})`);
+          if (v.length) failures.push(`${locale}${p}: ${v.map((x: any) => x.id).join(", ")}`);
+        }
+        expect(failures).toEqual([]);
+      });
+    }
+  }
+});
+
+test.describe("Accessibility – quiz states", () => {
+  for (const theme of ["light", "dark"] as const) {
+    test(`A11Y-21-${theme}: NCERT quiz after wrong and right answers`, async ({ page }) => {
+      await page.goto("/en");
+      await page.evaluate((t) => {
+        localStorage.setItem("tour_completed", "true");
+        localStorage.setItem("cookie-consent", "declined");
+        localStorage.setItem("theme", t);
+      }, theme);
+      await page.goto("/en/modules/school-prep", { waitUntil: "networkidle" });
+      const card = page.locator("#ncert-quiz-card");
+      await card.locator('[data-option-correct="false"]').first().click();
+      expect(await seriousViolations(page, `quiz wrong (${theme})`)).toEqual([]);
+      await card.locator('[data-option-correct="true"]').click();
+      expect(await seriousViolations(page, `quiz right (${theme})`)).toEqual([]);
+    });
+
+    test(`A11Y-22-${theme}: Shastra quiz after a right answer`, async ({ page }) => {
+      await page.goto("/en");
+      await page.evaluate((t) => {
+        localStorage.setItem("tour_completed", "true");
+        localStorage.setItem("cookie-consent", "declined");
+        localStorage.setItem("theme", t);
+      }, theme);
+      await page.goto("/en/modules/shastra-study", { waitUntil: "networkidle" });
+      const card = page.locator("#shastra-quiz-card");
+      await card.locator('[data-option-correct="true"]').click();
+      expect(await seriousViolations(page, `shastra right (${theme})`)).toEqual([]);
+    });
+  }
+});
+
+test.describe("Accessibility – keyboard quiz flow", () => {
+  test("A11Y-23: NCERT quiz can be answered with the keyboard and focus is never lost", async ({ page }) => {
+    await page.goto("/en");
+    await page.evaluate(() => {
+      localStorage.setItem("tour_completed", "true");
+      localStorage.setItem("cookie-consent", "declined");
+    });
+    await page.goto("/en/modules/school-prep", { waitUntil: "networkidle" });
+    const card = page.locator("#ncert-quiz-card");
+
+    // Wrong answer via keyboard: focus stays on the (now struck) option, which is announced as incorrect.
+    const wrong = card.locator('[data-option-correct="false"]').first();
+    await wrong.focus();
+    await page.keyboard.press("Enter");
+    await expect(wrong).toBeFocused();
+    await expect(wrong).toHaveAttribute("aria-disabled", "true");
+    await expect(wrong.locator(".sr-only")).toHaveText(/Incorrect/);
+
+    // Right answer via keyboard: focus moves to Next.
+    await card.locator('[data-option-correct="true"]').focus();
+    await page.keyboard.press("Enter");
+    await expect(page.getByTestId("quiz-next")).toBeFocused();
+
+    // Next via keyboard: focus lands on the new question prompt.
+    await page.keyboard.press("Enter");
+    await expect(page.getByTestId("quiz-position")).toHaveText("Question 2 of 9");
+    await expect(page.getByTestId("quiz-prompt")).toBeFocused();
   });
 });

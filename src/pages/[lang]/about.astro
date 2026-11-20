@@ -41,19 +41,19 @@ const orgSchema = {
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(orgSchema)} />
 
   {/* Header Banner */}
-  <section class="bg-linear-to-r from-saffron-500 to-saffron-600 rounded-3xl p-6 md:p-8 text-white mb-8 shadow-md">
+  <section class="bg-linear-to-r from-saffron-500 to-marigold-500 rounded-3xl p-6 md:p-8 text-zinc-900 mb-8 shadow-md">
     <div class="flex items-center gap-3 mb-2">
       <Info class="w-8 h-8 text-marigold-500" />
       <h1 class="text-2xl md:text-3xl font-bold font-latin">{t.about.title}</h1>
     </div>
-    <p class="text-sm md:text-base text-white/95 max-w-2xl leading-relaxed font-latin">
+    <p class="text-sm md:text-base text-zinc-900 max-w-2xl leading-relaxed font-latin">
       {t.about.desc}
     </p>
-    <div class="mt-4 flex flex-wrap gap-4 text-xs font-semibold text-white/90">
-      <span class="flex items-center gap-1.5 bg-black/15 px-3 py-1 rounded-full border border-white/10 font-mono">
+    <div class="mt-4 flex flex-wrap gap-4 text-xs font-semibold text-zinc-900">
+      <span class="flex items-center gap-1.5 bg-white/30 px-3 py-1 rounded-full border border-zinc-900/10 font-mono">
         <Calendar class="w-3.5 h-3.5" /> Last Updated: June 14, 2026
       </span>
-      <span class="flex items-center gap-1.5 bg-black/15 px-3 py-1 rounded-full border border-white/10 font-mono">
+      <span class="flex items-center gap-1.5 bg-white/30 px-3 py-1 rounded-full border border-zinc-900/10 font-mono">
         <Mail class="w-3.5 h-3.5" /> Support: ps.magpapifan@gmail.com
       </span>
     </div>

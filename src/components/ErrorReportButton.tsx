@@ -108,7 +108,7 @@ export default function ErrorReportButton({
       {/* Small floating button style directly inside practice card */}
       <button
         onClick={() => setIsOpen(true)}
-        className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-red-200/50 bg-red-50/20 hover:bg-red-50 hover:border-red-400 text-red-600 transition-all text-xs font-semibold cursor-pointer select-none"
+        className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-red-200/50 bg-red-50/20 hover:bg-red-50 hover:border-red-400 text-red-600 dark:text-red-300 dark:bg-red-950/40 dark:border-red-900 dark:hover:bg-red-950 transition-all text-xs font-semibold cursor-pointer select-none"
         title={t.practice.reportTitle}
       >
         <AlertTriangle className="w-3.5 h-3.5 text-red-500" />

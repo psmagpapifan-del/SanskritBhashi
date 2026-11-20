@@ -296,7 +296,7 @@ export default function OnboardingTour() {
               <button
                 onClick={handleNext}
                 data-testid="tour-next"
-                className="flex items-center gap-1 px-4 py-2 rounded-full bg-saffron-500 text-white font-bold text-sm hover:bg-saffron-600 transition-colors shadow-md shadow-saffron-500/20 cursor-pointer"
+                className="flex items-center gap-1 px-4 py-2 rounded-full bg-saffron-500 text-zinc-900 font-bold text-sm hover:brightness-110 transition-colors shadow-md shadow-saffron-500/20 cursor-pointer"
               >
                 <span>{currentStep === tourSteps.length - 1 ? "Get Started" : "Next"}</span>
                 <ChevronRight className="w-4 h-4" />

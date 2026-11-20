@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { BookOpen, CheckCircle2, ClipboardCheck, GraduationCap, Lightbulb, RotateCcw, Trophy, XCircle } from "lucide-react";
 import type { QuizQuestion, QuizTopic } from "../lib/quizContent";
 import {
@@ -66,7 +66,7 @@ const STRINGS = {
     practiceHelp: "Instant feedback and hints. Questions you miss come back at the end and in later reviews.",
     examHelp: `One attempt per question, no hints. Score ${PASS_MARK}% or more to pass the topic.`,
     question: "Question", of: "of", review: "Review round: questions you missed",
-    correct: "Correct!", tryAgain: "Not quite. Try again.", hint: "Hint",
+    correct: "Correct!", tryAgain: "Not quite. Try again.", hint: "Hint", wrongLabel: "Incorrect", correctLabel: "Correct answer",
     next: "Next", finish: "See results", submit: "Submit answer",
     results: "Results", firstTry: "first-try score", passed: "Passed", notPassed: "Not passed yet",
     passNote: `Pass mark: ${PASS_MARK}%`, missed: "Questions to revisit", allCorrect: "Every question correct on the first try.",
@@ -80,7 +80,7 @@ const STRINGS = {
     practiceHelp: "तुरंत प्रतिक्रिया और संकेत। चूके हुए प्रश्न अंत में और बाद की पुनरावृत्ति में फिर आते हैं।",
     examHelp: `प्रत्येक प्रश्न का एक ही प्रयास, कोई संकेत नहीं। विषय उत्तीर्ण करने के लिए ${PASS_MARK}% या अधिक अंक लाएँ।`,
     question: "प्रश्न", of: "/", review: "पुनरावृत्ति: जो प्रश्न चूक गए",
-    correct: "सही!", tryAgain: "ठीक नहीं। फिर प्रयास करें।", hint: "संकेत",
+    correct: "सही!", tryAgain: "ठीक नहीं। फिर प्रयास करें।", hint: "संकेत", wrongLabel: "गलत", correctLabel: "सही उत्तर",
     next: "अगला", finish: "परिणाम देखें", submit: "उत्तर दें",
     results: "परिणाम", firstTry: "पहले प्रयास के अंक", passed: "उत्तीर्ण", notPassed: "अभी उत्तीर्ण नहीं",
     passNote: `उत्तीर्णांक: ${PASS_MARK}%`, missed: "दोबारा देखने योग्य प्रश्न", allCorrect: "सभी प्रश्न पहले प्रयास में सही।",
@@ -94,7 +94,7 @@ const STRINGS = {
     practiceHelp: "すぐにフィードバックとヒントが表示されます。間違えた問題は最後と後日の復習でもう一度出題されます。",
     examHelp: `各問題は1回のみ、ヒントなし。${PASS_MARK}%以上で合格です。`,
     question: "問題", of: "/", review: "復習ラウンド：間違えた問題",
-    correct: "正解！", tryAgain: "惜しい。もう一度。", hint: "ヒント",
+    correct: "正解！", tryAgain: "惜しい。もう一度。", hint: "ヒント", wrongLabel: "不正解", correctLabel: "正しい答え",
     next: "次へ", finish: "結果を見る", submit: "回答する",
     results: "結果", firstTry: "初回正答率", passed: "合格", notPassed: "まだ不合格",
     passNote: `合格点：${PASS_MARK}%`, missed: "見直す問題", allCorrect: "すべて1回目で正解しました。",
@@ -108,7 +108,7 @@ const STRINGS = {
     practiceHelp: "Respuesta inmediata y pistas. Las preguntas falladas vuelven al final y en repasos posteriores.",
     examHelp: `Un intento por pregunta, sin pistas. Obtenga ${PASS_MARK}% o más para aprobar el tema.`,
     question: "Pregunta", of: "de", review: "Repaso: preguntas falladas",
-    correct: "¡Correcto!", tryAgain: "No exactamente. Inténtelo de nuevo.", hint: "Pista",
+    correct: "¡Correcto!", tryAgain: "No exactamente. Inténtelo de nuevo.", hint: "Pista", wrongLabel: "Incorrecto", correctLabel: "Respuesta correcta",
     next: "Siguiente", finish: "Ver resultados", submit: "Responder",
     results: "Resultados", firstTry: "acierto al primer intento", passed: "Aprobado", notPassed: "Aún no aprobado",
     passNote: `Nota de aprobado: ${PASS_MARK}%`, missed: "Preguntas para repasar", allCorrect: "Todas correctas al primer intento.",
@@ -227,6 +227,24 @@ export default function TopicQuiz({ topics, storeKey, cardId = "topic-quiz-card"
   const order = (question && orders[question.id]) || (question ? question.options.map((_, i) => i) : []);
   const isExam = mode === "exam";
   const locked = feedback === "correct" || (isExam && selected !== null && session.answers[qid ?? ""] !== undefined);
+
+  // Keyboard and screen-reader focus: answering disables the options, so move focus
+  // to Next once the answer is right, and to the new prompt when the question changes.
+  const nextRef = useRef<HTMLButtonElement>(null);
+  const promptRef = useRef<HTMLHeadingElement>(null);
+  const lastQid = useRef(qid);
+  useEffect(() => {
+    if (feedback === "correct") nextRef.current?.focus();
+  }, [feedback]);
+  useEffect(() => {
+    if (lastQid.current !== undefined && lastQid.current !== qid) {
+      // Only take focus if the learner was already working inside the quiz (e.g. pressed Next).
+      const card = promptRef.current?.closest("section");
+      const active = document.activeElement;
+      if (!card || active === document.body || card.contains(active)) promptRef.current?.focus();
+    }
+    lastQid.current = qid;
+  }, [qid]);
 
   const onChoose = (originalIndex: number) => {
     if (!question || locked) return;
@@ -445,7 +463,7 @@ export default function TopicQuiz({ topics, storeKey, cardId = "topic-quiz-card"
               </blockquote>
             )}
 
-            <h3 className="text-base md:text-lg font-bold text-charcoal font-latin" data-testid="quiz-prompt">{tx(question.prompt)}</h3>
+            <h3 className="text-base md:text-lg font-bold text-charcoal font-latin" data-testid="quiz-prompt" ref={promptRef} tabIndex={-1} style={{ outline: "none" }}>{tx(question.prompt)}</h3>
 
             <div className="grid gap-2.5" role="list" id="tour-step-7">
               {order.map((orig, i) => {
@@ -462,12 +480,15 @@ export default function TopicQuiz({ topics, storeKey, cardId = "topic-quiz-card"
                       type="button"
                       data-option-correct={isRight ? "true" : "false"}
                       aria-pressed={isExam ? picked : undefined}
-                      disabled={locked || (!isExam && struck)}
-                      onClick={() => onChoose(orig)}
-                      className={`w-full text-left flex gap-3 items-start rounded-2xl border-2 px-4 py-3 transition-colors cursor-pointer disabled:cursor-default ${tone}`}
+                      disabled={locked}
+                      aria-disabled={!isExam && struck ? true : undefined}
+                      onClick={() => { if (!(!isExam && struck)) onChoose(orig); }}
+                      className={`w-full text-left flex gap-3 items-start rounded-2xl border-2 px-4 py-3 transition-colors cursor-pointer disabled:cursor-default aria-disabled:cursor-default ${tone}`}
                     >
                       <span className="w-6 h-6 shrink-0 rounded-full bg-cream dark:bg-zinc-700 text-xs font-black flex items-center justify-center text-charcoal">{LABELS[i]}</span>
                       <span className="text-sm md:text-base text-charcoal font-latin" data-testid="quiz-option">{tx(question.options[orig])}</span>
+                      {!isExam && struck && <span className="sr-only">{` (${s.wrongLabel})`}</span>}
+                      {!isExam && feedback === "correct" && isRight && <span className="sr-only">{` (${s.correctLabel})`}</span>}
                     </button>
                   </div>
                 );
@@ -498,6 +519,7 @@ export default function TopicQuiz({ topics, storeKey, cardId = "topic-quiz-card"
               <button
                 type="button"
                 data-testid="quiz-next"
+                ref={nextRef}
                 onClick={onNext}
                 disabled={isExam ? selected === null : feedback !== "correct"}
                 className="px-6 py-2.5 rounded-xl bg-charcoal text-white dark:bg-zinc-100 dark:text-zinc-900 text-sm font-bold font-latin disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"

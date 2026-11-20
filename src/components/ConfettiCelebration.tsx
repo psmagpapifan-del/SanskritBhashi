@@ -8,6 +8,8 @@ export default function ConfettiCelebration() {
     let interval: any;
 
     const handleConfetti = async () => {
+      // Respect the "reduce motion" accessibility setting.
+      if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
       const { default: confetti } = await import("canvas-confetti");
       if (!active) return;
 

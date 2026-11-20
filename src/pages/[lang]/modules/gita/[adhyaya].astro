@@ -4,14 +4,20 @@ import Layout from "../../../../layouts/Layout.astro";
 import Adhyaya1Study from "../../../../components/gita/Adhyaya1Study";
 import Adhyaya2Study from "../../../../components/gita/Adhyaya2Study";
 import Adhyaya3Study from "../../../../components/gita/Adhyaya3Study";
+import Adhyaya4Study from "../../../../components/gita/Adhyaya4Study";
+import Adhyaya5Study from "../../../../components/gita/Adhyaya5Study";
+import Adhyaya6Study from "../../../../components/gita/Adhyaya6Study";
 import { getTranslation } from "../../../../lib/i18n";
 import { GITA_AVAILABLE, adhyayaSlug, gitaLang, type GitaAdhyaya } from "../../../../lib/gita/index";
 import { adhyaya1 } from "../../../../lib/gita/adhyaya1";
 import { adhyaya2 } from "../../../../lib/gita/adhyaya2";
 import { adhyaya3 } from "../../../../lib/gita/adhyaya3";
+import { adhyaya4 } from "../../../../lib/gita/adhyaya4";
+import { adhyaya5 } from "../../../../lib/gita/adhyaya5";
+import { adhyaya6 } from "../../../../lib/gita/adhyaya6";
 import { gitaPageText } from "../../../../lib/gitaPageText";
 
-const CHAPTERS: Record<number, GitaAdhyaya> = { 1: adhyaya1, 2: adhyaya2, 3: adhyaya3 };
+const CHAPTERS: Record<number, GitaAdhyaya> = { 1: adhyaya1, 2: adhyaya2, 3: adhyaya3, 4: adhyaya4, 5: adhyaya5, 6: adhyaya6 };
 
 export function getStaticPaths() {
   return ["en", "hi", "ja", "es"].flatMap((lang) =>
@@ -96,6 +102,9 @@ const schema = {
     {n === 1 && <Adhyaya1Study client:load activeLang={lang} />}
     {n === 2 && <Adhyaya2Study client:load activeLang={lang} />}
     {n === 3 && <Adhyaya3Study client:load activeLang={lang} />}
+    {n === 4 && <Adhyaya4Study client:load activeLang={lang} />}
+    {n === 5 && <Adhyaya5Study client:load activeLang={lang} />}
+    {n === 6 && <Adhyaya6Study client:load activeLang={lang} />}
 
     <nav aria-label={t.chooseAdhyaya} class="flex flex-wrap items-center justify-between gap-3 text-sm font-bold font-latin">
       {prev ? <a href={`/${lang}/modules/gita/${adhyayaSlug(prev)}`} class="text-brand-600 hover:text-brand-700 dark:hover:text-brand-300">← {t.previous}</a> : <span />}

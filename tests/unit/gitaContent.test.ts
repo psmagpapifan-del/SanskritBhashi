@@ -4,9 +4,12 @@ import assert from "node:assert/strict";
 import { adhyaya1 } from "../../src/lib/gita/adhyaya1.ts";
 import { adhyaya2 } from "../../src/lib/gita/adhyaya2.ts";
 import { adhyaya3 } from "../../src/lib/gita/adhyaya3.ts";
+import { adhyaya4 } from "../../src/lib/gita/adhyaya4.ts";
+import { adhyaya5 } from "../../src/lib/gita/adhyaya5.ts";
+import { adhyaya6 } from "../../src/lib/gita/adhyaya6.ts";
 import { ADHYAYAS, GITA_AVAILABLE, GITA_LEVELS, shlokasFor, toQuizTopics } from "../../src/lib/gita/index.ts";
 
-const chapters = [adhyaya1, adhyaya2, adhyaya3];
+const chapters = [adhyaya1, adhyaya2, adhyaya3, adhyaya4, adhyaya5, adhyaya6];
 const both = (b: { en: string; hi: string }, where: string) => {
   assert.ok(b.en.trim(), `${where}: missing English`);
   assert.ok(b.hi.trim(), `${where}: missing Hindi`);

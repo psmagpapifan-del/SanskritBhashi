@@ -6,6 +6,14 @@ This file tracks all bug fixes, improvements, and features implemented across ap
 
 ## [Unreleased] - 2026-11-18
 
+### Feature: Gita for Students, adhyayas 4–6 (2026-11-20)
+- **Content:** `src/lib/gita/adhyaya4.ts`, `adhyaya5.ts`, `adhyaya6.ts` — 21 more shlokas in English and Hindi, each with word meanings, a school-life situation, a reflection question and 2 quiz questions:
+  - Adhyaya 4: 4.7, 4.8 (Classes 6–8); 4.24, 4.34, 4.39 (9–10); 4.18, 4.38, 4.40 (11–12).
+  - Adhyaya 5: 5.10, 5.29 (6–8); 5.18, 5.23 (9–10); 5.2, 5.22 (11–12).
+  - Adhyaya 6: 6.5, 6.17 (6–8); 6.34, 6.35 (9–10); 6.6, 6.19, 6.40 (11–12).
+- **Feature:** `src/components/gita/Adhyaya4–6Study.tsx` and `modules/gita/[adhyaya].astro` — study pages for Adhyayas 4–6 (en/hi; ja/es show English, noindex), linked from the Gita hub, sitemap and `llms.txt`.
+- **Tests:** `tests/gita.spec.ts` and `tests/unit/gitaContent.test.ts` cover all six adhyayas.
+
 ### Feature: Gita for Students, adhyayas 1–3 (2026-11-20)
 - **Feature:** new study mode `/modules/gita` (`src/pages/[lang]/modules/gita/`, `src/components/gita/`, `src/lib/gita/`). Bhagavad Gita shlokas are graded for Classes 6–8, 9–10 and 11–12. Each shloka has the Devanagari text with a transliteration line (follows the script setting), word meanings, the meaning, a situation from a student's daily life, a reflection question, a memorise mode (reveal line by line) and a 2-question quiz.
 - **Content:** Adhyayas 1–3, 20 shlokas (1.1, 1.47; 2.3, 2.7, 2.13, 2.14, 2.22, 2.47, 2.48, 2.50, 2.56, 2.62, 2.63; 3.8, 3.19, 3.21, 3.27, 3.30, 3.35, 3.37), each with a story context and a three-line crux per chapter. English and Hindi; Japanese/Spanish pages show English and are noindex. Verse numbers follow Gita Press; 1.47 also notes "1.46 in some editions".

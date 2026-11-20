@@ -6,6 +6,12 @@ This file tracks all bug fixes, improvements, and features implemented across ap
 
 ## [Unreleased] - 2026-11-18
 
+### Design tokens: re-theme the whole app from one file (2026-11-20)
+- **UI [Design system]:** `src/styles/globals.css` and all components — colour tokens renamed from `saffron-*` / `marigold-*` to semantic `brand-*` / `accent-*`. New `on-brand` token for text on brand fills. Fixed three classes that pointed at non-existent shades (`saffron-55/105/755`). Confetti, the streak glow and the ad frame now read the tokens instead of hard-coded hex values. No visual change (all visual baselines unchanged).
+- **Tooling:** `scripts/theme-check.mjs` (`npm run theme:check`, also run by `tests/unit/theme.test.ts`) checks every colour pair the UI uses against WCAG AA, and checks that the browser theme colour matches the brand.
+- **Docs:** `DESIGN.md` rewritten for the real design system: a 6-step re-theme guide, the token table, typography, shape, component patterns and accessibility rules.
+- **Repo:** removed the committed `Sanskritbhashi-release.aab` (14 MB) and the unused `Welcome.astro` starter component; `.aab`/`.apk` are now git-ignored.
+
 ### Speed: one page per NCERT class, lighter fonts (2026-11-20)
 - **Performance / Feature:** `src/pages/[lang]/modules/school-prep/[cls].astro`, `src/components/ncert/Class*Quiz.tsx` — each class now has its own page (`/en/modules/school-prep/class-9` etc.) that loads only its own questions (43–94 KB instead of 427 KB for all 867 questions). Each class page has its own title, description, Course and BreadcrumbList schema, and is listed in the sitemap in all 4 languages.
 - **UI:** `src/pages/[lang]/modules/school-prep.astro` — School Prep is now a class picker with the full lesson list. Old links such as `/modules/school-prep?topic=c8-05` redirect to the class page; app deep links (`src/lib/deepLinkRouter.ts`) and the tour go straight to the class page.

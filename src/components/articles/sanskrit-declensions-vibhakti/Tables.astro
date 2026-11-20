@@ -23,7 +23,7 @@ const ramaForms = [
   ["हे राम (he rāma)", "हे रामौ (he rāmau)", "हे रामाः (he rāmāḥ)"],
 ];
 
-const cell = "p-3 border border-saffron-100 dark:border-zinc-800";
+const cell = "p-3 border border-brand-100 dark:border-zinc-800";
 const tableRows: string[][] =
   kind === "rama"
     ? (rows as string[]).map((label, i) => [label, ...ramaForms[i]])
@@ -31,9 +31,9 @@ const tableRows: string[][] =
 ---
 
 <div class="overflow-x-auto my-6">
-  <table class="min-w-full bg-white dark:bg-zinc-900 border border-saffron-100 dark:border-zinc-800 text-xs md:text-sm">
+  <table class="min-w-full bg-white dark:bg-zinc-900 border border-brand-100 dark:border-zinc-800 text-xs md:text-sm">
     <thead>
-      <tr class="bg-saffron-50 dark:bg-zinc-800 text-charcoal dark:text-zinc-200 font-bold">
+      <tr class="bg-brand-50 dark:bg-zinc-800 text-charcoal dark:text-zinc-200 font-bold">
         {headers.map((h) => <th class={`${cell} text-left`}>{h}</th>)}
       </tr>
     </thead>

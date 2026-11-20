@@ -19,7 +19,7 @@ export default function AdSenseWidget({ slot, format = "auto", variant }: AdSens
 
   return (
     <div
-      className={`adsense-wrapper ${variant} my-6 mx-auto w-full overflow-hidden rounded-2xl bg-[#FAF9F6] p-3 border border-[#FFB300]/20 min-h-[100px] flex flex-col items-center justify-center relative select-none`}
+      className={`adsense-wrapper ${variant} my-6 mx-auto w-full overflow-hidden rounded-2xl bg-cream p-3 border border-accent-500/20 min-h-[100px] flex flex-col items-center justify-center relative select-none`}
       style={{
         contentVisibility: "auto",
         containIntrinsicSize: "auto 100px",

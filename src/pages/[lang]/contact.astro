@@ -19,12 +19,12 @@ const t = getTranslation(lang);
 
 <Layout lang={lang} title={`${t.nav.contact} | Sanskritbhashi`} description="Contact the Sanskritbhashi team for questions, content corrections, partnership enquiries, or feedback about our Sanskrit learning resources." showAds={false}>
   {/* Header Banner */}
-  <section class="bg-linear-to-r from-saffron-500 to-marigold-500 rounded-3xl p-6 md:p-8 text-zinc-900 mb-8 shadow-md">
+  <section class="bg-linear-to-r from-brand-500 to-accent-500 rounded-3xl p-6 md:p-8 text-on-brand mb-8 shadow-md">
     <div class="flex items-center gap-3 mb-2">
-      <Mail class="w-8 h-8 text-marigold-500" />
+      <Mail class="w-8 h-8 text-accent-500" />
       <h1 class="text-2xl md:text-3xl font-bold font-latin">Contact Us.</h1>
     </div>
-    <p class="text-sm md:text-base text-zinc-900 max-w-2xl leading-relaxed font-latin">
+    <p class="text-sm md:text-base text-on-brand max-w-2xl leading-relaxed font-latin">
       Have questions, feedback, or interest in collaborating? Reach out directly using our contact channel.
     </p>
   </section>
@@ -34,7 +34,7 @@ const t = getTranslation(lang);
     <form id="contact-form" class="space-y-6">
       <div>
         <label for="name" class="block text-sm font-semibold text-charcoal/85 mb-2 flex items-center gap-1.5 font-latin">
-          <User class="w-4 h-4 text-saffron-500" /> Your Name
+          <User class="w-4 h-4 text-brand-500" /> Your Name
         </label>
         <input
           type="text"
@@ -42,13 +42,13 @@ const t = getTranslation(lang);
           name="name"
           required
           placeholder="E.g., Dr. Rajesh Sharma"
-          class="w-full px-4 py-3 rounded-xl border border-border-hairline bg-cream/50 dark:bg-zinc-950/50 text-charcoal focus:outline-hidden focus:border-saffron-500 text-sm transition-colors"
+          class="w-full px-4 py-3 rounded-xl border border-border-hairline bg-cream/50 dark:bg-zinc-950/50 text-charcoal focus:outline-hidden focus:border-brand-500 text-sm transition-colors"
         />
       </div>
 
       <div>
         <label for="email" class="block text-sm font-semibold text-charcoal/85 mb-2 flex items-center gap-1.5 font-latin">
-          <Mail class="w-4 h-4 text-saffron-500" /> Email Address
+          <Mail class="w-4 h-4 text-brand-500" /> Email Address
         </label>
         <input
           type="email"
@@ -56,13 +56,13 @@ const t = getTranslation(lang);
           name="email"
           required
           placeholder="your.email@university.edu"
-          class="w-full px-4 py-3 rounded-xl border border-border-hairline bg-cream/50 dark:bg-zinc-950/50 text-charcoal focus:outline-hidden focus:border-saffron-500 text-sm transition-colors"
+          class="w-full px-4 py-3 rounded-xl border border-border-hairline bg-cream/50 dark:bg-zinc-950/50 text-charcoal focus:outline-hidden focus:border-brand-500 text-sm transition-colors"
         />
       </div>
 
       <div>
         <label for="subject" class="block text-sm font-semibold text-charcoal/85 mb-2 flex items-center gap-1.5 font-latin">
-          <MessageSquare class="w-4 h-4 text-saffron-500" /> Subject
+          <MessageSquare class="w-4 h-4 text-brand-500" /> Subject
         </label>
         <input
           type="text"
@@ -70,13 +70,13 @@ const t = getTranslation(lang);
           name="subject"
           required
           placeholder="E.g., Collaboration Inquiry - Paninian Grammar Modules"
-          class="w-full px-4 py-3 rounded-xl border border-border-hairline bg-cream/50 dark:bg-zinc-950/50 text-charcoal focus:outline-hidden focus:border-saffron-500 text-sm transition-colors"
+          class="w-full px-4 py-3 rounded-xl border border-border-hairline bg-cream/50 dark:bg-zinc-950/50 text-charcoal focus:outline-hidden focus:border-brand-500 text-sm transition-colors"
         />
       </div>
 
       <div>
         <label for="message" class="block text-sm font-semibold text-charcoal/85 mb-2 flex items-center gap-1.5 font-latin">
-          <MessageSquare class="w-4 h-4 text-saffron-500" /> Message
+          <MessageSquare class="w-4 h-4 text-brand-500" /> Message
         </label>
         <textarea
           id="message"
@@ -84,13 +84,13 @@ const t = getTranslation(lang);
           rows="5"
           required
           placeholder="Describe your inquiry, feedback, or suggestion in detail..."
-          class="w-full px-4 py-3 rounded-xl border border-border-hairline bg-cream/50 dark:bg-zinc-950/50 text-charcoal focus:outline-hidden focus:border-saffron-500 text-sm transition-colors resize-y"
+          class="w-full px-4 py-3 rounded-xl border border-border-hairline bg-cream/50 dark:bg-zinc-950/50 text-charcoal focus:outline-hidden focus:border-brand-500 text-sm transition-colors resize-y"
         ></textarea>
       </div>
 
       <button
         type="submit"
-        class="w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-saffron-500 hover:brightness-110 text-zinc-900 font-bold rounded-xl shadow-xs transition-colors cursor-pointer"
+        class="w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-brand-500 hover:brightness-110 text-on-brand font-bold rounded-xl shadow-xs transition-colors cursor-pointer"
       >
         <Send class="w-4 h-4" /> Send Message
       </button>

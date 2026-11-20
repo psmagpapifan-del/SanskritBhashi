@@ -119,7 +119,7 @@ export default function OnboardingTour() {
       }
 
       if (el) {
-        el.classList.add("ring-4", "ring-marigold-500", "ring-offset-2", "transition-all", "duration-300");
+        el.classList.add("ring-4", "ring-accent-500", "ring-offset-2", "transition-all", "duration-300");
         el.scrollIntoView({ behavior: "smooth", block: "center" });
         
         let startTime = performance.now();
@@ -151,7 +151,7 @@ export default function OnboardingTour() {
     tourSteps.forEach((step) => {
       if (step.targetId) {
         const elements = document.querySelectorAll(`[id="${step.targetId}"]`);
-        elements.forEach(el => el.classList.remove("ring-4", "ring-marigold-500", "ring-offset-2"));
+        elements.forEach(el => el.classList.remove("ring-4", "ring-accent-500", "ring-offset-2"));
       }
     });
   };
@@ -208,10 +208,10 @@ export default function OnboardingTour() {
     return (
       <button
         onClick={restartTour}
-        className="fixed bottom-20 right-4 md:bottom-6 md:right-6 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-charcoal dark:bg-zinc-800 text-white hover:bg-saffron-600 transition-colors shadow-lg z-40 text-xs font-semibold cursor-pointer border border-white/20"
+        className="fixed bottom-20 right-4 md:bottom-6 md:right-6 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-charcoal dark:bg-zinc-800 text-white hover:bg-brand-600 transition-colors shadow-lg z-40 text-xs font-semibold cursor-pointer border border-white/20"
         title="Restart Guided Tour"
       >
-        <HelpCircle className="w-4 h-4 text-marigold-500" />
+        <HelpCircle className="w-4 h-4 text-accent-500" />
         <span>Tour Guide</span>
       </button>
     );
@@ -250,11 +250,11 @@ export default function OnboardingTour() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: -15 }}
             transition={{ duration: 0.25 }}
-            className="pointer-events-auto bg-white dark:bg-zinc-900 border-2 border-saffron-500 rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl relative"
+            className="pointer-events-auto bg-white dark:bg-zinc-900 border-2 border-brand-500 rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl relative"
           >
           {/* Header */}
           <div className="flex justify-between items-start mb-4">
-            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-saffron-50 text-saffron-600 text-xs font-bold uppercase tracking-wider">
+            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-brand-50 text-brand-600 text-xs font-bold uppercase tracking-wider">
               <Award className="w-3.5 h-3.5" /> Onboarding ({currentStep + 1} of 8)
             </span>
             <button
@@ -287,7 +287,7 @@ export default function OnboardingTour() {
               {currentStep > 0 && (
                 <button
                   onClick={handlePrev}
-                  className="flex items-center justify-center w-8 h-8 rounded-full border border-charcoal/10 hover:bg-saffron-50 text-charcoal transition-colors cursor-pointer"
+                  className="flex items-center justify-center w-8 h-8 rounded-full border border-charcoal/10 hover:bg-brand-50 text-charcoal transition-colors cursor-pointer"
                 >
                   <ChevronLeft className="w-4 h-4" />
                 </button>
@@ -296,7 +296,7 @@ export default function OnboardingTour() {
               <button
                 onClick={handleNext}
                 data-testid="tour-next"
-                className="flex items-center gap-1 px-4 py-2 rounded-full bg-saffron-500 text-zinc-900 font-bold text-sm hover:brightness-110 transition-colors shadow-md shadow-saffron-500/20 cursor-pointer"
+                className="flex items-center gap-1 px-4 py-2 rounded-full bg-brand-500 text-on-brand font-bold text-sm hover:brightness-110 transition-colors shadow-md shadow-brand-500/20 cursor-pointer"
               >
                 <span>{currentStep === tourSteps.length - 1 ? "Get Started" : "Next"}</span>
                 <ChevronRight className="w-4 h-4" />
@@ -310,7 +310,7 @@ export default function OnboardingTour() {
               <span
                 key={idx}
                 className={`h-1.5 rounded-full transition-all duration-300 ${
-                  idx === currentStep ? "w-6 bg-saffron-500" : "w-1.5 bg-saffron-100"
+                  idx === currentStep ? "w-6 bg-brand-500" : "w-1.5 bg-brand-100"
                 }`}
               />
             ))}

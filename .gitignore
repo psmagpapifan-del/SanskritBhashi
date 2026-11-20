@@ -79,3 +79,7 @@ playwright-report/
 blob-report/
 playwright/.cache/
 
+
+# Android release builds — upload to Play Console, never commit (they bloat git history)
+*.aab
+*.apk

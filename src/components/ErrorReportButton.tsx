@@ -150,7 +150,7 @@ export default function ErrorReportButton({
                 <form onSubmit={handleSubmit} className="space-y-4">
                   {/* Question Info summary */}
                   <div className="bg-cream rounded-2xl p-3 border border-charcoal/5 text-xs text-charcoal/70 leading-relaxed font-latin">
-                    <p className="font-bold text-saffron-600">
+                    <p className="font-bold text-brand-600">
                       {lang === "ja" ? "章 ID" : lang === "hi" ? "अध्याय आईडी" : lang === "es" ? "ID de Capítulo" : "Chapter ID"}: {chapterId}
                     </p>
                     <p className="truncate">

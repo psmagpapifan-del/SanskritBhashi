@@ -312,7 +312,7 @@ export default function TopicQuiz({ topics, storeKey, cardId = "topic-quiz-card"
   return (
     <div className="w-full flex flex-col xl:flex-row gap-6 items-start">
       {/* Topic list */}
-      <nav aria-label={listTitle ?? s.topics} className="order-2 xl:order-1 w-full xl:w-1/3 bg-white dark:bg-zinc-900 border border-saffron-100 dark:border-zinc-800 rounded-3xl p-4 space-y-3 xl:sticky xl:top-20">
+      <nav aria-label={listTitle ?? s.topics} className="order-2 xl:order-1 w-full xl:w-1/3 bg-white dark:bg-zinc-900 border border-brand-100 dark:border-zinc-800 rounded-3xl p-4 space-y-3 xl:sticky xl:top-20">
         <h2 className="text-xs font-black text-charcoal/70 uppercase tracking-widest font-latin px-1">{listTitle ?? s.topics}</h2>
         {groups.length > 1 && (
           <div role="tablist" aria-label={listTitle ?? s.topics} className="flex flex-wrap gap-1.5">
@@ -327,7 +327,7 @@ export default function TopicQuiz({ topics, storeKey, cardId = "topic-quiz-card"
                 className={`px-3 py-1 rounded-full text-xs font-bold font-latin cursor-pointer border transition-colors ${
                   g === group
                     ? "bg-charcoal text-white border-charcoal dark:bg-zinc-100 dark:text-zinc-900"
-                    : "border-saffron-100 dark:border-zinc-700 text-charcoal/80 hover:bg-saffron-50 dark:hover:bg-zinc-800"
+                    : "border-brand-100 dark:border-zinc-700 text-charcoal/80 hover:bg-brand-50 dark:hover:bg-zinc-800"
                 }`}
               >
                 {g}
@@ -336,7 +336,7 @@ export default function TopicQuiz({ topics, storeKey, cardId = "topic-quiz-card"
           </div>
         )}
         {totalDue > 0 && (
-          <p className="text-xs font-semibold text-saffron-700 dark:text-saffron-300 bg-saffron-50 dark:bg-zinc-800 rounded-xl px-3 py-2 font-latin">
+          <p className="text-xs font-semibold text-brand-700 dark:text-brand-300 bg-brand-50 dark:bg-zinc-800 rounded-xl px-3 py-2 font-latin">
             {s.reviewDue(totalDue)}
           </p>
         )}
@@ -356,8 +356,8 @@ export default function TopicQuiz({ topics, storeKey, cardId = "topic-quiz-card"
                   data-topic={t.id}
                   className={`w-full text-left rounded-2xl px-3 py-2.5 border transition-colors cursor-pointer ${
                     active
-                      ? "border-saffron-500 bg-saffron-50 dark:bg-zinc-800"
-                      : "border-transparent hover:bg-saffron-50/60 dark:hover:bg-zinc-800/60"
+                      ? "border-brand-500 bg-brand-50 dark:bg-zinc-800"
+                      : "border-transparent hover:bg-brand-50/60 dark:hover:bg-zinc-800/60"
                   }`}
                 >
                   <span className="block text-[10px] font-bold uppercase tracking-wider text-charcoal/70 font-latin">{(groups.length > 1 && t.short) || t.text}</span>
@@ -374,14 +374,14 @@ export default function TopicQuiz({ topics, storeKey, cardId = "topic-quiz-card"
                         <span className="block text-sm font-bold text-charcoal font-latin">{t.title}</span>
                       )}
                     </span>
-                    {stats?.examPassed && <Trophy className="w-4 h-4 text-saffron-600 shrink-0" aria-label={s.passed} />}
+                    {stats?.examPassed && <Trophy className="w-4 h-4 text-brand-600 shrink-0" aria-label={s.passed} />}
                   </span>
                   <span className="mt-1.5 flex items-center gap-2 text-[11px] text-charcoal/70 font-latin">
                     <span className="flex-1 h-1.5 rounded-full bg-cream dark:bg-zinc-800 overflow-hidden" aria-hidden="true">
-                      <span className="block h-full bg-saffron-500" style={{ width: `${m}%` }} />
+                      <span className="block h-full bg-brand-500" style={{ width: `${m}%` }} />
                     </span>
                     <span>{m}% {s.mastery}</span>
-                    {due > 0 && <span className="font-bold text-saffron-700 dark:text-saffron-300">· {due} {s.due}</span>}
+                    {due > 0 && <span className="font-bold text-brand-700 dark:text-brand-300">· {due} {s.due}</span>}
                   </span>
                 </button>
               </li>
@@ -391,9 +391,9 @@ export default function TopicQuiz({ topics, storeKey, cardId = "topic-quiz-card"
       </nav>
 
       {/* Quiz */}
-      <section id={cardId} className="order-1 xl:order-2 w-full xl:w-2/3 bg-white dark:bg-zinc-900 border border-saffron-100 dark:border-zinc-800 rounded-3xl p-5 md:p-7 space-y-5 scroll-mt-24">
+      <section id={cardId} className="order-1 xl:order-2 w-full xl:w-2/3 bg-white dark:bg-zinc-900 border border-brand-100 dark:border-zinc-800 rounded-3xl p-5 md:p-7 space-y-5 scroll-mt-24">
         <header className="space-y-3">
-          <p className="text-[11px] font-bold uppercase tracking-widest text-saffron-700 dark:text-saffron-300 font-latin">{topic.text}</p>
+          <p className="text-[11px] font-bold uppercase tracking-widest text-brand-700 dark:text-brand-300 font-latin">{topic.text}</p>
           {hasDevanagari(topic.title) ? (
             <div>
               <h2 lang="sa" className="text-xl md:text-2xl font-black text-charcoal font-sanskrit">{topic.title}</h2>
@@ -406,7 +406,7 @@ export default function TopicQuiz({ topics, storeKey, cardId = "topic-quiz-card"
           )}
           <p className="text-sm text-charcoal/70 font-latin">{topic.summary}</p>
 
-          <div role="group" aria-label={`${s.practice} / ${s.exam}`} className="inline-flex rounded-xl border border-saffron-100 dark:border-zinc-700 p-1 bg-cream/40 dark:bg-zinc-800">
+          <div role="group" aria-label={`${s.practice} / ${s.exam}`} className="inline-flex rounded-xl border border-brand-100 dark:border-zinc-700 p-1 bg-cream/40 dark:bg-zinc-800">
             {(["practice", "exam"] as QuizMode[]).map((m) => (
               <button
                 key={m}
@@ -448,11 +448,11 @@ export default function TopicQuiz({ topics, storeKey, cardId = "topic-quiz-card"
               <span className="uppercase tracking-wider">{question.kind}</span>
             </div>
             <div className="w-full h-1.5 rounded-full bg-cream dark:bg-zinc-800 overflow-hidden" aria-hidden="true">
-              <div className="h-full bg-saffron-500 transition-all" style={{ width: `${((position - 1) / Math.max(1, total)) * 100}%` }} />
+              <div className="h-full bg-brand-500 transition-all" style={{ width: `${((position - 1) / Math.max(1, total)) * 100}%` }} />
             </div>
 
             {question.verse && (
-              <blockquote className="bg-saffron-50/60 dark:bg-zinc-800 border-l-4 border-saffron-500 rounded-r-2xl px-4 py-4 text-center">
+              <blockquote className="bg-brand-50/60 dark:bg-zinc-800 border-l-4 border-brand-500 rounded-r-2xl px-4 py-4 text-center">
                 <p lang="sa" data-testid="quiz-verse" className="font-sanskrit text-lg md:text-xl font-bold text-charcoal leading-relaxed">{question.verse}</p>
                 {script !== "devanagari" && (
                   <p lang={sanskritLang(script)} data-testid="quiz-verse-translit" className="mt-1.5 text-sm md:text-base italic font-semibold text-charcoal/75 font-latin leading-relaxed">
@@ -470,10 +470,10 @@ export default function TopicQuiz({ topics, storeKey, cardId = "topic-quiz-card"
                 const isRight = orig === question.correctIndex;
                 const picked = selected === orig;
                 const struck = wrongChoices.includes(orig);
-                let tone = "border-saffron-100 dark:border-zinc-700 hover:border-saffron-500 hover:bg-saffron-50/50 dark:hover:bg-zinc-800";
+                let tone = "border-brand-100 dark:border-zinc-700 hover:border-brand-500 hover:bg-brand-50/50 dark:hover:bg-zinc-800";
                 if (!isExam && feedback === "correct" && isRight) tone = "border-emerald-500 bg-emerald-50 dark:bg-emerald-950/40";
                 else if (!isExam && struck) tone = "border-red-400 bg-red-50 dark:bg-red-950/30 opacity-80";
-                else if (isExam && picked) tone = "border-saffron-500 bg-saffron-50 dark:bg-zinc-800";
+                else if (isExam && picked) tone = "border-brand-500 bg-brand-50 dark:bg-zinc-800";
                 return (
                   <div role="listitem" key={orig}>
                     <button
@@ -563,7 +563,7 @@ function Results({
         </div>
         <div>
           <h3 className="text-lg font-black text-charcoal font-latin flex items-center gap-2">
-            {result.passed ? <Trophy className="w-5 h-5 text-saffron-600" /> : <BookOpen className="w-5 h-5 text-charcoal/70" />}
+            {result.passed ? <Trophy className="w-5 h-5 text-brand-600" /> : <BookOpen className="w-5 h-5 text-charcoal/70" />}
             {s.results}: {result.passed ? s.passed : s.notPassed}
           </h3>
           <p className="text-sm text-charcoal/70 font-latin">
@@ -582,7 +582,7 @@ function Results({
               const q = byId.get(id)!;
               const a = session.answers[id];
               return (
-                <li key={id} className="rounded-2xl border border-saffron-100 dark:border-zinc-700 px-4 py-3 space-y-1 text-sm font-latin">
+                <li key={id} className="rounded-2xl border border-brand-100 dark:border-zinc-700 px-4 py-3 space-y-1 text-sm font-latin">
                   <p className="font-bold text-charcoal">{tx(q.prompt)}</p>
                   {q.ref && <p className="text-xs text-charcoal/70">{q.ref}</p>}
                   {isExam && a && (
@@ -604,7 +604,7 @@ function Results({
       </div>
 
       <div className="flex flex-wrap gap-2">
-        <button type="button" onClick={onAgain} className="flex items-center gap-1.5 px-4 py-2 rounded-xl border border-saffron-100 dark:border-zinc-700 text-sm font-bold text-charcoal font-latin cursor-pointer hover:bg-saffron-50 dark:hover:bg-zinc-800">
+        <button type="button" onClick={onAgain} className="flex items-center gap-1.5 px-4 py-2 rounded-xl border border-brand-100 dark:border-zinc-700 text-sm font-bold text-charcoal font-latin cursor-pointer hover:bg-brand-50 dark:hover:bg-zinc-800">
           <RotateCcw className="w-4 h-4" /> {isExam ? s.takeExam : s.again}
         </button>
         {isExam ? (

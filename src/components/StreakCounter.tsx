@@ -68,7 +68,7 @@ export default function StreakCounter() {
     <div
       className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-sm font-semibold select-none cursor-help transition-all duration-300 ${
         isActive
-          ? "bg-linear-to-r from-saffron-50 to-marigold-50 dark:from-saffron-500/10 dark:to-marigold-500/10 border-saffron-500/30 text-saffron-600 dark:text-saffron-400 shadow-[0_2px_10px_rgba(245,158,11,0.15)] hover:shadow-[0_2px_15px_rgba(245,158,11,0.25)] hover:border-saffron-500/50"
+          ? "bg-linear-to-r from-brand-50 to-accent-50 dark:from-brand-500/10 dark:to-accent-500/10 border-brand-500/30 text-brand-600 dark:text-brand-400 shadow-md shadow-accent-500/15 hover:shadow-lg hover:shadow-accent-500/25 hover:border-brand-500/50"
           : "bg-white dark:bg-zinc-900 border-charcoal/10 dark:border-zinc-800 text-charcoal/70 hover:bg-charcoal/5 dark:hover:bg-white/5"
       }`}
       title={isActive ? "Streak active! Great job." : "Complete a practice question to start your streak!"}
@@ -79,7 +79,7 @@ export default function StreakCounter() {
           <motion.div
             animate={{ scale: [0.8, 1.3, 0.8], opacity: [0.2, 0.5, 0.2] }}
             transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute inset-0 w-4 h-4 m-auto bg-saffron-500 rounded-full blur-[6px] z-0"
+            className="absolute inset-0 w-4 h-4 m-auto bg-brand-500 rounded-full blur-[6px] z-0"
           />
         )}
         {isActive ? (
@@ -95,7 +95,7 @@ export default function StreakCounter() {
             }}
             className="relative z-10"
           >
-            <Flame className="w-5 h-5 fill-saffron-500 stroke-saffron-600 drop-shadow-[0_1px_2px_rgba(230,81,0,0.5)]" />
+            <Flame className="w-5 h-5 fill-brand-500 stroke-brand-600 drop-shadow-[0_1px_2px_rgba(230,81,0,0.5)]" />
           </motion.div>
         ) : (
           <Flame className="w-5 h-5 opacity-40 relative z-10" />

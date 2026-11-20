@@ -43,14 +43,14 @@ const schema = {
 ---
 
 <script type="application/ld+json" set:html={JSON.stringify(schema)} />
-<div class="mt-12 pt-6 border-t border-saffron-100 dark:border-zinc-800 text-xs md:text-sm text-charcoal/70 dark:text-zinc-400 space-y-2 font-latin">
+<div class="mt-12 pt-6 border-t border-brand-100 dark:border-zinc-800 text-xs md:text-sm text-charcoal/70 dark:text-zinc-400 space-y-2 font-latin">
   <p>
-    {l.by} <a href={`/${lang}/about`} class="font-semibold text-saffron-600 dark:text-saffron-400 hover:underline">{l.team}</a>
+    {l.by} <a href={`/${lang}/about`} class="font-semibold text-brand-600 dark:text-brand-400 hover:underline">{l.team}</a>
   </p>
   <p>
     {l.published}: <time datetime={published}>{fmt(published)}</time> · {l.updated}: <time datetime={updated}>{fmt(updated)}</time>
   </p>
   <p>
-    <a href={`/${lang}/modules/${module}`} class="font-semibold text-saffron-600 dark:text-saffron-400 hover:underline">{l.practice} →</a>
+    <a href={`/${lang}/modules/${module}`} class="font-semibold text-brand-600 dark:text-brand-400 hover:underline">{l.practice} →</a>
   </p>
 </div>

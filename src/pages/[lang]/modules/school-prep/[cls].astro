@@ -50,20 +50,10 @@ const courseSchema = {
   })),
 };
 
-const breadcrumbSchema = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Sanskritbhashi", "item": `${SITE}/${lang}` },
-    { "@type": "ListItem", "position": 2, "name": t.schoolPrep.title, "item": `${SITE}/${lang}/modules/school-prep` },
-    { "@type": "ListItem", "position": 3, "name": pt.classLabel(n), "item": url },
-  ],
-};
 ---
 
 <Layout lang={lang} title={`${title} | Sanskritbhashi`} description={description} showAds={false}>
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(courseSchema)} />
-  <script type="application/ld+json" slot="head" set:html={JSON.stringify(breadcrumbSchema)} />
 
   <div class="w-full space-y-6">
     <nav aria-label="Breadcrumb" class="text-xs font-semibold text-charcoal/70 font-latin">

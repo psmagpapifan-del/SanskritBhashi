@@ -1,5 +1,31 @@
+# Sanskritbhashi — crawler rules
+# Policy: search engines and AI *search/answer* bots may crawl (so the site can be found and cited);
+# AI *model-training* crawlers are blocked. Blocking a training bot does not remove the site from that
+# company's search or answers (e.g. GPTBot vs OAI-SearchBot, Google-Extended vs Googlebot).
+
 User-agent: *
 Allow: /
 Disallow: /api/
+
+# ── AI search and user-requested fetches: allowed ───────────────────────────
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+Allow: /
+Disallow: /api/
+
+# ── AI model training: blocked ──────────────────────────────────────────────
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: anthropic-ai
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: CCBot
+User-agent: Bytespider
+User-agent: meta-externalagent
+Disallow: /
 
 Sitemap: https://sanskritbhashi.com/sitemap.xml

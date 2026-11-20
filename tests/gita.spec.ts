@@ -10,10 +10,10 @@ test.describe("Gita for Students", () => {
     });
   });
 
-  test("GITA-01: hub lists 18 adhyayas with 1–3 linked and levels", async ({ page }) => {
+  test("GITA-01: hub lists 18 adhyayas with 1–6 linked and levels", async ({ page }) => {
     await page.goto("/en/modules/gita");
     await expect(page.locator("h1")).toHaveText("Gita for Students");
-    await expect(page.locator("[data-adhyaya-link]")).toHaveCount(3);
+    await expect(page.locator("[data-adhyaya-link]")).toHaveCount(6);
     await expect(page.locator("#gita-adhyayas + ol > li")).toHaveCount(18);
     await expect(page.locator("[data-level-link]")).toHaveCount(3);
     await page.locator('[data-adhyaya-link="2"]').click();
@@ -79,5 +79,25 @@ test.describe("Gita for Students", () => {
     await page.goto("/en/modules/gita/adhyaya-2");
     const langs = await page.locator('link[rel="alternate"][hreflang]').evaluateAll((els) => els.map((e) => e.getAttribute("hreflang")));
     expect(langs.sort()).toEqual(["en", "hi", "x-default"]);
+  });
+});
+
+test.describe("Gita for Students: Adhyayas 4–6", () => {
+  for (const [n, l1] of [[4, ["4.7", "4.8"]], [5, ["5.10", "5.29"]], [6, ["6.5", "6.17"]]] as const) {
+    test(`GITA-1${n}: Adhyaya ${n} loads with its Classes 6–8 shlokas and a working quiz`, async ({ page }) => {
+      await page.goto("/en");
+      await page.evaluate(() => { localStorage.setItem("tour_completed", "true"); localStorage.setItem("cookie-consent", "declined"); localStorage.removeItem("sb_gita_level"); });
+      await page.goto(`/en/modules/gita/adhyaya-${n}`);
+      const refs = await page.locator("[data-shloka]").evaluateAll((els) => els.map((e) => (e as HTMLElement).dataset.shloka));
+      expect(refs).toEqual([...l1]);
+      await page.locator('#gita-quiz-card [data-option-correct="true"]').click();
+      await expect(page.getByTestId("quiz-next")).toBeEnabled();
+    });
+  }
+
+  test("GITA-17: Adhyaya 6 links back to 5 and has no next link", async ({ page }) => {
+    await page.goto("/hi/modules/gita/adhyaya-6");
+    await expect(page.getByRole("link", { name: /पिछला अध्याय/ })).toHaveAttribute("href", "/hi/modules/gita/adhyaya-5");
+    await expect(page.getByRole("link", { name: /अगला अध्याय/ })).toHaveCount(0);
   });
 });

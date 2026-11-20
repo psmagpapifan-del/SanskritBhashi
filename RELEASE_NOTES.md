@@ -6,6 +6,14 @@ This file tracks all bug fixes, improvements, and features implemented across ap
 
 ## [Unreleased] - 2026-11-18
 
+### Feature: Gita for Students, adhyayas 13–15 (2026-11-20)
+- **Content:** `src/lib/gita/adhyaya13.ts`, `adhyaya14.ts`, `adhyaya15.ts` — 19 more shlokas in English and Hindi, each with word meanings, a school-life situation, a reflection question and 2 quiz questions:
+  - Adhyaya 13: 13.7, 13.33 (Classes 6–8); 13.1, 13.27 (9–10); 13.2, 13.8, 13.32 (11–12). Each card also shows the number used by 35-verse editions (e.g. "13.2 in some editions"), because they add an opening verse to this chapter.
+  - Adhyaya 14: 14.9, 14.17 (6–8); 14.5, 14.24 (9–10); 14.21, 14.26 (11–12).
+  - Adhyaya 15: 15.13, 15.14 (6–8); 15.7, 15.12 (9–10); 15.1, 15.15 (11–12).
+- **Feature:** `src/components/gita/Adhyaya13–15Study.tsx` — study pages for Adhyayas 13–15, linked from the hub, sitemap and `llms.txt`.
+- **Tests:** Gita e2e and content tests cover all fifteen adhyayas, plus checks for the Chapter 13 alternate numbering.
+
 ### Feature: Gita for Students, adhyayas 10–12 (2026-11-20)
 - **Content:** `src/lib/gita/adhyaya10.ts`, `adhyaya11.ts`, `adhyaya12.ts` — 21 more shlokas in English and Hindi, each with word meanings, a school-life situation, a reflection question and 2 quiz questions:
   - Adhyaya 10: 10.25, 10.31 (Classes 6–8); 10.9, 10.41 (9–10); 10.8, 10.10, 10.20 (11–12).

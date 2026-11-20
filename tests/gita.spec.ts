@@ -10,10 +10,10 @@ test.describe("Gita for Students", () => {
     });
   });
 
-  test("GITA-01: hub lists 18 adhyayas with 1–12 linked and levels", async ({ page }) => {
+  test("GITA-01: hub lists 18 adhyayas with 1–15 linked and levels", async ({ page }) => {
     await page.goto("/en/modules/gita");
     await expect(page.locator("h1")).toHaveText("Gita for Students");
-    await expect(page.locator("[data-adhyaya-link]")).toHaveCount(12);
+    await expect(page.locator("[data-adhyaya-link]")).toHaveCount(15);
     await expect(page.locator("#gita-adhyayas + ol > li")).toHaveCount(18);
     await expect(page.locator("[data-level-link]")).toHaveCount(3);
     await page.locator('[data-adhyaya-link="2"]').click();
@@ -82,8 +82,8 @@ test.describe("Gita for Students", () => {
   });
 });
 
-test.describe("Gita for Students: Adhyayas 4–12", () => {
-  for (const [n, l1] of [[4, ["4.7", "4.8"]], [5, ["5.10", "5.29"]], [6, ["6.5", "6.17"]], [7, ["7.7", "7.8"]], [8, ["8.7"]], [9, ["9.26", "9.27"]], [10, ["10.25", "10.31"]], [11, ["11.8", "11.12"]], [12, ["12.13", "12.15"]]] as const) {
+test.describe("Gita for Students: Adhyayas 4–15", () => {
+  for (const [n, l1] of [[4, ["4.7", "4.8"]], [5, ["5.10", "5.29"]], [6, ["6.5", "6.17"]], [7, ["7.7", "7.8"]], [8, ["8.7"]], [9, ["9.26", "9.27"]], [10, ["10.25", "10.31"]], [11, ["11.8", "11.12"]], [12, ["12.13", "12.15"]], [13, ["13.7", "13.33"]], [14, ["14.9", "14.17"]], [15, ["15.14", "15.13"]]] as const) {
     test(`GITA-A${n}: Adhyaya ${n} loads with its Classes 6–8 shlokas and a working quiz`, async ({ page }) => {
       await page.goto("/en");
       await page.evaluate(() => { localStorage.setItem("tour_completed", "true"); localStorage.setItem("cookie-consent", "declined"); localStorage.removeItem("sb_gita_level"); });
@@ -95,9 +95,9 @@ test.describe("Gita for Students: Adhyayas 4–12", () => {
     });
   }
 
-  test("GITA-17: Adhyaya 12 links back to 11 and has no next link", async ({ page }) => {
-    await page.goto("/hi/modules/gita/adhyaya-12");
-    await expect(page.getByRole("link", { name: /पिछला अध्याय/ })).toHaveAttribute("href", "/hi/modules/gita/adhyaya-11");
+  test("GITA-17: Adhyaya 15 links back to 14 and has no next link", async ({ page }) => {
+    await page.goto("/hi/modules/gita/adhyaya-15");
+    await expect(page.getByRole("link", { name: /पिछला अध्याय/ })).toHaveAttribute("href", "/hi/modules/gita/adhyaya-14");
     await expect(page.getByRole("link", { name: /अगला अध्याय/ })).toHaveCount(0);
   });
 });
@@ -106,4 +106,11 @@ test("GITA-18: Adhyaya 11 shows the speaker of each shloka (Sanjaya for 11.12)",
   await page.goto("/en/modules/gita/adhyaya-11?level=1");
   await expect(page.locator('[data-shloka="11.12"] header')).toContainText("सञ्जय उवाच");
   await expect(page.locator('[data-shloka="11.8"] header')).toContainText("श्रीभगवानुवाच");
+});
+
+test("GITA-19: Adhyaya 13 cards show the other editions' verse number", async ({ page }) => {
+  await page.goto("/en/modules/gita/adhyaya-13?level=2");
+  await expect(page.locator('[data-shloka="13.1"] header')).toContainText("13.2 in some editions");
+  await page.goto("/hi/modules/gita/adhyaya-13?level=2");
+  await expect(page.locator('[data-shloka="13.1"] header')).toContainText("कुछ संस्करणों में 13.2");
 });

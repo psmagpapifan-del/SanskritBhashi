@@ -16,9 +16,12 @@ import { adhyaya12 } from "../../src/lib/gita/adhyaya12.ts";
 import { adhyaya13 } from "../../src/lib/gita/adhyaya13.ts";
 import { adhyaya14 } from "../../src/lib/gita/adhyaya14.ts";
 import { adhyaya15 } from "../../src/lib/gita/adhyaya15.ts";
+import { adhyaya16 } from "../../src/lib/gita/adhyaya16.ts";
+import { adhyaya17 } from "../../src/lib/gita/adhyaya17.ts";
+import { adhyaya18 } from "../../src/lib/gita/adhyaya18.ts";
 import { ADHYAYAS, GITA_AVAILABLE, GITA_LEVELS, shlokasFor, toQuizTopics } from "../../src/lib/gita/index.ts";
 
-const chapters = [adhyaya1, adhyaya2, adhyaya3, adhyaya4, adhyaya5, adhyaya6, adhyaya7, adhyaya8, adhyaya9, adhyaya10, adhyaya11, adhyaya12, adhyaya13, adhyaya14, adhyaya15];
+const chapters = [adhyaya1, adhyaya2, adhyaya3, adhyaya4, adhyaya5, adhyaya6, adhyaya7, adhyaya8, adhyaya9, adhyaya10, adhyaya11, adhyaya12, adhyaya13, adhyaya14, adhyaya15, adhyaya16, adhyaya17, adhyaya18];
 const both = (b: { en: string; hi: string }, where: string) => {
   assert.ok(b.en.trim(), `${where}: missing English`);
   assert.ok(b.hi.trim(), `${where}: missing Hindi`);
@@ -91,4 +94,9 @@ test("Adhyaya 13 carries the +1 numbering of 35-verse editions on every shloka",
     const [, v] = s.ref.split(".").map(Number);
     assert.equal(s.altRef, `13.${v + 1}`, s.ref);
   }
+});
+
+test("all 18 adhyayas are complete: each has a shloka at every level", () => {
+  assert.equal(chapters.length, 18);
+  assert.deepEqual(chapters.map((c) => c.n), Array.from({ length: 18 }, (_, i) => i + 1));
 });

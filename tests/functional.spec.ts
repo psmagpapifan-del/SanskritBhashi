@@ -80,7 +80,7 @@ test.describe("Functional Testing", () => {
         // Check the home link has the active class OR the inactive class
         // (SSR preview server may not always match pathname correctly)
         const homeClass = await homeLink.getAttribute("class") || "";
-        const homeActive = homeClass.includes("bg-saffron-500");
+        const homeActive = homeClass.includes("bg-brand-500");
         console.log(`Home active state on /en: ${homeActive}`);
       }
 

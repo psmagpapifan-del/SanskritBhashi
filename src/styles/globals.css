@@ -3,16 +3,21 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* ═══ THEME — DARK MODE ════════════════════════════════════════════════════
+ * Overrides of the light tokens below. To re-theme, edit these values and the
+ * light block in @theme, then run `npm run theme:check` (see DESIGN.md). */
 .dark {
-  --color-cream: #121212;
-  --color-charcoal: #F5F5F5;
-  --color-saffron-50: #2C180F;
-  --color-saffron-100: #4B2713;
-  --color-saffron-500: #FF8F33;
-  --color-saffron-600: #FF8533;
-  --color-marigold-500: #FFC43D;
-  --color-marigold-600: #E6AA00;
+  --color-cream: #121212;            /* page background */
+  --color-charcoal: #F5F5F5;         /* body text */
   --color-border-hairline: #2A2A2A;
+  --color-brand-50: #2C180F;         /* tinted surfaces */
+  --color-brand-100: #4B2713;
+  --color-brand-500: #FF8F33;        /* fills: buttons, banners, active nav */
+  --color-brand-600: #FF8533;        /* brand-coloured text and links */
+  --color-accent-50: #2A2108;
+  --color-accent-500: #FFC43D;
+  --color-accent-600: #E6AA00;
+  --color-on-brand: #1C1917;         /* text on brand-500 / accent-500 fills */
   color-scheme: dark;
 }
 
@@ -21,31 +26,43 @@
 }
 
 .dark ::selection {
-  background-color: var(--color-saffron-100);
+  background-color: var(--color-brand-100);
   color: var(--color-cream);
 }
 
+/* ═══ THEME — LIGHT MODE (default) ════════════════════════════════════════
+ * The whole colour scheme and type system lives here and in `.dark` above.
+ * Components only use these token names (bg-brand-500, text-brand-600,
+ * text-on-brand, bg-cream, text-charcoal …), never raw hex values. */
 @theme {
-  /* Default sans and mono fonts updated to Geist/Inter and Geist Mono */
+  /* Typography */
   --font-sans: "Geist", "Inter", system-ui, "Hiragino Sans", "Noto Sans JP", "Yu Gothic", sans-serif;
+  --font-latin: "Geist", "Inter", system-ui, "Hiragino Sans", "Noto Sans JP", "Yu Gothic", sans-serif;
   --font-mono: "Geist Mono", "JetBrains Mono", monospace;
   --font-sanskrit: "Tiro Sanskrit", "Rozha One", "Noto Serif Devanagari", serif;
   --font-cjk: "Noto Sans JP", sans-serif;
-  --font-latin: "Geist", "Inter", system-ui, "Hiragino Sans", "Noto Sans JP", "Yu Gothic", sans-serif;
 
-  /* Custom Color System */
-  --color-saffron-50: #FFF9F2;
-  --color-saffron-100: #FFEAD4;
-  --color-saffron-500: #FF6F00;
-  --color-saffron-300: #FFB880;
-  --color-saffron-400: #FF9A4D;
-  --color-saffron-600: #B84300;
-  --color-saffron-700: #9A3800;
-  --color-marigold-500: #FFB300;
-  --color-marigold-600: #E6A100;
-  --color-charcoal: #212121;
-  --color-cream: #FAF9F6;
+  /* Neutrals */
+  --color-cream: #FAF9F6;            /* page background */
+  --color-charcoal: #212121;         /* body text */
   --color-border-hairline: #E2E0D8;
+
+  /* Brand (primary). 500 = fills; 600/700 = text (must pass 4.5:1 on cream and white). */
+  --color-brand-50: #FFF9F2;
+  --color-brand-100: #FFEAD4;
+  --color-brand-300: #FFB880;
+  --color-brand-400: #FF9A4D;
+  --color-brand-500: #FF6F00;
+  --color-brand-600: #B84300;
+  --color-brand-700: #9A3800;
+
+  /* Accent (secondary). Gradient partner of brand-500 in banners and active nav. */
+  --color-accent-50: #FFF8E1;
+  --color-accent-500: #FFB300;
+  --color-accent-600: #E6A100;
+
+  /* Text on brand-500 / accent-500 fills (must pass 4.5:1 on both). */
+  --color-on-brand: #1C1917;
 
   /* Gamified Micro-Interaction Animations */
   --animate-shake: shake 0.5s ease-in-out;
@@ -104,13 +121,13 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-marigold-500);
+  background: var(--color-accent-500);
 }
 
 /* Selection highlight styling */
 ::selection {
-  background-color: var(--color-saffron-100);
-  color: var(--color-saffron-600);
+  background-color: var(--color-brand-100);
+  color: var(--color-brand-600);
 }
 
 /* Details and summary resets for accordion stability */

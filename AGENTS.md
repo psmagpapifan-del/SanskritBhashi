@@ -4,13 +4,12 @@ Sanskrit learning site (sanskritbhashi.com) and Android app. Read this first; it
 you don't need to re-explore the repo. Task-specific workflows live in `.claude/skills/` and load on demand.
 
 ## Stack (this is Astro, not Next.js)
-- **Astro 6** + **React 19 islands** + **Tailwind 4** (tokens in `src/styles/globals.css` `@theme`).
+- **Astro 6** + **React 19 islands** + **Tailwind 4**. All colours and fonts are tokens in `src/styles/globals.css`; see `DESIGN.md`.
 - **Web:** Cloudflare Pages (`@astrojs/cloudflare`, `output: 'server'`; pages use `export const prerender = true`).
 - **App:** Capacitor 8 Android wrapper (`android/`), `webDir: dist`. Content updates ship **over the air** with Capgo:
   `public/updates/bundle-latest.zip` + `latest.json`, served from the site. A Play Store **AAB** is only needed for
   native changes (plugins, permissions, `android/`), and it can't be built in cloud sessions (no Android SDK or signing key).
-- Ignore the Next.js leftovers (`.gitignore` entries, `public/next.svg`). `DESIGN.md` is a Vercel-inspired
-  reference, not the live palette; the live tokens are in `globals.css`.
+- Ignore the Next.js leftovers (`.gitignore` entries, `public/next.svg`).
 
 ## Map
 | Path | What |
@@ -27,6 +26,7 @@ you don't need to re-explore the repo. Task-specific workflows live in `.claude/
 | `src/lib/learnArticles.ts` + `src/components/articles/<slug>/{en,hi,ja,es}.astro` | Learn Hub articles |
 | `src/lib/transliterate.ts`, `useScript.ts` | Devanagari → IAST / Katakana / French script setting |
 | `src/lib/deepLinkRouter.ts`, `capacitorBridge.ts` | App deep links, native prefs/haptics |
+| `src/styles/globals.css` + `DESIGN.md` | Theme tokens (light `@theme`, `.dark`) and the design rules |
 | `src/pages/sitemap.xml.ts` | Build-time sitemap; globs `[lang]/**` but **dynamic routes must be added by hand** |
 | `content/ncert_text/` | Extracted NCERT chapter text (source for questions). PDFs stay **off main**. |
 | `scripts/package-ota.js`, `deploy.js` | OTA bundle; native AAB build (local machine only) |
@@ -54,9 +54,9 @@ states and a keyboard-only run. Keep it green; don't add exemptions.
 
 ## Conventions
 - **Every user-visible string in 4 locales** (`en hi ja es`). Sanskrit text gets `lang="sa"` and `font-sanskrit`.
-- **Colours (WCAG AA):** orange **text** = `text-saffron-600` (`#B84300` light / `#FF8533` dark). Filled orange
-  (`bg-saffron-500` / `from-saffron-500 to-marigold-500`) takes **`text-zinc-900`**, never white. Muted text ≥ `charcoal/70`;
-  dark-mode grey ≥ `zinc-400`.
+- **Colours:** use tokens only, never hex (`DESIGN.md` has the table and the re-theme steps). Brand **text** = `text-brand-600`;
+  brand **fills** (`bg-brand-500`, `from-brand-500 to-accent-500`) take `text-on-brand`. Muted text ≥ `charcoal/70`;
+  dark-mode grey ≥ `zinc-400`. After touching tokens: `npm run theme:check`.
 - **Astro islands need a static tag** (`<Class9Quiz client:load />`); a component held in a variable won't hydrate.
 - **Quiz data:** option 0 is correct (shuffled at display); 4 distinct options, plus a hint and an explanation. NCERT: 7–9
   questions per lesson, written from `content/ncert_text/`. Store keys: `sb_ncert_v1`, `sb_shastra_v1`.
@@ -73,6 +73,6 @@ Content or UI changes also need the OTA bundle rebuilt (see Commands), so the ap
 Full ship flow: `.claude/skills/ship-release/SKILL.md`.
 
 ## Never
-- Commit the release keystore, `keystore.properties`, NCERT PDFs or secrets. Never upload the signing key to a cloud session.
+- Commit the release keystore, `keystore.properties`, `.aab`/`.apk` builds, NCERT PDFs or secrets. Never upload the signing key to a cloud session.
 - Put the owner's personal email or other details into code, commits or external requests.
 - Bump `android/app/build.gradle` versionCode without checking the last code uploaded in Play Console.

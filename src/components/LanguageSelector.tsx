@@ -86,19 +86,19 @@ export default function LanguageSelector({ currentLang, currentPathname }: Langu
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-3 py-2 text-sm font-medium border border-saffron-100 dark:border-zinc-800 rounded-full bg-white dark:bg-zinc-900 text-charcoal hover:bg-saffron-50 hover:border-saffron-500 transition-colors cursor-pointer"
+        className="flex items-center gap-2 px-3 py-2 text-sm font-medium border border-brand-100 dark:border-zinc-800 rounded-full bg-white dark:bg-zinc-900 text-charcoal hover:bg-brand-50 hover:border-brand-500 transition-colors cursor-pointer"
         aria-expanded={isOpen}
         aria-haspopup="true"
         id="tour-step-6"
       >
-        <Globe className="w-4 h-4 text-saffron-500" />
+        <Globe className="w-4 h-4 text-brand-500" />
         <span className="hidden md:inline">{currentLangName} / {currentTransName.split(" (")[0]}</span>
         <span className="inline md:hidden uppercase font-bold">{currentLang}</span>
         <ChevronDown className="w-3 h-3 opacity-60" />
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-72 origin-top-right rounded-2xl bg-white dark:bg-zinc-900 p-4 shadow-xl border border-saffron-100 dark:border-zinc-800 z-50 animate-success-bounce">
+        <div className="absolute right-0 mt-2 w-72 origin-top-right rounded-2xl bg-white dark:bg-zinc-900 p-4 shadow-xl border border-brand-100 dark:border-zinc-800 z-50 animate-success-bounce">
           <div className="mb-4">
             <h4 className="flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-charcoal/70 mb-2">
               <Globe className="w-3.5 h-3.5" /> Interface Language
@@ -110,8 +110,8 @@ export default function LanguageSelector({ currentLang, currentPathname }: Langu
                   onClick={() => handleInterfaceChange(lang.code)}
                   className={`flex items-center justify-between px-3 py-1.5 rounded-lg text-sm transition-colors cursor-pointer ${
                     currentLang === lang.code
-                      ? "bg-saffron-500 text-zinc-900 font-semibold"
-                      : "hover:bg-saffron-50 text-charcoal"
+                      ? "bg-brand-500 text-on-brand font-semibold"
+                      : "hover:bg-brand-50 text-charcoal"
                   }`}
                 >
                   <span>{lang.name}</span>
@@ -121,7 +121,7 @@ export default function LanguageSelector({ currentLang, currentPathname }: Langu
             </div>
           </div>
 
-          <div className="border-t border-saffron-100 dark:border-zinc-800 pt-3">
+          <div className="border-t border-brand-100 dark:border-zinc-800 pt-3">
             <h4 className="flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-charcoal/70 mb-2">
               <Languages className="w-3.5 h-3.5" /> Transliteration Script
             </h4>
@@ -132,8 +132,8 @@ export default function LanguageSelector({ currentLang, currentPathname }: Langu
                   onClick={() => handleTransliterationChange(trans.code)}
                   className={`flex items-center justify-between px-3 py-1.5 rounded-lg text-sm transition-colors cursor-pointer ${
                     transliteration === trans.code
-                      ? "bg-marigold-500 text-zinc-900 font-semibold"
-                      : "hover:bg-saffron-50 text-charcoal"
+                      ? "bg-accent-500 text-on-brand font-semibold"
+                      : "hover:bg-brand-50 text-charcoal"
                   }`}
                 >
                   <span>{trans.name}</span>

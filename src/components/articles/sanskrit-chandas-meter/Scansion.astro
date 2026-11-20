@@ -15,13 +15,13 @@ const padas: { text: string; syl: [string, "G" | "L"][] }[] = [
   { text: "मा कर्मफलहेतुर्भूः", syl: [["mā", "G"], ["kar", "G"], ["ma", "L"], ["pha", "L"], ["la", "L"], ["he", "G"], ["tur", "G"], ["bhūr", "G"]] },
   { text: "मा ते सङ्गोऽस्त्वकर्मणि", syl: [["mā", "G"], ["te", "G"], ["saṅ", "G"], ["gos", "G"], ["tva", "L"], ["kar", "G"], ["ma", "L"], ["ṇi", "L"]] },
 ];
-const cell = "p-2 border border-saffron-100 dark:border-zinc-800 text-center";
+const cell = "p-2 border border-brand-100 dark:border-zinc-800 text-center";
 ---
 
 <div class="overflow-x-auto my-6">
-  <table class="min-w-full bg-white dark:bg-zinc-900 border border-saffron-100 dark:border-zinc-800 text-xs md:text-sm">
+  <table class="min-w-full bg-white dark:bg-zinc-900 border border-brand-100 dark:border-zinc-800 text-xs md:text-sm">
     <thead>
-      <tr class="bg-saffron-50 dark:bg-zinc-800 text-charcoal dark:text-zinc-200 font-bold">
+      <tr class="bg-brand-50 dark:bg-zinc-800 text-charcoal dark:text-zinc-200 font-bold">
         <th class={`${cell} text-left`}>{padaLabel}</th>
         {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => <th class={cell}>{n}</th>)}
       </tr>
@@ -31,7 +31,7 @@ const cell = "p-2 border border-saffron-100 dark:border-zinc-800 text-center";
         <tr class="border-t border-cream dark:border-zinc-800">
           <td class={`${cell} text-left font-sanskrit font-semibold whitespace-nowrap`}>{i + 1}. {p.text}</td>
           {p.syl.map(([s, w], j) => (
-            <td class={`${cell} ${j >= 4 && j <= 6 ? "bg-saffron-50/60 dark:bg-zinc-800/60 font-bold" : ""}`}>
+            <td class={`${cell} ${j >= 4 && j <= 6 ? "bg-brand-50/60 dark:bg-zinc-800/60 font-bold" : ""}`}>
               <div class="font-latin">{s}</div>
               <div class="font-sanskrit">{w === "G" ? "ऽ" : "।"}</div>
             </td>

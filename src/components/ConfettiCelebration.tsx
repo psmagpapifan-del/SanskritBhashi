@@ -30,19 +30,23 @@ export default function ConfettiCelebration() {
         }
 
         const particleCount = 40 * (timeLeft / duration);
+        // Theme colours come from the CSS tokens (src/styles/globals.css), so a re-theme needs no change here.
+        const css = getComputedStyle(document.documentElement);
+        const colors = ["--color-brand-500", "--color-accent-500", "--color-cream"]
+          .map((v) => css.getPropertyValue(v).trim()).filter(Boolean).concat("#4CAF50");
 
         confetti({
           ...defaults,
           particleCount,
           origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
-          colors: ["#FF6F00", "#FFB300", "#FAF9F6", "#4CAF50"]
+          colors
         });
         
         confetti({
           ...defaults,
           particleCount,
           origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
-          colors: ["#FF6F00", "#FFB300", "#FAF9F6", "#4CAF50"]
+          colors
         });
       }, 200);
     };

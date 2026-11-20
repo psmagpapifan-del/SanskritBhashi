@@ -34,7 +34,7 @@ const latin = lang === "en" || lang === "es" ? "font-latin" : "";
     <div class="mb-8">
       <a
         href={`/${lang}/learn`}
-        class="inline-flex items-center space-x-2 text-xs font-bold text-saffron-600 dark:text-saffron-400 hover:text-saffron-700 dark:hover:text-saffron-300 font-latin uppercase tracking-wider"
+        class="inline-flex items-center space-x-2 text-xs font-bold text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 font-latin uppercase tracking-wider"
       >
         <ChevronLeft class="w-4 h-4" />
         <span>{back}</span>
@@ -43,7 +43,7 @@ const latin = lang === "en" || lang === "es" ? "font-latin" : "";
 
     <article class="space-y-8">
       <header class="space-y-4">
-        <div class="flex items-center space-x-3 text-xs font-bold text-saffron-600 dark:text-saffron-400 uppercase tracking-widest font-latin">
+        <div class="flex items-center space-x-3 text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-widest font-latin">
           <span>{category}</span>
           <span>•</span>
           <span class="flex items-center space-x-1"><Clock class="w-3.5 h-3.5" /> <span>{readingTime(lang, article.minutes)}</span></span>
@@ -56,9 +56,9 @@ const latin = lang === "en" || lang === "es" ? "font-latin" : "";
         </p>
       </header>
 
-      <hr class="border-saffron-100 dark:border-zinc-800" />
+      <hr class="border-brand-100 dark:border-zinc-800" />
 
-      <div class={`prose prose-saffron max-w-none dark:prose-invert text-charcoal/80 dark:text-zinc-350 space-y-6 leading-relaxed text-sm md:text-base ${latin}`}>
+      <div class={`prose prose-brand max-w-none dark:prose-invert text-charcoal/80 dark:text-zinc-350 space-y-6 leading-relaxed text-sm md:text-base ${latin}`}>
         <slot />
       </div>
     </article>

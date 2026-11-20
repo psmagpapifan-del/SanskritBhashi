@@ -25,7 +25,9 @@
     "deploy:native": "node scripts/deploy.js native",
     "deploy": "node scripts/deploy.js all",
     "postinstall": "node scripts/postinstall.js",
-    "test:unit": "node --experimental-strip-types --test tests/unit/*.test.ts"
+    "test:unit": "node --experimental-strip-types --test tests/unit/*.test.ts",
+    "theme:check": "node scripts/theme-check.mjs",
+    "og:images": "node scripts/generate-og-images.cjs"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^13.6.1",

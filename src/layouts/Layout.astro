@@ -179,7 +179,7 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
       {/* MOBILE TOP BAR (Only visible on mobile/tablet) */}
       <header class="lg:hidden sticky top-0 flex items-center justify-between px-4 py-3 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-md border-b border-border-hairline z-30 shadow-xs w-full">
         <a href={`/${lang}`} class="flex items-center gap-1.5">
-          <span class="text-xl font-bold bg-linear-to-r from-saffron-500 to-saffron-600 bg-clip-text text-transparent font-sanskrit">
+          <span class="text-xl font-bold bg-linear-to-r from-brand-500 to-brand-600 bg-clip-text text-transparent font-sanskrit">
             संस्कृतभाषी
           </span>
           <span class="text-xs font-bold uppercase tracking-wider text-charcoal/70 font-latin hidden xs:inline">
@@ -189,11 +189,11 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
         <div class="flex items-center gap-2">
           <button
             id="theme-toggle-mobile"
-            class="relative flex items-center justify-center w-9 h-9 shrink-0 rounded-xl border border-border-hairline hover:bg-saffron-50 dark:hover:bg-zinc-900 transition-colors overflow-hidden"
+            class="relative flex items-center justify-center w-9 h-9 shrink-0 rounded-xl border border-border-hairline hover:bg-brand-50 dark:hover:bg-zinc-900 transition-colors overflow-hidden"
             aria-label="Toggle theme"
           >
             <div class="absolute inset-0 flex items-center justify-center transition-all duration-500 -rotate-90 scale-0 opacity-0 dark:rotate-0 dark:scale-100 dark:opacity-100">
-              <Sun class="w-5 h-5 text-marigold-500" className="w-5 h-5 text-marigold-500" />
+              <Sun class="w-5 h-5 text-accent-500" className="w-5 h-5 text-accent-500" />
             </div>
             <div class="absolute inset-0 flex items-center justify-center transition-all duration-500 rotate-0 scale-100 opacity-100 dark:rotate-90 dark:scale-0 dark:opacity-0">
               <Moon class="w-5 h-5 text-charcoal/70 dark:text-zinc-400" className="w-5 h-5 text-charcoal/70 dark:text-zinc-400" />
@@ -213,7 +213,7 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
         {/* Floating Toggle Button */}
         <button
           id="sidebar-toggle"
-          class="absolute -right-3.5 top-8 w-7 h-7 rounded-full bg-white dark:bg-zinc-900 border border-border-hairline dark:border-white/10 flex items-center justify-center text-charcoal/70 hover:text-saffron-600 dark:hover:text-saffron-500 hover:bg-saffron-50 dark:hover:bg-zinc-800 shadow-sm transition-all duration-300 hover:scale-110 z-50 cursor-pointer"
+          class="absolute -right-3.5 top-8 w-7 h-7 rounded-full bg-white dark:bg-zinc-900 border border-border-hairline dark:border-white/10 flex items-center justify-center text-charcoal/70 hover:text-brand-600 dark:hover:text-brand-500 hover:bg-brand-50 dark:hover:bg-zinc-800 shadow-sm transition-all duration-300 hover:scale-110 z-50 cursor-pointer"
           aria-label="Toggle Sidebar"
         >
           <ChevronLeft class="w-4 h-4 transition-transform duration-300" id="sidebar-toggle-icon" />
@@ -222,7 +222,7 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
         <div class="flex items-center mb-8 overflow-hidden h-10 shrink-0 relative">
           {/* Logo */}
           <a href={`/${lang}`} class="flex flex-col gap-0.5 select-none sidebar-text transition-all duration-300 w-auto opacity-100 visible overflow-hidden drop-shadow-sm">
-            <span class="text-2xl font-black bg-linear-to-r from-saffron-500 to-saffron-600 bg-clip-text text-transparent font-sanskrit leading-none drop-shadow-sm">
+            <span class="text-2xl font-black bg-linear-to-r from-brand-500 to-brand-600 bg-clip-text text-transparent font-sanskrit leading-none drop-shadow-sm">
               संस्कृतभाषी
             </span>
             <span class="text-[10px] font-bold uppercase tracking-widest text-charcoal/70 font-latin pl-1 leading-none">
@@ -243,14 +243,14 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
                 aria-current={active ? "page" : undefined}
                 class={`sidebar-link group relative flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-300 cursor-pointer overflow-hidden ${
                   active
-                    ? "bg-linear-to-r from-saffron-500 to-marigold-500 text-zinc-900 shadow-lg shadow-saffron-500/20 ring-1 ring-white/20 dark:ring-white/10 scale-[1.02]"
-                    : "text-charcoal/70 hover:bg-saffron-50 dark:hover:bg-white/5 hover:text-saffron-600 dark:hover:text-saffron-400 hover:-translate-y-0.5"
+                    ? "bg-linear-to-r from-brand-500 to-accent-500 text-on-brand shadow-lg shadow-brand-500/20 ring-1 ring-white/20 dark:ring-white/10 scale-[1.02]"
+                    : "text-charcoal/70 hover:bg-brand-50 dark:hover:bg-white/5 hover:text-brand-600 dark:hover:text-brand-400 hover:-translate-y-0.5"
                 }`}
               >
                 {active && (
                   <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-1/2 bg-white rounded-r-full shadow-[0_0_8px_rgba(255,255,255,0.8)]"></div>
                 )}
-                <Icon class={`w-5 h-5 shrink-0 transition-colors ${active ? "text-white drop-shadow-md" : "text-charcoal/70 group-hover:text-saffron-500 dark:group-hover:text-saffron-400"}`} />
+                <Icon class={`w-5 h-5 shrink-0 transition-colors ${active ? "text-white drop-shadow-md" : "text-charcoal/70 group-hover:text-brand-500 dark:group-hover:text-brand-400"}`} />
                 <span class="sidebar-text transition-all duration-300 w-auto opacity-100 visible whitespace-nowrap">{item.name}</span>
                 
                 {/* Tooltip for collapsed state */}
@@ -275,19 +275,19 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
         {/* DESKTOP TOP HEADER */}
         <header class="hidden lg:flex items-center justify-between h-16 px-8 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md border-b border-border-hairline sticky top-0 z-30 w-full">
           <nav aria-label="Site information" class="flex items-center gap-6 text-sm font-medium text-charcoal/70">
-            <a href={`/${lang}/about`} class={`hover:text-saffron-600 transition-colors ${isActive(`/${lang}/about`) ? "text-saffron-600 font-bold" : ""}`}>{t.nav.about}</a>
-            <a href={`/${lang}/contact`} class={`hover:text-saffron-600 transition-colors ${isActive(`/${lang}/contact`) ? "text-saffron-600 font-bold" : ""}`}>{t.nav.contact}</a>
-            <a href={`/${lang}/privacy`} class={`hover:text-saffron-600 transition-colors ${isActive(`/${lang}/privacy`) ? "text-saffron-600 font-bold" : ""}`}>{t.nav.privacy}</a>
-            <a href={`/${lang}/terms`} class={`hover:text-saffron-600 transition-colors ${isActive(`/${lang}/terms`) ? "text-saffron-600 font-bold" : ""}`}>{t.nav.terms}</a>
+            <a href={`/${lang}/about`} class={`hover:text-brand-600 transition-colors ${isActive(`/${lang}/about`) ? "text-brand-600 font-bold" : ""}`}>{t.nav.about}</a>
+            <a href={`/${lang}/contact`} class={`hover:text-brand-600 transition-colors ${isActive(`/${lang}/contact`) ? "text-brand-600 font-bold" : ""}`}>{t.nav.contact}</a>
+            <a href={`/${lang}/privacy`} class={`hover:text-brand-600 transition-colors ${isActive(`/${lang}/privacy`) ? "text-brand-600 font-bold" : ""}`}>{t.nav.privacy}</a>
+            <a href={`/${lang}/terms`} class={`hover:text-brand-600 transition-colors ${isActive(`/${lang}/terms`) ? "text-brand-600 font-bold" : ""}`}>{t.nav.terms}</a>
           </nav>
           <div class="flex items-center gap-4">
             <button
               id="theme-toggle-desktop"
-              class="relative flex items-center justify-center w-9 h-9 shrink-0 rounded-xl border border-border-hairline hover:bg-saffron-50 dark:hover:bg-zinc-900 transition-colors overflow-hidden"
+              class="relative flex items-center justify-center w-9 h-9 shrink-0 rounded-xl border border-border-hairline hover:bg-brand-50 dark:hover:bg-zinc-900 transition-colors overflow-hidden"
               aria-label="Toggle theme"
             >
               <div class="absolute inset-0 flex items-center justify-center transition-all duration-500 -rotate-90 scale-0 opacity-0 dark:rotate-0 dark:scale-100 dark:opacity-100">
-                <Sun class="w-5 h-5 text-marigold-500" className="w-5 h-5 text-marigold-500" />
+                <Sun class="w-5 h-5 text-accent-500" className="w-5 h-5 text-accent-500" />
               </div>
               <div class="absolute inset-0 flex items-center justify-center transition-all duration-500 rotate-0 scale-100 opacity-100 dark:rotate-90 dark:scale-0 dark:opacity-0">
                 <Moon class="w-5 h-5 text-charcoal/70 dark:text-zinc-400" className="w-5 h-5 text-charcoal/70 dark:text-zinc-400" />
@@ -307,13 +307,13 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
           {/* GLOBAL MAIN FOOTER */}
           <footer class="mt-16 border-t border-border-hairline pt-8 pb-4 text-center text-xs text-charcoal/70 w-full">
             <div class="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 mb-4 font-semibold">
-              <a href={`/${lang}`} class="hover:text-saffron-600 transition-colors">{t.nav.home}</a>
-              <a href={`/${lang}/about`} class="hover:text-saffron-600 transition-colors">{t.nav.about}</a>
-              <a href={`/${lang}/contact`} class="hover:text-saffron-600 transition-colors">{t.nav.contact}</a>
-              <a href={`/${lang}/privacy`} class="hover:text-saffron-600 transition-colors">{t.nav.privacy}</a>
-              <a href={`/${lang}/terms`} class="hover:text-saffron-600 transition-colors">{t.nav.terms}</a>
-              <a href={`/${lang}/faqs`} class="hover:text-saffron-600 transition-colors">{t.nav.faqs}</a>
-              <button id="open-cookie-preferences" class="hover:text-saffron-600 transition-colors cursor-pointer bg-transparent border-0 p-0 font-semibold text-xs text-charcoal/70">Cookie Preferences</button>
+              <a href={`/${lang}`} class="hover:text-brand-600 transition-colors">{t.nav.home}</a>
+              <a href={`/${lang}/about`} class="hover:text-brand-600 transition-colors">{t.nav.about}</a>
+              <a href={`/${lang}/contact`} class="hover:text-brand-600 transition-colors">{t.nav.contact}</a>
+              <a href={`/${lang}/privacy`} class="hover:text-brand-600 transition-colors">{t.nav.privacy}</a>
+              <a href={`/${lang}/terms`} class="hover:text-brand-600 transition-colors">{t.nav.terms}</a>
+              <a href={`/${lang}/faqs`} class="hover:text-brand-600 transition-colors">{t.nav.faqs}</a>
+              <button id="open-cookie-preferences" class="hover:text-brand-600 transition-colors cursor-pointer bg-transparent border-0 p-0 font-semibold text-xs text-charcoal/70">Cookie Preferences</button>
             </div>
             <p class="text-[11px] tracking-wider uppercase text-charcoal/80 font-mono">
               © 2026 Sanskritbhashi. All rights reserved.
@@ -332,7 +332,7 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
               href={item.href}
               aria-current={active ? "page" : undefined}
               class={`flex flex-col items-center justify-center flex-1 h-full min-w-[44px] min-h-[44px] transition-colors relative ${
-                active ? "text-saffron-600" : "text-charcoal/70 hover:text-saffron-500"
+                active ? "text-brand-600" : "text-charcoal/70 hover:text-brand-500"
               }`}
             >
               <Icon class="w-5 h-5 mb-0.5" />
@@ -340,7 +340,7 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
                 {item.name.split(" ")[0]}
               </span>
               {active && (
-                <span class="absolute bottom-1 w-1.5 h-1.5 bg-saffron-500 rounded-full" />
+                <span class="absolute bottom-1 w-1.5 h-1.5 bg-brand-500 rounded-full" />
               )}
             </a>
           );
@@ -355,24 +355,24 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
     >
       <h2 class="text-sm font-bold text-charcoal mb-2">Cookie Consent & Personalization.</h2>
       <p class="text-xs text-charcoal/70 leading-relaxed mb-4">
-        We and our advertising partners (including Google) use cookies to customize content and serve personalized ads based on your past visits. Read our <a href={`/${lang}/privacy`} class="text-saffron-600 underline font-semibold hover:text-saffron-500">Privacy Policy</a> to learn more.
+        We and our advertising partners (including Google) use cookies to customize content and serve personalized ads based on your past visits. Read our <a href={`/${lang}/privacy`} class="text-brand-600 underline font-semibold hover:text-brand-500">Privacy Policy</a> to learn more.
       </p>
       <div class="flex gap-2">
         <button
           id="accept-cookies"
-          class="flex-1 px-3 py-2 bg-saffron-500 hover:brightness-110 text-zinc-900 text-[11px] font-bold rounded-lg transition-colors cursor-pointer"
+          class="flex-1 px-3 py-2 bg-brand-500 hover:brightness-110 text-on-brand text-[11px] font-bold rounded-lg transition-colors cursor-pointer"
         >
           Accept All
         </button>
         <button
           id="decline-cookies"
-          class="px-3 py-2 border border-border-hairline hover:bg-saffron-50 dark:hover:bg-zinc-900 text-charcoal text-[11px] font-semibold rounded-lg transition-colors cursor-pointer"
+          class="px-3 py-2 border border-border-hairline hover:bg-brand-50 dark:hover:bg-zinc-900 text-charcoal text-[11px] font-semibold rounded-lg transition-colors cursor-pointer"
         >
           Decline
         </button>
         <button
           id="customize-cookies"
-          class="px-3 py-2 border border-border-hairline hover:bg-saffron-50 dark:hover:bg-zinc-900 text-charcoal text-[11px] font-semibold rounded-lg transition-colors cursor-pointer"
+          class="px-3 py-2 border border-border-hairline hover:bg-brand-50 dark:hover:bg-zinc-900 text-charcoal text-[11px] font-semibold rounded-lg transition-colors cursor-pointer"
         >
           Customize
         </button>
@@ -390,7 +390,7 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
           <h2 class="text-base font-bold text-charcoal">Cookie Preferences</h2>
           <button
             id="close-preferences-x"
-            class="text-charcoal/70 hover:text-charcoal p-1.5 rounded-lg border border-border-hairline hover:bg-saffron-50 dark:hover:bg-zinc-900 transition-colors cursor-pointer"
+            class="text-charcoal/70 hover:text-charcoal p-1.5 rounded-lg border border-border-hairline hover:bg-brand-50 dark:hover:bg-zinc-900 transition-colors cursor-pointer"
             aria-label="Close dialog"
           >
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -410,7 +410,7 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
             <div class="flex-1">
               <h3 class="text-xs font-bold text-charcoal flex items-center gap-1.5">
                 Strictly Necessary Cookies
-                <span class="text-[9px] px-1.5 py-0.5 bg-saffron-500/10 dark:bg-saffron-500/20 text-saffron-600 dark:text-saffron-400 rounded-md font-extrabold uppercase">Required</span>
+                <span class="text-[9px] px-1.5 py-0.5 bg-brand-500/10 dark:bg-brand-500/20 text-brand-600 dark:text-brand-400 rounded-md font-extrabold uppercase">Required</span>
               </h3>
               <p class="text-[10px] text-charcoal/70 leading-normal mt-1">
                 Essential for basic features like language preference preservation, dark/light mode toggles, and secure navigation.
@@ -418,7 +418,7 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
             </div>
             <div class="relative flex items-center select-none mt-1">
               <input type="checkbox" checked disabled class="sr-only peer" />
-              <div class="w-10 h-6 bg-saffron-500 rounded-full peer-disabled:opacity-50"></div>
+              <div class="w-10 h-6 bg-brand-500 rounded-full peer-disabled:opacity-50"></div>
               <div class="absolute left-[20px] top-[4px] bg-white w-4 h-4 rounded-full transition-transform"></div>
             </div>
           </div>
@@ -433,7 +433,7 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
             </div>
             <label class="relative inline-flex items-center cursor-pointer mt-1">
               <input type="checkbox" id="cookie-pref-ads" class="sr-only peer" />
-              <div class="w-10 h-6 bg-zinc-200 dark:bg-zinc-800 peer-focus:outline-hidden rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-zinc-700 peer-checked:bg-saffron-500"></div>
+              <div class="w-10 h-6 bg-zinc-200 dark:bg-zinc-800 peer-focus:outline-hidden rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-zinc-700 peer-checked:bg-brand-500"></div>
             </label>
           </div>
 
@@ -447,7 +447,7 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
             </div>
             <label class="relative inline-flex items-center cursor-pointer mt-1">
               <input type="checkbox" id="cookie-pref-analytics" class="sr-only peer" />
-              <div class="w-10 h-6 bg-zinc-200 dark:bg-zinc-800 peer-focus:outline-hidden rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-zinc-700 peer-checked:bg-saffron-500"></div>
+              <div class="w-10 h-6 bg-zinc-200 dark:bg-zinc-800 peer-focus:outline-hidden rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-zinc-700 peer-checked:bg-brand-500"></div>
             </label>
           </div>
         </div>
@@ -455,13 +455,13 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
         <div class="flex gap-2 border-t border-border-hairline pt-4 mt-auto">
           <button
             id="cookie-save-preferences"
-            class="flex-1 px-4 py-2.5 bg-saffron-500 hover:brightness-110 text-zinc-900 text-xs font-bold rounded-lg transition-colors cursor-pointer"
+            class="flex-1 px-4 py-2.5 bg-brand-500 hover:brightness-110 text-on-brand text-xs font-bold rounded-lg transition-colors cursor-pointer"
           >
             Save Choices
           </button>
           <button
             id="cookie-accept-all-pref"
-            class="px-4 py-2.5 border border-border-hairline hover:bg-saffron-50 dark:hover:bg-zinc-900 text-charcoal text-xs font-semibold rounded-lg transition-colors cursor-pointer"
+            class="px-4 py-2.5 border border-border-hairline hover:bg-brand-50 dark:hover:bg-zinc-900 text-charcoal text-xs font-semibold rounded-lg transition-colors cursor-pointer"
           >
             Accept All
           </button>

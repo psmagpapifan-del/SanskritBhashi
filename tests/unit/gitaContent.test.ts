@@ -13,9 +13,12 @@ import { adhyaya9 } from "../../src/lib/gita/adhyaya9.ts";
 import { adhyaya10 } from "../../src/lib/gita/adhyaya10.ts";
 import { adhyaya11 } from "../../src/lib/gita/adhyaya11.ts";
 import { adhyaya12 } from "../../src/lib/gita/adhyaya12.ts";
+import { adhyaya13 } from "../../src/lib/gita/adhyaya13.ts";
+import { adhyaya14 } from "../../src/lib/gita/adhyaya14.ts";
+import { adhyaya15 } from "../../src/lib/gita/adhyaya15.ts";
 import { ADHYAYAS, GITA_AVAILABLE, GITA_LEVELS, shlokasFor, toQuizTopics } from "../../src/lib/gita/index.ts";
 
-const chapters = [adhyaya1, adhyaya2, adhyaya3, adhyaya4, adhyaya5, adhyaya6, adhyaya7, adhyaya8, adhyaya9, adhyaya10, adhyaya11, adhyaya12];
+const chapters = [adhyaya1, adhyaya2, adhyaya3, adhyaya4, adhyaya5, adhyaya6, adhyaya7, adhyaya8, adhyaya9, adhyaya10, adhyaya11, adhyaya12, adhyaya13, adhyaya14, adhyaya15];
 const both = (b: { en: string; hi: string }, where: string) => {
   assert.ok(b.en.trim(), `${where}: missing English`);
   assert.ok(b.hi.trim(), `${where}: missing Hindi`);
@@ -80,5 +83,12 @@ test("quiz topics build for every level and language with unique ids", () => {
         assert.equal(q.correctIndex, 0);
       }
     }
+  }
+});
+
+test("Adhyaya 13 carries the +1 numbering of 35-verse editions on every shloka", () => {
+  for (const s of adhyaya13.shlokas) {
+    const [, v] = s.ref.split(".").map(Number);
+    assert.equal(s.altRef, `13.${v + 1}`, s.ref);
   }
 });

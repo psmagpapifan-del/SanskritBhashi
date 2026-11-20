@@ -6,6 +6,12 @@ This file tracks all bug fixes, improvements, and features implemented across ap
 
 ## [Unreleased] - 2026-11-18
 
+### Onboarding tour in four languages; lighter pages (2026-11-20)
+- **UI [Tour]:** `src/components/OnboardingTour.tsx`, new `src/lib/tourText.ts` — the tour now follows the page language (English, हिन्दी, 日本語, Español; it was English-only) and has 9 steps, including a new **Gita for Students** step that highlights the sidebar link. Copy rewritten in plain, student-friendly language (removed the "GEO"/crawler wording and the Bhagavatam mention). Counter, Skip, Next, Get Started and the Tour Guide button are translated too.
+- **Performance:** removed `framer-motion` (about 35 KB compressed, loaded on every page for the tour, the streak flame and the Report Error dialog). The same animations are now CSS keyframes in `src/styles/globals.css` (`animate-flame-glow`, `animate-flame-flicker`, `animate-pop-in`) and respect "reduce motion". Pages download about 37 KB less (home: 182 → 145 KB); Lighthouse mobile 98–99.
+- **SEO:** Gita chapter titles now fit search results (~70 characters; seven were 84–93). Fuller Japanese descriptions for FAQs, Shastra Study and the pronunciation article.
+- **Tests:** tour test updated to 9 steps; new test for the Hindi tour and the Gita step.
+
 ### Feature: Gita for Students, adhyayas 16–18: all 18 chapters complete (2026-11-20)
 - **Content:** `src/lib/gita/adhyaya16.ts`, `adhyaya17.ts`, `adhyaya18.ts` — 20 more shlokas in English and Hindi, each with word meanings, a school-life situation, a reflection question and 2 quiz questions:
   - Adhyaya 16: 16.2, 16.3 (Classes 6–8); 16.1, 16.21 (9–10); 16.4, 16.24 (11–12).

@@ -60,9 +60,11 @@ const available = GITA_AVAILABLE as readonly number[];
 const prev = available.includes(n - 1) ? n - 1 : null;
 const next = available.includes(n + 1) ? n + 1 : null;
 
+// Keep titles within ~70 characters (what search results show): drop the optional parts if too long.
+const fit = (parts: string[]) => parts.reduce((acc, p) => ([...(acc + p)].length <= 70 ? acc + p : acc), "");
 const title = cl === "hi"
-  ? `गीता अध्याय ${n}: ${a.title.hi}, विद्यार्थियों के लिए | Sanskritbhashi`
-  : `Bhagavad Gita Chapter ${n}: ${a.title.en} for Students | Sanskritbhashi`;
+  ? fit([`गीता अध्याय ${n}: ${a.title.hi}`, ", विद्यार्थियों के लिए", " | Sanskritbhashi"])
+  : fit([`Bhagavad Gita Chapter ${n}: ${a.title.en}`, " for Students", " | Sanskritbhashi"]);
 const refs = a.shlokas.map((s) => s.ref).join(", ");
 const description = cl === "hi"
   ? `गीता अध्याय ${n} (${a.name}) के श्लोक ${refs}: अर्थ, शब्दार्थ, स्कूली जीवन की परिस्थितियाँ और प्रश्नोत्तरी, कक्षा 6–12 के लिए।`

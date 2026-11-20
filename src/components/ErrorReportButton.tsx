@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { AlertTriangle, X, ShieldAlert, CheckCircle } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 import { getTranslation } from "@/lib/i18n";
 import { getCapacitorMeta } from "@/lib/capacitorBridge";
 
@@ -115,15 +114,9 @@ export default function ErrorReportButton({
         <span>{t.practice.reportError}</span>
       </button>
 
-      <AnimatePresence>
-        {isOpen && (
+      {isOpen && (
           <div className="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 15 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: -15 }}
-              className="bg-white dark:bg-zinc-900 border-2 border-red-500 rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl relative"
-            >
+            <div className="bg-white dark:bg-zinc-900 border-2 border-red-500 rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl relative animate-pop-in">
               {/* Close Button */}
               <button
                 onClick={() => setIsOpen(false)}
@@ -219,10 +212,9 @@ export default function ErrorReportButton({
                   </div>
                 </form>
               )}
-            </motion.div>
+            </div>
           </div>
         )}
-      </AnimatePresence>
     </>
   );
 }

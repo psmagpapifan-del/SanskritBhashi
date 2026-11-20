@@ -1,10 +1,12 @@
 import type { APIRoute } from "astro";
+import { NCERT_CLASSES, classSlug } from "../lib/ncertClasses";
 
 export const prerender = true;
 
 /**
  * Build-time sitemap. Every localized page under src/pages/[lang]/ is picked up
  * automatically, so new articles are listed without editing this file.
+ * Dynamic routes ([param].astro) are not globbed and must be added below.
  * Pages that are English-only (privacy, terms) are emitted for /en only,
  * because their other-language copies are marked noindex.
  */
@@ -22,6 +24,8 @@ const routes = pageFiles
       .replace(/\/index$/, "")
   )
   .filter((r) => !r.includes("["))
+  // Dynamic routes are listed explicitly.
+  .concat(NCERT_CLASSES.map((n) => `/modules/school-prep/${classSlug(n)}`))
   .sort();
 
 const priorityFor = (route: string) => {

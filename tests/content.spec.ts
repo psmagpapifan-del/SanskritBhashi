@@ -15,6 +15,7 @@ const PAGES = [
   { name: "Home-JA", path: "/ja" },
   { name: "Home-ES", path: "/es" },
   { name: "SchoolPrep", path: "/en/modules/school-prep" },
+  { name: "SchoolPrepClass9", path: "/en/modules/school-prep/class-9" },
   { name: "ShastraStudy", path: "/en/modules/shastra-study" },
   { name: "About", path: "/en/about" },
   { name: "Contact", path: "/en/contact" },

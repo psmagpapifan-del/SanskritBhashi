@@ -1,0 +1,59 @@
+---
+/** Localized "how School Prep works" text, shown on the School Prep hub. */
+const { lang } = Astro.props as { lang: string };
+---
+
+{lang === "hi" ? (
+  <>
+    <h2 class="text-xl font-bold text-charcoal font-latin">एनसीईआरटी संस्कृत (दीपकम्) — पाठ-अनुसार अभ्यास</h2>
+    <div class="prose dark:prose-invert text-xs md:text-sm text-charcoal/80 space-y-4 leading-relaxed font-latin">
+      <p>स्कूल प्रेप मॉड्यूल एनसीईआरटी की नई संस्कृत पाठ्यपुस्तकों <strong>दीपकम्</strong> (कक्षा 6, 7, 8), <strong>शारदा</strong> (कक्षा 9) , <strong>शेमुषी</strong> (कक्षा 10) और <strong>भास्वती</strong> व <strong>शाश्वती</strong> (कक्षा 11–12) के हर पाठ पर आधारित है। प्रत्येक पाठ में 7–9 प्रश्न हैं, जो सीधे पाठ्यपुस्तक के पाठ से लिए गए हैं: अर्थ, व्याकरण (शब्दरूप, धातुरूप, लकार), सन्धि, संख्याएँ, शब्दार्थ और पाठ-बोध।</p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>अभ्यास मोड:</strong> तुरंत प्रतिक्रिया और संकेत; गलत उत्तर के बाद फिर प्रयास करें। चूके हुए प्रश्न अंत में दोबारा पूछे जाते हैं।</li>
+        <li><strong>परीक्षा मोड:</strong> प्रत्येक प्रश्न का एक ही प्रयास, कोई संकेत नहीं। 80% या अधिक अंक पर पाठ उत्तीर्ण।</li>
+        <li><strong>पुनरावृत्ति:</strong> प्रत्येक प्रश्न अंतराल-पुनरावृत्ति (1, 3, 7, 16, 35 दिन) से दोहराया जाता है, ताकि पढ़ा हुआ याद रहे।</li>
+      </ul>
+      <p>सभी पाठ हर विद्यार्थी के लिए खुले हैं — कोई ताला नहीं। संस्कृत शब्द आपकी चुनी हुई लिपि (देवनागरी, IAST, कताकाना या फ़्रेंच) में दिखते हैं।</p>
+    </div>
+  </>
+) : lang === "ja" ? (
+  <>
+    <h2 class="text-xl font-bold text-charcoal font-latin">NCERT サンスクリット（ディーパカム）— 章ごとの練習</h2>
+    <div class="prose dark:prose-invert text-xs md:text-sm text-charcoal/80 space-y-4 leading-relaxed font-latin">
+      <p>スクールプレップは、NCERT の新しい教科書<strong>『ディーパカム』</strong>（6〜8年生）、<strong>『シャーラダー』</strong>（9年生）、<strong>『シェームシー』</strong>（10年生）、<strong>『バースヴァティー』</strong>と<strong>『シャーシュヴァティー』</strong>（11〜12年生）の全課に基づいています。各課には教科書本文から作られた7〜9問があり、意味、文法（名詞・動詞の変化、時制）、連声（サンディ）、数、語彙、読解を扱います。</p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>練習モード：</strong>すぐにフィードバックとヒントが表示され、やり直しができます。間違えた問題は最後にもう一度出題されます。</li>
+        <li><strong>試験モード：</strong>各問題1回のみ、ヒントなし。80%以上で合格です。</li>
+        <li><strong>復習：</strong>各問題は間隔反復（1・3・7・16・35日）で復習され、学んだ内容が定着します。</li>
+      </ul>
+      <p>すべての課は誰でもすぐに学べます。サンスクリット語は選択した文字（デーヴァナーガリー、IAST、カタカナ、フランス語式）で表示されます。</p>
+    </div>
+  </>
+) : lang === "es" ? (
+  <>
+    <h2 class="text-xl font-bold text-charcoal font-latin">Sánscrito NCERT (Dīpakam): práctica por capítulos</h2>
+    <div class="prose dark:prose-invert text-xs md:text-sm text-charcoal/80 space-y-4 leading-relaxed font-latin">
+      <p>School Prep se basa en cada lección de los nuevos libros de texto NCERT <strong>दीपकम् (Dīpakam)</strong> para las Clases 6, 7 y 8 , <strong>शारदा (Śāradā)</strong> para la Clase 9, <strong>शेमुषी (Śemuṣī)</strong> para la Clase 10, y <strong>भास्वती</strong> y <strong>शाश्वती</strong> para las Clases 11 y 12. Cada lección tiene de 7 a 9 preguntas escritas a partir del propio texto: significado, gramática (declinaciones, conjugaciones, tiempos), sandhi, números, vocabulario y comprensión.</p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Modo práctica:</strong> respuesta inmediata y pistas; puede volver a intentarlo. Las preguntas falladas vuelven al final.</li>
+        <li><strong>Modo examen:</strong> un intento por pregunta y sin pistas. Con 80% o más se aprueba la lección.</li>
+        <li><strong>Repaso:</strong> cada pregunta se repasa con repetición espaciada (1, 3, 7, 16 y 35 días) para fijar lo aprendido.</li>
+      </ul>
+      <p>Todas las lecciones están abiertas desde el principio. Las palabras sánscritas se muestran en la escritura elegida (devanagari, IAST, katakana o francés).</p>
+    </div>
+  </>
+) : (
+  <>
+    <h2 class="text-xl font-bold text-charcoal font-latin">NCERT Sanskrit (दीपकम्) — chapter-wise practice</h2>
+    <div class="prose dark:prose-invert text-xs md:text-sm text-charcoal/80 space-y-4 leading-relaxed font-latin">
+      <p>School Prep follows every lesson of the new NCERT Sanskrit textbooks <strong>दीपकम् (Deepakam)</strong> for Classes 6, 7 and 8 , <strong>शारदा (Śāradā)</strong> for Class 9, <strong>शेमुषी (Śemuṣī)</strong> for Class 10, and <strong>भास्वती</strong> and <strong>शाश्वती</strong> for Classes 11 and 12. Each lesson has 7–9 questions written from the textbook itself: meaning, grammar (noun and verb forms, lakāras), sandhi, numbers, vocabulary and comprehension of the passage.</p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Practice mode:</strong> instant feedback and hints; try again after a wrong answer. Questions you miss come back at the end of the round.</li>
+        <li><strong>Exam mode:</strong> one attempt per question, no hints. Score 80% or more to pass the lesson.</li>
+        <li><strong>Review:</strong> every question is scheduled with spaced repetition (1, 3, 7, 16 and 35 days), so what you learn stays learned.</li>
+      </ul>
+      <p>Every lesson is open from the start — there are no locks. Sanskrit words appear in the script you choose in the language menu (Devanagari, IAST, Katakana or French phonetic).</p>
+    </div>
+  </>
+)}
+

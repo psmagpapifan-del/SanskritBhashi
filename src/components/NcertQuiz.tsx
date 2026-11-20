@@ -1,6 +1,6 @@
 import React from "react";
 import TopicQuiz from "./TopicQuiz";
-import { ncertChapters } from "../lib/ncertContent";
+import type { QuizTopic } from "../lib/quizContent";
 
 const LIST_TITLE: Record<string, string> = {
   en: "NCERT chapters",
@@ -9,11 +9,14 @@ const LIST_TITLE: Record<string, string> = {
   es: "Capítulos NCERT",
 };
 
-/** NCERT school track: chapter-wise quizzes for the NCERT Sanskrit textbooks (दीपकम् 6–8, शारदा 9, शेमुषी 10, भास्वती/शाश्वती 11–12). */
-export default function NcertQuiz({ activeLang = "en" }: { activeLang?: string }) {
+/**
+ * NCERT school track quiz for one class. Callers pass only that class's chapters
+ * (see src/components/ncert/ClassNQuiz.tsx) so each page ships one class of data.
+ */
+export default function NcertQuiz({ topics, activeLang = "en" }: { topics: QuizTopic[]; activeLang?: string }) {
   return (
     <TopicQuiz
-      topics={ncertChapters}
+      topics={topics}
       storeKey="sb_ncert_v1"
       cardId="ncert-quiz-card"
       listTitle={LIST_TITLE[activeLang] ?? LIST_TITLE.en}

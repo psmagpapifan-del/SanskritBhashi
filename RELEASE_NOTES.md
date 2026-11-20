@@ -6,6 +6,13 @@ This file tracks all bug fixes, improvements, and features implemented across ap
 
 ## [Unreleased] - 2026-11-18
 
+### Speed: one page per NCERT class, lighter fonts (2026-11-20)
+- **Performance / Feature:** `src/pages/[lang]/modules/school-prep/[cls].astro`, `src/components/ncert/Class*Quiz.tsx` — each class now has its own page (`/en/modules/school-prep/class-9` etc.) that loads only its own questions (43–94 KB instead of 427 KB for all 867 questions). Each class page has its own title, description, Course and BreadcrumbList schema, and is listed in the sitemap in all 4 languages.
+- **UI:** `src/pages/[lang]/modules/school-prep.astro` — School Prep is now a class picker with the full lesson list. Old links such as `/modules/school-prep?topic=c8-05` redirect to the class page; app deep links (`src/lib/deepLinkRouter.ts`) and the tour go straight to the class page.
+- **Performance:** `src/layouts/Layout.astro`, `src/styles/globals.css` — fonts load with `<link>` + preconnect instead of a render-blocking CSS `@import`. Dropped three web fonts that were downloaded but never shown (Noto Sans JP, Rozha One, Noto Serif Devanagari); Japanese uses the system font. Geist is now one variable font, so bold 800/900 headings render properly instead of being faked.
+- **Result (Lighthouse mobile, with Cloudflare-style compression):** Home 99, School Prep hub 91, Class 11 page 99, articles 96 (School Prep was 65).
+- **Tests:** new `tests/unit/deepLinkRouter.test.ts`; e2e, accessibility, visual, content and performance tests updated for the class pages.
+
 ### Accessibility: WCAG 2.1 AA colour contrast, keyboard quiz, reduced motion (2026-11-20)
 - **UI [Accessibility]:** `src/styles/globals.css` and pages — orange text darkened to `#B84300` (light) / `#FF8533` (dark), so it passes 4.5:1 contrast. Bright orange buttons and banners keep `#FF6F00` with near-black text (6.3:1) instead of white (2.8:1). Added the missing `saffron-300/400/700` colour tokens, so hover and dark-mode colours that silently did nothing now work.
 - **UI [Accessibility]:** Dark-mode grey labels (`zinc-500` → `zinc-400`), the Report Error button and the footer copyright now pass contrast.

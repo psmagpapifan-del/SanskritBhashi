@@ -10,6 +10,7 @@ import { test, expect } from "@playwright/test";
 const PAGES = [
   { name: "Home", path: "/en" },
   { name: "SchoolPrep", path: "/en/modules/school-prep" },
+  { name: "SchoolPrepClass6", path: "/en/modules/school-prep/class-6" },
   { name: "ShastraStudy", path: "/en/modules/shastra-study" },
   { name: "About", path: "/en/about" },
   { name: "Contact", path: "/en/contact" },

@@ -7,9 +7,12 @@ import { adhyaya3 } from "../../src/lib/gita/adhyaya3.ts";
 import { adhyaya4 } from "../../src/lib/gita/adhyaya4.ts";
 import { adhyaya5 } from "../../src/lib/gita/adhyaya5.ts";
 import { adhyaya6 } from "../../src/lib/gita/adhyaya6.ts";
+import { adhyaya7 } from "../../src/lib/gita/adhyaya7.ts";
+import { adhyaya8 } from "../../src/lib/gita/adhyaya8.ts";
+import { adhyaya9 } from "../../src/lib/gita/adhyaya9.ts";
 import { ADHYAYAS, GITA_AVAILABLE, GITA_LEVELS, shlokasFor, toQuizTopics } from "../../src/lib/gita/index.ts";
 
-const chapters = [adhyaya1, adhyaya2, adhyaya3, adhyaya4, adhyaya5, adhyaya6];
+const chapters = [adhyaya1, adhyaya2, adhyaya3, adhyaya4, adhyaya5, adhyaya6, adhyaya7, adhyaya8, adhyaya9];
 const both = (b: { en: string; hi: string }, where: string) => {
   assert.ok(b.en.trim(), `${where}: missing English`);
   assert.ok(b.hi.trim(), `${where}: missing Hindi`);

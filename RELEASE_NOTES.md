@@ -6,6 +6,14 @@ This file tracks all bug fixes, improvements, and features implemented across ap
 
 ## [Unreleased] - 2026-11-18
 
+### Feature: Gita for Students, adhyayas 10–12 (2026-11-20)
+- **Content:** `src/lib/gita/adhyaya10.ts`, `adhyaya11.ts`, `adhyaya12.ts` — 21 more shlokas in English and Hindi, each with word meanings, a school-life situation, a reflection question and 2 quiz questions:
+  - Adhyaya 10: 10.25, 10.31 (Classes 6–8); 10.9, 10.41 (9–10); 10.8, 10.10, 10.20 (11–12).
+  - Adhyaya 11: 11.8, 11.12 (6–8); 11.41, 11.55 (9–10); 11.32, 11.33, 11.54 (11–12). Shows each verse's speaker (Sanjaya for 11.12, Arjuna for 11.41).
+  - Adhyaya 12: 12.13, 12.15 (6–8); 12.18, 12.19 (9–10); 12.8, 12.9, 12.12 (11–12).
+- **Feature:** `src/components/gita/Adhyaya10–12Study.tsx` — study pages for Adhyayas 10–12, linked from the hub, sitemap and `llms.txt`. Two-thirds of the Gita's chapters are now covered.
+- **Tests:** Gita e2e (incl. a speaker check for 11.12) and content tests cover all twelve adhyayas.
+
 ### Feature: Gita for Students, adhyayas 7–9 (2026-11-20)
 - **Content:** `src/lib/gita/adhyaya7.ts`, `adhyaya8.ts`, `adhyaya9.ts` — 20 more shlokas in English and Hindi, each with word meanings, a school-life situation, a reflection question and 2 quiz questions:
   - Adhyaya 7: 7.7, 7.8 (Classes 6–8); 7.3, 7.16 (9–10); 7.4, 7.11, 7.19 (11–12).

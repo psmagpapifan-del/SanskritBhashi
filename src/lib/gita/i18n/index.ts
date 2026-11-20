@@ -11,14 +11,20 @@ import { ja3 } from "./ja/adhyaya3.ts";
 import { ja4 } from "./ja/adhyaya4.ts";
 import { ja5 } from "./ja/adhyaya5.ts";
 import { ja6 } from "./ja/adhyaya6.ts";
+import { ja7 } from "./ja/adhyaya7.ts";
+import { ja8 } from "./ja/adhyaya8.ts";
+import { ja9 } from "./ja/adhyaya9.ts";
 import { es1 } from "./es/adhyaya1.ts";
 import { es2 } from "./es/adhyaya2.ts";
 import { es3 } from "./es/adhyaya3.ts";
 import { es4 } from "./es/adhyaya4.ts";
 import { es5 } from "./es/adhyaya5.ts";
 import { es6 } from "./es/adhyaya6.ts";
+import { es7 } from "./es/adhyaya7.ts";
+import { es8 } from "./es/adhyaya8.ts";
+import { es9 } from "./es/adhyaya9.ts";
 
 export const OVERLAYS: Record<GitaOverlayLang, Partial<Record<number, GitaOverlay>>> = {
-  ja: { 1: ja1, 2: ja2, 3: ja3, 4: ja4, 5: ja5, 6: ja6 },
-  es: { 1: es1, 2: es2, 3: es3, 4: es4, 5: es5, 6: es6 },
+  ja: { 1: ja1, 2: ja2, 3: ja3, 4: ja4, 5: ja5, 6: ja6, 7: ja7, 8: ja8, 9: ja9 },
+  es: { 1: es1, 2: es2, 3: es3, 4: es4, 5: es5, 6: es6, 7: es7, 8: es8, 9: es9 },
 };

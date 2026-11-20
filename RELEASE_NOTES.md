@@ -6,6 +6,9 @@ This file tracks all bug fixes, improvements, and features implemented across ap
 
 ## [Unreleased] - 2026-11-18
 
+### Feature: Gita for Students in Japanese and Spanish, adhyayas 4–6 (2026-11-20)
+- **Feature [Gita, ja/es]:** new `src/lib/gita/i18n/{ja,es}/adhyaya4–6.ts` — chapters 4–6 (22 shlokas) in Japanese and Spanish, registered in `src/lib/gita/i18n/index.ts`. Short glosses added for tiffin, dal, tabla, guru, cricket and board exams. These pages are now indexable in ja/es and listed in the sitemap.
+
 ### Feature: Gita for Students in Japanese and Spanish, adhyayas 1–3 (2026-11-20)
 - **Feature [Gita, ja/es]:** new `src/lib/gita/i18n/{ja,es}/adhyaya1–3.ts` — chapters 1–3 (20 shlokas) translated into Japanese and Spanish: context, crux, word meanings, meaning, school-life situation, reflection and both quiz questions. Indian names and stories are kept, with short explanations of terms such as board exams, Class 10 streams and school houses. Each translated page notes that it was translated from English.
 - **SEO:** translated chapters and the Gita hub are now indexable in ja/es, listed in the sitemap and linked with hreflang; untranslated chapters stay noindex with the canonical on /en, and the hub marks them "In English for now". Localized titles and descriptions for every Gita page (`src/lib/gitaPageText.ts`).

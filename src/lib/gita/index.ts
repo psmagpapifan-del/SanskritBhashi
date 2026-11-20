@@ -11,7 +11,7 @@ import type { Bi, GitaAdhyaya, GitaLevel, GitaShloka } from "./types.ts";
 export type { Bi, GitaAdhyaya, GitaLevel, GitaShloka } from "./types.ts";
 export { GITA_LEVELS } from "./types.ts";
 
-export const GITA_AVAILABLE = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15] as const;
+export const GITA_AVAILABLE = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18] as const;
 
 export interface AdhyayaMeta {
   n: number;

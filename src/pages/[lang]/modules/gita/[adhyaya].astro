@@ -16,6 +16,9 @@ import Adhyaya12Study from "../../../../components/gita/Adhyaya12Study";
 import Adhyaya13Study from "../../../../components/gita/Adhyaya13Study";
 import Adhyaya14Study from "../../../../components/gita/Adhyaya14Study";
 import Adhyaya15Study from "../../../../components/gita/Adhyaya15Study";
+import Adhyaya16Study from "../../../../components/gita/Adhyaya16Study";
+import Adhyaya17Study from "../../../../components/gita/Adhyaya17Study";
+import Adhyaya18Study from "../../../../components/gita/Adhyaya18Study";
 import { getTranslation } from "../../../../lib/i18n";
 import { GITA_AVAILABLE, adhyayaSlug, gitaLang, type GitaAdhyaya } from "../../../../lib/gita/index";
 import { adhyaya1 } from "../../../../lib/gita/adhyaya1";
@@ -33,9 +36,12 @@ import { adhyaya12 } from "../../../../lib/gita/adhyaya12";
 import { adhyaya13 } from "../../../../lib/gita/adhyaya13";
 import { adhyaya14 } from "../../../../lib/gita/adhyaya14";
 import { adhyaya15 } from "../../../../lib/gita/adhyaya15";
+import { adhyaya16 } from "../../../../lib/gita/adhyaya16";
+import { adhyaya17 } from "../../../../lib/gita/adhyaya17";
+import { adhyaya18 } from "../../../../lib/gita/adhyaya18";
 import { gitaPageText } from "../../../../lib/gitaPageText";
 
-const CHAPTERS: Record<number, GitaAdhyaya> = { 1: adhyaya1, 2: adhyaya2, 3: adhyaya3, 4: adhyaya4, 5: adhyaya5, 6: adhyaya6, 7: adhyaya7, 8: adhyaya8, 9: adhyaya9, 10: adhyaya10, 11: adhyaya11, 12: adhyaya12, 13: adhyaya13, 14: adhyaya14, 15: adhyaya15 };
+const CHAPTERS: Record<number, GitaAdhyaya> = { 1: adhyaya1, 2: adhyaya2, 3: adhyaya3, 4: adhyaya4, 5: adhyaya5, 6: adhyaya6, 7: adhyaya7, 8: adhyaya8, 9: adhyaya9, 10: adhyaya10, 11: adhyaya11, 12: adhyaya12, 13: adhyaya13, 14: adhyaya14, 15: adhyaya15, 16: adhyaya16, 17: adhyaya17, 18: adhyaya18 };
 
 export function getStaticPaths() {
   return ["en", "hi", "ja", "es"].flatMap((lang) =>
@@ -132,6 +138,9 @@ const schema = {
     {n === 13 && <Adhyaya13Study client:load activeLang={lang} />}
     {n === 14 && <Adhyaya14Study client:load activeLang={lang} />}
     {n === 15 && <Adhyaya15Study client:load activeLang={lang} />}
+    {n === 16 && <Adhyaya16Study client:load activeLang={lang} />}
+    {n === 17 && <Adhyaya17Study client:load activeLang={lang} />}
+    {n === 18 && <Adhyaya18Study client:load activeLang={lang} />}
 
     <nav aria-label={t.chooseAdhyaya} class="flex flex-wrap items-center justify-between gap-3 text-sm font-bold font-latin">
       {prev ? <a href={`/${lang}/modules/gita/${adhyayaSlug(prev)}`} class="text-brand-600 hover:text-brand-700 dark:hover:text-brand-300">← {t.previous}</a> : <span />}

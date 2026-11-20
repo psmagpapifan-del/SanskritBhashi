@@ -6,6 +6,12 @@ This file tracks all bug fixes, improvements, and features implemented across ap
 
 ## [Unreleased] - 2026-11-18
 
+### Feature: Gita for Students in Japanese and Spanish, adhyayas 1–3 (2026-11-20)
+- **Feature [Gita, ja/es]:** new `src/lib/gita/i18n/{ja,es}/adhyaya1–3.ts` — chapters 1–3 (20 shlokas) translated into Japanese and Spanish: context, crux, word meanings, meaning, school-life situation, reflection and both quiz questions. Indian names and stories are kept, with short explanations of terms such as board exams, Class 10 streams and school houses. Each translated page notes that it was translated from English.
+- **SEO:** translated chapters and the Gita hub are now indexable in ja/es, listed in the sitemap and linked with hreflang; untranslated chapters stay noindex with the canonical on /en, and the hub marks them "In English for now". Localized titles and descriptions for every Gita page (`src/lib/gitaPageText.ts`).
+- **Performance:** one `GitaStudy` island now receives the chapter already in the page's language from the server (`src/lib/gita/content.ts`, `localizeAdhyaya`), replacing 18 per-chapter islands; en/hi pages no longer ship the other language's text.
+- **Tests:** overlay completeness test (refs, word counts, options, script) and ja/es indexing tests in `tests/gita.spec.ts`.
+
 ### Onboarding tour in four languages; lighter pages (2026-11-20)
 - **UI [Tour]:** `src/components/OnboardingTour.tsx`, new `src/lib/tourText.ts` — the tour now follows the page language (English, हिन्दी, 日本語, Español; it was English-only) and has 9 steps, including a new **Gita for Students** step that highlights the sidebar link. Copy rewritten in plain, student-friendly language (removed the "GEO"/crawler wording and the Bhagavatam mention). Counter, Skip, Next, Get Started and the Tour Guide button are translated too.
 - **Performance:** removed `framer-motion` (about 35 KB compressed, loaded on every page for the tour, the streak flame and the Report Error dialog). The same animations are now CSS keyframes in `src/styles/globals.css` (`animate-flame-glow`, `animate-flame-flicker`, `animate-pop-in`) and respect "reduce motion". Pages download about 37 KB less (home: 182 → 145 KB); Lighthouse mobile 98–99.

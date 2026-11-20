@@ -19,7 +19,9 @@ import { adhyaya15 } from "../../src/lib/gita/adhyaya15.ts";
 import { adhyaya16 } from "../../src/lib/gita/adhyaya16.ts";
 import { adhyaya17 } from "../../src/lib/gita/adhyaya17.ts";
 import { adhyaya18 } from "../../src/lib/gita/adhyaya18.ts";
-import { ADHYAYAS, GITA_AVAILABLE, GITA_LEVELS, shlokasFor, toQuizTopics } from "../../src/lib/gita/index.ts";
+import { ADHYAYAS, GITA_AVAILABLE, GITA_LEVELS, localizeAdhyaya, shlokasFor, toQuizTopics } from "../../src/lib/gita/index.ts";
+import { OVERLAYS } from "../../src/lib/gita/i18n/index.ts";
+import { gitaLocales, isTranslated } from "../../src/lib/gita/content.ts";
 
 const chapters = [adhyaya1, adhyaya2, adhyaya3, adhyaya4, adhyaya5, adhyaya6, adhyaya7, adhyaya8, adhyaya9, adhyaya10, adhyaya11, adhyaya12, adhyaya13, adhyaya14, adhyaya15, adhyaya16, adhyaya17, adhyaya18];
 const both = (b: { en: string; hi: string }, where: string) => {
@@ -77,8 +79,9 @@ test("shlokas are well formed and fully bilingual", () => {
 
 test("quiz topics build for every level and language with unique ids", () => {
   const ids = new Set<string>();
-  for (const c of chapters) for (const l of GITA_LEVELS) for (const lang of ["en", "hi"] as const) {
-    for (const t of toQuizTopics(c, l, lang)) {
+  for (const c of chapters) for (const l of GITA_LEVELS) for (const lang of ["en", "hi", "ja", "es"] as const) {
+    const local = localizeAdhyaya(c, lang, lang === "ja" || lang === "es" ? OVERLAYS[lang][c.n] : undefined);
+    for (const t of toQuizTopics(local, l)) {
       for (const q of t.questions) {
         const key = `${lang}:${q.id}`;
         assert.ok(!ids.has(key), key);
@@ -99,4 +102,52 @@ test("Adhyaya 13 carries the +1 numbering of 35-verse editions on every shloka",
 test("all 18 adhyayas are complete: each has a shloka at every level", () => {
   assert.equal(chapters.length, 18);
   assert.deepEqual(chapters.map((c) => c.n), Array.from({ length: 18 }, (_, i) => i + 1));
+});
+
+// Japanese and Spanish translations (src/lib/gita/i18n/<lang>/adhyayaN.ts).
+const script = { ja: /[\u3040-\u30ff\u4e00-\u9fff]/, es: /[a-záéíóúñ]/i } as const;
+
+test("ja/es translations mirror the English chapter exactly", () => {
+  for (const lang of ["ja", "es"] as const) {
+    for (const [key, o] of Object.entries(OVERLAYS[lang])) {
+      const c = chapters[Number(key) - 1];
+      const w = `${lang} Adhyaya ${key}`;
+      assert.ok(o && c, w);
+      const filled = (s: string, where: string) => {
+        assert.ok(s.trim(), `${where}: empty`);
+        assert.match(s, script[lang], `${where}: not in ${lang}`);
+      };
+      filled(o.title, `${w} title`);
+      filled(o.context, `${w} context`);
+      assert.equal(o.crux.length, 3, `${w}: 3 crux lines`);
+      o.crux.forEach((x, i) => filled(x, `${w} crux ${i}`));
+      assert.deepEqual(Object.keys(o.shlokas).sort(), c.shlokas.map((s) => s.ref).sort(), `${w}: same shlokas`);
+      for (const s of c.shlokas) {
+        const t = o.shlokas[s.ref];
+        const ws = `${lang} ${s.ref}`;
+        assert.equal(t.words.length, s.words.length, `${ws}: one gloss per word`);
+        t.words.forEach((g, i) => filled(g, `${ws} word ${s.words[i].sa}`));
+        filled(t.meaning, `${ws} meaning`);
+        filled(t.situation.title, `${ws} situation title`);
+        filled(t.situation.story, `${ws} situation`);
+        filled(t.reflect, `${ws} reflect`);
+        assert.equal(t.questions.length, 2, `${ws}: 2 questions`);
+        for (const q of t.questions) {
+          filled(q.prompt, `${ws} prompt`);
+          filled(q.hint, `${ws} hint`);
+          filled(q.explanation, `${ws} explanation`);
+          q.options.forEach((x, i) => assert.ok(x.trim(), `${ws} option ${i}`));
+          assert.equal(new Set(q.options.map((x) => x.trim())).size, 4, `${ws}: 4 distinct options`);
+        }
+      }
+    }
+  }
+});
+
+test("translated chapters are published (sitemap/hreflang) only in their languages", () => {
+  for (const n of GITA_AVAILABLE) {
+    const want = ["en", "hi", ...(["ja", "es"] as const).filter((l) => !!OVERLAYS[l][n])];
+    assert.deepEqual(gitaLocales(n), want, `Adhyaya ${n}`);
+    for (const l of ["ja", "es"] as const) assert.equal(isTranslated(n, l), !!OVERLAYS[l][n]);
+  }
 });

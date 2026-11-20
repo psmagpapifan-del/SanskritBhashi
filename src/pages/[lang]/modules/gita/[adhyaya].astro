@@ -1,47 +1,11 @@
 ---
 export const prerender = true;
 import Layout from "../../../../layouts/Layout.astro";
-import Adhyaya1Study from "../../../../components/gita/Adhyaya1Study";
-import Adhyaya2Study from "../../../../components/gita/Adhyaya2Study";
-import Adhyaya3Study from "../../../../components/gita/Adhyaya3Study";
-import Adhyaya4Study from "../../../../components/gita/Adhyaya4Study";
-import Adhyaya5Study from "../../../../components/gita/Adhyaya5Study";
-import Adhyaya6Study from "../../../../components/gita/Adhyaya6Study";
-import Adhyaya7Study from "../../../../components/gita/Adhyaya7Study";
-import Adhyaya8Study from "../../../../components/gita/Adhyaya8Study";
-import Adhyaya9Study from "../../../../components/gita/Adhyaya9Study";
-import Adhyaya10Study from "../../../../components/gita/Adhyaya10Study";
-import Adhyaya11Study from "../../../../components/gita/Adhyaya11Study";
-import Adhyaya12Study from "../../../../components/gita/Adhyaya12Study";
-import Adhyaya13Study from "../../../../components/gita/Adhyaya13Study";
-import Adhyaya14Study from "../../../../components/gita/Adhyaya14Study";
-import Adhyaya15Study from "../../../../components/gita/Adhyaya15Study";
-import Adhyaya16Study from "../../../../components/gita/Adhyaya16Study";
-import Adhyaya17Study from "../../../../components/gita/Adhyaya17Study";
-import Adhyaya18Study from "../../../../components/gita/Adhyaya18Study";
+import GitaStudy from "../../../../components/gita/GitaStudy";
 import { getTranslation } from "../../../../lib/i18n";
-import { GITA_AVAILABLE, adhyayaSlug, gitaLang, type GitaAdhyaya } from "../../../../lib/gita/index";
-import { adhyaya1 } from "../../../../lib/gita/adhyaya1";
-import { adhyaya2 } from "../../../../lib/gita/adhyaya2";
-import { adhyaya3 } from "../../../../lib/gita/adhyaya3";
-import { adhyaya4 } from "../../../../lib/gita/adhyaya4";
-import { adhyaya5 } from "../../../../lib/gita/adhyaya5";
-import { adhyaya6 } from "../../../../lib/gita/adhyaya6";
-import { adhyaya7 } from "../../../../lib/gita/adhyaya7";
-import { adhyaya8 } from "../../../../lib/gita/adhyaya8";
-import { adhyaya9 } from "../../../../lib/gita/adhyaya9";
-import { adhyaya10 } from "../../../../lib/gita/adhyaya10";
-import { adhyaya11 } from "../../../../lib/gita/adhyaya11";
-import { adhyaya12 } from "../../../../lib/gita/adhyaya12";
-import { adhyaya13 } from "../../../../lib/gita/adhyaya13";
-import { adhyaya14 } from "../../../../lib/gita/adhyaya14";
-import { adhyaya15 } from "../../../../lib/gita/adhyaya15";
-import { adhyaya16 } from "../../../../lib/gita/adhyaya16";
-import { adhyaya17 } from "../../../../lib/gita/adhyaya17";
-import { adhyaya18 } from "../../../../lib/gita/adhyaya18";
-import { gitaPageText } from "../../../../lib/gitaPageText";
-
-const CHAPTERS: Record<number, GitaAdhyaya> = { 1: adhyaya1, 2: adhyaya2, 3: adhyaya3, 4: adhyaya4, 5: adhyaya5, 6: adhyaya6, 7: adhyaya7, 8: adhyaya8, 9: adhyaya9, 10: adhyaya10, 11: adhyaya11, 12: adhyaya12, 13: adhyaya13, 14: adhyaya14, 15: adhyaya15, 16: adhyaya16, 17: adhyaya17, 18: adhyaya18 };
+import { GITA_AVAILABLE, adhyayaSlug } from "../../../../lib/gita/index";
+import { getLocalAdhyaya, gitaLocales, isTranslated } from "../../../../lib/gita/content";
+import { fitTitle, gitaPageText } from "../../../../lib/gitaPageText";
 
 export function getStaticPaths() {
   return ["en", "hi", "ja", "es"].flatMap((lang) =>
@@ -51,24 +15,20 @@ export function getStaticPaths() {
 
 const { lang } = Astro.params;
 const { n } = Astro.props as { n: number };
-const a = CHAPTERS[n];
+// The chapter in this page's language (English if ja/es isn't translated yet); only this goes to the browser.
+const a = getLocalAdhyaya(n, lang);
+const cl = a.lang;
+const translated = isTranslated(n, lang);
 const nav = getTranslation(lang);
-const cl = gitaLang(lang);
 const t = gitaPageText(lang);
-const translated = lang === "en" || lang === "hi";
+const ct = gitaPageText(cl);
 const available = GITA_AVAILABLE as readonly number[];
 const prev = available.includes(n - 1) ? n - 1 : null;
 const next = available.includes(n + 1) ? n + 1 : null;
 
-// Keep titles within ~70 characters (what search results show): drop the optional parts if too long.
-const fit = (parts: string[]) => parts.reduce((acc, p) => ([...(acc + p)].length <= 70 ? acc + p : acc), "");
-const title = cl === "hi"
-  ? fit([`गीता अध्याय ${n}: ${a.title.hi}`, ", विद्यार्थियों के लिए", " | Sanskritbhashi"])
-  : fit([`Bhagavad Gita Chapter ${n}: ${a.title.en}`, " for Students", " | Sanskritbhashi"]);
-const refs = a.shlokas.map((s) => s.ref).join(", ");
-const description = cl === "hi"
-  ? `गीता अध्याय ${n} (${a.name}) के श्लोक ${refs}: अर्थ, शब्दार्थ, स्कूली जीवन की परिस्थितियाँ और प्रश्नोत्तरी, कक्षा 6–12 के लिए।`
-  : `Bhagavad Gita Chapter ${n} (${a.name}), shlokas ${refs}: meaning, word meanings, school-life situations and a quiz, for Classes 6–12.`;
+// Keep titles within ~70 characters (what search results show): optional parts are dropped if too long.
+const title = fitTitle(ct.pageTitleParts(n, a.title));
+const description = ct.pageDesc(n, a.name, a.shlokas.map((s) => s.ref).join(", "));
 
 const schema = {
   "@context": "https://schema.org",
@@ -78,7 +38,7 @@ const schema = {
   "inLanguage": ["sa", cl],
   "educationalLevel": "Classes 6–12",
   "learningResourceType": "Lesson",
-  "isPartOf": { "@type": "Course", "name": cl === "hi" ? "विद्यार्थियों के लिए भगवद्गीता" : "Bhagavad Gita for Students", "url": `https://sanskritbhashi.com/${cl}/modules/gita` },
+  "isPartOf": { "@type": "Course", "name": ct.courseName, "url": `https://sanskritbhashi.com/${cl}/modules/gita` },
   "about": a.shlokas.map((s) => ({ "@type": "CreativeWork", "name": `Bhagavad Gītā ${s.ref}` })),
 };
 ---
@@ -88,7 +48,7 @@ const schema = {
   title={title}
   description={description}
   showAds={false}
-  locales={["en", "hi"]}
+  locales={gitaLocales(n)}
   noindex={!translated}
   canonicalPath={translated ? undefined : `/en/modules/gita/${adhyayaSlug(n)}`}
 >
@@ -105,44 +65,26 @@ const schema = {
     <header class="bg-linear-to-r from-brand-500 to-accent-500 rounded-3xl p-6 md:p-8 text-on-brand shadow-md">
       <p class="text-xs font-black uppercase tracking-widest font-latin">{t.adhyaya(n)}</p>
       <h1 class="mt-1 text-2xl md:text-3xl font-bold font-latin">
-        <span lang="sa" class="font-sanskrit">{a.name}</span> · {a.title[cl]}
+        <span lang="sa" class="font-sanskrit">{a.name}</span> · {a.title}
       </h1>
     </header>
 
-    {!translated && <p class="text-sm text-charcoal/80 font-latin bg-brand-50 dark:bg-zinc-900 border border-brand-100 dark:border-zinc-800 rounded-2xl px-4 py-3">{t.languageNote}</p>}
+    {!translated ? <p class="text-sm text-charcoal/80 font-latin bg-brand-50 dark:bg-zinc-900 border border-brand-100 dark:border-zinc-800 rounded-2xl px-4 py-3">{t.languageNote}</p> : t.translatedNote && <p class="text-xs text-charcoal/70 font-latin">{t.translatedNote}</p>}
 
     <section class="grid md:grid-cols-5 gap-4">
       <div class="md:col-span-3 bg-white dark:bg-zinc-900 border border-brand-100 dark:border-zinc-800 rounded-3xl p-6">
         <h2 class="text-sm font-black uppercase tracking-widest text-charcoal/70 font-latin">{t.story}</h2>
-        <p lang={cl} class="mt-2 text-sm md:text-base text-charcoal leading-relaxed font-latin">{a.context[cl]}</p>
+        <p lang={cl} class="mt-2 text-sm md:text-base text-charcoal leading-relaxed font-latin">{a.context}</p>
       </div>
       <div class="md:col-span-2 bg-white dark:bg-zinc-900 border border-brand-100 dark:border-zinc-800 rounded-3xl p-6">
         <h2 class="text-sm font-black uppercase tracking-widest text-charcoal/70 font-latin">{t.crux}</h2>
         <ol class="mt-2 space-y-2 list-decimal pl-5 text-sm md:text-base text-charcoal font-latin" lang={cl}>
-          {a.crux.map((c) => <li>{c[cl]}</li>)}
+          {a.crux.map((c) => <li>{c}</li>)}
         </ol>
       </div>
     </section>
 
-    {/* One island per adhyaya (Astro needs a static tag to hydrate). */}
-    {n === 1 && <Adhyaya1Study client:load activeLang={lang} />}
-    {n === 2 && <Adhyaya2Study client:load activeLang={lang} />}
-    {n === 3 && <Adhyaya3Study client:load activeLang={lang} />}
-    {n === 4 && <Adhyaya4Study client:load activeLang={lang} />}
-    {n === 5 && <Adhyaya5Study client:load activeLang={lang} />}
-    {n === 6 && <Adhyaya6Study client:load activeLang={lang} />}
-    {n === 7 && <Adhyaya7Study client:load activeLang={lang} />}
-    {n === 8 && <Adhyaya8Study client:load activeLang={lang} />}
-    {n === 9 && <Adhyaya9Study client:load activeLang={lang} />}
-    {n === 10 && <Adhyaya10Study client:load activeLang={lang} />}
-    {n === 11 && <Adhyaya11Study client:load activeLang={lang} />}
-    {n === 12 && <Adhyaya12Study client:load activeLang={lang} />}
-    {n === 13 && <Adhyaya13Study client:load activeLang={lang} />}
-    {n === 14 && <Adhyaya14Study client:load activeLang={lang} />}
-    {n === 15 && <Adhyaya15Study client:load activeLang={lang} />}
-    {n === 16 && <Adhyaya16Study client:load activeLang={lang} />}
-    {n === 17 && <Adhyaya17Study client:load activeLang={lang} />}
-    {n === 18 && <Adhyaya18Study client:load activeLang={lang} />}
+    <GitaStudy client:load adhyaya={a} activeLang={lang} />
 
     <nav aria-label={t.chooseAdhyaya} class="flex flex-wrap items-center justify-between gap-3 text-sm font-bold font-latin">
       {prev ? <a href={`/${lang}/modules/gita/${adhyayaSlug(prev)}`} class="text-brand-600 hover:text-brand-700 dark:hover:text-brand-300">← {t.previous}</a> : <span />}

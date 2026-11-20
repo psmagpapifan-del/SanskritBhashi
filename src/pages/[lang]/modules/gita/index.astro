@@ -3,24 +3,7 @@ export const prerender = true;
 import Layout from "../../../../layouts/Layout.astro";
 import { getTranslation } from "../../../../lib/i18n";
 import { ADHYAYAS, GITA_AVAILABLE, GITA_LEVELS, adhyayaSlug, gitaLang } from "../../../../lib/gita/index";
-import { adhyaya1 } from "../../../../lib/gita/adhyaya1";
-import { adhyaya2 } from "../../../../lib/gita/adhyaya2";
-import { adhyaya3 } from "../../../../lib/gita/adhyaya3";
-import { adhyaya4 } from "../../../../lib/gita/adhyaya4";
-import { adhyaya5 } from "../../../../lib/gita/adhyaya5";
-import { adhyaya6 } from "../../../../lib/gita/adhyaya6";
-import { adhyaya7 } from "../../../../lib/gita/adhyaya7";
-import { adhyaya8 } from "../../../../lib/gita/adhyaya8";
-import { adhyaya9 } from "../../../../lib/gita/adhyaya9";
-import { adhyaya10 } from "../../../../lib/gita/adhyaya10";
-import { adhyaya11 } from "../../../../lib/gita/adhyaya11";
-import { adhyaya12 } from "../../../../lib/gita/adhyaya12";
-import { adhyaya13 } from "../../../../lib/gita/adhyaya13";
-import { adhyaya14 } from "../../../../lib/gita/adhyaya14";
-import { adhyaya15 } from "../../../../lib/gita/adhyaya15";
-import { adhyaya16 } from "../../../../lib/gita/adhyaya16";
-import { adhyaya17 } from "../../../../lib/gita/adhyaya17";
-import { adhyaya18 } from "../../../../lib/gita/adhyaya18";
+import { CHAPTERS, gitaLocales, isTranslated } from "../../../../lib/gita/content";
 import { gitaPageText } from "../../../../lib/gitaPageText";
 import { Flower2 } from "lucide-react";
 
@@ -32,28 +15,26 @@ const { lang } = Astro.params;
 const nav = getTranslation(lang);
 const cl = gitaLang(lang);
 const t = gitaPageText(lang);
-// Content exists in English and Hindi; ja/es show English and point search engines at /en.
-const translated = lang === "en" || lang === "hi";
-const loaded = { 1: adhyaya1, 2: adhyaya2, 3: adhyaya3, 4: adhyaya4, 5: adhyaya5, 6: adhyaya6, 7: adhyaya7, 8: adhyaya8, 9: adhyaya9, 10: adhyaya10, 11: adhyaya11, 12: adhyaya12, 13: adhyaya13, 14: adhyaya14, 15: adhyaya15, 16: adhyaya16, 17: adhyaya17, 18: adhyaya18 } as Record<number, typeof adhyaya1>;
-const count = (n: number) => loaded[n]?.shlokas.length ?? 0;
-
-const title = cl === "hi" ? "विद्यार्थियों के लिए भगवद्गीता: कक्षा 6–12 | Sanskritbhashi" : "Bhagavad Gita for Students, Classes 6–12 | Sanskritbhashi";
-const description = cl === "hi"
-  ? "कक्षा 6–12 के विद्यार्थियों के लिए भगवद्गीता: हर श्लोक का अर्थ, शब्दार्थ, स्कूली जीवन की एक परिस्थिति, चिंतन-प्रश्न और प्रश्नोत्तरी।"
-  : "The Bhagavad Gita for Classes 6–12: each shloka with word meanings, a situation from school life, a reflection question and a quiz.";
+// ja/es: the hub is indexable once any chapter is translated; untranslated chapters show English.
+const locales = gitaLocales();
+const translated = (locales as string[]).includes(lang);
+const count = (n: number) => CHAPTERS[n]?.shlokas.length ?? 0;
+const ht = gitaPageText(translated ? lang : "en");
+const title = `${ht.hubTitle} | Sanskritbhashi`;
+const description = ht.hubDesc;
 
 const courseSchema = {
   "@context": "https://schema.org",
   "@type": "Course",
-  "name": cl === "hi" ? "विद्यार्थियों के लिए भगवद्गीता" : "Bhagavad Gita for Students",
+  "name": ht.courseName,
   "description": description,
-  "inLanguage": ["sa", cl],
+  "inLanguage": ["sa", translated ? cl : "en"],
   "educationalLevel": "Classes 6–12",
   "provider": { "@type": "Organization", "name": "Sanskritbhashi", "url": "https://sanskritbhashi.com" },
   "hasPart": GITA_AVAILABLE.map((n) => ({
     "@type": "LearningResource",
     "name": `${t.adhyaya(n)}: ${ADHYAYAS[n - 1].name}`,
-    "url": `https://sanskritbhashi.com/${cl}/modules/gita/${adhyayaSlug(n)}`,
+    "url": `https://sanskritbhashi.com/${isTranslated(n, cl) ? cl : "en"}/modules/gita/${adhyayaSlug(n)}`,
   })),
 };
 ---
@@ -63,7 +44,7 @@ const courseSchema = {
   title={title}
   description={description}
   showAds={false}
-  locales={["en", "hi"]}
+  locales={locales}
   noindex={!translated}
   canonicalPath={translated ? undefined : "/en/modules/gita"}
 >
@@ -102,7 +83,7 @@ const courseSchema = {
               <span class="block text-xs font-black uppercase tracking-widest text-charcoal/70 font-latin">{t.adhyaya(a.n)}</span>
               <span lang="sa" class="block mt-1 font-sanskrit text-lg font-semibold text-charcoal">{a.name}</span>
               <span class="block text-sm text-charcoal/80 font-latin">{a.title[cl]}</span>
-              <span class={`block mt-2 text-xs font-bold font-latin ${available ? "text-brand-600" : "text-charcoal/70"}`}>{available ? t.shlokaCount(count(a.n)) : t.comingSoon}</span>
+              <span class={`block mt-2 text-xs font-bold font-latin ${available ? "text-brand-600" : "text-charcoal/70"}`}>{!available ? t.comingSoon : isTranslated(a.n, lang) ? t.shlokaCount(count(a.n)) : `${t.shlokaCount(count(a.n))} · ${t.englishForNow}`}</span>
             </>
           );
           return (

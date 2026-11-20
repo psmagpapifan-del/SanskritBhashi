@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { BookOpen, Brain, Eye, Lightbulb, MessageCircleQuestion, RotateCcw } from "lucide-react";
 import TopicQuiz from "../TopicQuiz";
-import { GITA_LEVELS, gitaLang, shlokasFor, toQuizTopics, type GitaAdhyaya, type GitaLevel, type GitaShloka } from "../../lib/gita/index";
+import { GITA_LEVELS, shlokasFor, toQuizTopics, type GitaLang, type GitaLevel, type LocalAdhyaya, type LocalShloka } from "../../lib/gita/index";
 import { gitaPageText, type GitaText } from "../../lib/gitaPageText";
 import { renderSanskrit, sanskritLang } from "../../lib/transliterate";
 import { useScript } from "../../lib/useScript";
@@ -29,10 +29,11 @@ function initialLevel(): GitaLevel {
 /**
  * Study view for one adhyaya: level tabs, shloka cards (text, transliteration, word
  * meanings, meaning, a situation from school life, a reflection question, memorise mode)
- * and a quiz on the chosen level's shlokas.
+ * and a quiz on the chosen level's shlokas. The page passes the chapter already in one
+ * language (see localizeAdhyaya), so each page ships one chapter in one language.
  */
-export default function GitaStudy({ adhyaya, activeLang = "en" }: { adhyaya: GitaAdhyaya; activeLang?: string }) {
-  const lang = gitaLang(activeLang);
+export default function GitaStudy({ adhyaya, activeLang = "en" }: { adhyaya: LocalAdhyaya; activeLang?: string }) {
+  const lang = adhyaya.lang;
   const t = gitaPageText(lang);
   const [level, setLevel] = useState<GitaLevel>(1);
 
@@ -52,7 +53,7 @@ export default function GitaStudy({ adhyaya, activeLang = "en" }: { adhyaya: Git
   };
 
   const shlokas = shlokasFor(adhyaya, level);
-  const topics = useMemo(() => toQuizTopics(adhyaya, level, lang), [adhyaya, level, lang]);
+  const topics = useMemo(() => toQuizTopics(adhyaya, level), [adhyaya, level]);
 
   return (
     <div className="space-y-6">
@@ -98,7 +99,7 @@ export default function GitaStudy({ adhyaya, activeLang = "en" }: { adhyaya: Git
   );
 }
 
-function ShlokaCard({ s, lang, t }: { s: GitaShloka; lang: "en" | "hi"; t: GitaText }) {
+function ShlokaCard({ s, lang, t }: { s: LocalShloka; lang: GitaLang; t: GitaText }) {
   const script = useScript();
   const lines = s.text.split("\n");
   const [memorising, setMemorising] = useState(false);
@@ -173,7 +174,7 @@ function ShlokaCard({ s, lang, t }: { s: GitaShloka; lang: "en" | "hi"; t: GitaT
                 {w.sa}
                 {script !== "devanagari" && <span lang={sanskritLang(script)} className="ml-1 italic font-latin text-xs text-charcoal/70">({renderSanskrit(w.sa, script)})</span>}
               </dt>
-              <dd lang={lang} className="text-charcoal/80 font-latin">— {w[lang]}</dd>
+              <dd lang={lang} className="text-charcoal/80 font-latin">— {w.gloss}</dd>
             </div>
           ))}
         </dl>
@@ -181,19 +182,19 @@ function ShlokaCard({ s, lang, t }: { s: GitaShloka; lang: "en" | "hi"; t: GitaT
 
       <div>
         <h4 className="text-sm font-black uppercase tracking-widest text-charcoal/70 font-latin">{t.meaning}</h4>
-        <p lang={lang} className="mt-1 text-sm md:text-base text-charcoal leading-relaxed font-latin">{s.meaning[lang]}</p>
+        <p lang={lang} className="mt-1 text-sm md:text-base text-charcoal leading-relaxed font-latin">{s.meaning}</p>
       </div>
 
       <div className="rounded-2xl bg-accent-50 dark:bg-zinc-800 border border-accent-500/30 p-4 space-y-2" data-testid="situation">
         <h4 className="flex items-center gap-2 text-sm font-black uppercase tracking-widest text-charcoal/80 font-latin">
-          <Lightbulb className="w-4 h-4 text-brand-600" aria-hidden="true" /> {t.inYourLife}: <span className="normal-case tracking-normal">{s.situation.title[lang]}</span>
+          <Lightbulb className="w-4 h-4 text-brand-600" aria-hidden="true" /> {t.inYourLife}: <span className="normal-case tracking-normal">{s.situation.title}</span>
         </h4>
-        <p lang={lang} className="text-sm md:text-base text-charcoal leading-relaxed font-latin">{s.situation.story[lang]}</p>
+        <p lang={lang} className="text-sm md:text-base text-charcoal leading-relaxed font-latin">{s.situation.story}</p>
       </div>
 
       <p lang={lang} className="flex gap-2 text-sm text-charcoal/80 font-latin italic">
         <MessageCircleQuestion className="w-4 h-4 mt-0.5 shrink-0 text-brand-600" aria-hidden="true" />
-        <span><strong className="not-italic">{t.thinkAbout}:</strong> {s.reflect[lang]}</span>
+        <span><strong className="not-italic">{t.thinkAbout}:</strong> {s.reflect}</span>
       </p>
     </article>
   );

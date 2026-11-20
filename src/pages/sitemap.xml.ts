@@ -1,6 +1,7 @@
 import type { APIRoute } from "astro";
 import { NCERT_CLASSES, classSlug } from "../lib/ncertClasses";
 import { GITA_AVAILABLE, adhyayaSlug } from "../lib/gita/index";
+import { gitaLocales } from "../lib/gita/content";
 
 export const prerender = true;
 
@@ -14,10 +15,14 @@ export const prerender = true;
 const SITE = "https://sanskritbhashi.com";
 const LOCALES = ["en", "hi", "ja", "es"] as const;
 const ENGLISH_ONLY = new Set(["/privacy", "/terms"]);
-/** Sections translated into only some locales (the other copies are noindex). */
-const PARTIAL: { prefix: string; locales: readonly string[] }[] = [{ prefix: "/modules/gita", locales: ["en", "hi"] }];
+/** Gita pages exist in ja/es only once translated (the other copies are noindex). */
+const gitaRoute = (route: string): readonly string[] | undefined => {
+  if (route === "/modules/gita") return gitaLocales();
+  const m = route.match(/^\/modules\/gita\/adhyaya-(\d+)$/);
+  return m ? gitaLocales(Number(m[1])) : undefined;
+};
 const localesFor = (route: string): readonly string[] =>
-  ENGLISH_ONLY.has(route) ? ["en"] : PARTIAL.find((p) => route.startsWith(p.prefix))?.locales ?? LOCALES;
+  ENGLISH_ONLY.has(route) ? ["en"] : gitaRoute(route) ?? LOCALES;
 
 const pageFiles = Object.keys(import.meta.glob("./\\[lang\\]/**/*.astro"));
 

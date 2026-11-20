@@ -42,12 +42,12 @@ const shastraSchema = {
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(shastraSchema)} />
 
   <div class="w-full space-y-6">
-    <header class="bg-linear-to-r from-saffron-500 to-saffron-600 rounded-3xl p-6 md:p-8 text-white shadow-md">
+    <header class="bg-linear-to-r from-saffron-500 to-marigold-500 rounded-3xl p-6 md:p-8 text-zinc-900 shadow-md">
       <div class="flex items-center gap-3 mb-2">
         <BookMarked class="w-8 h-8 text-marigold-500" />
         <h1 class="text-2xl md:text-3xl font-bold font-latin">{t.shastraStudy.title}</h1>
       </div>
-      <p class="text-sm md:text-base text-white/95 max-w-3xl leading-relaxed font-latin">{t.shastraStudy.desc}</p>
+      <p class="text-sm md:text-base text-zinc-900 max-w-3xl leading-relaxed font-latin">{t.shastraStudy.desc}</p>
     </header>
 
     <ShastraQuiz client:load activeLang={lang} />

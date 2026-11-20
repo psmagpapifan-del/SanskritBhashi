@@ -9,7 +9,7 @@
   --color-saffron-50: #2C180F;
   --color-saffron-100: #4B2713;
   --color-saffron-500: #FF8F33;
-  --color-saffron-600: #E66100;
+  --color-saffron-600: #FF8533;
   --color-marigold-500: #FFC43D;
   --color-marigold-600: #E6AA00;
   --color-border-hairline: #2A2A2A;
@@ -37,7 +37,10 @@
   --color-saffron-50: #FFF9F2;
   --color-saffron-100: #FFEAD4;
   --color-saffron-500: #FF6F00;
-  --color-saffron-600: #E65100;
+  --color-saffron-300: #FFB880;
+  --color-saffron-400: #FF9A4D;
+  --color-saffron-600: #B84300;
+  --color-saffron-700: #9A3800;
   --color-marigold-500: #FFB300;
   --color-marigold-600: #E6A100;
   --color-charcoal: #212121;
@@ -155,4 +158,14 @@ dialog[open]::backdrop {
 ::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
+}
+
+/* Respect the OS "reduce motion" setting (WCAG 2.3.3). */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

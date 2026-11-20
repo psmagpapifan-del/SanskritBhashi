@@ -238,7 +238,7 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
                 aria-current={active ? "page" : undefined}
                 class={`sidebar-link group relative flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-300 cursor-pointer overflow-hidden ${
                   active
-                    ? "bg-linear-to-r from-saffron-500 to-saffron-600 text-white shadow-lg shadow-saffron-500/20 ring-1 ring-white/20 dark:ring-white/10 scale-[1.02]"
+                    ? "bg-linear-to-r from-saffron-500 to-marigold-500 text-zinc-900 shadow-lg shadow-saffron-500/20 ring-1 ring-white/20 dark:ring-white/10 scale-[1.02]"
                     : "text-charcoal/70 hover:bg-saffron-50 dark:hover:bg-white/5 hover:text-saffron-600 dark:hover:text-saffron-400 hover:-translate-y-0.5"
                 }`}
               >
@@ -310,7 +310,7 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
               <a href={`/${lang}/faqs`} class="hover:text-saffron-600 transition-colors">{t.nav.faqs}</a>
               <button id="open-cookie-preferences" class="hover:text-saffron-600 transition-colors cursor-pointer bg-transparent border-0 p-0 font-semibold text-xs text-charcoal/70">Cookie Preferences</button>
             </div>
-            <p class="text-[10px] tracking-wider uppercase opacity-75 font-mono">
+            <p class="text-[11px] tracking-wider uppercase text-charcoal/80 font-mono">
               © 2026 Sanskritbhashi. All rights reserved.
             </p>
           </footer>
@@ -355,7 +355,7 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
       <div class="flex gap-2">
         <button
           id="accept-cookies"
-          class="flex-1 px-3 py-2 bg-saffron-500 hover:bg-saffron-600 text-white text-[11px] font-bold rounded-lg transition-colors cursor-pointer"
+          class="flex-1 px-3 py-2 bg-saffron-500 hover:brightness-110 text-zinc-900 text-[11px] font-bold rounded-lg transition-colors cursor-pointer"
         >
           Accept All
         </button>
@@ -450,7 +450,7 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
         <div class="flex gap-2 border-t border-border-hairline pt-4 mt-auto">
           <button
             id="cookie-save-preferences"
-            class="flex-1 px-4 py-2.5 bg-saffron-500 hover:bg-saffron-600 text-white text-xs font-bold rounded-lg transition-colors cursor-pointer"
+            class="flex-1 px-4 py-2.5 bg-saffron-500 hover:brightness-110 text-zinc-900 text-xs font-bold rounded-lg transition-colors cursor-pointer"
           >
             Save Choices
           </button>

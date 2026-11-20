@@ -6,6 +6,13 @@ This file tracks all bug fixes, improvements, and features implemented across ap
 
 ## [Unreleased] - 2026-11-18
 
+### Accessibility: WCAG 2.1 AA colour contrast, keyboard quiz, reduced motion (2026-11-20)
+- **UI [Accessibility]:** `src/styles/globals.css` and pages — orange text darkened to `#B84300` (light) / `#FF8533` (dark), so it passes 4.5:1 contrast. Bright orange buttons and banners keep `#FF6F00` with near-black text (6.3:1) instead of white (2.8:1). Added the missing `saffron-300/400/700` colour tokens, so hover and dark-mode colours that silently did nothing now work.
+- **UI [Accessibility]:** Dark-mode grey labels (`zinc-500` → `zinc-400`), the Report Error button and the footer copyright now pass contrast.
+- **Bug Fix [Accessibility]:** `src/components/TopicQuiz.tsx` — answering no longer drops keyboard focus: a right answer moves focus to Next, a new question moves focus to its prompt, and struck wrong options stay focusable and are announced as "Incorrect" to screen readers.
+- **UI [Accessibility]:** Confetti and CSS animations respect the phone's "reduce motion" setting.
+- **Tests:** `tests/accessibility.spec.ts` now enforces colour contrast and checks 8 pages in all 4 languages, dark mode, quiz answer states and a keyboard-only quiz run (42 → 53 tests, all passing). Visual baselines updated for the new colours.
+
 ### NCERT School Prep: Class 12 भास्वती and शाश्वती quizzes — Classes 6–12 complete (2026-11-19)
 - **NCERT Content [Feature]:** `src/lib/ncert/class12.ts`, `src/lib/ncertContent.ts` — all 21 lessons of the two Class 12 readers (169 questions): भास्वती द्वितीयो भागः (core; Taittirīya अनुशासनम्, Bhāsa's प्रतिमा, Raghuvaṃśa canto 1, शिवराजविजयः, सूक्ति-सौरभम्, भोजप्रबन्धः, हल्दीघाटी, मदालसा, Gītā 16, काव्यमीमांसा) and शाश्वती द्वितीयो भागः (elective; Īśāvāsya Upaniṣad, Raghu and Kautsa, उत्तररामचरितम्, Gītā 2–3, शुकनासोपदेशः, सूक्तिसुधा, सिंहासनद्वात्रिंशिका, शिवराजविजयः, दीनबन्धुः श्रीनायारः, Yoga Sūtras, Mahābhāṣya). School Prep now has a Class 12 tab; ids are `c12-bhaswati-NN` and `c12-shashvati-NN`.
 - **Coverage:** every main NCERT Sanskrit reader from Class 6 to 12 now has chapter quizzes — 105 lessons, 867 questions.

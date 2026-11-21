@@ -6,6 +6,17 @@ This file tracks all bug fixes, improvements, and features implemented across ap
 
 ## [Unreleased] - 2026-11-18
 
+### UI: Clear phone menu labels in every language (2026-11-21)
+- **UI [navigation]:** `src/lib/i18n.ts` (`navShort`), `src/layouts/Layout.astro` — the phone bottom menu showed the first word of each full menu name, which read as विद्यार्थियों / हमारे / पूछे in Hindi, Centro / Estudio in Spanish and wrapped onto three lines in Japanese. Each language now has one-word labels (e.g. गीता, लेख, परिचय, प्रश्न; ギーター, 聖典, 記事; Escuela, Artículos). The full name stays as the accessible name and tooltip.
+- **Content:** `src/pages/[lang]/modules/shastra-study.astro` — the ja/es note no longer says the Gita is English/Hindi only.
+
+### SEO: Final audit fixes (2026-11-21)
+- **SEO [Gita]:** `src/lib/gitaPageText.ts`, `src/pages/[lang]/modules/gita/[adhyaya].astro` — chapter meta descriptions name the chapter and what the page offers instead of listing verse numbers, and fit search results (~150 characters); titles measure Japanese characters as double width so long ones drop the optional suffix.
+- **SEO [sitemap]:** `src/pages/sitemap.xml.ts` — every URL now has `<lastmod>`.
+- **SEO [AI search]:** `src/pages/llms.txt.ts` — lists the Japanese and Spanish Gita chapter pages.
+- **SEO:** shorter Spanish descriptions for the home page, Gita hub and NCERT Classes 11–12. New test SEO-05 keeps Gita titles and descriptions within limits.
+- **Performance (measured, no change needed):** Lighthouse mobile on 24 pages (6 per language): performance 95–99, accessibility 100, SEO 100.
+
 ### Feature: Gita for Students in Japanese and Spanish, adhyayas 16–18 — all 18 chapters translated (2026-11-21)
 - **Feature [Gita, ja/es]:** new `src/lib/gita/i18n/{ja,es}/adhyaya16–18.ts` — chapters 16–18 (20 shlokas) in Japanese and Spanish, registered in `src/lib/gita/i18n/index.ts`. Every Gita chapter is now available, indexable and listed in the sitemap in all four languages (19 Gita URLs per language), with full hreflang sets. Short glosses added for dal, board exams and the Class 10 stream choice.
 - **Tests:** `tests/gita.spec.ts` GITA-06 and GITA-06c now check that adhyaya 18 is indexable in ja/es and that the hub marks no chapter "In English for now". The English fallback stays in the code for any chapter added later.

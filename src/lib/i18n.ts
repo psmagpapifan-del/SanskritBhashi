@@ -37,7 +37,8 @@ export interface Translation {
     heroDesc: string;
     ctaSchool: string;
     ctaShastra: string;
-    socialProof: string;
+    /** Content counts line under the hero; numbers are computed from the site's data. */
+    socialProof: (c: { questions: number; shlokas: number; chapters: number; guides: number }) => string;
     consensusTitle: string;
     consensusDesc: string;
     q1: string;
@@ -103,14 +104,10 @@ export interface Translation {
     a2: string;
     q3: string;
     a3: string;
-    councilTitle: string;
-    councilDesc: string;
-    member1Name: string;
-    member1Role: string;
-    member1Desc: string;
-    member2Name: string;
-    member2Role: string;
-    member2Desc: string;
+    creatorTitle: string;
+    creatorRole: string;
+    creatorDesc: string;
+    contactLabel: string;
   };
   faqs: {
     title: string;
@@ -190,12 +187,12 @@ export const translations: Record<string, Translation> = {
       heroTitle: "Master the Language of the ",
       heroTitleSpan: "Rishi",
       heroTitleEnd: " with Precision",
-      heroDesc: "An academically rigorous, interactive Sanskrit learning ecosystem. Sanskritbhashi provides NCERT school-prep modules alongside authentic Gita and Bhagavatam shloka study with progressive grammatical revelation.",
+      heroDesc: "Free, interactive Sanskrit learning: chapter-wise practice for NCERT Classes 6–12, Bhagavad Gita and Upanishad shlokas explained word by word, and clear guides to Paninian grammar.",
       ctaSchool: "Start School Prep",
       ctaShastra: "Study Classical Shastras",
-      socialProof: "Trusted by 50,000+ students, teachers, and Vedic scholars globally.",
-      consensusTitle: "Academic Consensus & Authority",
-      consensusDesc: "All grammatical analysis on Sanskritbhashi is cross-referenced directly with Panini's Ashtadhyayi and validated by leading Sanskrit university academics.",
+      socialProof: (c) => `${c.questions} practice questions for NCERT Classes 6–12 · ${c.shlokas} Gita shlokas in ${c.chapters} chapters · ${c.guides} grammar guides · 4 languages`,
+      consensusTitle: "How the content is made",
+      consensusDesc: "Every NCERT question is written from the lesson text of the official textbooks, and grammar explanations cite the relevant rule of Panini's Ashtadhyayi. Found a mistake? Tell us through the Contact page and we will correct it.",
       q1: "Why is a structured linguistic approach essential for studying Sanskrit?",
       a1: "Sanskrit is a highly inflected, rule-based mathematical language structured around root nouns and verbal roots (Dhatus) regulated by 3,959 formulas in Panini's Ashtadhyayi. Approaching Sanskrit through systematic grammatical structures ensures accurate transliteration and translation, eliminating the lexical ambiguity often found in post-classical dialects.",
       q2: "How does the dual-learning track model benefit different learner personas?",
@@ -203,17 +200,17 @@ export const translations: Record<string, Translation> = {
       schoolPrep: "Class 6-12 School Prep",
       schoolPrepDesc: "NCERT-aligned grammar modules covering Sandhi, Karak, and Vibhakti. Build exam confidence with structured rules.",
       shastraStudy: "Shastra Study Track",
-      shastraStudyDesc: "Deconstruct the classical shlokas word-by-word. Practice authentic Devanagari pronunciation with active audio guidance.",
+      shastraStudyDesc: "Study classical shlokas word by word, with meanings, grammar notes and quizzes.",
       schoolList: [
-        "100% NCERT syllabus alignment for classes 6 to 12.",
+        "Practice for every lesson of the NCERT Sanskrit textbooks, Classes 6–12.",
         "Rigorous study of Sandhi, Karak, and Vibhakti rules.",
         "Authentic attributions referenced to Panini Ashtadhyayi."
       ],
       schoolBtn: "Enter School prep Classroom",
       shastraList: [
-        "Bhagavad Gita and Srimad Bhagavatam shloka deconstruction.",
+        "Bhagavad Gita and Upanishad shlokas, explained word by word.",
         "Word-by-word grammatical splits and meaning maps.",
-        "Phonetic wave audio interface for pronunciation guidance."
+        "Read Sanskrit in Devanagari, IAST, Katakana or French phonetic script."
       ],
       shastraBtn: "Enter Shastra Study room"
     },
@@ -258,27 +255,23 @@ export const translations: Record<string, Translation> = {
     },
     about: {
       title: "About Sanskritbhashi",
-      desc: "Preserving the sacred syntax of Sanskrit through modern interactive interfaces and rigorous scholarly standards.",
-      authorityTitle: "Linguistic and Academic Authority",
-      authorityDesc: "Sanskritbhashi is built by Sanskrit professors and software developers to bridge ancient phonetic rules with modern web semantics.",
+      desc: "Who makes Sanskritbhashi, how the content is written, and how to report a mistake.",
+      authorityTitle: "What Sanskritbhashi is",
+      authorityDesc: "A free website and Android app for learning Sanskrit: practice for every NCERT lesson from Class 6 to 12, the Bhagavad Gita explained for students, and guides to grammar and the Devanagari script, in English, Hindi, Japanese and Spanish.",
       q1: "What is the primary educational mission of Sanskritbhashi?",
       a1: "The primary mission of Sanskritbhashi is to make classical Sanskrit grammar accessible to global learners by integrating strict Paninian rules with modern interactive learning patterns, ensuring students build functional fluency and text comprehension.",
-      q2: "How does Sanskritbhashi guarantee the grammatical accuracy of its content?",
-      a2: "Every lesson, Sandhi split, and shloka breakdown is verified by our Academic Council, cross-referenced with the Mahabhashya of Patanjali and Ashtadhyayi of Panini, and validated against accredited university curricula.",
+      q2: "How is the content checked for accuracy?",
+      a2: "NCERT questions are written from the lesson text of the official textbooks. Grammar explanations cite the relevant rule of Panini's Ashtadhyayi, and Gita meanings follow the standard Sanskrit text and well-known commentaries. Mistakes can still slip through: if you find one, please report it on the Contact page and it will be corrected.",
       q3: "Does Sanskritbhashi support international transliteration and font standards?",
       a3: "Yes, Sanskritbhashi implements full international Unicode font compatibility, rendering native Devanagari alongside standard IAST (International Alphabet of Sanskrit Transliteration), Japanese Katakana, and French phonetic text.",
-      councilTitle: "Academic Council & Advisory Board",
-      councilDesc: "Sanskritbhashi is directed by a group of distinguished scholars dedicated to language preservation:",
-      member1Name: "Dr. R. Vasudevan, PhD",
-      member1Role: "Professor of Vyakarana, Retd. SSU",
-      member1Desc: "Expert in Paninian formulas and phonetic acoustics.",
-      member2Name: "Prof. Kenji Takahashi",
-      member2Role: "Department of Asian Languages, Kyoto",
-      member2Desc: "Specialist in Indo-European linguistics and Katakana transliterations."
+      creatorTitle: "Who makes Sanskritbhashi",
+      creatorRole: "Founder and developer",
+      creatorDesc: "Sanskritbhashi is created and maintained by Prashant Solanki. It is an independent project and is not affiliated with NCERT, CBSE or any university. Corrections and suggestions are welcome.",
+      contactLabel: "Contact"
     },
     faqs: {
       title: "Sanskritbhashi Knowledge Base",
-      desc: "Got questions? We have definitive answers. Below are our most-searched grammar and Shastra queries, compiled by our academic board.",
+      desc: "Clear answers to the most common questions about Sanskrit grammar, the Bhagavad Gita and the courses on Sanskritbhashi.",
       list: [
         {
           id: "faq-gita-study",
@@ -413,12 +406,12 @@ export const translations: Record<string, Translation> = {
       heroTitle: "ऋषि की भाषा को परिशुद्धता के साथ ",
       heroTitleSpan: "सीखें",
       heroTitleEnd: " और समझें",
-      heroDesc: "एक अकादमिक रूप से कठोर, इंटरैक्टिव संस्कृत शिक्षण पारिस्थितिकी तंत्र। संस्कृतभाषी एनसीईआरटी स्कूल-तैयारी मॉड्यूल के साथ-साथ प्रगतिशील व्याकरणिक रहस्योद्घाटन के साथ प्रामाणिक गीता और भागवतम श्लोक अध्ययन प्रदान करता है।",
+      heroDesc: "मुफ़्त, इंटरैक्टिव संस्कृत अध्ययन: एनसीईआरटी कक्षा 6–12 का अध्याय-वार अभ्यास, भगवद्गीता और उपनिषदों के श्लोकों का शब्द-दर-शब्द अर्थ, और पाणिनीय व्याकरण की सरल मार्गदर्शिकाएँ।",
       ctaSchool: "स्कूल की तैयारी शुरू करें",
       ctaShastra: "शास्त्रीय शास्त्रों का अध्ययन करें",
-      socialProof: "विश्व स्तर पर 50,000+ छात्रों, शिक्षकों और वैदिक विद्वानों द्वारा विश्वसनीय।",
-      consensusTitle: "अकादमिक आम सहमति और प्राधिकरण",
-      consensusDesc: "संस्कृतभाषी पर सभी व्याकरणिक विश्लेषण सीधे पाणिनी की अष्टाध्यायी से संदर्भित हैं और प्रमुख संस्कृत विश्वविद्यालय के शिक्षाविदों द्वारा मान्य हैं।",
+      socialProof: (c) => `एनसीईआरटी कक्षा 6–12 के ${c.questions} अभ्यास प्रश्न · ${c.chapters} अध्यायों में गीता के ${c.shlokas} श्लोक · ${c.guides} व्याकरण मार्गदर्शिकाएँ · 4 भाषाएँ`,
+      consensusTitle: "सामग्री कैसे तैयार होती है",
+      consensusDesc: "हर एनसीईआरटी प्रश्न आधिकारिक पाठ्यपुस्तकों के पाठ से लिखा गया है, और व्याकरण की व्याख्याएँ पाणिनि की अष्टाध्यायी के संबंधित सूत्र का संदर्भ देती हैं। कोई गलती मिली? सम्पर्क पृष्ठ से हमें बताइए, हम उसे सुधारेंगे।",
       q1: "संस्कृत के अध्ययन के लिए एक संरचित भाषाई दृष्टिकोण क्यों आवश्यक है?",
       a1: "संस्कृत एक अत्यधिक विभक्ति वाली, नियम-आधारित गणितीय भाषा है जो पाणिनी की अष्टाध्यायी में 3,959 सूत्रों द्वारा विनियमित मूल संज्ञाओं और क्रिया मूल (धातुओं) के आसपास संरचित है। व्यवस्थित व्याकरणिक संरचनाओं के माध्यम से संस्कृत तक पहुँचना सटीक लिप्यंतरण और अनुवाद सुनिश्चित करता है, जिससे बाद के शास्त्रीय बोलियों में पाई जाने वाली शाब्दिक अस्पष्टता समाप्त हो जाती है।",
       q2: "दोहरी-शिक्षण ट्रैक मॉडल विभिन्न शिक्षार्थियों को कैसे लाभ पहुँचाता है?",
@@ -426,17 +419,17 @@ export const translations: Record<string, Translation> = {
       schoolPrep: "कक्षा 6-12 स्कूल तैयारी",
       schoolPrepDesc: "एनसीईआरटी-संरेखित व्याकरण मॉड्यूल जिसमें संधि, कारक और विभक्ति शामिल हैं। संरचित नियमों के साथ परीक्षा का आत्मविश्वास बढ़ाएं।",
       shastraStudy: "शास्त्र अध्ययन ट्रैक",
-      shastraStudyDesc: "शास्त्रीय श्लोकों का शब्द-दर-शब्द विश्लेषण करें। सक्रिय ऑडियो मार्गदर्शन के साथ प्रामाणिक देवनागरी उच्चारण का अभ्यास करें।",
+      shastraStudyDesc: "शास्त्रीय श्लोकों का शब्द-दर-शब्द अध्ययन करें: अर्थ, व्याकरण टिप्पणियाँ और प्रश्नोत्तरी।",
       schoolList: [
-        "कक्षा 6 से 12 के लिए 100% एनसीईआरटी पाठ्यक्रम संरेखण।",
+        "कक्षा 6–12 की एनसीईआरटी संस्कृत पाठ्यपुस्तकों के हर पाठ का अभ्यास।",
         "संधि, कारक और विभक्ति नियमों का कठोर अध्ययन।",
         "पाणिनी अष्टाध्यायी के प्रामाणिक संदर्भ।"
       ],
       schoolBtn: "स्कूल तैयारी कक्षा में प्रवेश करें",
       shastraList: [
-        "भगवद्गीता और श्रीमद्भागवतम श्लोक विश्लेषण।",
+        "भगवद्गीता और उपनिषदों के श्लोकों का शब्द-दर-शब्द अर्थ।",
         "शब्द-दर-शब्द व्याकरणिक विभाजन और अर्थ मानचित्र।",
-        "उच्चारण मार्गदर्शन के लिए ध्वन्यात्मक ऑडियो इंटरफ़ेस।"
+        "संस्कृत को देवनागरी, IAST, काताकाना या फ़्रेंच ध्वन्यात्मक लिपि में पढ़ें।"
       ],
       shastraBtn: "शास्त्र अध्ययन कक्ष में प्रवेश करें"
     },
@@ -481,27 +474,23 @@ export const translations: Record<string, Translation> = {
     },
     about: {
       title: "संस्कृतभाषी के बारे में",
-      desc: "आधुनिक इंटरैक्टिव इंटरफेस और कठोर शैक्षणिक मानकों के माध्यम से संस्कृत के पवित्र वाक्यविन्यास को संरक्षित करना।",
-      authorityTitle: "भाषाई और शैक्षणिक प्राधिकरण",
-      authorityDesc: "प्राचीन ध्वन्यात्मक नियमों को आधुनिक वेब सिमेंटिक्स के साथ जोड़ने के लिए संस्कृतभाषी का निर्माण संस्कृत प्रोफेसरों और डेवलपर्स द्वारा किया गया है।",
+      desc: "संस्कृतभाषी को कौन बनाता है, सामग्री कैसे लिखी जाती है, और गलती की सूचना कैसे दें।",
+      authorityTitle: "संस्कृतभाषी क्या है",
+      authorityDesc: "संस्कृत सीखने के लिए एक मुफ़्त वेबसाइट और एंड्रॉइड ऐप: कक्षा 6 से 12 तक हर एनसीईआरटी पाठ का अभ्यास, विद्यार्थियों के लिए समझाई गई भगवद्गीता, और व्याकरण तथा देवनागरी लिपि की मार्गदर्शिकाएँ, अंग्रेज़ी, हिंदी, जापानी और स्पेनिश में।",
       q1: "संस्कृतभाषी का प्राथमिक शैक्षणिक मिशन क्या है?",
       a1: "संस्कृतभाषी का प्राथमिक मिशन वैश्विक शिक्षार्थियों के लिए शास्त्रीय संस्कृत व्याकरण को सुलभ बनाना है ताकि छात्र वाक्य संरचना और समझने की क्षमता विकसित कर सकें।",
-      q2: "संस्कृतभाषी सामग्री की व्याकरणिक शुद्धता कैसे सुनिश्चित करता है?",
-      a2: "प्रत्येक पाठ, संधि विच्छेद और श्लोक विश्लेषण हमारी शैक्षणिक परिषद द्वारा सत्यापित किया जाता है, जो पतंजलि के महाभाष्य और पाणिनी की अष्टाध्यायी से संदर्भित है।",
+      q2: "सामग्री की शुद्धता कैसे जाँची जाती है?",
+      a2: "एनसीईआरटी प्रश्न आधिकारिक पाठ्यपुस्तकों के पाठ से लिखे जाते हैं। व्याकरण की व्याख्याएँ पाणिनि की अष्टाध्यायी के संबंधित सूत्र का संदर्भ देती हैं, और गीता के अर्थ मानक संस्कृत पाठ और प्रसिद्ध भाष्यों के अनुसार हैं। फिर भी गलती रह सकती है: कोई गलती मिले तो सम्पर्क पृष्ठ पर बताइए, उसे सुधारा जाएगा।",
       q3: "क्या संस्कृतभाषी अंतरराष्ट्रीय लिप्यंतरण और फ़ॉन्ट मानकों का समर्थन करता है?",
       a3: "हाँ, संस्कृतभाषी पूर्ण रूप से अंतरराष्ट्रीय यूनिकोड फ़ॉन्ट संगतता प्रदान करता है, जिससे देवनागरी के साथ-साथ IAST, जापानी काताकाना और फ्रांसीसी ध्वन्यात्मक पाठ प्रदर्शित होते हैं।",
-      councilTitle: "शैक्षणिक परिषद और सलाहकार बोर्ड",
-      councilDesc: "संस्कृतभाषी का निर्देशन भाषा संरक्षण के प्रति समर्पित विद्वानों के समूह द्वारा किया जाता है:",
-      member1Name: "डॉ. आर. वासुदेवन, पीएचडी",
-      member1Role: "व्याकरण के प्रोफेसर, सेवानिवृत्त एसएसयू",
-      member1Desc: "पाणिनीय सूत्रों और ध्वन्यात्मक ध्वनिकी के विशेषज्ञ।",
-      member2Name: "प्रो. केन्जी ताकाहाशी",
-      member2Role: "Kyoto विश्वविद्यालय, एशियाई भाषा विभाग",
-      member2Desc: "हिंद-यूरोपीय भाषाविज्ञान और काताकाना लिप्यंतरण के विशेषज्ञ।"
+      creatorTitle: "संस्कृतभाषी कौन बनाता है",
+      creatorRole: "संस्थापक और डेवलपर",
+      creatorDesc: "संस्कृतभाषी को प्रशांत सोलंकी बनाते और सँभालते हैं। यह एक स्वतंत्र परियोजना है और एनसीईआरटी, सीबीएसई या किसी विश्वविद्यालय से संबद्ध नहीं है। सुधार और सुझावों का स्वागत है।",
+      contactLabel: "सम्पर्क"
     },
     faqs: {
       title: "संस्कृतभाषी ज्ञानकोष",
-      desc: "क्या आपके पास प्रश्न हैं? हमारे पास अकादमिक परिषद द्वारा संकलित उत्तर हैं।",
+      desc: "संस्कृत व्याकरण, भगवद्गीता और संस्कृतभाषी के पाठ्यक्रमों के बारे में सबसे आम प्रश्नों के स्पष्ट उत्तर।",
       list: [
         {
           id: "faq-gita-study",
@@ -636,12 +625,12 @@ export const translations: Record<string, Translation> = {
       heroTitle: "聖者（リシ）の言語を",
       heroTitleSpan: "精密",
       heroTitleEnd: "にマスターする",
-      heroDesc: "学術的に厳格でインタラクティブなサンスクリット語学習エコシステム。サンスクリット・バーシは、文法の段階的な開示機能を備えた本格的なギーターおよびバーガヴァタムのシュローカ学習と並んで、NCERT準拠の学校試験対策モジュールを提供します。",
+      heroDesc: "無料のインタラクティブなサンスクリット学習：NCERT 6〜12年生の章ごとの練習問題、バガヴァッド・ギーターとウパニシャッドの詩節の逐語解説、そしてパーニニ文法のわかりやすいガイド。",
       ctaSchool: "試験対策を始める",
       ctaShastra: "シャーストラを学ぶ",
-      socialProof: "世界中で5万以上の学生、教師、そしてヴェーダ学者に信頼されています。",
-      consensusTitle: "学術的な合意と権威",
-      consensusDesc: "サンスクリット・バーシにおけるすべての文法分析は、パーニニの『アシュターディヤーイー』と直接照合され、主要なサンスクリット大学の学者によって検証されています。",
+      socialProof: (c) => `NCERT 6〜12年生の練習問題 ${c.questions}問 · ギーター全${c.chapters}章・${c.shlokas}詩節 · 文法ガイド ${c.guides}本 · 4言語対応`,
+      consensusTitle: "コンテンツの作り方",
+      consensusDesc: "NCERTの各問題は公式教科書の本文をもとに作成し、文法の解説にはパーニニ『アシュターディヤーイー』の該当する規則を示しています。誤りを見つけたら、お問い合わせページからお知らせください。修正します。",
       q1: "なぜサンスクリット語の学習に体系的な言語学的アプローチが不可欠なのですか？",
       a1: "サンスクリット語は、パーニニの『アシュターディヤーイー』の3,959の公式によって規制された、語根と動詞語根（ダートゥ）を中心に構築された、高度に屈折した規則的な数学的言語です。体系的な文法構造を通じてサンスクリット語にアプローチすることで、正確な音写と翻訳が保証され、古典期以降の方言によく見られる語彙の曖昧さが排除されます。",
       q2: "二重学習トラックモデルは、さまざまな学習者層にどのように役立ちますか？",
@@ -649,17 +638,17 @@ export const translations: Record<string, Translation> = {
       schoolPrep: "6-12学年向け学校試験対策",
       schoolPrepDesc: "サンディ、カーラカ、ヴィバクティをカバーするNCERT準拠の文法モジュール。体系化された規則により、試験への自信を培います。",
       shastraStudy: "シャーストラ学習トラック",
-      shastraStudyDesc: "古典的なシュローカを単語ごとに分解して学習します。アクティブな音声ガイドを用いて、本格的なデーヴァナーガリー発音を練習できます。",
+      shastraStudyDesc: "古典のシュローカを、語の意味・文法メモ・クイズとともに一語ずつ学びます。",
       schoolList: [
-        "6〜12年生向けの100% NCERTシラバス準拠。",
+        "NCERTサンスクリット教科書（6〜12年生）の全レッスンに対応した練習問題。",
         "サンディ、カーラカ、ヴィバクティの規則に関する厳格な学習。",
         "パーニニの『アシュターディヤーイー』に裏付けられた本格的な典拠。"
       ],
       schoolBtn: "試験対策教室に入る",
       shastraList: [
-        "バガヴァッド・ギーターとシュリーマド・バーガヴァタムのシュローカ解体。",
+        "バガヴァッド・ギーターとウパニシャッドのシュローカを逐語解説。",
         "単語ごとの文法分割と意味の対応。",
-        "発音ガイドのための音響波オーディオインターフェース。"
+        "サンスクリットをデーヴァナーガリー、IAST、カタカナ、フランス語式の音写で表示。"
       ],
       shastraBtn: "シャーストラ学習室に入る"
     },
@@ -704,23 +693,19 @@ export const translations: Record<string, Translation> = {
     },
     about: {
       title: "サンスクリット・バーシについて",
-      desc: "現代的なインタラクティブ・インターフェースと厳格な学術基準を通じて、サンスクリット語の聖なる構文を保存します。",
-      authorityTitle: "言語学的および学術的権威",
-      authorityDesc: "サンスクリット・バーシは、古代の音韻規則と現代のウェブ仕様を融合させるため、サンスクリットの教授陣と開発チームによって設計されました。",
+      desc: "サンスクリット・バーシの制作者、コンテンツの作り方、誤りの報告方法について。",
+      authorityTitle: "サンスクリット・バーシとは",
+      authorityDesc: "サンスクリットを学ぶための無料のウェブサイトとAndroidアプリです。NCERTの6〜12年生の全レッスンの練習問題、学生向けに解説したバガヴァッド・ギーター、文法とデーヴァナーガリー文字のガイドを、英語・ヒンディー語・日本語・スペイン語で提供しています。",
       q1: "サンスクリット・バーシの主な教育理念は何ですか？",
       a1: "古典サンスクリット文法を世界の学習者に届けるため、厳格なパーニニ公式と現代的な対話型レッスンを組み合わせ、単語の関連性と文法読解力を構築することです。",
-      q2: "コンテンツの文法的な正確性はどのように保証されていますか？",
-      a2: "すべての解説、連声分割、シュローカ解体は学術評議会により検証され、パタンジャリの『マハーバーシュヤ』およびパーニニの『アシュターディヤーイー』と照合されています。",
+      q2: "内容の正確さはどのように確認していますか？",
+      a2: "NCERTの問題は公式教科書の本文をもとに作成しています。文法の解説にはパーニニ『アシュターディヤーイー』の該当する規則を示し、ギーターの意味は標準的なサンスクリット本文とよく知られた注釈に従っています。それでも誤りが残ることがあります。見つけた場合はお問い合わせページからお知らせください。修正します。",
       q3: "国際的な転写規格やフォント規格に対応していますか？",
       a3: "はい。デーヴァナーガリー表記に加え、国際サンスクリット転写規格（IAST）、日本語のカタカナ、フランス語の発音表記に対応するフルUnicodeフォント互換性を備えています。",
-      councilTitle: "学術評議会と諮問委員会",
-      councilDesc: "サンスクリット・バーシは、言語保存に尽力する優れた学者グループによって運営されています：",
-      member1Name: "R. ヴァスデーヴァン 博士",
-      member1Role: "サンスクリット文法学教授、SSU元教授",
-      member1Desc: "パーニニ公式および音声音響学の権威。",
-      member2Name: "高橋 賢二 教授",
-      member2Role: "京都大学 アジア言語学科",
-      member2Desc: "印欧語比較言語学およびカタカナ音写研究の専門家。"
+      creatorTitle: "制作者",
+      creatorRole: "創設者・開発者",
+      creatorDesc: "サンスクリット・バーシは Prashant Solanki（プラシャント・ソランキ）が制作・運営しています。NCERT、CBSE、大学などとは関係のない独立したプロジェクトです。訂正やご提案を歓迎します。",
+      contactLabel: "連絡先"
     },
     faqs: {
       title: "サンスクリット・バーシ ナレッジベース",
@@ -847,12 +832,12 @@ export const translations: Record<string, Translation> = {
       heroTitle: "Domine el Idioma de los ",
       heroTitleSpan: "Rishis",
       heroTitleEnd: " con Precisión",
-      heroDesc: "Un ecosistema interactivo de aprendizaje de sánscrito académicamente riguroso. Sanskritbhashi ofrece módulos de preparación escolar alineados con NCERT junto con el estudio auténtico de shlokas del Gita y Bhagavatam con revelación gramatical progresiva.",
+      heroDesc: "Aprendizaje de sánscrito interactivo y gratuito: práctica por capítulos para las Clases 6–12 de NCERT, shlokas de la Bhagavad Gita y los Upanishads explicados palabra por palabra, y guías claras de gramática paniniana.",
       ctaSchool: "Iniciar Prep Escolar",
       ctaShastra: "Estudiar Shastras Clásicos",
-      socialProof: "Confiado por más de 50,000 estudiantes, profesores y eruditos védicos en todo el mundo.",
-      consensusTitle: "Consenso y Autoridad Académica",
-      consensusDesc: "Todo el análisis gramatical en Sanskritbhashi se cruza directamente con el Ashtadhyayi de Panini y es validado por destacados académicos de universidades de sánscrito.",
+      socialProof: (c) => `${c.questions} preguntas de práctica para las Clases 6–12 de NCERT · ${c.shlokas} shlokas de la Gita en ${c.chapters} capítulos · ${c.guides} guías de gramática · 4 idiomas`,
+      consensusTitle: "Cómo se elabora el contenido",
+      consensusDesc: "Cada pregunta de NCERT se redacta a partir del texto de los libros oficiales, y las explicaciones gramaticales citan la regla correspondiente del Ashtadhyayi de Panini. ¿Ha encontrado un error? Escríbanos desde la página de Contacto y lo corregiremos.",
       q1: "¿Por qué es esencial un enfoque lingüístico estructurado para estudiar el sánscrito?",
       a1: "El sánscrito es una lengua matemática muy flexionada y basada en reglas, estructurada en torno a sustantivos raíz y raíces verbales (Dhatus) reguladas por 3,959 fórmulas en el Ashtadhyayi de Panini. Abordar el sánscrito a través de estructuras gramaticales sistemáticas garantiza una transliteración y traducción precisas, eliminando la ambigüedad la cual a menudo se encuentra en los dialectos post-clásicos.",
       q2: "¿Cómo beneficia el modelo de doble pista a los diferentes tipos de estudiantes?",
@@ -860,17 +845,17 @@ export const translations: Record<string, Translation> = {
       schoolPrep: "Prep Escolar Clase 6-12",
       schoolPrepDesc: "Módulos de gramática alineados con NCERT que cubren Sandhi, Karak y Vibhakti. Construye confianza para los exámenes con reglas estructuradas.",
       shastraStudy: "Ruta de Estudio del Shastra",
-      shastraStudyDesc: "Descompone los shlokas clásicos palabra por palabra. Practica la pronunciación auténtica de Devanagari con guía de audio activa.",
+      shastraStudyDesc: "Estudie los shlokas clásicos palabra por palabra, con significados, notas gramaticales y cuestionarios.",
       schoolList: [
-        "100% alineación con el plan de estudios NCERT para clases 6 a 12.",
+        "Práctica para cada lección de los libros de sánscrito de NCERT, Clases 6–12.",
         "Estudio riguroso de las reglas de Sandhi, Karak y Vibhakti.",
         "Atribuciones auténticas referenciadas al Panini Ashtadhyayi."
       ],
       schoolBtn: "Entrar al Aula Escolar",
       shastraList: [
-        "Deconstrucción de shlokas del Bhagavad Gita y Srimad Bhagavatam.",
+        "Shlokas de la Bhagavad Gita y los Upanishads, explicados palabra por palabra.",
         "Divisiones gramaticales palabra por palabra y mapas de significado.",
-        "Interfaz de audio de onda fonética para guía de pronunciación."
+        "Lea el sánscrito en devanagari, IAST, katakana o escritura fonética francesa."
       ],
       shastraBtn: "Entrar a la Sala de Estudio"
     },
@@ -915,27 +900,23 @@ export const translations: Record<string, Translation> = {
     },
     about: {
       title: "Sobre Sanskritbhashi",
-      desc: "Preservar la sintaxis sagrada del sánscrito a través de interfaces interactivas modernas y estándares académicos rigurosos.",
-      authorityTitle: "Autoridad Lingüística y Académica",
-      authorityDesc: "Sanskritbhashi es creado por profesores de sánscrito y desarrolladores de software para unir las reglas fonéticas antiguas con la semántica web moderna.",
+      desc: "Quién hace Sanskritbhashi, cómo se escribe el contenido y cómo informar de un error.",
+      authorityTitle: "Qué es Sanskritbhashi",
+      authorityDesc: "Un sitio web y una aplicación para Android gratuitos para aprender sánscrito: práctica para cada lección de NCERT de la Clase 6 a la 12, la Bhagavad Gita explicada para estudiantes y guías de gramática y de la escritura devanagari, en inglés, hindi, japonés y español.",
       q1: "¿Cuál es la misión educativa principal de Sanskritbhashi?",
       a1: "La misión de Sanskritbhashi es hacer accesible la gramática sánscrita clásica a estudiantes globales integrando reglas de Panini con interfaces modernas para construir fluidez de lectura.",
-      q2: "¿Cómo garantiza Sanskritbhashi la exactitud de su contenido?",
-      a2: "Cada lección, división de Sandhi y desglose de shloka es verificado por nuestro Consejo Académico, referenciado directamente con el Mahabhashya de Patanjali y el Ashtadhyayi de Panini.",
+      q2: "¿Cómo se comprueba la exactitud del contenido?",
+      a2: "Las preguntas de NCERT se redactan a partir del texto de los libros oficiales. Las explicaciones gramaticales citan la regla correspondiente del Ashtadhyayi de Panini, y los significados de la Gita siguen el texto sánscrito estándar y comentarios conocidos. Aun así pueden colarse errores: si encuentra uno, avísenos desde la página de Contacto y lo corregiremos.",
       q3: "¿Admite Sanskritbhashi estándares internacionales de transliteración?",
       a3: "Sí, Sanskritbhashi admite compatibilidad con fuentes Unicode, mostrando Devanagari junto con el estándar IAST, Katakana japonés y texto fonético francés.",
-      councilTitle: "Consejo Académico y Junta Asesora",
-      councilDesc: "Sanskritbhashi es dirigido por un grupo de destacados eruditos dedicados a la preservación del idioma:",
-      member1Name: "Dr. R. Vasudevan, PhD",
-      member1Role: "Profesor de Vyakarana, Retirado de SSU",
-      member1Desc: "Experto en fórmulas paninianas y acústica fonética.",
-      member2Name: "Prof. Kenji Takahashi",
-      member2Role: "Departamento de Idiomas Asiáticos, Kioto",
-      member2Desc: "Especialista en lingüística indoeuropea y transliteraciones a Katakana."
+      creatorTitle: "Quién hace Sanskritbhashi",
+      creatorRole: "Creación y desarrollo",
+      creatorDesc: "Sanskritbhashi lo crea y mantiene Prashant Solanki. Es un proyecto independiente, sin relación con NCERT, CBSE ni ninguna universidad. Se agradecen las correcciones y sugerencias.",
+      contactLabel: "Contacto"
     },
     faqs: {
       title: "Base de Conocimiento de Sanskritbhashi",
-      desc: "¿Tiene preguntas? Tenemos respuestas definitivas compiladas por nuestra junta académica.",
+      desc: "Respuestas claras a las preguntas más frecuentes sobre la gramática sánscrita, la Bhagavad Gita y los cursos de Sanskritbhashi.",
       list: [
         {
           id: "faq-gita-study",

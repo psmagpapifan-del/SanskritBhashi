@@ -189,22 +189,16 @@ const pageDesc = lang === "en"
 ---
 
 <Layout lang={lang} title={pageTitle} description={pageDesc}>
-  <div class="max-w-6xl mx-auto px-4 py-8 md:py-12">
-    {/* Page Header */}
-    <header class="text-center max-w-3xl mx-auto space-y-4 mb-12 md:mb-16">
-      <div class="inline-flex items-center space-x-2 px-4 py-1.5 bg-brand-50 dark:bg-zinc-800 border border-brand-100 dark:border-zinc-700 rounded-full text-brand-600 dark:text-brand-400">
-        <BookOpen class="w-4 h-4" />
-        <span class="text-xs font-bold font-latin uppercase tracking-widest">
-          {lang === "en" ? "Knowledge Base" : lang === "hi" ? "ज्ञान कोष" : lang === "ja" ? "ナレッジベース" : "Base de Conocimiento"}
-        </span>
+  <div class="w-full space-y-8">
+    {/* Page Header: same banner as the School Prep, Shastra Study and Gita pages */}
+    <header class="bg-linear-to-r from-brand-500 to-accent-500 rounded-3xl p-6 md:p-8 text-on-brand shadow-md">
+      <div class="flex items-center gap-3 mb-2">
+        <BookOpen class="w-8 h-8" aria-hidden="true" />
+        <h1 class="text-2xl md:text-3xl font-bold font-latin">
+          {lang === "en" ? "Sanskrit Learning Hub" : lang === "hi" ? "संस्कृत अध्ययन केंद्र" : lang === "ja" ? "サンスクリット学習ハブ" : "Centro de Aprendizaje de Sánscrito"}
+        </h1>
       </div>
-      <h1 class="text-3xl md:text-5xl font-black text-charcoal dark:text-zinc-150 leading-tight">
-        {lang === "en" ? "Sanskrit " : lang === "hi" ? "संस्कृत " : lang === "ja" ? "サンスクリット " : "Centro de "}
-        <span class="text-brand-600 dark:text-brand-400">
-          {lang === "en" ? "Learning Hub" : lang === "hi" ? "अध्ययन केंद्र" : lang === "ja" ? "学習ハブ" : "Aprendizaje"}
-        </span>
-      </h1>
-      <p class="text-sm md:text-base text-charcoal/70 dark:text-zinc-400 leading-relaxed">
+      <p class="text-sm md:text-base text-on-brand max-w-2xl leading-relaxed font-latin">
         {pageDesc}
       </p>
     </header>
@@ -265,15 +259,15 @@ const pageDesc = lang === "en"
     </div>
 
     {/* Call to action */}
-    <div class="mt-16 md:mt-24 bg-gradient-to-br from-brand-500 to-accent-500 dark:from-zinc-900 dark:to-zinc-950 border border-brand-600/10 dark:border-zinc-800 rounded-3xl p-8 md:p-12 text-center text-on-brand dark:text-white space-y-6 shadow-md relative overflow-hidden">
+    <div class="mt-8 md:mt-12 bg-linear-to-r from-brand-500 to-accent-500 rounded-3xl p-8 md:p-12 text-center text-on-brand space-y-6 shadow-md relative overflow-hidden">
       {/* Background visual highlight */}
-      <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-white/5 dark:bg-brand-500/5 rounded-full blur-3xl pointer-events-none" />
+      <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-white/5 rounded-full blur-3xl pointer-events-none" />
       
-      <Bookmark class="w-10 h-10 mx-auto text-on-brand/80 dark:text-brand-500 animate-pulse" />
+      <Bookmark class="w-10 h-10 mx-auto text-on-brand/80" aria-hidden="true" />
       <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight">
         {lang === "en" ? "Practice What You Learn" : lang === "hi" ? "जो आप सीखते हैं उसका अभ्यास करें" : lang === "ja" ? "学んだことを実践してみましょう" : "Practique lo que Aprende"}
       </h2>
-      <p class="max-w-2xl mx-auto text-sm md:text-base text-on-brand dark:text-zinc-400 leading-relaxed">
+      <p class="max-w-2xl mx-auto text-sm md:text-base text-on-brand leading-relaxed">
         {lang === "en" 
           ? "Reinforce your knowledge of Sanskrit rules by testing yourself in our interactive study labs. Master school syllabus prep or translate classical shlokas."
           : lang === "hi"
@@ -285,13 +279,13 @@ const pageDesc = lang === "en"
       <div class="flex flex-wrap justify-center gap-4 pt-4">
         <a 
           href={`/${lang}/modules/school-prep`}
-          class="px-6 py-3 bg-white text-brand-600 dark:bg-zinc-800 dark:text-brand-400 hover:bg-cream dark:hover:bg-zinc-750 font-bold rounded-2xl shadow-sm text-xs md:text-sm transition-colors duration-200"
+          class="px-6 py-3 bg-white text-brand-600 dark:bg-zinc-900 dark:text-brand-400 hover:bg-cream dark:hover:bg-zinc-800 font-bold rounded-2xl shadow-sm text-xs md:text-sm transition-colors duration-200"
         >
           {lang === "en" ? "Start School Prep" : lang === "hi" ? "स्कूल तैयारी शुरू करें" : lang === "ja" ? "試験対策を開始" : "Comenzar Prep Escolar"}
         </a>
         <a 
           href={`/${lang}/modules/shastra-study`}
-          class="px-6 py-3 bg-white/30 dark:bg-transparent border border-on-brand/20 dark:border-white/30 text-on-brand dark:text-white hover:bg-white/50 dark:hover:bg-white/10 font-bold rounded-2xl text-xs md:text-sm transition-colors duration-200"
+          class="px-6 py-3 bg-white/30 border border-on-brand/20 text-on-brand hover:bg-white/50 font-bold rounded-2xl text-xs md:text-sm transition-colors duration-200"
         >
           {lang === "en" ? "Study Shastras" : lang === "hi" ? "शास्त्र अध्ययन शुरू करें" : lang === "ja" ? "シャーストラ学習" : "Estudiar Shastras"}
         </a>

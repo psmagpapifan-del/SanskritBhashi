@@ -6,6 +6,11 @@ This file tracks all bug fixes, improvements, and features implemented across ap
 
 ## [Unreleased] - 2026-11-18
 
+### Content: Remove invented claims; consistent Learn Hub header (2026-11-21)
+- **Content [trust]:** `src/lib/i18n.ts`, `src/pages/[lang]/{index,about,terms,privacy}.astro`, `src/components/ArticleByline.astro` — removed AI-generated claims that were not true: "Trusted by 50,000+ students" and the five-star row, "validated by university academics", the invented Academic Council and advisory board (two fictitious scholars), the "deterministic methodology" section, Srimad Bhagavatam and audio guidance (not on the site), and made-up "Last updated" dates on About, Privacy and Terms. The home page now shows real counts computed from the content (`src/lib/siteStats.ts`: 867 NCERT questions, 121 Gita shlokas in 18 chapters, 12 guides). About explains what the site is, how content is checked and how to report mistakes, and names the founder, in all four languages. Article bylines read "By the Sanskritbhashi team".
+- **UI [Learn Hub]:** `src/pages/[lang]/learn/index.astro` — same gradient header as School Prep, Shastra Study and Gita; the call-to-action keeps the brand gradient in dark mode.
+- **Tests:** updated the visual baselines for Home, About, Privacy and Terms after checking the diffs.
+
 ### UI: Clear phone menu labels in every language (2026-11-21)
 - **UI [navigation]:** `src/lib/i18n.ts` (`navShort`), `src/layouts/Layout.astro` — the phone bottom menu showed the first word of each full menu name, which read as विद्यार्थियों / हमारे / पूछे in Hindi, Centro / Estudio in Spanish and wrapped onto three lines in Japanese. Each language now has one-word labels (e.g. गीता, लेख, परिचय, प्रश्न; ギーター, 聖典, 記事; Escuela, Artículos). The full name stays as the accessible name and tooltip.
 - **Content:** `src/pages/[lang]/modules/shastra-study.astro` — the ja/es note no longer says the Gita is English/Hindi only.

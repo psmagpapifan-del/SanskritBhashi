@@ -160,6 +160,9 @@ test("problem pages: every ref exists, slugs are unique, en/hi text is complete 
     assert.ok(p.refs.length >= 5, `${p.slug}: at least 5 shlokas`);
     assert.equal(new Set(p.refs).size, p.refs.length, `${p.slug}: no duplicate refs`);
     for (const r of p.refs) assert.ok(refs.has(r), `${p.slug}: ${r} is on the site`);
+    assert.ok(p.hinglish.subtitle.trim(), `${p.slug}: Hinglish subtitle`);
+    assert.equal(p.hinglish.faqs.length, 3, `${p.slug}: 3 Hinglish questions`);
+    for (const f of p.hinglish.faqs) assert.doesNotMatch(f.q + f.a, /[\u0900-\u097F]/u, `${p.slug}: Hinglish is in Roman letters`);
     for (const lang of ["en", "hi"] as const) {
       const t = p.text[lang];
       for (const k of ["label", "h1", "seoTitle", "desc", "intro", "quick"] as const) assert.ok(t[k].trim(), `${p.slug} ${lang} ${k}`);

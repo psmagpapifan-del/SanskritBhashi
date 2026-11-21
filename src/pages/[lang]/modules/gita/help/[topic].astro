@@ -28,12 +28,15 @@ const items = p.refs.map((ref) => {
   return { n, s, href: `/${lang}/modules/gita/${adhyayaSlug(n)}?level=${level}#shloka-${ref.replace(".", "-")}` };
 });
 const others = PROBLEMS.filter((o) => o.slug !== p.slug);
+// Hinglish (Hindi in Roman letters) only on the Hindi page: it is how most students type their search.
+const hinglish = lang === "hi" ? p.hinglish : undefined;
+const faqs = [...tx.faqs, ...(hinglish?.faqs ?? [])];
 
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "inLanguage": pl,
-  "mainEntity": tx.faqs.map((f) => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } })),
+  "mainEntity": faqs.map((f) => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } })),
 };
 ---
 
@@ -61,6 +64,7 @@ const faqSchema = {
     <header class="bg-linear-to-r from-brand-500 to-accent-500 rounded-3xl p-6 md:p-8 text-on-brand shadow-md">
       <p class="text-xs font-black uppercase tracking-widest font-latin">{ui.groups[p.group]}</p>
       <h1 class="mt-1 text-2xl md:text-3xl font-bold font-latin">{tx.h1}</h1>
+      {hinglish && <p lang="hi-Latn" class="mt-2 text-sm md:text-base font-semibold font-latin">{hinglish.subtitle}</p>}
     </header>
 
     <p class="text-sm md:text-base text-charcoal leading-relaxed font-latin max-w-3xl">{tx.intro}</p>
@@ -108,8 +112,8 @@ const faqSchema = {
 
     <section aria-labelledby="faqs" class="space-y-3">
       <h2 id="faqs" class="text-xl font-bold text-charcoal font-latin">{ui.faqs}</h2>
-      {tx.faqs.map((f) => (
-        <details class="bg-white dark:bg-zinc-900 border border-brand-100 dark:border-zinc-800 rounded-2xl p-4 group" open>
+      {faqs.map((f, i) => (
+        <details lang={i >= tx.faqs.length ? "hi-Latn" : undefined} class="bg-white dark:bg-zinc-900 border border-brand-100 dark:border-zinc-800 rounded-2xl p-4 group" open>
           <summary class="font-semibold text-charcoal cursor-pointer font-latin">{f.q}</summary>
           <p class="mt-2 text-sm text-charcoal/80 leading-relaxed font-latin">{f.a}</p>
         </details>

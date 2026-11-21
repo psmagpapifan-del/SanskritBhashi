@@ -6,6 +6,11 @@ This file tracks all bug fixes, improvements, and features implemented across ap
 
 ## [Unreleased] - 2026-11-18
 
+### SEO: Hinglish search support (2026-11-21)
+- **SEO [Gita]:** most Indian students type Hindi in Roman letters ("karmanye vadhikaraste meaning in hindi", "exam ka darr kaise door kare"). `src/lib/transliterate.ts` adds `devanagariToPlain()` (plain roman as people type it: karmanyevadhikaraste ma phaleshu kadachana). Every shloka page now shows that line above the IAST; Hindi shloka-page titles read "Karmanyevadhikaraste Ma Meaning in Hindi | गीता 2.47" and descriptions open with the roman line.
+- **SEO [problem pages]:** `src/lib/gita/problems.ts` adds a Hinglish subtitle and three Hinglish questions per problem, shown on the Hindi pages only and included in their FAQ structured data. English pages stay English.
+- **Tests:** unit check for the Hinglish data; GITA-26.
+
 ### Feature: A page for every Gita shloka, in four languages (2026-11-21)
 - **Feature [Gita]:** `src/lib/gita/shlokaPages.ts`, `src/pages/[lang]/modules/gita/shloka/[ref].astro` — 121 shloka pages × en/hi/ja/es (e.g. `/en/modules/gita/shloka/2-47`): Sanskrit text, IAST transliteration, meaning, word-by-word glosses, the school-life story and reflection, two quiz questions with answers behind "Show answer", previous/next shloka, a link to the lesson card and related problem pages. Titles use the opening words people search for ("Bhagavad Gita 2.47 Meaning: Karmanyevadhikaraste Ma").
 - **UI:** each shloka card on a chapter page links to its own page on the website (`GitaStudy.tsx`). The shloka pages are web-only search landing pages: the app bundle leaves them out (OTA bundle stays ~6.7 MB instead of ~13.7 MB) and app cards show the reference as plain text.

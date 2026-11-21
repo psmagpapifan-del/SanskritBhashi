@@ -416,3 +416,26 @@ export function sanskritLang(script: Script): string {
   if (script === "japanese") return "sa-Kana";
   return "sa-Latn";
 }
+
+/**
+ * Plain roman as people type Sanskrit in search ("karmanyevadhikaraste ma phaleshu kadachana"):
+ * IAST without diacritics, with Indian spelling conventions (ś/ṣ → sh, c → ch, ṛ → ri). Not reversible.
+ */
+export function iastToPlain(iast: string): string {
+  const s = iast.normalize("NFC").replace(/m̐/g, "n").replace(/\|\|?/g, "").replace(/'/g, "").replace(/cch/g, "\u0001");
+  const map: Record<string, string> = {
+    "ā": "a", "ī": "i", "ū": "u", "ṛ": "ri", "ṝ": "ri", "ḷ": "li", "ḹ": "li",
+    "ṅ": "n", "ñ": "n", "ṭ": "t", "ḍ": "d", "ṇ": "n", "ś": "sh", "ṣ": "sh", "ṃ": "m", "ṁ": "m", "ḥ": "h",
+  };
+  let out = "";
+  for (let i = 0; i < s.length; i++) {
+    const ch = s[i];
+    if (ch === "\u0001") out += "chh";
+    else if (ch === "c") out += s[i + 1] === "h" ? (i++, "chh") : "ch";
+    else out += map[ch] ?? ch;
+  }
+  return out.replace(/[ \t]+$/gm, "").replace(/[ \t]{2,}/g, " ");
+}
+
+/** Devanagari → plain roman (see iastToPlain). */
+export const devanagariToPlain = (text: string) => iastToPlain(devanagariToIast(text));

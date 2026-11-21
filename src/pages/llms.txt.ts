@@ -2,6 +2,7 @@ import type { APIRoute } from "astro";
 import { NCERT_CLASSES, booksFor, chaptersFor, classSlug, BOOK_LATIN } from "../lib/ncertClasses";
 import { learnArticles } from "../lib/learnArticles";
 import { ADHYAYAS, GITA_AVAILABLE, adhyayaSlug } from "../lib/gita/index";
+import { PROBLEMS } from "../lib/gita/problems";
 
 export const prerender = true;
 
@@ -41,6 +42,7 @@ export const GET: APIRoute = () => {
     return `- [NCERT Sanskrit Class ${n}: ${books}](${SITE}/en/modules/school-prep/${classSlug(n)}): ${ch.length} lessons, ${q} practice questions with hints and explanations`;
   });
 
+  const problems = PROBLEMS.map((p) => `- [${p.text.en.h1}](${SITE}/en/modules/gita/help/${p.slug}): ${p.text.en.desc} · Hindi: ${SITE}/hi/modules/gita/help/${p.slug}`);
   const gita = GITA_AVAILABLE.map((n) => {
     const a = ADHYAYAS[n - 1];
     return `- [Bhagavad Gita Chapter ${n}: ${a.title.en} (${a.name})](${SITE}/en/modules/gita/${adhyayaSlug(n)}) · Hindi: ${SITE}/hi/modules/gita/${adhyayaSlug(n)} · Japanese: ${SITE}/ja/modules/gita/${adhyayaSlug(n)} · Spanish: ${SITE}/es/modules/gita/${adhyayaSlug(n)}`;
@@ -66,11 +68,15 @@ ${classes.join("\n")}
 ## Gita for Students by adhyaya
 ${gita.join("\n")}
 
+## The Gita for students' problems
+Each page gathers the shlokas that speak to one problem students search for, with a short answer, school-life stories, practical steps and FAQs (English and Hindi). Emotional topics include a mental-health helpline (Tele-MANAS 14416 in India).
+${problems.join("\n")}
+
 ## Learn Hub articles
 ${articles.join("\n")}
 
 ## Optional
-- [About](${SITE}/en/about): the team and the mission behind Sanskritbhashi
+- [About](${SITE}/en/about): who makes Sanskritbhashi and how the content is checked
 - [Contact](${SITE}/en/contact): corrections and feedback
 - [Sitemap](${SITE}/sitemap.xml): every URL in all four languages
 `;

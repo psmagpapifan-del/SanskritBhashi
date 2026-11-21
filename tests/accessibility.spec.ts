@@ -21,6 +21,8 @@ const PAGES = [
   { name: "LearnHub", path: "/en/learn" },
   { name: "ArticleLakaras", path: "/en/learn/sanskrit-verb-lakaras" },
   { name: "ArticleChandasJA", path: "/ja/learn/sanskrit-chandas-meter" },
+  { name: "GitaHelpHub", path: "/en/modules/gita/help" },
+  { name: "GitaHelpAngerHI", path: "/hi/modules/gita/help/anger" },
 ];
 
 test.describe("Accessibility Testing", () => {

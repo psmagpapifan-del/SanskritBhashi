@@ -23,6 +23,7 @@ import { ADHYAYAS, GITA_AVAILABLE, GITA_LEVELS, localizeAdhyaya, shlokasFor, toQ
 import { OVERLAYS } from "../../src/lib/gita/i18n/index.ts";
 import { gitaLocales, isTranslated } from "../../src/lib/gita/content.ts";
 
+import { PROBLEMS } from "../../src/lib/gita/problems.ts";
 const chapters = [adhyaya1, adhyaya2, adhyaya3, adhyaya4, adhyaya5, adhyaya6, adhyaya7, adhyaya8, adhyaya9, adhyaya10, adhyaya11, adhyaya12, adhyaya13, adhyaya14, adhyaya15, adhyaya16, adhyaya17, adhyaya18];
 const both = (b: { en: string; hi: string }, where: string) => {
   assert.ok(b.en.trim(), `${where}: missing English`);
@@ -149,5 +150,29 @@ test("translated chapters are published (sitemap/hreflang) only in their languag
     const want = ["en", "hi", ...(["ja", "es"] as const).filter((l) => !!OVERLAYS[l][n])];
     assert.deepEqual(gitaLocales(n), want, `Adhyaya ${n}`);
     for (const l of ["ja", "es"] as const) assert.equal(isTranslated(n, l), !!OVERLAYS[l][n]);
+  }
+});
+
+test("problem pages: every ref exists, slugs are unique, en/hi text is complete and in the right script", () => {
+  const refs = new Set(chapters.flatMap((a) => a.shlokas.map((s) => s.ref)));
+  assert.equal(new Set(PROBLEMS.map((p) => p.slug)).size, PROBLEMS.length);
+  for (const p of PROBLEMS) {
+    assert.ok(p.refs.length >= 5, `${p.slug}: at least 5 shlokas`);
+    assert.equal(new Set(p.refs).size, p.refs.length, `${p.slug}: no duplicate refs`);
+    for (const r of p.refs) assert.ok(refs.has(r), `${p.slug}: ${r} is on the site`);
+    for (const lang of ["en", "hi"] as const) {
+      const t = p.text[lang];
+      for (const k of ["label", "h1", "seoTitle", "desc", "intro", "quick"] as const) assert.ok(t[k].trim(), `${p.slug} ${lang} ${k}`);
+      assert.equal(t.steps.length, 3);
+      assert.equal(t.faqs.length, 3);
+      assert.ok([...t.seoTitle].length <= 66, `${p.slug} ${lang} title length`);
+      assert.ok([...t.desc].length <= 165, `${p.slug} ${lang} description length`);
+      if (lang === "hi") {
+        const all = t.intro + t.quick + t.steps.join("") + t.faqs.map((f) => f.q + f.a).join("");
+        const dev = (all.match(/[\u0900-\u097F]/gu) ?? []).length;
+        const lat = (all.match(/[A-Za-z]/g) ?? []).length;
+        assert.ok(dev > lat * 10, `${p.slug}: Hindi text is mostly Devanagari`);
+      }
+    }
   }
 });

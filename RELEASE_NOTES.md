@@ -6,6 +6,11 @@ This file tracks all bug fixes, improvements, and features implemented across ap
 
 ## [Unreleased] - 2026-11-18
 
+### Feature: The Gita for students' problems, English and Hindi (2026-11-21)
+- **Feature [Gita]:** `src/lib/gita/problems.ts`, `src/pages/[lang]/modules/gita/help/` — a hub and 9 pages for problems students search for: exam stress, focus and procrastination, bad results and comparison, choosing a stream, anger, jealousy, overthinking, sadness after failure and low confidence. Each page has a direct answer, six relevant shlokas with their school-life stories and links to the lesson cards, three practical steps and FAQs (FAQPage structured data). Exam-stress and emotion pages show a help box with Tele-MANAS (14416, 24 hours). Japanese and Spanish fall back to English (noindex).
+- **SEO:** the new pages are in the sitemap (en/hi) and llms.txt, and linked from the Gita hub.
+- **Tests:** unit check for the problem data; GITA-21–23; the axe scan covers the hub and a Hindi problem page.
+
 ### Content: Remove invented claims; consistent Learn Hub header (2026-11-21)
 - **Content [trust]:** `src/lib/i18n.ts`, `src/pages/[lang]/{index,about,terms,privacy}.astro`, `src/components/ArticleByline.astro` — removed AI-generated claims that were not true: "Trusted by 50,000+ students" and the five-star row, "validated by university academics", the invented Academic Council and advisory board (two fictitious scholars), the "deterministic methodology" section, Srimad Bhagavatam and audio guidance (not on the site), and made-up "Last updated" dates on About, Privacy and Terms. The home page now shows real counts computed from the content (`src/lib/siteStats.ts`: 867 NCERT questions, 121 Gita shlokas in 18 chapters, 12 guides). About explains what the site is, how content is checked and how to report mistakes, and names the founder, in all four languages. Article bylines read "By the Sanskritbhashi team".
 - **UI [Learn Hub]:** `src/pages/[lang]/learn/index.astro` — same gradient header as School Prep, Shastra Study and Gita; the call-to-action keeps the brand gradient in dark mode.

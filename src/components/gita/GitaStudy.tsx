@@ -79,7 +79,7 @@ export default function GitaStudy({ adhyaya, activeLang = "en" }: { adhyaya: Loc
 
       <section aria-label={t.shlokas} className="space-y-6">
         {shlokas.map((s) => (
-          <ShlokaCard key={`${s.ref}-${level}`} s={s} lang={lang} t={t} />
+          <ShlokaCard key={`${s.ref}-${level}`} s={s} lang={lang} t={t} pageLang={activeLang} />
         ))}
       </section>
 
@@ -99,7 +99,7 @@ export default function GitaStudy({ adhyaya, activeLang = "en" }: { adhyaya: Loc
   );
 }
 
-function ShlokaCard({ s, lang, t }: { s: LocalShloka; lang: GitaLang; t: GitaText }) {
+function ShlokaCard({ s, lang, t, pageLang }: { s: LocalShloka; lang: GitaLang; t: GitaText; pageLang: string }) {
   const script = useScript();
   const lines = s.text.split("\n");
   const [memorising, setMemorising] = useState(false);
@@ -116,7 +116,8 @@ function ShlokaCard({ s, lang, t }: { s: LocalShloka; lang: GitaLang; t: GitaTex
     <article id={id} data-shloka={s.ref} aria-labelledby={`${id}-ref`} className="bg-white dark:bg-zinc-900 border border-brand-100 dark:border-zinc-800 rounded-3xl p-5 md:p-7 space-y-5 shadow-xs">
       <header className="flex flex-wrap items-baseline justify-between gap-2">
         <h3 id={`${id}-ref`} className="text-xs font-black uppercase tracking-widest text-brand-600 font-latin">
-          {t.shloka} {s.ref}
+          {/* Shloka pages exist on the website only (not in the app bundle). */}
+          {String(import.meta.env.CAPACITOR_BUILD) === "true" ? <>{t.shloka} {s.ref}</> : <a href={`/${pageLang}/modules/gita/shloka/${s.ref.replace(".", "-")}`} className="hover:underline">{t.shloka} {s.ref}</a>}
           {s.altRef && <span className="ml-2 normal-case tracking-normal font-semibold text-charcoal/70">({t.otherEdition(s.altRef)})</span>}
         </h3>
         <span lang="sa" className="text-sm font-sanskrit text-charcoal/70">{s.speaker}</span>

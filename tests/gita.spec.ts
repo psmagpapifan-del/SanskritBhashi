@@ -117,8 +117,11 @@ test.describe("Gita for Students: Adhyayas 4–18", () => {
       await page.goto(`/en/modules/gita/adhyaya-${n}`);
       const refs = await page.locator("[data-shloka]").evaluateAll((els) => els.map((e) => (e as HTMLElement).dataset.shloka));
       expect(refs).toEqual([...l1]);
-      await page.locator('#gita-quiz-card [data-option-correct="true"]').click();
-      await expect(page.getByTestId("quiz-next")).toBeEnabled();
+      // The quiz is an island: retry the click until it has hydrated and responds.
+      await expect(async () => {
+        await page.locator('#gita-quiz-card [data-option-correct="true"]').click();
+        await expect(page.getByTestId("quiz-next")).toBeEnabled({ timeout: 1000 });
+      }).toPass({ timeout: 10000 });
     });
   }
 
@@ -181,5 +184,38 @@ test.describe("Gita for students' problems", () => {
     await expect(page.locator('a[href^="/en/modules/gita/help/"]')).toHaveCount(9);
     await page.goto("/hi/modules/gita/help");
     await expect(page.locator('a[href^="/hi/modules/gita/help/"]')).toHaveCount(9);
+  });
+});
+
+test.describe("Gita shloka pages", () => {
+  test("GITA-24: a shloka page has the verse, IAST, meaning, words, story and a quiz with hidden answers", async ({ page }) => {
+    await page.goto("/en/modules/gita/shloka/2-47");
+    await expect(page).toHaveTitle(/Bhagavad Gita 2\.47 Meaning/);
+    await expect(page.locator('meta[name="robots"]')).toHaveCount(0);
+    await expect(page.locator("h1")).toContainText("2.47");
+    await expect(page.locator('main header p[lang="sa"].whitespace-pre-line')).toContainText("कर्मण्येवाधिकारस्ते");
+    await expect(page.locator('[lang="sa-Latn"]')).toContainText("karma");
+    await expect(page.locator("dl dt").first()).toBeVisible();
+    const answer = page.locator("details").first();
+    await expect(answer.locator("p").first()).toBeHidden();
+    await answer.locator("summary").click();
+    await expect(answer.locator("p").first()).toBeVisible();
+    // Neighbours, lesson link and the problem pages that use this shloka.
+    await expect(page.getByRole("link", { name: /Next shloka \(2\.48\)/ })).toHaveAttribute("href", "/en/modules/gita/shloka/2-48");
+    await expect(page.getByRole("link", { name: /Chapter 2 lesson/ })).toHaveAttribute("href", "/en/modules/gita/adhyaya-2?level=1#shloka-2-47");
+    await expect(page.locator('a[href="/en/modules/gita/help/exam-stress"]')).toBeVisible();
+    const langs = await page.locator('link[rel="alternate"][hreflang]').evaluateAll((els) => els.map((e) => e.getAttribute("hreflang")));
+    expect(langs.sort()).toEqual(["en", "es", "hi", "ja", "x-default"]);
+  });
+
+  test("GITA-25: chapter cards link to their shloka page; ja/es shloka pages are translated and indexable", async ({ page }) => {
+    await page.goto("/hi/modules/gita/adhyaya-2?level=1");
+    await expect(page.locator('#shloka-2-47 h3 a')).toHaveAttribute("href", "/hi/modules/gita/shloka/2-47");
+    await page.goto("/ja/modules/gita/shloka/12-13");
+    await expect(page.locator('meta[name="robots"]')).toHaveCount(0);
+    await expect(page.locator("main")).toContainText(/[\u3040-\u30ff]/);
+    await page.goto("/es/modules/gita/shloka/18-66");
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://sanskritbhashi.com/es/modules/gita/shloka/18-66");
+    await expect(page.getByRole("link", { name: /Shloka anterior/ })).toBeVisible();
   });
 });

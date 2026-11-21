@@ -1,0 +1,143 @@
+---
+export const prerender = true;
+import Layout from "../../../../../layouts/Layout.astro";
+import { getTranslation } from "../../../../../lib/i18n";
+import { adhyayaSlug } from "../../../../../lib/gita/index";
+import { gitaLocales, isTranslated } from "../../../../../lib/gita/content";
+import { gitaPageText } from "../../../../../lib/gitaPageText";
+import { devanagariToIast } from "../../../../../lib/transliterate";
+import { problemLang } from "../../../../../lib/gita/problems";
+import {
+  ALL_SHLOKA_REFS, localShloka, neighbours, problemsFor, shlokaDescription, shlokaPath, shlokaSlug, shlokaTitle, shlokaUi, shuffledOptions,
+} from "../../../../../lib/gita/shlokaPages";
+
+export function getStaticPaths() {
+  // Web-only: these are search landing pages. The app bundle (shipped over the air) leaves them
+  // out to stay small; the app already has every shloka in the chapter lessons.
+  if (String(import.meta.env.CAPACITOR_BUILD) === "true") return [];
+  return ["en", "hi", "ja", "es"].flatMap((lang) => ALL_SHLOKA_REFS.map((ref) => ({ params: { lang, ref: shlokaSlug(ref) }, props: { ref } })));
+}
+
+const { lang } = Astro.params;
+const { ref } = Astro.props as { ref: string };
+const n = Number(ref.split(".")[0]);
+const { s, chapterTitle, chapterName, lang: cl } = localShloka(ref, lang);
+const translated = isTranslated(n, lang);
+const ui = shlokaUi[cl];
+const nav = getTranslation(lang);
+const gt = gitaPageText(lang);
+const { prev, next } = neighbours(ref);
+const level = Math.min(...s.levels);
+const iast = devanagariToIast(s.text);
+const related = problemsFor(ref);
+const showRelated = lang === "en" || lang === "hi";
+
+const title = shlokaTitle(cl, ref, s.text);
+const description = shlokaDescription(cl, ref, s.meaning);
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": title.replace(/ \| Sanskritbhashi$/, ""),
+  "description": description,
+  "inLanguage": ["sa", cl],
+  "educationalLevel": "Classes 6–12",
+  "learningResourceType": "Lesson",
+  "about": { "@type": "CreativeWork", "name": `Bhagavad Gītā ${ref}`, "text": s.text },
+  "isPartOf": { "@type": "LearningResource", "name": `${gt.adhyaya(n)}: ${chapterTitle}`, "url": `https://sanskritbhashi.com/${cl}/modules/gita/${adhyayaSlug(n)}` },
+};
+---
+
+<Layout
+  lang={lang}
+  title={title}
+  description={description}
+  showAds={false}
+  locales={gitaLocales(n)}
+  noindex={!translated}
+  canonicalPath={translated ? undefined : shlokaPath("en", ref)}
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(schema)} />
+  <div class="w-full space-y-6" lang={cl}>
+    <nav aria-label="Breadcrumb" class="text-xs font-semibold text-charcoal/70 font-latin">
+      <ol class="flex flex-wrap items-center gap-1.5">
+        <li><a href={`/${lang}/modules/gita`} class="hover:text-brand-700 dark:hover:text-brand-300">{nav.nav.gita}</a></li>
+        <li aria-hidden="true">/</li>
+        <li><a href={`/${lang}/modules/gita/${adhyayaSlug(n)}`} class="hover:text-brand-700 dark:hover:text-brand-300">{gt.adhyaya(n)}</a></li>
+        <li aria-hidden="true">/</li>
+        <li aria-current="page" class="text-charcoal">{ref}</li>
+      </ol>
+    </nav>
+
+    <header class="bg-linear-to-r from-brand-500 to-accent-500 rounded-3xl p-6 md:p-8 text-on-brand shadow-md space-y-3">
+      <p class="text-xs font-black uppercase tracking-widest font-latin">
+        {ui.chapter(n)} · <span lang="sa" class="font-sanskrit normal-case tracking-normal">{chapterName}</span> · {chapterTitle}
+      </p>
+      <h1 class="text-2xl md:text-3xl font-bold font-latin">Bhagavad Gītā {ref}</h1>
+      <p lang="sa" class="font-sanskrit text-xl md:text-2xl leading-relaxed whitespace-pre-line">{s.text}</p>
+      {s.speaker && <p lang="sa" class="font-sanskrit text-sm">{s.speaker}</p>}
+    </header>
+
+    <section aria-labelledby="iast" class="bg-white dark:bg-zinc-900 border border-brand-100 dark:border-zinc-800 rounded-3xl p-6">
+      <h2 id="iast" class="text-xs font-black uppercase tracking-widest text-charcoal/70 font-latin">{ui.iast}</h2>
+      <p lang="sa-Latn" class="mt-2 text-base md:text-lg italic text-charcoal whitespace-pre-line font-latin">{iast}</p>
+    </section>
+
+    <section aria-labelledby="meaning" class="bg-brand-50 dark:bg-zinc-900 border border-brand-100 dark:border-zinc-800 rounded-3xl p-6">
+      <h2 id="meaning" class="text-sm font-black uppercase tracking-widest text-brand-600 font-latin">{ui.meaning}</h2>
+      <p class="mt-2 text-base md:text-lg text-charcoal leading-relaxed font-latin">{s.meaning}</p>
+    </section>
+
+    <section aria-labelledby="words" class="bg-white dark:bg-zinc-900 border border-brand-100 dark:border-zinc-800 rounded-3xl p-6">
+      <h2 id="words" class="text-xl font-bold text-charcoal font-latin">{ui.words}</h2>
+      <dl class="mt-3 grid sm:grid-cols-2 gap-x-6 gap-y-2">
+        {s.words.map((w) => (
+          <div class="flex flex-wrap gap-x-2 border-b border-brand-100 dark:border-zinc-800 pb-2">
+            <dt lang="sa" class="font-sanskrit text-charcoal font-semibold">{w.sa}</dt>
+            <dd class="text-sm text-charcoal/80 font-latin">{w.gloss}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+
+    <section aria-labelledby="story" class="bg-white dark:bg-zinc-900 border border-brand-100 dark:border-zinc-800 rounded-3xl p-6 space-y-3">
+      <h2 id="story" class="text-xl font-bold text-charcoal font-latin">{ui.story}: {s.situation.title}</h2>
+      <p class="text-sm md:text-base text-charcoal/90 leading-relaxed font-latin">{s.situation.story}</p>
+      <p class="text-sm md:text-base text-charcoal leading-relaxed font-latin"><strong>{ui.reflect}:</strong> {s.reflect}</p>
+    </section>
+
+    <section aria-labelledby="quiz" class="space-y-3">
+      <h2 id="quiz" class="text-xl font-bold text-charcoal font-latin">{ui.quiz}</h2>
+      {s.questions.map((q, qi) => (
+        <div class="bg-white dark:bg-zinc-900 border border-brand-100 dark:border-zinc-800 rounded-2xl p-5 space-y-3">
+          <p class="font-semibold text-charcoal font-latin">{qi + 1}. {q.prompt}</p>
+          <ol class="grid sm:grid-cols-2 gap-2 list-[upper-alpha] pl-6 text-sm text-charcoal/90 font-latin">
+            {shuffledOptions(q.options, `${ref}-${qi}`).map((o) => <li>{o.text}</li>)}
+          </ol>
+          <details class="text-sm font-latin">
+            <summary class="cursor-pointer font-bold text-brand-600">{ui.showAnswer}</summary>
+            <p class="mt-2 text-charcoal"><strong>{ui.answer}:</strong> {q.options[0]}</p>
+            <p class="mt-1 text-charcoal/80 leading-relaxed">{q.explanation}</p>
+          </details>
+        </div>
+      ))}
+      <a href={`/${lang}/modules/gita/${adhyayaSlug(n)}?level=${level}#shloka-${shlokaSlug(ref)}`} class="inline-block text-sm font-bold text-brand-600 hover:underline font-latin">{ui.lesson(n)}</a>
+    </section>
+
+    {showRelated && related.length > 0 && (
+      <section aria-labelledby="related" class="space-y-2">
+        <h2 id="related" class="text-lg font-bold text-charcoal font-latin">{ui.related}</h2>
+        <ul class="flex flex-wrap gap-2">
+          {related.map((p) => (
+            <li><a href={`/${lang}/modules/gita/help/${p.slug}`} class="inline-block px-3 py-1.5 rounded-full bg-brand-50 dark:bg-zinc-800 border border-brand-100 dark:border-zinc-700 text-xs font-semibold text-brand-600 hover:border-brand-500 font-latin">{p.text[problemLang(lang)].label}</a></li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    <nav aria-label={`${ui.prev} / ${ui.next}`} class="flex flex-wrap justify-between gap-3 pt-2">
+      {prev ? <a href={shlokaPath(lang, prev)} class="px-4 py-2 rounded-2xl border border-brand-100 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-sm font-bold text-brand-600 hover:border-brand-500 font-latin">← {ui.prev} ({prev})</a> : <span />}
+      {next && <a href={shlokaPath(lang, next)} class="px-4 py-2 rounded-2xl border border-brand-100 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-sm font-bold text-brand-600 hover:border-brand-500 font-latin">{ui.next} ({next}) →</a>}
+    </nav>
+  </div>
+</Layout>

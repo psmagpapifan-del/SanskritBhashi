@@ -61,7 +61,7 @@ const TEXT: Record<Lang, PageText> = {
     classNav: "Clases NCERT",
     chaptersHeading: (n) => `Lecciones de la Clase ${n}`,
     title: (n, b) => `Sánscrito NCERT Clase ${n}: cuestionarios (${b})`,
-    desc: (n, b, l, q) => `Practique cada lección de sánscrito NCERT ${b}, Clase ${n}: ${l} lecciones y ${q} preguntas con pistas, explicaciones, modo examen y repaso.`,
+    desc: (n, b, l, q) => `Sánscrito NCERT ${b}, Clase ${n}: ${l} lecciones y ${q} preguntas con pistas, explicaciones, modo examen y repaso.`,
   },
 };
 

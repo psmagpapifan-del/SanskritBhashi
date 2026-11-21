@@ -28,7 +28,7 @@ const next = available.includes(n + 1) ? n + 1 : null;
 
 // Keep titles within ~70 characters (what search results show): optional parts are dropped if too long.
 const title = fitTitle(ct.pageTitleParts(n, a.title));
-const description = ct.pageDesc(n, a.name, a.shlokas.map((s) => s.ref).join(", "));
+const description = ct.pageDesc(n, a.title, a.name, a.shlokas.length);
 
 const schema = {
   "@context": "https://schema.org",

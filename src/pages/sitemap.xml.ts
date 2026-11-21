@@ -2,6 +2,7 @@ import type { APIRoute } from "astro";
 import { NCERT_CLASSES, classSlug } from "../lib/ncertClasses";
 import { GITA_AVAILABLE, adhyayaSlug } from "../lib/gita/index";
 import { gitaLocales } from "../lib/gita/content";
+import { learnArticles } from "../lib/learnArticles";
 
 export const prerender = true;
 
@@ -23,6 +24,17 @@ const gitaRoute = (route: string): readonly string[] | undefined => {
 };
 const localesFor = (route: string): readonly string[] =>
   ENGLISH_ONLY.has(route) ? ["en"] : gitaRoute(route) ?? LOCALES;
+
+/**
+ * <lastmod> dates. Bing in particular uses them to decide what to recrawl, and Google uses them when they
+ * are accurate, so only bump a date when that page's content really changes.
+ * SITE_UPDATED covers pages without a more specific date (it changes when the shared layout or menu does).
+ */
+const SITE_UPDATED = "2026-11-21";
+const GITA_UPDATED = "2026-11-21"; // all 18 chapters translated into Japanese and Spanish
+const ARTICLE_UPDATED = new Map(learnArticles.map((a) => [`/learn/${a.slug}`, a.updated]));
+const lastmodFor = (route: string) =>
+  route.startsWith("/modules/gita") ? GITA_UPDATED : ARTICLE_UPDATED.get(route) ?? SITE_UPDATED;
 
 const pageFiles = Object.keys(import.meta.glob("./\\[lang\\]/**/*.astro"));
 
@@ -60,7 +72,7 @@ export const GET: APIRoute = () => {
         `\n    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE}/en${route}"/>`;
     for (const l of locales) {
       urls.push(
-        `  <url>\n    <loc>${SITE}/${l}${route}</loc>\n${alternates ? alternates + "\n" : ""}    <priority>${priorityFor(route)}</priority>\n  </url>`
+        `  <url>\n    <loc>${SITE}/${l}${route}</loc>\n${alternates ? alternates + "\n" : ""}    <lastmod>${lastmodFor(route)}</lastmod>\n    <priority>${priorityFor(route)}</priority>\n  </url>`
       );
     }
   }

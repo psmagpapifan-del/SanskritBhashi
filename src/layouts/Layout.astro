@@ -39,14 +39,14 @@ const {
 const t = getTranslation(lang);
 
 const navItems = [
-  { name: t.nav.home, href: `/${lang}`, icon: Home, id: "tour-step-1" },
-  { name: t.nav.schoolPrep, href: `/${lang}/modules/school-prep`, icon: GraduationCap, id: "tour-step-3" },
-  { name: t.nav.shastraStudy, href: `/${lang}/modules/shastra-study`, icon: BookMarked, id: "tour-step-4" },
-  { name: t.nav.gita, href: `/${lang}/modules/gita`, icon: Flower2, id: "tour-step-gita" },
-  { name: t.nav.learn, href: `/${lang}/learn`, icon: BookOpen },
-  { name: t.nav.about, href: `/${lang}/about`, icon: Info },
-  { name: t.nav.contact, href: `/${lang}/contact`, icon: Mail },
-  { name: t.nav.faqs, href: `/${lang}/faqs`, icon: HelpCircle, id: "tour-step-8" },
+  { name: t.nav.home, short: t.navShort.home, href: `/${lang}`, icon: Home, id: "tour-step-1" },
+  { name: t.nav.schoolPrep, short: t.navShort.schoolPrep, href: `/${lang}/modules/school-prep`, icon: GraduationCap, id: "tour-step-3" },
+  { name: t.nav.shastraStudy, short: t.navShort.shastraStudy, href: `/${lang}/modules/shastra-study`, icon: BookMarked, id: "tour-step-4" },
+  { name: t.nav.gita, short: t.navShort.gita, href: `/${lang}/modules/gita`, icon: Flower2, id: "tour-step-gita" },
+  { name: t.nav.learn, short: t.navShort.learn, href: `/${lang}/learn`, icon: BookOpen },
+  { name: t.nav.about, short: t.navShort.about, href: `/${lang}/about`, icon: Info },
+  { name: t.nav.contact, short: t.navShort.contact, href: `/${lang}/contact`, icon: Mail },
+  { name: t.nav.faqs, short: t.navShort.faqs, href: `/${lang}/faqs`, icon: HelpCircle, id: "tour-step-8" },
 ];
 
 const pathname = Astro.url.pathname;
@@ -382,13 +382,15 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
             <a
               href={item.href}
               aria-current={active ? "page" : undefined}
+              aria-label={`${item.short} (${item.name})`}
+              title={item.name}
               class={`flex flex-col items-center justify-center flex-1 h-full min-w-[44px] min-h-[44px] transition-colors relative ${
                 active ? "text-brand-600" : "text-charcoal/70 hover:text-brand-500"
               }`}
             >
               <Icon class="w-5 h-5 mb-0.5" />
-              <span class="text-[9px] font-bold tracking-tight font-latin">
-                {item.name.split(" ")[0]}
+              <span class="text-[9px] font-bold tracking-tight font-latin whitespace-nowrap" aria-hidden="true">
+                {item.short}
               </span>
               {active && (
                 <span class="absolute bottom-1 w-1.5 h-1.5 bg-brand-500 rounded-full" />

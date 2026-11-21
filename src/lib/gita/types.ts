@@ -1,7 +1,7 @@
 /**
  * Gita for Students — graded study of Bhagavad Gita shlokas for Classes 6–12.
  * Each shloka is understood through a situation from a student's day-to-day life.
- * Content is written in English and Hindi first (Japanese/Spanish pages show English).
+ * Content is written in English and Hindi; Japanese and Spanish overlays live in i18n/<lang>/.
  * Verse numbering follows the Gita Press (Gorakhpur) edition.
  */
 

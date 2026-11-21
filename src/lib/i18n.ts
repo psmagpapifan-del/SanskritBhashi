@@ -18,6 +18,17 @@ export interface Translation {
     learn: string;
     gita: string;
   };
+  /** One-word labels for the phone bottom menu (the full names don't fit). */
+  navShort: {
+    home: string;
+    schoolPrep: string;
+    shastraStudy: string;
+    gita: string;
+    learn: string;
+    about: string;
+    contact: string;
+    faqs: string;
+  };
   home: {
     heroSub: string;
     heroTitle: string;
@@ -173,6 +184,7 @@ export const translations: Record<string, Translation> = {
       learn: "Learn Hub",
       gita: "Gita for Students"
     },
+    navShort: { home: "Home", schoolPrep: "School", shastraStudy: "Shastra", gita: "Gita", learn: "Articles", about: "About", contact: "Contact", faqs: "FAQ" },
     home: {
       heroSub: "🔥 Experience Sanskritbhashi Onboarding",
       heroTitle: "Master the Language of the ",
@@ -395,6 +407,7 @@ export const translations: Record<string, Translation> = {
       learn: "अध्ययन केंद्र",
       gita: "विद्यार्थियों के लिए गीता"
     },
+    navShort: { home: "होम", schoolPrep: "स्कूल", shastraStudy: "शास्त्र", gita: "गीता", learn: "लेख", about: "परिचय", contact: "सम्पर्क", faqs: "प्रश्न" },
     home: {
       heroSub: "🔥 संस्कृतभाषी परिचय गाइड का अनुभव करें",
       heroTitle: "ऋषि की भाषा को परिशुद्धता के साथ ",
@@ -617,6 +630,7 @@ export const translations: Record<string, Translation> = {
       learn: "学習ハブ",
       gita: "学生のためのギーター"
     },
+    navShort: { home: "ホーム", schoolPrep: "学校", shastraStudy: "聖典", gita: "ギーター", learn: "記事", about: "概要", contact: "連絡", faqs: "質問" },
     home: {
       heroSub: "🔥 オンボーディングツアーを開始する",
       heroTitle: "聖者（リシ）の言語を",
@@ -827,6 +841,7 @@ export const translations: Record<string, Translation> = {
       learn: "Centro de Aprendizaje",
       gita: "Gita para estudiantes"
     },
+    navShort: { home: "Inicio", schoolPrep: "Escuela", shastraStudy: "Shastra", gita: "Gita", learn: "Artículos", about: "Nosotros", contact: "Contacto", faqs: "FAQ" },
     home: {
       heroSub: "🔥 Experimente el Onboarding de Sanskritbhashi",
       heroTitle: "Domine el Idioma de los ",

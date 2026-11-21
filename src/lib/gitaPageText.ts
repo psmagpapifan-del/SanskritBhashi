@@ -227,10 +227,10 @@ const ES: GitaText = {
   reviewNote: "La numeración de los versos sigue la edición de Gita Press (Gorakhpur).",
   translatedNote: "Las explicaciones, historias y preguntas de este capítulo se han traducido de la versión en inglés.",
   hubTitle: "La Bhagavad Gita para estudiantes, Clases 6–12",
-  hubDesc: "La Bhagavad Gita para las Clases 6–12: cada shloka con el significado de sus palabras, una situación de la vida escolar, una pregunta para reflexionar y un cuestionario.",
+  hubDesc: "La Bhagavad Gita para las Clases 6–12: cada shloka con el significado de sus palabras, una situación escolar, una reflexión y un cuestionario.",
   courseName: "La Bhagavad Gita para estudiantes",
   pageTitleParts: (n, t) => [`Bhagavad Gita, capítulo ${n}: ${t}`, " para estudiantes", " | Sanskritbhashi"],
-  pageDesc: (n, t, _name, k) => `Bhagavad Gita, capítulo ${n}, ${t}, para las Clases 6–12: ${k} shlokas clave con significado, glosario, ejemplos escolares y un cuestionario.`,
+  pageDesc: (n, t, _name, k) => `Bhagavad Gita, capítulo ${n}, ${t}, para las Clases 6–12: ${k} shlokas clave con significado, glosario, ejemplos y cuestionario.`,
 };
 
 const ALL: Record<string, GitaText> = { en: EN, hi: HI, ja: JA, es: ES };

@@ -117,8 +117,11 @@ test.describe("Gita for Students: Adhyayas 4–18", () => {
       await page.goto(`/en/modules/gita/adhyaya-${n}`);
       const refs = await page.locator("[data-shloka]").evaluateAll((els) => els.map((e) => (e as HTMLElement).dataset.shloka));
       expect(refs).toEqual([...l1]);
-      await page.locator('#gita-quiz-card [data-option-correct="true"]').click();
-      await expect(page.getByTestId("quiz-next")).toBeEnabled();
+      // The quiz is an island: retry the click until it has hydrated and responds.
+      await expect(async () => {
+        await page.locator('#gita-quiz-card [data-option-correct="true"]').click();
+        await expect(page.getByTestId("quiz-next")).toBeEnabled({ timeout: 1000 });
+      }).toPass({ timeout: 10000 });
     });
   }
 

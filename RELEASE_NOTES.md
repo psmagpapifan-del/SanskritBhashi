@@ -6,6 +6,12 @@ This file tracks all bug fixes, improvements, and features implemented across ap
 
 ## [Unreleased] - 2026-11-18
 
+### Feature: A page for every Gita shloka, in four languages (2026-11-21)
+- **Feature [Gita]:** `src/lib/gita/shlokaPages.ts`, `src/pages/[lang]/modules/gita/shloka/[ref].astro` — 121 shloka pages × en/hi/ja/es (e.g. `/en/modules/gita/shloka/2-47`): Sanskrit text, IAST transliteration, meaning, word-by-word glosses, the school-life story and reflection, two quiz questions with answers behind "Show answer", previous/next shloka, a link to the lesson card and related problem pages. Titles use the opening words people search for ("Bhagavad Gita 2.47 Meaning: Karmanyevadhikaraste Ma").
+- **UI:** each shloka card on a chapter page links to its own page (`GitaStudy.tsx`).
+- **SEO:** 484 new sitemap URLs with hreflang; llms.txt explains the URL pattern.
+- **Tests:** GITA-24/25; axe scans an English and a Japanese shloka page; the chapter quiz tests now wait for the quiz to hydrate (fixes an intermittent GITA-A13 failure).
+
 ### Feature: The Gita for students' problems, English and Hindi (2026-11-21)
 - **Feature [Gita]:** `src/lib/gita/problems.ts`, `src/pages/[lang]/modules/gita/help/` — a hub and 9 pages for problems students search for: exam stress, focus and procrastination, bad results and comparison, choosing a stream, anger, jealousy, overthinking, sadness after failure and low confidence. Each page has a direct answer, six relevant shlokas with their school-life stories and links to the lesson cards, three practical steps and FAQs (FAQPage structured data). Exam-stress and emotion pages show a help box with Tele-MANAS (14416, 24 hours). Japanese and Spanish fall back to English (noindex).
 - **SEO:** the new pages are in the sitemap (en/hi) and llms.txt, and linked from the Gita hub.

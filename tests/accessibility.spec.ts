@@ -23,6 +23,8 @@ const PAGES = [
   { name: "ArticleChandasJA", path: "/ja/learn/sanskrit-chandas-meter" },
   { name: "GitaHelpHub", path: "/en/modules/gita/help" },
   { name: "GitaHelpAngerHI", path: "/hi/modules/gita/help/anger" },
+  { name: "GitaShloka", path: "/en/modules/gita/shloka/2-47" },
+  { name: "GitaShlokaJA", path: "/ja/modules/gita/shloka/12-13" },
 ];
 
 test.describe("Accessibility Testing", () => {

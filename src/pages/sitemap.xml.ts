@@ -4,6 +4,7 @@ import { GITA_AVAILABLE, adhyayaSlug } from "../lib/gita/index";
 import { gitaLocales } from "../lib/gita/content";
 import { learnArticles } from "../lib/learnArticles";
 import { PROBLEMS, PROBLEM_LOCALES } from "../lib/gita/problems";
+import { ALL_SHLOKA_REFS, shlokaSlug } from "../lib/gita/shlokaPages";
 
 export const prerender = true;
 
@@ -22,6 +23,8 @@ const gitaRoute = (route: string): readonly string[] | undefined => {
   if (route === "/modules/gita") return gitaLocales();
   // "Gita for students' problems" pages are written in English and Hindi only.
   if (route.startsWith("/modules/gita/help")) return PROBLEM_LOCALES;
+  const sh = route.match(/^\/modules\/gita\/shloka\/(\d+)-\d+$/);
+  if (sh) return gitaLocales(Number(sh[1]));
   const m = route.match(/^\/modules\/gita\/adhyaya-(\d+)$/);
   return m ? gitaLocales(Number(m[1])) : undefined;
 };
@@ -53,6 +56,7 @@ const routes = pageFiles
   .concat(NCERT_CLASSES.map((n) => `/modules/school-prep/${classSlug(n)}`))
   .concat(GITA_AVAILABLE.map((n) => `/modules/gita/${adhyayaSlug(n)}`))
   .concat(PROBLEMS.map((p) => `/modules/gita/help/${p.slug}`))
+  .concat(ALL_SHLOKA_REFS.map((ref) => `/modules/gita/shloka/${shlokaSlug(ref)}`))
   .sort();
 
 const priorityFor = (route: string) => {

@@ -68,6 +68,8 @@ ${classes.join("\n")}
 ## Gita for Students by adhyaya
 ${gita.join("\n")}
 
+Every shloka also has its own page, in English, Hindi, Japanese and Spanish: ${SITE}/en/modules/gita/shloka/2-47 (chapter-verse), with the Sanskrit text, IAST transliteration, meaning, word-by-word glosses, a school-life story and a short quiz.
+
 ## The Gita for students' problems
 Each page gathers the shlokas that speak to one problem students search for, with a short answer, school-life stories, practical steps and FAQs (English and Hindi). Emotional topics include a mental-health helpline (Tele-MANAS 14416 in India).
 ${problems.join("\n")}

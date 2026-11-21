@@ -6,6 +6,9 @@ This file tracks all bug fixes, improvements, and features implemented across ap
 
 ## [Unreleased] - 2026-11-18
 
+### Bug Fix: संस्कृतभाषी logo no longer clips its top marks (2026-11-21)
+- **UI [logo]:** `src/layouts/Layout.astro` — the gradient logo text is painted only inside its box, and Devanagari marks above the headline (the anusvara dots, the loop of ी) rise above it, so their tops were cut off, especially with the system font shown before Tiro Sanskrit loads or on phones. The box now extends upward (padding plus an equal negative margin), so nothing else moves.
+
 ### Chore: Android versionCode 7 (2026-11-21)
 - **Build:** `android/app/build.gradle` — versionCode 5 → 7 and versionName 1.0.4 → 1.0.6. Play Console's last upload was versionCode 6, so the next AAB must be 7 or higher. No native code changed; content keeps shipping over the air.
 

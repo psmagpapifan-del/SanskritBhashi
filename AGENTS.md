@@ -73,6 +73,16 @@ Whenever you implement bug fixes, performance improvements, UI adjustments, or n
 Content or UI changes also need the OTA bundle rebuilt (see Commands), so the app updates silently.
 Full ship flow: `.claude/skills/ship-release/SKILL.md`.
 
+## Owner checklist (after every merge)
+The owner keeps a site report with a search-engine to-do list: https://claude.ai/artifact/GEPBqS4aA2KMUqxXsq1jLD
+(the "Sanskritbhashi site audit" artifact). After merging a PR:
+1. Tell the owner, in the merge message, which follow-ups apply, using its "When to revisit" table:
+   new pages/URLs or changed titles → `npm run seo:indexnow` + request indexing for the hub that links them;
+   native app changes → check the last versionCode in Play Console, then build the AAB locally;
+   ads/cookies/analytics → update the Privacy page; robots/domain → re-check Search Console and Bing.
+2. Update the report: add the PR to "Shipped since the audit" and any new checklist items (republish the same artifact).
+Content or UI changes need nothing from the owner beyond that: the OTA bundle ships in the PR.
+
 ## Never
 - Commit the release keystore, `keystore.properties`, `.aab`/`.apk` builds, NCERT PDFs or secrets. Never upload the signing key to a cloud session.
 - Put the owner's personal email or other details into code, commits or external requests.

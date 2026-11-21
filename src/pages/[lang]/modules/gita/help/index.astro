@@ -1,0 +1,82 @@
+---
+export const prerender = true;
+import Layout from "../../../../../layouts/Layout.astro";
+import { getTranslation } from "../../../../../lib/i18n";
+import { PROBLEMS, PROBLEM_LOCALES, problemLang, problemUi, type ProblemGroup } from "../../../../../lib/gita/problems";
+import { LifeBuoy } from "lucide-react";
+import { gitaPageText } from "../../../../../lib/gitaPageText";
+
+export function getStaticPaths() {
+  return ["en", "hi", "ja", "es"].map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params;
+const pl = problemLang(lang);
+const native = (PROBLEM_LOCALES as readonly string[]).includes(lang);
+const ui = problemUi[pl];
+const nav = getTranslation(lang);
+const groups: ProblemGroup[] = ["study", "emotions"];
+
+const listSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": ui.hubTitle,
+  "itemListElement": PROBLEMS.map((p, i) => ({ "@type": "ListItem", "position": i + 1, "name": p.text[pl].label, "url": `https://sanskritbhashi.com/${pl}/modules/gita/help/${p.slug}` })),
+};
+---
+
+<Layout
+  lang={lang}
+  title={ui.hubSeoTitle}
+  description={ui.hubDesc}
+  showAds={false}
+  locales={[...PROBLEM_LOCALES]}
+  noindex={!native}
+  canonicalPath={native ? undefined : "/en/modules/gita/help"}
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(listSchema)} />
+  <div class="w-full space-y-8" lang={pl}>
+    <nav aria-label="Breadcrumb" class="text-xs font-semibold text-charcoal/70 font-latin">
+      <ol class="flex flex-wrap items-center gap-1.5">
+        <li><a href={`/${lang}/modules/gita`} class="hover:text-brand-700 dark:hover:text-brand-300">{nav.nav.gita}</a></li>
+        <li aria-hidden="true">/</li>
+        <li aria-current="page" class="text-charcoal">{ui.hubLink}</li>
+      </ol>
+    </nav>
+
+    <header class="bg-linear-to-r from-brand-500 to-accent-500 rounded-3xl p-6 md:p-8 text-on-brand shadow-md">
+      <div class="flex items-center gap-3 mb-2">
+        <LifeBuoy class="w-8 h-8" aria-hidden="true" />
+        <h1 class="text-2xl md:text-3xl font-bold font-latin">{ui.hubTitle}</h1>
+      </div>
+      <p class="text-sm md:text-base text-on-brand max-w-2xl leading-relaxed font-latin">{ui.hubIntro}</p>
+    </header>
+
+    {groups.map((g) => (
+      <section aria-labelledby={`g-${g}`} class="space-y-3">
+        <h2 id={`g-${g}`} class="text-xl font-bold text-charcoal font-latin">{ui.groups[g]}</h2>
+        <ul class="grid sm:grid-cols-2 gap-4">
+          {PROBLEMS.filter((p) => p.group === g).map((p) => (
+            <li>
+              <a href={`/${lang}/modules/gita/help/${p.slug}`} class="block h-full bg-white dark:bg-zinc-900 border border-brand-100 dark:border-zinc-800 rounded-3xl p-5 hover:border-brand-500 transition-colors">
+                <h3 class="font-bold text-charcoal font-latin">{p.text[pl].label}</h3>
+                <p class="mt-1 text-sm text-charcoal/70 leading-relaxed font-latin">{p.text[pl].desc}</p>
+                <span class="mt-2 inline-block text-xs font-semibold text-brand-600 font-latin">{gitaPageText(pl).shlokaCount(p.refs.length)} →</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+
+    <aside class="flex gap-3 bg-white dark:bg-zinc-900 border-2 border-brand-100 dark:border-zinc-700 rounded-3xl p-5">
+      <LifeBuoy class="w-6 h-6 shrink-0 text-brand-600" aria-hidden="true" />
+      <div class="space-y-1.5 text-sm text-charcoal leading-relaxed font-latin">
+        <h2 class="font-bold">{ui.helpTitle}</h2>
+        <p>{ui.helpText}</p>
+        <p class="font-semibold">{ui.helpLine}</p>
+        <p class="text-charcoal/80">{ui.helpOutside}</p>
+      </div>
+    </aside>
+  </div>
+</Layout>

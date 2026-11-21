@@ -3,6 +3,7 @@ import { NCERT_CLASSES, classSlug } from "../lib/ncertClasses";
 import { GITA_AVAILABLE, adhyayaSlug } from "../lib/gita/index";
 import { gitaLocales } from "../lib/gita/content";
 import { learnArticles } from "../lib/learnArticles";
+import { PROBLEMS, PROBLEM_LOCALES } from "../lib/gita/problems";
 
 export const prerender = true;
 
@@ -19,6 +20,8 @@ const ENGLISH_ONLY = new Set(["/privacy", "/terms"]);
 /** Gita pages exist in ja/es only once translated (the other copies are noindex). */
 const gitaRoute = (route: string): readonly string[] | undefined => {
   if (route === "/modules/gita") return gitaLocales();
+  // "Gita for students' problems" pages are written in English and Hindi only.
+  if (route.startsWith("/modules/gita/help")) return PROBLEM_LOCALES;
   const m = route.match(/^\/modules\/gita\/adhyaya-(\d+)$/);
   return m ? gitaLocales(Number(m[1])) : undefined;
 };
@@ -49,6 +52,7 @@ const routes = pageFiles
   // Dynamic routes are listed explicitly.
   .concat(NCERT_CLASSES.map((n) => `/modules/school-prep/${classSlug(n)}`))
   .concat(GITA_AVAILABLE.map((n) => `/modules/gita/${adhyayaSlug(n)}`))
+  .concat(PROBLEMS.map((p) => `/modules/gita/help/${p.slug}`))
   .sort();
 
 const priorityFor = (route: string) => {

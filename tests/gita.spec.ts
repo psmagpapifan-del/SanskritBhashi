@@ -148,3 +148,38 @@ test("GITA-20: the hub has no 'coming soon' adhyayas left; 18.78 is spoken by Sa
   await page.goto("/en/modules/gita/adhyaya-18?level=1");
   await expect(page.locator('[data-shloka="18.78"] header')).toContainText("सञ्जय उवाच");
 });
+
+test.describe("Gita for students' problems", () => {
+  test("GITA-21: a problem page answers the search, shows the help box and links to the lessons", async ({ page }) => {
+    await page.goto("/en/modules/gita/help/exam-stress");
+    await expect(page.locator('meta[name="robots"]')).toHaveCount(0);
+    await expect(page.locator("h1")).toContainText("exam stress");
+    await expect(page.getByText("14416", { exact: false }).first()).toBeVisible();
+    const types = await page.locator('script[type="application/ld+json"]').allTextContents();
+    expect(types.join(" ")).toContain('"FAQPage"');
+    const langs = await page.locator('link[rel="alternate"][hreflang]').evaluateAll((els) => els.map((e) => e.getAttribute("hreflang")));
+    expect(langs.sort()).toEqual(["en", "hi", "x-default"]);
+    // The first shloka links to its lesson, at the right level and card.
+    const link = page.getByRole("link", { name: /Full lesson and quiz: Chapter 2/ }).first();
+    await expect(link).toHaveAttribute("href", "/en/modules/gita/adhyaya-2?level=1#shloka-2-47");
+    await link.click();
+    await expect(page.locator("#shloka-2-47")).toBeVisible();
+  });
+
+  test("GITA-22: Hindi page is in Hindi; study topics have no help box; ja falls back to English, noindex", async ({ page }) => {
+    await page.goto("/hi/modules/gita/help/anger");
+    await expect(page.locator("h1")).toContainText("क्रोध");
+    await page.goto("/en/modules/gita/help/choosing-a-stream");
+    await expect(page.getByText("14416", { exact: false })).toHaveCount(0);
+    await page.goto("/ja/modules/gita/help/anger");
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://sanskritbhashi.com/en/modules/gita/help/anger");
+  });
+
+  test("GITA-23: the Gita hub and the problems hub link to every problem page", async ({ page }) => {
+    await page.goto("/en/modules/gita");
+    await expect(page.locator('a[href^="/en/modules/gita/help/"]')).toHaveCount(9);
+    await page.goto("/hi/modules/gita/help");
+    await expect(page.locator('a[href^="/hi/modules/gita/help/"]')).toHaveCount(9);
+  });
+});

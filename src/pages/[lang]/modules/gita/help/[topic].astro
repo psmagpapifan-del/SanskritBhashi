@@ -1,0 +1,128 @@
+---
+export const prerender = true;
+import Layout from "../../../../../layouts/Layout.astro";
+import { getTranslation } from "../../../../../lib/i18n";
+import { adhyayaSlug } from "../../../../../lib/gita/index";
+import { getLocalAdhyaya } from "../../../../../lib/gita/content";
+import type { LocalShloka } from "../../../../../lib/gita/types";
+import { PROBLEMS, PROBLEM_LOCALES, problemLang, problemUi, type Problem } from "../../../../../lib/gita/problems";
+import { LifeBuoy } from "lucide-react";
+
+export function getStaticPaths() {
+  return ["en", "hi", "ja", "es"].flatMap((lang) => PROBLEMS.map((p) => ({ params: { lang, topic: p.slug }, props: { p } })));
+}
+
+const { lang } = Astro.params;
+const { p } = Astro.props as { p: Problem };
+const pl = problemLang(lang);
+// Written in en/hi; ja/es show English and point search engines to the English page.
+const native = (PROBLEM_LOCALES as readonly string[]).includes(lang);
+const tx = p.text[pl];
+const ui = problemUi[pl];
+const nav = getTranslation(lang);
+
+const items = p.refs.map((ref) => {
+  const n = Number(ref.split(".")[0]);
+  const s = getLocalAdhyaya(n, pl).shlokas.find((x) => x.ref === ref) as LocalShloka;
+  const level = Math.min(...s.levels);
+  return { n, s, href: `/${lang}/modules/gita/${adhyayaSlug(n)}?level=${level}#shloka-${ref.replace(".", "-")}` };
+});
+const others = PROBLEMS.filter((o) => o.slug !== p.slug);
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "inLanguage": pl,
+  "mainEntity": tx.faqs.map((f) => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } })),
+};
+---
+
+<Layout
+  lang={lang}
+  title={tx.seoTitle}
+  description={tx.desc}
+  showAds={false}
+  locales={[...PROBLEM_LOCALES]}
+  noindex={!native}
+  canonicalPath={native ? undefined : `/en/modules/gita/help/${p.slug}`}
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(faqSchema)} />
+  <div class="w-full space-y-6" lang={pl}>
+    <nav aria-label="Breadcrumb" class="text-xs font-semibold text-charcoal/70 font-latin">
+      <ol class="flex flex-wrap items-center gap-1.5">
+        <li><a href={`/${lang}/modules/gita`} class="hover:text-brand-700 dark:hover:text-brand-300">{nav.nav.gita}</a></li>
+        <li aria-hidden="true">/</li>
+        <li><a href={`/${lang}/modules/gita/help`} class="hover:text-brand-700 dark:hover:text-brand-300">{ui.hubLink}</a></li>
+        <li aria-hidden="true">/</li>
+        <li aria-current="page" class="text-charcoal">{tx.label}</li>
+      </ol>
+    </nav>
+
+    <header class="bg-linear-to-r from-brand-500 to-accent-500 rounded-3xl p-6 md:p-8 text-on-brand shadow-md">
+      <p class="text-xs font-black uppercase tracking-widest font-latin">{ui.groups[p.group]}</p>
+      <h1 class="mt-1 text-2xl md:text-3xl font-bold font-latin">{tx.h1}</h1>
+    </header>
+
+    <p class="text-sm md:text-base text-charcoal leading-relaxed font-latin max-w-3xl">{tx.intro}</p>
+
+    <section aria-labelledby="quick" class="bg-brand-50 dark:bg-zinc-900 border border-brand-100 dark:border-zinc-800 rounded-3xl p-6">
+      <h2 id="quick" class="text-sm font-black uppercase tracking-widest text-brand-600 font-latin">{ui.quick}</h2>
+      <p class="mt-2 text-sm md:text-base text-charcoal leading-relaxed font-latin">{tx.quick}</p>
+    </section>
+
+    {p.help && (
+      <aside aria-labelledby="help" class="flex gap-3 bg-white dark:bg-zinc-900 border-2 border-brand-100 dark:border-zinc-700 rounded-3xl p-5">
+        <LifeBuoy class="w-6 h-6 shrink-0 text-brand-600" aria-hidden="true" />
+        <div class="space-y-1.5 text-sm text-charcoal leading-relaxed font-latin">
+          <h2 id="help" class="font-bold">{ui.helpTitle}</h2>
+          <p>{ui.helpText}</p>
+          <p class="font-semibold">{ui.helpLine}</p>
+          <p class="text-charcoal/80">{ui.helpOutside}</p>
+        </div>
+      </aside>
+    )}
+
+    <section aria-labelledby="shlokas" class="space-y-4">
+      <h2 id="shlokas" class="text-xl font-bold text-charcoal font-latin">{ui.shlokas}</h2>
+      {items.map(({ n, s, href }) => (
+        <article class="bg-white dark:bg-zinc-900 border border-brand-100 dark:border-zinc-800 rounded-3xl p-5 md:p-7 space-y-4">
+          <h3 class="text-xs font-black uppercase tracking-widest text-brand-600 font-latin">Bhagavad Gītā {s.ref}</h3>
+          <p lang="sa" class="font-sanskrit text-lg md:text-xl leading-relaxed text-charcoal whitespace-pre-line">{s.text}</p>
+          <p class="text-sm md:text-base text-charcoal leading-relaxed font-latin">{s.meaning}</p>
+          <div class="border-l-4 border-brand-500 pl-4 space-y-1">
+            <p class="text-xs font-black uppercase tracking-widest text-charcoal/70 font-latin">{ui.story}: {s.situation.title}</p>
+            <p class="text-sm text-charcoal/80 leading-relaxed font-latin">{s.situation.story}</p>
+          </div>
+          <p class="text-sm text-charcoal leading-relaxed font-latin"><strong>{ui.reflect}:</strong> {s.reflect}</p>
+          <a href={href} class="inline-block text-sm font-bold text-brand-600 hover:underline font-latin">{ui.fullLesson(n)}</a>
+        </article>
+      ))}
+    </section>
+
+    <section aria-labelledby="steps" class="bg-white dark:bg-zinc-900 border border-brand-100 dark:border-zinc-800 rounded-3xl p-6">
+      <h2 id="steps" class="text-xl font-bold text-charcoal font-latin">{ui.steps}</h2>
+      <ol class="mt-3 list-decimal pl-5 space-y-2 text-sm md:text-base text-charcoal leading-relaxed font-latin">
+        {tx.steps.map((st) => <li>{st}</li>)}
+      </ol>
+    </section>
+
+    <section aria-labelledby="faqs" class="space-y-3">
+      <h2 id="faqs" class="text-xl font-bold text-charcoal font-latin">{ui.faqs}</h2>
+      {tx.faqs.map((f) => (
+        <details class="bg-white dark:bg-zinc-900 border border-brand-100 dark:border-zinc-800 rounded-2xl p-4 group" open>
+          <summary class="font-semibold text-charcoal cursor-pointer font-latin">{f.q}</summary>
+          <p class="mt-2 text-sm text-charcoal/80 leading-relaxed font-latin">{f.a}</p>
+        </details>
+      ))}
+    </section>
+
+    <nav aria-labelledby="more" class="space-y-3">
+      <h2 id="more" class="text-xl font-bold text-charcoal font-latin">{ui.more}</h2>
+      <ul class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        {others.map((o) => (
+          <li><a href={`/${lang}/modules/gita/help/${o.slug}`} class="block h-full bg-white dark:bg-zinc-900 border border-brand-100 dark:border-zinc-800 rounded-2xl px-4 py-3 text-sm font-semibold text-brand-600 hover:border-brand-500 font-latin">{o.text[pl].label}</a></li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</Layout>

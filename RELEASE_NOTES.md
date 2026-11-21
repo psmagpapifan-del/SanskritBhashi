@@ -6,6 +6,9 @@ This file tracks all bug fixes, improvements, and features implemented across ap
 
 ## [Unreleased] - 2026-11-18
 
+### Chore: Android versionCode 7 (2026-11-21)
+- **Build:** `android/app/build.gradle` — versionCode 5 → 7 and versionName 1.0.4 → 1.0.6. Play Console's last upload was versionCode 6, so the next AAB must be 7 or higher. No native code changed; content keeps shipping over the air.
+
 ### SEO: Hinglish search support (2026-11-21)
 - **SEO [Gita]:** most Indian students type Hindi in Roman letters ("karmanye vadhikaraste meaning in hindi", "exam ka darr kaise door kare"). `src/lib/transliterate.ts` adds `devanagariToPlain()` (plain roman as people type it: karmanyevadhikaraste ma phaleshu kadachana). Every shloka page now shows that line above the IAST; Hindi shloka-page titles read "Karmanyevadhikaraste Ma Meaning in Hindi | गीता 2.47" and descriptions open with the roman line.
 - **SEO [problem pages]:** `src/lib/gita/problems.ts` adds a Hinglish subtitle and three Hinglish questions per problem, shown on the Hindi pages only and included in their FAQ structured data. English pages stay English.

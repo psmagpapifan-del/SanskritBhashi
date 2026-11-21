@@ -194,7 +194,7 @@ test.describe("Gita shloka pages", () => {
     await expect(page.locator('meta[name="robots"]')).toHaveCount(0);
     await expect(page.locator("h1")).toContainText("2.47");
     await expect(page.locator('main header p[lang="sa"].whitespace-pre-line')).toContainText("कर्मण्येवाधिकारस्ते");
-    await expect(page.locator('[lang="sa-Latn"]')).toContainText("karma");
+    await expect(page.locator("[data-plain]")).toContainText("karmanyevadhikaraste ma phaleshu kadachana");
     await expect(page.locator("dl dt").first()).toBeVisible();
     const answer = page.locator("details").first();
     await expect(answer.locator("p").first()).toBeHidden();
@@ -217,5 +217,20 @@ test.describe("Gita shloka pages", () => {
     await page.goto("/es/modules/gita/shloka/18-66");
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://sanskritbhashi.com/es/modules/gita/shloka/18-66");
     await expect(page.getByRole("link", { name: /Shloka anterior/ })).toBeVisible();
+  });
+});
+
+test.describe("Hinglish search support", () => {
+  test("GITA-26: Hindi pages carry Hinglish (subtitle, FAQs, 'Meaning in Hindi' titles); English pages don't", async ({ page }) => {
+    await page.goto("/hi/modules/gita/help/exam-stress");
+    await expect(page.locator('header [lang="hi-Latn"]')).toContainText("Exam ka darr");
+    await expect(page.getByText("Exam ka darr kaise door kare?")).toBeVisible();
+    const faq = (await page.locator('script[type="application/ld+json"]').allTextContents()).join(" ");
+    expect(faq).toContain("Exam ka darr kaise door kare?");
+    await page.goto("/en/modules/gita/help/exam-stress");
+    await expect(page.locator('[lang="hi-Latn"]')).toHaveCount(0);
+    await page.goto("/hi/modules/gita/shloka/2-47");
+    await expect(page).toHaveTitle(/Karmanyevadhikaraste Ma Meaning in Hindi/);
+    await expect(page.locator("[data-plain]")).toContainText("phaleshu kadachana");
   });
 });

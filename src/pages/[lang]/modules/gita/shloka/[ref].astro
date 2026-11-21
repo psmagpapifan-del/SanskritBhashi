@@ -5,7 +5,7 @@ import { getTranslation } from "../../../../../lib/i18n";
 import { adhyayaSlug } from "../../../../../lib/gita/index";
 import { gitaLocales, isTranslated } from "../../../../../lib/gita/content";
 import { gitaPageText } from "../../../../../lib/gitaPageText";
-import { devanagariToIast } from "../../../../../lib/transliterate";
+import { devanagariToIast, devanagariToPlain } from "../../../../../lib/transliterate";
 import { problemLang } from "../../../../../lib/gita/problems";
 import {
   ALL_SHLOKA_REFS, localShloka, neighbours, problemsFor, shlokaDescription, shlokaPath, shlokaSlug, shlokaTitle, shlokaUi, shuffledOptions,
@@ -29,11 +29,12 @@ const gt = gitaPageText(lang);
 const { prev, next } = neighbours(ref);
 const level = Math.min(...s.levels);
 const iast = devanagariToIast(s.text);
+const plain = devanagariToPlain(s.text.replace(/[0-9०-९]/g, ""));
 const related = problemsFor(ref);
 const showRelated = lang === "en" || lang === "hi";
 
 const title = shlokaTitle(cl, ref, s.text);
-const description = shlokaDescription(cl, ref, s.meaning);
+const description = shlokaDescription(cl, ref, s.meaning, s.text);
 
 const schema = {
   "@context": "https://schema.org",
@@ -79,8 +80,10 @@ const schema = {
     </header>
 
     <section aria-labelledby="iast" class="bg-white dark:bg-zinc-900 border border-brand-100 dark:border-zinc-800 rounded-3xl p-6">
-      <h2 id="iast" class="text-xs font-black uppercase tracking-widest text-charcoal/70 font-latin">{ui.iast}</h2>
-      <p lang="sa-Latn" class="mt-2 text-base md:text-lg italic text-charcoal whitespace-pre-line font-latin">{iast}</p>
+      <h2 id="iast" class="text-xs font-black uppercase tracking-widest text-charcoal/70 font-latin">{ui.plain}</h2>
+      <p lang="sa-Latn" data-plain class="mt-2 text-base md:text-lg text-charcoal whitespace-pre-line font-latin">{plain}</p>
+      <h3 class="mt-4 text-xs font-black uppercase tracking-widest text-charcoal/70 font-latin">{ui.iast}</h3>
+      <p lang="sa-Latn" class="mt-1 text-sm md:text-base italic text-charcoal/80 whitespace-pre-line font-latin">{iast}</p>
     </section>
 
     <section aria-labelledby="meaning" class="bg-brand-50 dark:bg-zinc-900 border border-brand-100 dark:border-zinc-800 rounded-3xl p-6">

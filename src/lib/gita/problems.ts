@@ -35,6 +35,11 @@ export interface Problem {
   /** Shloka refs, in reading order. */
   refs: string[];
   text: Record<ProblemLang, ProblemText>;
+  /**
+   * Hinglish (Hindi in Roman letters), shown on the Hindi page only: most Indian students search this way
+   * ("exam ka darr kaise door kare"). A subtitle under the heading and three questions in the FAQ.
+   */
+  hinglish: { subtitle: string; faqs: { q: string; a: string }[] };
 }
 
 export const PROBLEMS: Problem[] = [
@@ -85,6 +90,14 @@ export const PROBLEMS: Problem[] = [
         ],
       },
     },
+    hinglish: {
+      subtitle: "Exam ka darr aur tension? Gita kya kehti hai",
+      faqs: [
+        { q: "Exam ka darr kaise door kare?", a: "Gita 2.47 kehti hai: tumhara haq sirf mehnat par hai, result par nahi. Marks ki jagah agle ek ghante ki padhai par dhyan do. Har baar ek chhota task likho, jaise \"exercise 4 complete karna\", aur darr aaye to usi task par laut aao." },
+        { q: "Board exam se pehle tension ho to kya kare?", a: "Roz ek fixed routine rakho, theek se so, aur exam se ek raat pehle der tak mat padho (Gita 6.17). Result ke baare mein sochna chhodkar sirf apna kaam karna, isi se man shaant hota hai (12.12)." },
+        { q: "Result kharab aaye to kya kare?", a: "Gita 2.48 kehti hai: safalta aur asafalta mein ek jaisa raho. Result se pehle hi likh lo ki achha aaya to kya karna hai aur kam aaya to kya. Agla kadam pata ho to darr kam ho jaata hai." },
+      ],
+    },
   },
   {
     slug: "focus-and-procrastination",
@@ -132,6 +145,14 @@ export const PROBLEMS: Problem[] = [
           { q: "टालमटोल कैसे छोड़ूँ?", a: "12.9 एक सीढ़ी देता है: बड़ा काम न हो सके तो छोटे का अभ्यास कीजिए। काम को इतना छोटा कीजिए कि शुरू करना आसान लगे, फिर रोज़ उस पर लौटिए।" },
         ],
       },
+    },
+    hinglish: {
+      subtitle: "Padhai mein man nahi lagta? Phone se dhyan bhatakta hai?",
+      faqs: [
+        { q: "Padhai mein man kaise lagaye?", a: "Gita 6.35 mein Krishna kehte hain: man chanchal hai, par abhyas (practice) aur vairagya (moh chhodna) se vash mein aata hai. 15 minute ka timer lagao, phone doosre kamre mein rakho, aur man bhatke to bina daante wapas lao." },
+        { q: "Phone ki aadat kaise chhode?", a: "Gita 2.62 batati hai ki kisi cheez ke baare mein baar-baar sochne se lagaav aur phir kaamna banti hai. Isliye niyam banao: pehle homework, phir video. Aur har video se pehle poochho, ek ghante baad mujhe kaisa lagega?" },
+        { q: "Kaam taalna (procrastination) kaise band kare?", a: "Gita 12.9 ek seedhi deti hai: bada kaam na ho sake to chhota kaam shuru karo. Bas kitaab kholo aur ek page padho. Shuru karna aasan ho jaaye, phir roz usi par laut aao." },
+      ],
     },
   },
   {
@@ -181,6 +202,14 @@ export const PROBLEMS: Problem[] = [
         ],
       },
     },
+    hinglish: {
+      subtitle: "Kam marks aaye? Doosron se compare karke bura lagta hai?",
+      faqs: [
+        { q: "Kam marks aaye to dukh kaise kam kare?", a: "Gita 6.40 kehti hai ki sachchi mehnat kabhi bekaar nahi jaati. Jo seekha, wo tumhare saath rehta hai. Teen cheezein likho jo is taiyari mein seekhi, marks chahe jo bhi aaye." },
+        { q: "Doosron se compare karna kaise band kare?", a: "Gita 10.41 kehti hai ki har talent bhagwan ki ek chingari hai, isliye doosre ki safalta tumse kuch nahi chheenti. Apni tulna apne pichhle test se karo, topper se nahi (3.35)." },
+        { q: "Kya marks hi sab kuch hain?", a: "Nahi. Gita 4.38 kehti hai ki sachcha gyaan sabse pavitra hai, aur wo samay aur practice se badhta hai. Marks ko feedback samjho ki aage kis par kaam karna hai." },
+      ],
+    },
   },
   {
     slug: "choosing-a-stream",
@@ -228,6 +257,14 @@ export const PROBLEMS: Problem[] = [
           { q: "अगर मैं ग़लत चुन लूँ तो?", a: "कोई सच्चा प्रयास व्यर्थ नहीं जाता (6.40), और कौशल एक क्षेत्र से दूसरे में काम आते हैं। 18.46 कहता है कि सच्चे मन और अच्छे ढंग से किया गया हर काम विकास का मार्ग बनता है। बहुत लोग बाद में दिशा बदलते हैं और अच्छा करते हैं।" },
         ],
       },
+    },
+    hinglish: {
+      subtitle: "10th ke baad kaunsa stream le? Career confusion?",
+      faqs: [
+        { q: "10th ke baad science, commerce ya arts kaise choose kare?", a: "Gita 3.35 kehti hai ki doosre ka raasta achhe se chalne se apna raasta, adhoora hi sahi, behtar hai. Teen list banao: kya pasand hai, kismein achhe ho, kis par kaam karna chahoge. Phir us field ke do logon se baat karo." },
+        { q: "Parents doosra stream chahte hain to kya kare?", a: "Arjun ne bhi khulkar salaah maangi thi (2.7), aur Krishna ne sab samjhakar kaha: achhi tarah socho, phir jaisa chaho karo (18.63). Parents ki baat suno, apni baat imaandari se rakho, aur aisa faisla dhoondo jo dono samajh sakein." },
+        { q: "Galat stream choose kar liya to?", a: "Koi sachchi mehnat bekaar nahi jaati (6.40), aur skills ek field se doosre mein kaam aati hain. Bahut log baad mein raasta badalte hain aur achha karte hain (18.46)." },
+      ],
     },
   },
   {
@@ -277,6 +314,14 @@ export const PROBLEMS: Problem[] = [
         ],
       },
     },
+    hinglish: {
+      subtitle: "Gussa bahut aata hai? Gussa control kaise kare, Gita se seekho",
+      faqs: [
+        { q: "Gussa control kaise kare?", a: "Gita 5.23 kehti hai ki jo kaam aur krodh ke veg ko sah le, wahi sukhi hai. Gussa aaye to bolne ya message bhejne se pehle 10 second ruko aur saans gino. Message likh lo, par bhejo subah." },
+        { q: "Gussa kyon aata hai?", a: "Gita 2.62–63 poori chain batati hai: kisi cheez ke baare mein sochne se lagaav, lagaav se kaamna, aur kaamna rukne par krodh. Krodh se buddhi kharab hoti hai. Isliye chain ko shuru mein, soch ke level par hi todo." },
+        { q: "Kisi ko maaf kaise kare?", a: "Gita 12.13 kehti hai ki bhagwan ka priya wo hai jo kshama karta hai aur kisi se dwesh nahi rakhta. Ek purani naraazgi chuno aur apni shaanti ke liye use chhod do (11.55)." },
+      ],
+    },
   },
   {
     slug: "jealousy",
@@ -324,6 +369,14 @@ export const PROBLEMS: Problem[] = [
           { q: "क्या ईर्ष्या महसूस करना पाप है?", a: "गीता भावनाओं को शर्मिंदा नहीं करती। वह उनका वर्णन करती है और उनसे आगे का रास्ता दिखाती है। ईर्ष्या को पहचानना, उस पर अमल न करना, और धीरे-धीरे उसे प्रशंसा में बदलना, यही अभ्यास है।" },
         ],
       },
+    },
+    hinglish: {
+      subtitle: "Dost se jalan hoti hai? Gita kya kehti hai",
+      faqs: [
+        { q: "Dost se jalan kaise khatam kare?", a: "Gita 10.41 kehti hai ki har sundar aur shreshth cheez bhagwan ke tej ki ek chingari hai. Kisi aur ke chamakne se tumhari chamak kam nahi hoti. Aaj usi dost ko sachche man se badhaai do." },
+        { q: "Jalan hona galat hai kya?", a: "Gita bhavnaon ko sharmindagi se nahi dekhti. Jalan ko pehchano, us par kuch galat mat karo, aur dheere-dheere use taareef mein badlo. Yahi abhyas hai (12.15)." },
+        { q: "Doosron ki success dekhkar bura lage to kya kare?", a: "Socho ki wo aisa kya karta hai jo tum seekh sakte ho. Gita 10.9 kehti hai ki achhi sangat wo hai jahan log ek-doosre ko aage badhaate hain. Seekhne se dosti bhi mazboot hoti hai." },
+      ],
     },
   },
   {
@@ -373,6 +426,14 @@ export const PROBLEMS: Problem[] = [
         ],
       },
     },
+    hinglish: {
+      subtitle: "Zyada sochte ho? Raat bhar tension rehti hai?",
+      faqs: [
+        { q: "Overthinking kaise band kare?", a: "Gita 6.5 kehti hai ki man tumhara dost bhi hai aur dushman bhi. Jab soch ghoomne lage, paanch dheemi saansein lo aur ek cheez jo dikh rahi hai, ek jo sunaai de rahi hai aur ek jo mehsoos ho rahi hai, uska naam lo (6.35)." },
+        { q: "Raat ko neend nahi aati, dimaag chalta rehta hai to kya kare?", a: "Chinta ko kaagaz par likho, phir uska agla kadam likho. Agar aaj raat koi kadam nahi hai, to copy band kar do. Phone doosre kamre mein rakho, aur kisi bharosemand insaan se baat karo (5.29)." },
+        { q: "Man shaant kaise rakhe?", a: "Gita 2.56 sthitapragya ka varnan karti hai: jiska man dukh mein nahi dagmagata, aur jo bhay aur krodh se mukt hai. Ye roz ke chhote abhyas se aata hai, ek din mein nahi." },
+      ],
+    },
   },
   {
     slug: "sadness-after-failure",
@@ -421,6 +482,14 @@ export const PROBLEMS: Problem[] = [
         ],
       },
     },
+    hinglish: {
+      subtitle: "Fail hone ke baad udaasi? Himmat kaise rakhe",
+      faqs: [
+        { q: "Fail hone ke baad himmat kaise rakhe?", a: "Gita 6.40 kehti hai ki achha karne waale ki kabhi durgati nahi hoti. Sachchi mehnat bekaar nahi jaati. Likho ki is asafalta ne kya sikhaya aur agli baar kya alag karoge." },
+        { q: "Bahut udaas mehsoos ho raha hai, kya kare?", a: "Gita 2.14 kehti hai ki sukh-dukh sardi-garmi ki tarah aate-jaate hain. Khud ko mehsoos karne do, phir ek chhota kaam karo: tehelna, parivaar ke saath khaana, jaldi sona. Aur kisi apne se baat karo (18.66)." },
+        { q: "Kya dobara shuru kar sakte hain?", a: "Haan. Gita 9.30–31 kehti hai ki koi bhi nayi shuruaat kar sakta hai, aur badlaav jaldi ho sakta hai. Aaj ka ek chhota kadam hi nayi shuruaat hai." },
+      ],
+    },
   },
   {
     slug: "low-confidence",
@@ -468,6 +537,14 @@ export const PROBLEMS: Problem[] = [
           { q: "आत्म-मूल्य के बारे में गीता क्या कहती है?", a: "15.7 कहता है कि हर जीव ईश्वर का सनातन अंश है। आपका मूल्य अंकों या लोकप्रियता से कमाया नहीं जाता। वह पहले से है।" },
         ],
       },
+    },
+    hinglish: {
+      subtitle: "Confidence kam hai? \"Mujhse nahi hoga\" lagta hai?",
+      faqs: [
+        { q: "Self confidence kaise badhaye?", a: "Gita 6.5: uddhared atmanatmanam, khud se khud ko uthao, khud ko neeche mat girao. Jab man kahe \"mujhse nahi hoga\", use badlo: \"abhi nahi hota, par ho jaayega.\"" },
+        { q: "Class mein bolne se darr lagta hai to kya kare?", a: "Gita 16.1 mein achhe gunon mein sabse pehle nirbhayata (abhayam) hai. Is hafte ek chhota himmat ka kaam karo: class mein ek sawaal poochho. Chhote kadam baar-baar karne se asli confidence banta hai (2.3)." },
+        { q: "Lagta hai main kisi kaam ka nahi, to kya kare?", a: "Gita 15.7 kehti hai ki har jeev bhagwan ka sanatan ansh hai. Tumhari keemat marks ya popularity se nahi banti, wo pehle se hai. Apni achhi baaton ki ek chhoti list rakho aur mushkil din se pehle padho." },
+      ],
     },
   },
 ];

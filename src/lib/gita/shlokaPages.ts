@@ -6,7 +6,7 @@ import { GITA_AVAILABLE } from "./index.ts";
 import type { GitaLang, LocalShloka } from "./types.ts";
 import { CHAPTERS, getLocalAdhyaya } from "./content.ts";
 import { PROBLEMS } from "./problems.ts";
-import { devanagariToIast, iastToKatakana } from "../transliterate.ts";
+import { devanagariToIast, devanagariToPlain, iastToKatakana } from "../transliterate.ts";
 import { fitTitle, titleWidth } from "../gitaPageText.ts";
 
 export const shlokaSlug = (ref: string) => ref.replace(".", "-");
@@ -38,12 +38,13 @@ function openingDev(text: string, maxWords = 2): string {
   return words.slice(0, maxWords).join(" ");
 }
 
-/** "Karmanyevadhikaraste Ma": IAST without diacritics, as people type it in search. */
+/** "Karmanyevadhikaraste Ma": plain roman, as people type it in search. */
 function openingLatin(dev: string): string {
-  const iast = devanagariToIast(dev);
-  const plain = iast.normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^A-Za-z ]/g, "");
-  return plain.split(" ").filter(Boolean).map((w) => w[0].toUpperCase() + w.slice(1)).join(" ");
+  return devanagariToPlain(dev).replace(/[^A-Za-z ]/g, "").split(" ").filter(Boolean).map((w) => w[0].toUpperCase() + w.slice(1)).join(" ");
 }
+
+/** First line of the shloka in plain roman ("karmanyevadhikaraste ma phaleshu kadachana"). */
+export const plainFirstLine = (text: string) => devanagariToPlain(text.split("\n")[0].replace(/[0-9०-९]/g, "")).trim();
 
 /** Trims text to a width budget at a word (or, for Japanese, character) boundary. */
 function trimTo(text: string, budget: number): string {
@@ -73,17 +74,18 @@ export function shlokaTitle(lang: GitaLang, ref: string, text: string): string {
   const kana = shortOpening(text, 24, (d) => iastToKatakana(devanagariToIast(d)).replace(/['’]/g, ""));
   const parts: Record<GitaLang, string[]> = {
     en: [latin ? `Bhagavad Gita ${ref} Meaning: ${latin}` : `Bhagavad Gita ${ref} Meaning in Simple English`, " | Sanskritbhashi"],
-    hi: [dev ? `गीता श्लोक ${ref} का अर्थ: ${dev}` : `गीता श्लोक ${ref} का सरल हिंदी अर्थ`, " | Sanskritbhashi"],
+    // Hindi searches are mostly typed in Roman letters ("karmanye vadhikaraste meaning in hindi").
+    hi: [latin ? `${latin} Meaning in Hindi | गीता ${ref}` : `Bhagavad Gita ${ref} Meaning in Hindi | गीता ${ref} का अर्थ`, " | Sanskritbhashi"],
     ja: [kana ? `バガヴァッド・ギーター ${ref} の意味：${kana}` : `バガヴァッド・ギーター ${ref} の意味と解説`, " | Sanskritbhashi"],
     es: [latin ? `Bhagavad Gita ${ref}: significado de «${latin}»` : `Bhagavad Gita ${ref}: significado y explicación`, " | Sanskritbhashi"],
   };
   return fitTitle(parts[lang]);
 }
 
-export function shlokaDescription(lang: GitaLang, ref: string, meaning: string): string {
+export function shlokaDescription(lang: GitaLang, ref: string, meaning: string, text = ""): string {
   const frame: Record<GitaLang, [string, string]> = {
     en: [`Bhagavad Gita ${ref} in simple English: `, " With word meanings, a school-life story and a quiz."],
-    hi: [`गीता ${ref} का सरल अर्थ: `, " शब्दार्थ, स्कूली जीवन की कहानी और प्रश्नोत्तरी के साथ।"],
+    hi: [`${text ? `${trimTo(plainFirstLine(text), 48)} – ` : ""}गीता ${ref} का हिंदी अर्थ: `, " शब्दार्थ और प्रश्नोत्तरी सहित।"],
     ja: [`バガヴァッド・ギーター${ref}の意味：`, "語の意味・学校生活の例・クイズ付き。"],
     es: [`Bhagavad Gita ${ref} explicado: `, " Con glosario, una historia escolar y un cuestionario."],
   };
@@ -128,6 +130,7 @@ export const shlokaUi: Record<GitaLang, {
   lesson: (n: number) => string;
   related: string;
   iast: string;
+  plain: string;
 }> = {
   en: {
     chapter: (n) => `Chapter ${n}`,
@@ -143,6 +146,7 @@ export const shlokaUi: Record<GitaLang, {
     lesson: (n) => `Practise this in the Chapter ${n} lesson →`,
     related: "This shloka helps with",
     iast: "Transliteration (IAST)",
+    plain: "In Roman letters",
   },
   hi: {
     chapter: (n) => `अध्याय ${n}`,
@@ -158,6 +162,7 @@ export const shlokaUi: Record<GitaLang, {
     lesson: (n) => `अध्याय ${n} के पाठ में अभ्यास कीजिए →`,
     related: "यह श्लोक इनमें मदद करता है",
     iast: "लिप्यंतरण (IAST)",
+    plain: "रोमन अक्षरों में",
   },
   ja: {
     chapter: (n) => `第${n}章`,
@@ -173,6 +178,7 @@ export const shlokaUi: Record<GitaLang, {
     lesson: (n) => `第${n}章のレッスンで練習する →`,
     related: "この詩節が役立つこと",
     iast: "ローマ字転写（IAST）",
+    plain: "ローマ字（簡易表記）",
   },
   es: {
     chapter: (n) => `Capítulo ${n}`,
@@ -188,5 +194,6 @@ export const shlokaUi: Record<GitaLang, {
     lesson: (n) => `Practique esto en la lección del capítulo ${n} →`,
     related: "Este shloka ayuda con",
     iast: "Transliteración (IAST)",
+    plain: "En letras latinas",
   },
 };

@@ -6,6 +6,9 @@ This file tracks all bug fixes, improvements, and features implemented across ap
 
 ## [Unreleased] - 2026-11-18
 
+### Bug Fix: संस्कृतभाषी logo fully visible, top and bottom (2026-11-21)
+- **UI [logo]:** `src/layouts/Layout.astro` — the previous fix was not enough: the desktop sidebar holds the logo in a 40 px box with `overflow-hidden`, which cut the marks above and the ृ below. The logo now has a taller line box (`leading-[1.75]`), the sidebar logo area is 64 px, and the negative-margin workaround is gone. Verified by comparing the clipped logo with the same text drawn unclipped (desktop and phone, Tiro Sanskrit and a fallback font): the inked area is identical.
+
 ### Bug Fix: संस्कृतभाषी logo no longer clips its top marks (2026-11-21)
 - **UI [logo]:** `src/layouts/Layout.astro` — the gradient logo text is painted only inside its box, and Devanagari marks above the headline (the anusvara dots, the loop of ी) rise above it, so their tops were cut off, especially with the system font shown before Tiro Sanskrit loads or on phones. The box now extends upward (padding plus an equal negative margin), so nothing else moves.
 

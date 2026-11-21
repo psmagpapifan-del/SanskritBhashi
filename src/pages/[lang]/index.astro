@@ -2,6 +2,7 @@
 export const prerender = true;
 import { BookOpen, GraduationCap, ChevronRight, CheckCircle2, ShieldAlert } from "lucide-react";
 import Layout from "../../layouts/Layout.astro";
+import { siteStats } from "../../lib/siteStats";
 import { getTranslation } from "../../lib/i18n";
 
 export function getStaticPaths() {
@@ -47,7 +48,7 @@ const orgSchema = {
     "Sanskrit Grammar",
     "Ashtadhyayi",
     "Bhagavad Gita",
-    "Srimad Bhagavatam",
+    "Upanishads",
     "NCERT Sanskrit Curriculum"
   ]
 };
@@ -132,11 +133,8 @@ const faqSchema = {
     {/* Social Proof */}
     <div class="pt-6 flex flex-col items-center gap-2">
       <p class="text-xs font-semibold text-charcoal/70 uppercase tracking-widest font-latin">
-        {t.home.socialProof}
+        {t.home.socialProof(siteStats)}
       </p>
-      <div class="flex gap-1 justify-center text-accent-500 text-lg">
-        ⭐⭐⭐⭐⭐
-      </div>
     </div>
   </section>
 
@@ -257,7 +255,7 @@ const faqSchema = {
           </p>
           <ul class="list-disc pl-5 space-y-2">
             <li>
-              <strong>स्कूल प्रेप मॉड्यूल (NCERT-गठबंधन):</strong> यह ट्रैक सीबीएसई और राज्य बोर्डों (कक्षा 6 से 10) में पढ़ाए जाने वाले स्कूल-स्तर की संस्कृत को लक्षित करता है। यह व्याकरण के मूलभूत खंडों पर ध्यान केंद्रित करता है—शब्दरूप (संज्ञा शब्द रूप), धातुरूप (क्रिया रूप), संधि (ध्वन्यात्मक संक्रमण), और समास (यौगिक संरचनाएं)। इंटरैक्टिव परीक्षणों और तत्काल प्रतिक्रिया के साथ इन अवधारणाओं को प्रस्तुत करके, हम छात्रों को एक मजबूत आधार बनाने और उनकी बोर्ड परीक्षाओं में उच्च अंक प्राप्त करने में मदद करते हैं।
+              <strong>स्कूल प्रेप मॉड्यूल (NCERT-गठबंधन):</strong> यह ट्रैक सीबीएसई और राज्य बोर्डों (कक्षा 6 से 12) में पढ़ाए जाने वाले स्कूल-स्तर की संस्कृत को लक्षित करता है। यह व्याकरण के मूलभूत खंडों पर ध्यान केंद्रित करता है—शब्दरूप (संज्ञा शब्द रूप), धातुरूप (क्रिया रूप), संधि (ध्वन्यात्मक संक्रमण), और समास (यौगिक संरचनाएं)। इंटरैक्टिव परीक्षणों और तत्काल प्रतिक्रिया के साथ इन अवधारणाओं को प्रस्तुत करके, हम छात्रों को एक मजबूत आधार बनाने और उनकी बोर्ड परीक्षाओं में उच्च अंक प्राप्त करने में मदद करते हैं।
             </li>
             <li>
               <strong>शास्त्र अध्ययन मॉड्यूल (शास्त्र संस्कृत):</strong> उन्नत छात्रों, भारतविदों और दर्शनशास्त्र प्रेमियों के लिए डिज़ाइन किया गया, यह मॉड्यूल उपयोगकर्ताओं को भगवद गीता, उपनिषदों और अन्य शास्त्रीय ग्रंथों की जटिल भाषा के माध्यम से मार्गदर्शन करता है। हम केवल अनुवादों पर निर्भर रहने के बजाय ऋषियों के ज्ञान तक सीधी पहुँच सक्षम करने के लिए श्लोक-दर-श्लोक विश्लेषण (अन्वय), शब्द अपघटन और सिमेंटिक पार्सिंग पर ध्यान केंद्रित करते हैं।
@@ -285,7 +283,7 @@ const faqSchema = {
           </p>
           <ul class="list-disc pl-5 space-y-2">
             <li>
-              <strong>学校準備モジュール（NCERT準拠）：</strong> このトラックは、CBSEおよび州の委員会（クラス6から10）で教えられている学校レベル of サンスクリットを対象としています。文法の基本要素であるシャブダルパ（名詞変化）、ダートゥルパ（動詞活用）、サンドゥヒ（音韻変化）、サマーサ（複合語形成）に焦点を当てています。インタラクティブなテストと即時のフィードバックでこれらの概念を提示することにより、学生が強固な基盤を築き、試験でより高いスコアを獲得できるように支援します。
+              <strong>学校準備モジュール（NCERT準拠）：</strong> このトラックは、CBSEおよび州の委員会（6〜12年生）で教えられている学校レベルのサンスクリットを対象としています。文法の基本要素であるシャブダルパ（名詞変化）、ダートゥルパ（動詞活用）、サンドゥヒ（音韻変化）、サマーサ（複合語形成）に焦点を当てています。インタラクティブなテストと即時のフィードバックでこれらの概念を提示することにより、学生が強固な基盤を築き、試験でより高いスコアを獲得できるように支援します。
             </li>
             <li>
               <strong>シャーストラ学習モジュール（経典サンスクリット）：</strong> 上級生、インド学者、哲学愛好家向けに設計されたこのモジュールは、バガヴァッド・ギーター、ウパニシャッド、その他の古典テキストの複雑な言語を通してユーザーを案内します。翻訳だけに頼るのではなく、賢者の知恵に直接アクセスできるように、一節ごとの分析（アンヴァヤ）、単語の分解、意味解析に焦点をおいています。
@@ -313,7 +311,7 @@ const faqSchema = {
           </p>
           <ul class="list-disc pl-5 space-y-2">
             <li>
-              <strong>Módulo de Preparación Escolar (alineado con NCERT):</strong> Esta vía se dirige al sánscrito a nivel escolar tal como se enseña en CBSE y juntas estatales (clases 6 a 10). Se centra en los bloques fundamentales de la gramática: Shabdarupa (declinaciones nominales), Dhaturupa (conjugaciones verbales), Sandhi (transiciones fonéticas) y Samasa (formaciones compuestas). Al presentar estos conceptos con pruebas interactivas y retroalimentación inmediata, ayudamos a los estudiantes a construir una base sólida y obtener puntuaciones más altas en sus exámenes.
+              <strong>Módulo de Preparación Escolar (alineado con NCERT):</strong> Esta vía se dirige al sánscrito a nivel escolar tal como se enseña en CBSE y juntas estatales (Clases 6 a 12). Se centra en los bloques fundamentales de la gramática: Shabdarupa (declinaciones nominales), Dhaturupa (conjugaciones verbales), Sandhi (transiciones fonéticas) y Samasa (formaciones compuestas). Al presentar estos conceptos con pruebas interactivas y retroalimentación inmediata, ayudamos a los estudiantes a construir una base sólida y obtener puntuaciones más altas en sus exámenes.
             </li>
             <li>
               <strong>Módulo de Estudio de Shastra (sánscrito de las escrituras):</strong> Diseñado para estudiantes avanzados, indólogos y entusiastas de la filosofía, este módulo guía a los usuarios a través del intrincado lenguaje del Bhagavad Gita, los Upanishads y otros textos clásicos. Nos centramos en el análisis verso por verso (Anvaya), la descomposición de palabras y el análisis semántico para permitir el acceso directo a la sabiduría de los sabios sin depender únicamente de las traducciones.
@@ -341,7 +339,7 @@ const faqSchema = {
           </p>
           <ul class="list-disc pl-5 space-y-2">
             <li>
-              <strong>School Prep Module (NCERT-aligned):</strong> This track targets school-level Sanskrit as taught in CBSE and state boards (Classes 6 to 10). It focuses on the fundamental blocks of grammar—Shabdarupa (noun declensions), Dhaturupa (verb conjugations), Sandhi (phonetic transitions), and Samasa (compound formations). By presenting these concepts with interactive tests and immediate feedback, we help students build a solid foundation and score higher in their board examinations.
+              <strong>School Prep Module (NCERT-aligned):</strong> This track targets school-level Sanskrit as taught in CBSE and state boards (Classes 6 to 12). It focuses on the fundamental blocks of grammar—Shabdarupa (noun declensions), Dhaturupa (verb conjugations), Sandhi (phonetic transitions), and Samasa (compound formations). By presenting these concepts with interactive tests and immediate feedback, we help students build a solid foundation and score higher in their board examinations.
             </li>
             <li>
               <strong>Shastra Study Module (Scriptural Sanskrit):</strong> Designed for advanced students, Indologists, and philosophy enthusiasts, this module guides users through the intricate language of the Bhagavad Gita, Upanishads, and other classical texts. We focus on verse-by-verse analysis (Anvaya), word decomposition, and semantic parsing to enable direct access to the wisdom of the sages without relying solely on translations.

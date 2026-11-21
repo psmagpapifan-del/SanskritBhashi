@@ -8,7 +8,7 @@ This file tracks all bug fixes, improvements, and features implemented across ap
 
 ### Feature: A page for every Gita shloka, in four languages (2026-11-21)
 - **Feature [Gita]:** `src/lib/gita/shlokaPages.ts`, `src/pages/[lang]/modules/gita/shloka/[ref].astro` — 121 shloka pages × en/hi/ja/es (e.g. `/en/modules/gita/shloka/2-47`): Sanskrit text, IAST transliteration, meaning, word-by-word glosses, the school-life story and reflection, two quiz questions with answers behind "Show answer", previous/next shloka, a link to the lesson card and related problem pages. Titles use the opening words people search for ("Bhagavad Gita 2.47 Meaning: Karmanyevadhikaraste Ma").
-- **UI:** each shloka card on a chapter page links to its own page (`GitaStudy.tsx`).
+- **UI:** each shloka card on a chapter page links to its own page on the website (`GitaStudy.tsx`). The shloka pages are web-only search landing pages: the app bundle leaves them out (OTA bundle stays ~6.7 MB instead of ~13.7 MB) and app cards show the reference as plain text.
 - **SEO:** 484 new sitemap URLs with hreflang; llms.txt explains the URL pattern.
 - **Tests:** GITA-24/25; axe scans an English and a Japanese shloka page; the chapter quiz tests now wait for the quiz to hydrate (fixes an intermittent GITA-A13 failure).
 

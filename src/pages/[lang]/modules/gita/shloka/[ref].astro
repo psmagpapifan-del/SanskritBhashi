@@ -12,6 +12,9 @@ import {
 } from "../../../../../lib/gita/shlokaPages";
 
 export function getStaticPaths() {
+  // Web-only: these are search landing pages. The app bundle (shipped over the air) leaves them
+  // out to stay small; the app already has every shloka in the chapter lessons.
+  if (String(import.meta.env.CAPACITOR_BUILD) === "true") return [];
   return ["en", "hi", "ja", "es"].flatMap((lang) => ALL_SHLOKA_REFS.map((ref) => ({ params: { lang, ref: shlokaSlug(ref) }, props: { ref } })));
 }
 

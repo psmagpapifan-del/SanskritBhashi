@@ -6,6 +6,9 @@ This file tracks all bug fixes, improvements, and features implemented across ap
 
 ## [Unreleased] - 2026-11-18
 
+### Feature: Gita for Students in Japanese and Spanish, adhyayas 10–12 (2026-11-20)
+- **Feature [Gita, ja/es]:** new `src/lib/gita/i18n/{ja,es}/adhyaya10–12.ts` — chapters 10–12 (21 shlokas) in Japanese and Spanish, registered in `src/lib/gita/i18n/index.ts`. Short glosses added for roti, raga, bhajan, Uttarakhand, cricket and board exams. These pages are now indexable in ja/es and listed in the sitemap.
+
 ### Feature: Gita for Students in Japanese and Spanish, adhyayas 7–9 (2026-11-20)
 - **Feature [Gita, ja/es]:** new `src/lib/gita/i18n/{ja,es}/adhyaya7–9.ts` — chapters 7–9 (20 shlokas) in Japanese and Spanish, registered in `src/lib/gita/i18n/index.ts`. Short glosses added for Rakhi, bhajan, Teacher's Day and the LIC motto. These pages are now indexable in ja/es and listed in the sitemap.
 

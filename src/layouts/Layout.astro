@@ -230,7 +230,7 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
       {/* MOBILE TOP BAR (Only visible on mobile/tablet) */}
       <header class="lg:hidden sticky top-0 flex items-center justify-between px-4 py-3 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-md border-b border-border-hairline z-30 shadow-xs w-full">
         <a href={`/${lang}`} class="flex items-center gap-1.5">
-          <span class="inline-block pt-[0.35em] -mt-[0.35em] text-xl font-bold bg-linear-to-r from-brand-500 to-brand-600 bg-clip-text text-transparent font-sanskrit">
+          <span data-logo class="inline-block leading-[1.75] py-[0.1em] text-xl font-bold bg-linear-to-r from-brand-500 to-brand-600 bg-clip-text text-transparent font-sanskrit">
             संस्कृतभाषी
           </span>
           <span class="text-xs font-bold uppercase tracking-wider text-charcoal/70 font-latin hidden xs:inline">
@@ -270,13 +270,13 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
           <ChevronLeft class="w-4 h-4 transition-transform duration-300" id="sidebar-toggle-icon" />
         </button>
 
-        <div class="flex items-center mb-8 overflow-hidden h-10 shrink-0 relative">
+        <div class="flex items-center mb-6 overflow-hidden h-16 shrink-0 relative">
           {/* Logo */}
           <a href={`/${lang}`} class="flex flex-col gap-0.5 select-none sidebar-text transition-all duration-300 w-auto opacity-100 visible overflow-hidden drop-shadow-sm">
-            <span class="inline-block pt-[0.35em] -mt-[0.35em] text-2xl font-black bg-linear-to-r from-brand-500 to-brand-600 bg-clip-text text-transparent font-sanskrit leading-none drop-shadow-sm">
+            <span data-logo class="inline-block leading-[1.75] py-[0.1em] text-2xl font-black bg-linear-to-r from-brand-500 to-brand-600 bg-clip-text text-transparent font-sanskrit drop-shadow-sm">
               संस्कृतभाषी
             </span>
-            <span class="text-[10px] font-bold uppercase tracking-widest text-charcoal/70 font-latin pl-1 leading-none">
+            <span class="-mt-1 text-[10px] font-bold uppercase tracking-widest text-charcoal/70 font-latin pl-1 leading-none">
               Sanskritbhashi.com
             </span>
           </a>

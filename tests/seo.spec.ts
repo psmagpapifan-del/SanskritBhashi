@@ -64,6 +64,17 @@ test.describe("SEO and social previews", () => {
       expect([...d].length).toBeLessThanOrEqual(165);
     }
   });
+  test("SEO-05: Gita chapter titles and descriptions fit search results in every language", async ({ page }) => {
+    // Width in Latin-character units: CJK characters count double, as in search results.
+    const width = (t: string) => [...t].reduce((w, c) => w + (/[\u3000-\u9fff\uff00-\uffef]/.test(c) ? 2 : 1), 0);
+    for (const [lang, n] of [["en", 18], ["hi", 13], ["ja", 2], ["ja", 12], ["es", 2], ["es", 18]] as const) {
+      await page.goto(`/${lang}/modules/gita/adhyaya-${n}`);
+      expect(width(await page.title()), `${lang} ${n} title`).toBeLessThanOrEqual(66);
+      const d = (await page.locator('meta[name="description"]').getAttribute("content"))!;
+      expect(width(d), `${lang} ${n} description`).toBeLessThanOrEqual(165);
+      expect(d).not.toMatch(/\d+\.\d+, \d+\.\d+/); // no lists of verse numbers
+    }
+  });
 });
 
 test.describe("Crawler and AI-search files", () => {

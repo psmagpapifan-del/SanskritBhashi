@@ -43,7 +43,7 @@ export const GET: APIRoute = () => {
 
   const gita = GITA_AVAILABLE.map((n) => {
     const a = ADHYAYAS[n - 1];
-    return `- [Bhagavad Gita Chapter ${n}: ${a.title.en} (${a.name})](${SITE}/en/modules/gita/${adhyayaSlug(n)}) · Hindi: ${SITE}/hi/modules/gita/${adhyayaSlug(n)}`;
+    return `- [Bhagavad Gita Chapter ${n}: ${a.title.en} (${a.name})](${SITE}/en/modules/gita/${adhyayaSlug(n)}) · Hindi: ${SITE}/hi/modules/gita/${adhyayaSlug(n)} · Japanese: ${SITE}/ja/modules/gita/${adhyayaSlug(n)} · Spanish: ${SITE}/es/modules/gita/${adhyayaSlug(n)}`;
   });
 
   const body = `# Sanskritbhashi
@@ -56,7 +56,7 @@ Every page exists in four languages: replace \`/en/\` in a URL with \`/hi/\`, \`
 - [Home](${SITE}/en): overview of the courses
 - [NCERT School Prep](${SITE}/en/modules/school-prep): pick a class (6–12) and practise every textbook lesson
 - [Shastra Study](${SITE}/en/modules/shastra-study): Bhagavad Gita and Upanishad verses with word-by-word meaning and quizzes
-- [Gita for Students](${SITE}/en/modules/gita): Bhagavad Gita shlokas graded for Classes 6–8, 9–10 and 11–12, each explained through a situation from a student's daily life (English and Hindi)
+- [Gita for Students](${SITE}/en/modules/gita): Bhagavad Gita shlokas graded for Classes 6–8, 9–10 and 11–12, each explained through a situation from a student's daily life; all 18 chapters in English, Hindi, Japanese and Spanish
 - [Learn Hub](${SITE}/en/learn): articles on Sanskrit grammar, script, metre and exam preparation
 - [FAQs](${SITE}/en/faqs): common questions about Sanskrit grammar and the courses
 

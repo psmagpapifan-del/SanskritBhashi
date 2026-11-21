@@ -42,12 +42,19 @@ export interface GitaText {
   courseName: string;
   /** Chapter page <title> parts: the first is required, the rest are dropped if too long. */
   pageTitleParts: (n: number, chapterTitle: string) => string[];
-  pageDesc: (n: number, name: string, refs: string) => string;
+  /** Meta description for one chapter page: kept under ~155 characters (~80 for Japanese) so search results show it whole. */
+  pageDesc: (n: number, chapterTitle: string, name: string, count: number) => string;
 }
 
 /** Join title parts, dropping optional ones so the title stays within ~70 characters. */
-export function fitTitle(parts: string[], max = 70): string {
-  return parts.reduce((acc, p, i) => (i === 0 || [...(acc + p)].length <= max ? acc + p : acc), "");
+/** Width of a title in Latin-character units: CJK characters are about twice as wide in search results. */
+export function titleWidth(t: string): number {
+  return [...t].reduce((w, c) => w + (/[\u3000-\u9fff\uff00-\uffef]/.test(c) ? 2 : 1), 0);
+}
+
+/** Joins title parts, dropping optional parts that would push the title past what search results show. */
+export function fitTitle(parts: string[], max = 66): string {
+  return parts.reduce((acc, p, i) => (i === 0 || titleWidth(acc + p) <= max ? acc + p : acc), "");
 }
 
 const EN: GitaText = {
@@ -91,7 +98,7 @@ const EN: GitaText = {
   hubDesc: "The Bhagavad Gita for Classes 6–12: each shloka with word meanings, a situation from school life, a reflection question and a quiz.",
   courseName: "Bhagavad Gita for Students",
   pageTitleParts: (n, t) => [`Bhagavad Gita Chapter ${n}: ${t}`, " for Students", " | Sanskritbhashi"],
-  pageDesc: (n, name, refs) => `Bhagavad Gita Chapter ${n} (${name}), shlokas ${refs}: meaning, word meanings, school-life situations and a quiz, for Classes 6–12.`,
+  pageDesc: (n, t, _name, k) => `Bhagavad Gita Chapter ${n}, ${t}, for Classes 6–12: ${k} key shlokas with meanings, word glosses, school-life examples and a quiz.`,
 };
 
 const HI: GitaText = {
@@ -135,7 +142,7 @@ const HI: GitaText = {
   hubDesc: "कक्षा 6–12 के विद्यार्थियों के लिए भगवद्गीता: हर श्लोक का अर्थ, शब्दार्थ, स्कूली जीवन की एक परिस्थिति, चिंतन-प्रश्न और प्रश्नोत्तरी।",
   courseName: "विद्यार्थियों के लिए भगवद्गीता",
   pageTitleParts: (n, t) => [`गीता अध्याय ${n}: ${t}`, ", विद्यार्थियों के लिए", " | Sanskritbhashi"],
-  pageDesc: (n, name, refs) => `गीता अध्याय ${n} (${name}) के श्लोक ${refs}: अर्थ, शब्दार्थ, स्कूली जीवन की परिस्थितियाँ और प्रश्नोत्तरी, कक्षा 6–12 के लिए।`,
+  pageDesc: (n, t, name, k) => `गीता अध्याय ${n}, ${t} (${name}), कक्षा 6–12 के लिए: ${k} प्रमुख श्लोक, अर्थ, शब्दार्थ, स्कूली जीवन के उदाहरण और प्रश्नोत्तरी।`,
 };
 
 const JA: GitaText = {
@@ -179,7 +186,7 @@ const JA: GitaText = {
   hubDesc: "6〜12年生のためのバガヴァッド・ギーター。各詩節を語の意味、学校生活の場面、考える問い、クイズとともに学べます。",
   courseName: "学生のためのバガヴァッド・ギーター",
   pageTitleParts: (n, t) => [`バガヴァッド・ギーター第${n}章：${t}`, "（学生向け）", " | Sanskritbhashi"],
-  pageDesc: (n, name, refs) => `バガヴァッド・ギーター第${n}章（${name}）の詩節 ${refs}。意味、語の意味、学校生活の場面、クイズで学ぶ6〜12年生向けの教材です。`,
+  pageDesc: (n, t, _name, k) => `バガヴァッド・ギーター第${n}章「${t}」の主要な${k}詩節を、意味・語の意味・学校生活の例・クイズで学ぶ6〜12年生向けの教材です。`,
 };
 
 const ES: GitaText = {
@@ -223,7 +230,7 @@ const ES: GitaText = {
   hubDesc: "La Bhagavad Gita para las Clases 6–12: cada shloka con el significado de sus palabras, una situación de la vida escolar, una pregunta para reflexionar y un cuestionario.",
   courseName: "La Bhagavad Gita para estudiantes",
   pageTitleParts: (n, t) => [`Bhagavad Gita, capítulo ${n}: ${t}`, " para estudiantes", " | Sanskritbhashi"],
-  pageDesc: (n, name, refs) => `Bhagavad Gita, capítulo ${n} (${name}), shlokas ${refs}: significado, palabras, situaciones de la vida escolar y un cuestionario, para las Clases 6–12.`,
+  pageDesc: (n, t, _name, k) => `Bhagavad Gita, capítulo ${n}, ${t}, para las Clases 6–12: ${k} shlokas clave con significado, glosario, ejemplos escolares y un cuestionario.`,
 };
 
 const ALL: Record<string, GitaText> = { en: EN, hi: HI, ja: JA, es: ES };

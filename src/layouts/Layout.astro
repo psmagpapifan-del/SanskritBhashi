@@ -1,5 +1,6 @@
 ---
 import { Home, GraduationCap, BookMarked, BookOpen, Info, HelpCircle, ChevronLeft, Menu, Mail, Sun, Moon, Flower2 } from "lucide-react";
+import { REVIEWS, reviewLabel } from "../lib/reviews";
 import LanguageSelector from "../components/LanguageSelector";
 import StreakCounter from "../components/StreakCounter";
 import OnboardingTour from "../components/OnboardingTour";
@@ -50,6 +51,8 @@ const navItems = [
 ];
 
 const pathname = Astro.url.pathname;
+// A "Reviewed by" line, only on pages the owner has actually reviewed (src/lib/reviews.ts).
+const review = REVIEWS[pathname.replace(/\.html$/, "").replace(/\/$/, "")];
 // With build.format "file", prerendered pages see "/en/about.html" at build time.
 // Strip ".html", "/index" and trailing slashes so canonical/hreflang URLs match the
 // clean URLs Cloudflare actually serves (otherwise every canonical points at a redirect).
@@ -353,6 +356,11 @@ const isCapacitorBuild = import.meta.env.CAPACITOR_BUILD === 'true';
         <main class="flex-1 p-4 lg:p-8 pb-24 lg:pb-8 max-w-6xl w-full mx-auto flex flex-col">
           <div class="flex-1">
             <slot />
+            {review && (
+              <p data-review class="mt-10 text-xs text-charcoal/70 font-latin border-t border-border-hairline pt-4">
+                <a href={`/${lang}/about`} class="hover:text-brand-600">{reviewLabel(lang, review.date)}</a>{review.note && <span>: {review.note}</span>}
+              </p>
+            )}
           </div>
 
           {/* GLOBAL MAIN FOOTER */}

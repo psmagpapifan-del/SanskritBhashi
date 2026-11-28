@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { REVIEWS } from "../src/lib/reviews";
 
 /** Gita for Students: hub, levels, shloka cards, memorise mode, quiz, Hindi content, ja/es fallback. */
 test.describe("Gita for Students", () => {
@@ -205,14 +206,14 @@ test.describe("Gita shloka pages", () => {
     await expect(page.getByRole("link", { name: /Chapter 2 lesson/ })).toHaveAttribute("href", "/en/modules/gita/adhyaya-2?level=1#shloka-2-47");
     await expect(page.locator('a[href="/en/modules/gita/help/exam-stress"]')).toBeVisible();
     const langs = await page.locator('link[rel="alternate"][hreflang]').evaluateAll((els) => els.map((e) => e.getAttribute("hreflang")));
-    expect(langs.sort()).toEqual(["en", "es", "hi", "ja", "x-default"]);
+    expect(langs.sort()).toEqual(["en", "hi", "x-default"]);
   });
 
-  test("GITA-25: chapter cards link to their shloka page; ja/es shloka pages are translated and indexable", async ({ page }) => {
+  test("GITA-25: chapter cards link to their shloka page; ja/es shloka pages are translated but noindex", async ({ page }) => {
     await page.goto("/hi/modules/gita/adhyaya-2?level=1");
     await expect(page.locator('#shloka-2-47 h3 a')).toHaveAttribute("href", "/hi/modules/gita/shloka/2-47");
     await page.goto("/ja/modules/gita/shloka/12-13");
-    await expect(page.locator('meta[name="robots"]')).toHaveCount(0);
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
     await expect(page.locator("main")).toContainText(/[\u3040-\u30ff]/);
     await page.goto("/es/modules/gita/shloka/18-66");
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://sanskritbhashi.com/es/modules/gita/shloka/18-66");
@@ -233,4 +234,11 @@ test.describe("Hinglish search support", () => {
     await expect(page).toHaveTitle(/Karmanyevadhikaraste Ma Meaning in Hindi/);
     await expect(page.locator("[data-plain]")).toContainText("phaleshu kadachana");
   });
+});
+
+test("GITA-27: no page shows a 'Reviewed by' line unless the owner reviewed it", async ({ page }) => {
+  // src/lib/reviews.ts is filled in only with the owner's real reviews; with no entry, no line.
+  await page.goto("/en/modules/gita/shloka/2-47");
+  const reviewed = await page.locator("[data-review]").count();
+  expect(reviewed).toBe(REVIEWS["/en/modules/gita/shloka/2-47"] ? 1 : 0);
 });

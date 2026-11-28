@@ -6,6 +6,11 @@ This file tracks all bug fixes, improvements, and features implemented across ap
 
 ## [Unreleased] - 2026-11-18
 
+### SEO: AdSense "low-value content" follow-up (2026-11-28)
+- **SEO [Gita]:** `src/pages/[lang]/modules/gita/shloka/[ref].astro`, `src/pages/sitemap.xml.ts` — Japanese and Spanish shloka pages (242) are now `noindex, follow` and out of the sitemap; English and Hindi shloka pages (242) stay indexed. Fewer near-identical translated pages read less like mass-produced content; the ja/es pages remain available to visitors.
+- **Feature [trust]:** `src/lib/reviews.ts`, `src/layouts/Layout.astro` — a "Reviewed by Prashant Solanki on <date>" line appears at the bottom of pages the owner has actually reviewed. The list starts empty and is filled only with real reviews.
+- **Tests:** GITA-24/25 updated for ja/es noindex; GITA-27 checks the review line appears only for recorded reviews.
+
 ### Bug Fix: संस्कृतभाषी logo fully visible, top and bottom (2026-11-21)
 - **UI [logo]:** `src/layouts/Layout.astro` — the previous fix was not enough: the desktop sidebar holds the logo in a 40 px box with `overflow-hidden`, which cut the marks above and the ृ below. The logo now has a taller line box (`leading-[1.75]`), the sidebar logo area is 64 px, and the negative-margin workaround is gone. Verified by comparing the clipped logo with the same text drawn unclipped (desktop and phone, Tiro Sanskrit and a fallback font): the inked area is identical.
 

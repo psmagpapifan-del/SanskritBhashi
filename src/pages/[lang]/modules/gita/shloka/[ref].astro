@@ -3,7 +3,7 @@ export const prerender = true;
 import Layout from "../../../../../layouts/Layout.astro";
 import { getTranslation } from "../../../../../lib/i18n";
 import { adhyayaSlug } from "../../../../../lib/gita/index";
-import { gitaLocales, isTranslated } from "../../../../../lib/gita/content";
+import { isTranslated } from "../../../../../lib/gita/content";
 import { gitaPageText } from "../../../../../lib/gitaPageText";
 import { devanagariToIast, devanagariToPlain } from "../../../../../lib/transliterate";
 import { problemLang } from "../../../../../lib/gita/problems";
@@ -23,6 +23,10 @@ const { ref } = Astro.props as { ref: string };
 const n = Number(ref.split(".")[0]);
 const { s, chapterTitle, chapterName, lang: cl } = localShloka(ref, lang);
 const translated = isTranslated(n, lang);
+// Only the English and Hindi shloka pages are indexed. Japanese/Spanish searches for single verses are rare,
+// and hundreds of near-identical translated pages read as mass-produced content (AdSense "low-value content").
+// The ja/es pages stay available to visitors and linked from their chapter pages.
+const indexable = lang === "en" || lang === "hi";
 const ui = shlokaUi[cl];
 const nav = getTranslation(lang);
 const gt = gitaPageText(lang);
@@ -54,8 +58,8 @@ const schema = {
   title={title}
   description={description}
   showAds={false}
-  locales={gitaLocales(n)}
-  noindex={!translated}
+  locales={["en", "hi"]}
+  noindex={!indexable}
   canonicalPath={translated ? undefined : shlokaPath("en", ref)}
 >
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(schema)} />

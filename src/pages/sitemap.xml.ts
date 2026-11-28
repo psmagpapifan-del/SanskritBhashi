@@ -23,8 +23,8 @@ const gitaRoute = (route: string): readonly string[] | undefined => {
   if (route === "/modules/gita") return gitaLocales();
   // "Gita for students' problems" pages are written in English and Hindi only.
   if (route.startsWith("/modules/gita/help")) return PROBLEM_LOCALES;
-  const sh = route.match(/^\/modules\/gita\/shloka\/(\d+)-\d+$/);
-  if (sh) return gitaLocales(Number(sh[1]));
+  // Shloka pages are indexed in English and Hindi only (see shloka/[ref].astro).
+  if (/^\/modules\/gita\/shloka\//.test(route)) return ["en", "hi"];
   const m = route.match(/^\/modules\/gita\/adhyaya-(\d+)$/);
   return m ? gitaLocales(Number(m[1])) : undefined;
 };
